@@ -1,17 +1,5 @@
 <!-- SCRIPT AJAX -->
 <script>
-    CKEDITOR.replace('isi');
-</script>
-<?php foreach ($submenu as $item_submenu) :
-    $idx = 'isi' . $item_submenu['submenu_id'];
-?>
-    <script>
-        CKEDITOR.replace('<?= $idx ?>');
-    </script>
-<?php endforeach
-?>
-<!-- SCRIPT AJAX -->
-<script>
     $(document).ready(function() {
         //  function tambah
         $('.tambah').submit(function() {
@@ -118,12 +106,12 @@
                 contentType: false,
                 processData: false,
                 beforeSend: function() {
-                    $('.btnSimpan').attr('disable', 'disabled');
-                    $('.btnSimpan').html('<i class="fa fa-spin fa-spinner"></i>');
+                    $('.btnEdit').attr('disable', 'disabled');
+                    $('.btnEdit').html('<i class="fa fa-spin fa-spinner"></i>');
                 },
                 complete: function() {
-                    $('.btnSimpan').removeAttr('disable', 'disabled');
-                    $('.btnSimpan').html('Simpan');
+                    $('.btnEdit').removeAttr('disable', 'disabled');
+                    $('.btnEdit').html('Simpan');
                 },
                 success: function(response) {
                     if (response.error) {
@@ -180,7 +168,6 @@
                 }
             })
         });
-
         //  function hapus
         $('.hapus').on('click', function(e) {
             e.preventDefault();

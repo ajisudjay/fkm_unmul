@@ -25,9 +25,9 @@ class Submenu extends BaseController
         $lvl = session()->get('level');
         $file = session()->get('file');
         if ($file <  1) {
-            $gambar = 'app-assets/images/profile/user-profile.png';
+            $gambar = base_url('app-assets/images/profile/user-profile.png');
         } else {
-            $gambar = 'content/user/' . $file;
+            $gambar = base_url('content/user/' . $file);
         }
         $data = [
             'title' => 'Sub Menu',
@@ -37,6 +37,32 @@ class Submenu extends BaseController
         ];
         return view('backend/submenu/index', $data);
     }
+
+    public function editform($slug)
+    {
+        if (session()->get('username') == NULL || session()->get('level') !== 'Superadmin') {
+            return redirect()->to(base_url('/login'));
+        }
+        $admin = session()->get('nama');
+        $lvl = session()->get('level');
+        $file = session()->get('file');
+        if ($file <  1) {
+            $gambar = base_url('app-assets/images/profile/user-profile.png');
+        } else {
+            $gambar = base_url('content/user/' . $file);
+        }
+        $data = [
+            'title' => 'Sub Menu',
+            'admin' => $admin,
+            'lvl' => $lvl,
+            'foto' => $gambar,
+            'submenu' => $this->SubmenuModel->select('*')->select('submenu.id as submenu_id')->select('mainmenu.id as mainmenu_id')->select('mainmenu.urutan as urutan_mainmenu')->select('submenu.urutan as urutan_submenu')->join('mainmenu', 'submenu.id_mainmenu=mainmenu.id')->where('submenu.slug', $slug)->first(),
+            'mainmenu' => $this->MainmenuModel->orderBy('urutan', 'ASC')->get()->getResultArray(),
+            'validation' => \Config\Services::validation(),
+        ];
+        return view('backend/submenu/editform', $data);
+    }
+
     public function view()
     {
         if (session()->get('username') == NULL || session()->get('level') !== 'Superadmin') {
@@ -110,6 +136,7 @@ class Submenu extends BaseController
             'content' => $content,
             'timestamp' => $timestamp,
             'penulis' => $penulis,
+            'tag' => $penulis,
         ];
         $this->SubmenuModel->update($id, $data);
 

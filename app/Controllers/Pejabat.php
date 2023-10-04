@@ -42,7 +42,7 @@ class Pejabat extends BaseController
         $request = \Config\Services::request();
         if ($request->isAJAX()) {
             $data = [
-                'pejabat' => $this->PejabatModel->orderBy('id', 'DESC')->get()->getResultArray(),
+                'pejabat' => $this->PejabatModel->orderBy('urutan', 'ASC')->get()->getResultArray(),
                 'validation' => \Config\Services::validation(),
             ];
             $msg = [

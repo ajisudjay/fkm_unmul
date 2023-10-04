@@ -94,6 +94,7 @@ class Submenu extends BaseController
         $urutan = $request->getVar('urutan');
         $mainmenu = $request->getVar('mainmenu');
         $submenu = $request->getVar('submenu');
+        $tag = $request->getVar('tag');
         $slug = preg_replace('/[^a-z0-9]+/i', '-', trim(strtolower($submenu)));
         $content = $request->getVar('isi');
         $timestamp = date("Y-m-d");
@@ -106,6 +107,7 @@ class Submenu extends BaseController
             'content' => $content,
             'timestamp' => $timestamp,
             'penulis' => $penulis,
+            'tag' => $tag,
         ];
         $this->SubmenuModel->insert($data);
 
@@ -124,6 +126,7 @@ class Submenu extends BaseController
         $urutan = $request->getVar('urutan');
         $mainmenu = $request->getVar('mainmenu');
         $submenu = $request->getVar('submenu');
+        $tag = $request->getVar('tag');
         $slug = preg_replace('/[^a-z0-9]+/i', '-', trim(strtolower($submenu)));
         $content = $request->getVar('isi');
         $timestamp = date("Y-m-d");
@@ -136,7 +139,7 @@ class Submenu extends BaseController
             'content' => $content,
             'timestamp' => $timestamp,
             'penulis' => $penulis,
-            'tag' => $penulis,
+            'tag' => $tag,
         ];
         $this->SubmenuModel->update($id, $data);
 

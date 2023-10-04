@@ -66,6 +66,11 @@
                                                         <textarea name="isi" id="isi-edit" rows="10" cols="80"><?= $submenu['content'] ?></textarea>
                                                         <div class="invalid-feedback errorIsi"></div>
                                                     </div>
+                                                    <div class="col-lg-12">
+                                                        <label class="text-primary">Tag</label>
+                                                        <input type="text" name="tag" class="form-control tag" value="<?= $submenu['tag'] ?>" required>
+                                                        <div class="invalid-feedback errortag"></div>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="modal-footer">

@@ -195,7 +195,7 @@ class Pages extends BaseController
             'submenu' => $this->SubmenuModel->select('*')->select('submenu.id as submenu_id')->select('mainmenu.id as mainmenu_id')->select('mainmenu.urutan as urutan_mainmenu')->select('submenu.urutan as urutan_submenu')->join('mainmenu', 'submenu.id_mainmenu=mainmenu.id')->orderBy('urutan_mainmenu', 'ASC')->orderBy('urutan_submenu', 'ASC')->get()->getResultArray(),
             'mainmenu' => $this->MainmenuModel->orderBy('urutan', 'ASC')->get()->getResultArray(),
             'menu' => $this->MainmenuModel->orderBy('urutan', 'ASC')->findAll(6),
-            'menu2' => $this->MainmenuModel->orderBy('urutan', 'ASC')->findAll(6, 5),
+            'menu2' => $this->MainmenuModel->orderBy('urutan', 'ASC')->findAll(7, 6),
             'konfigurasi' => $this->KonfigurasiModel->first(),
             'berita' => $this->BeritaModel->orderBy('tanggal', 'DESC')->findAll(6),
             'mitra' => $this->MitraModel->orderBy('nama', 'DESC')->get()->getResultArray(),

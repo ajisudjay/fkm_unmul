@@ -1,13 +1,19 @@
 <div class="container-fluid">
     <div class="card-block">
         <br>
-
-        <h4 class="mb-0">Sub Menu</h4>
-        <a href="/submenu#tambah">
-            <button type="button" class="btn-sm btn-success border-0">
-                <span class="feather icon-plus text-default"></span>
-            </button>
-        </a>
+        <div class="row">
+            <div class="col-lg-9">
+                <h4 class="mb-0">Sub Menu</h4>
+            </div>
+            <div class="col-lg-3" align="right">
+                <a href="/submenu#tambah">
+                    <button type="button" class="btn-sm btn-success border-0">
+                        <span class="feather icon-plus text-default"> Tambah</span>
+                    </button>
+                </a>
+            </div>
+        </div>
+        <br>
         <div class="dt-responsive table-responsive">
             <table id="simpletable" class="table table-striped table-hover-animation nowrap">
                 <thead>
@@ -77,6 +83,12 @@
                             <label class="text-primary">Content</label>
                             <textarea name="isi" id="isi" rows="10" cols="80"></textarea>
                             <div class="invalid-feedback errorIsi"></div>
+                            <br>
+                        </div>
+                        <div class="col-lg-12">
+                            <label class="text-primary">Tag</label>
+                            <input type="text" name="tag" class="form-control tag" placeholder="Tag" required>
+                            <div class="invalid-feedback errortag"></div>
                         </div>
                     </div>
                 </div>
@@ -87,7 +99,6 @@
         </section>
     </div>
 </div>
-
 <?= $this->include('backend/submenu/ajax') ?>
 <?= $this->include('backend/layouts/js_view') ?>
 <script>

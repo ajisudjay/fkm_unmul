@@ -1,8 +1,5 @@
 <!-- SCRIPT AJAX -->
-<script>
-    CKEDITOR.replace('visi');
-    CKEDITOR.replace('misi');
-</script>
+
 <script>
     $(document).ready(function() {
         $('.edit').submit(function(e) {

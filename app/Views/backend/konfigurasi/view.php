@@ -13,24 +13,24 @@
                     <div class="col-lg-12">
                         <label> Visi :</label>
                         <input type="text" name="id" value="<?= $item['id'] ?>" hidden>
-                        <textarea name="visi" id="visi" class="form-control visi" rows="5"><?= $item['visi'] ?></textarea>
+                        <textarea name="visi" class="form-control visi" rows="5"><?= $item['visi'] ?></textarea>
                         <div class="invalid-feedback errorVisi"></div>
                         <br>
                     </div>
                     <div class="col-lg-12">
                         <label> Misi :</label>
-                        <textarea name="misi" id="misi" class="form-control misi" rows="5"><?= $item['misi'] ?></textarea>
+                        <textarea name="misi" class="form-control misi" rows="30"><?= $item['misi'] ?></textarea>
                         <div class="invalid-feedback errorMisi"></div>
                         <br>
                     </div>
                     <div class="col-lg-6">
                         <label> Email :</label><br>
-                        <textarea name="email" class="form-control email" rows="2"><?= $item['email'] ?></textarea>
+                        <input type="text" name="email" class="form-control email" value="<?= $item['email'] ?>">
                         <div class="invalid-feedback errorEmail"></div>
                     </div>
                     <div class="col-lg-6">
                         <label> Telepon :</label><br>
-                        <textarea name="telepon" class="form-control telepon" rows="2"><?= $item['telepon'] ?></textarea>
+                        <input type="text" name="telepon" class="form-control telepon" value="<?= $item['telepon'] ?>">
                         <div class="invalid-feedback errorTelepon"></div>
                         <br>
                     </div>
@@ -65,7 +65,6 @@
         <?php endforeach ?>
     </div>
 </div>
-
 
 <?= $this->include('backend/konfigurasi/ajax') ?>
 <?= $this->include('backend/layouts/js_view') ?>

@@ -98,6 +98,31 @@ class Berita extends BaseController
         }
     }
 
+    public function editform($slug)
+    {
+        if (session()->get('username') == NULL || session()->get('level') !== 'Superadmin') {
+            return redirect()->to(base_url('/login'));
+        }
+        $admin = session()->get('nama');
+        $lvl = session()->get('level');
+        $file = session()->get('file');
+        if ($file <  1) {
+            $gambar = base_url('app-assets/images/profile/user-profile.png');
+        } else {
+            $gambar = base_url('content/user/' . $file);
+        }
+        $data = [
+            'title' => 'Berita',
+            'title_pages' => '',
+            'admin' => $admin,
+            'lvl' => $lvl,
+            'foto' => $gambar,
+            'berita' => $this->BeritaModel->where('slug', $slug)->first(),
+            'validation' => \Config\Services::validation(),
+        ];
+        return view('backend/berita/editform', $data);
+    }
+
     public function edit()
     {
         if (session()->get('username') == NULL || session()->get('level') !== 'Superadmin') {

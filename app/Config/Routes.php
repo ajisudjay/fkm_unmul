@@ -54,6 +54,7 @@ $routes->get('/beranda', 'Pages::beranda');
 // $routes->get('/mainmenu', 'Mainmenu::index');
 $routes->get('/submenu', 'Submenu::index');
 $routes->get('/submenu-edit/(:any)', 'Submenu::editform/$1');
+$routes->get('/berita-edit/(:any)', 'Berita::editform/$1');
 $routes->get('/user', 'User::index');
 $routes->get('/profil', 'Profil::index');
 // $routes->get('/hasil/(:any)', 'Pages::hasil');

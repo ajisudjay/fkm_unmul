@@ -87,10 +87,10 @@
     <!-- Akhir Aplikasi -->
 
     <!-- Visi MisiArea -->
-    <div class="welcome_docmed_area" style="height: 500px;">
+    <div class="welcome_docmed_area">
         <div class="container">
             <div class="row">
-                <div class="col-xl-4 col-lg-6">
+                <div class="col-xl-4 col-lg-6" style="margin-top:10% ;">
                     <div class="box-visi">
                         <div class="welcome_thumb">
                             <img src="<?= base_url('/img/content/wd1.PNG'); ?>">

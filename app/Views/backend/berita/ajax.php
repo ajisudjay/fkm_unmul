@@ -1,17 +1,5 @@
 <!-- SCRIPT AJAX -->
 <script>
-    CKEDITOR.replace('isi');
-</script>
-<?php foreach ($berita as $item_berita) :
-    $idx = 'isi' . $item_berita['id'];
-?>
-    <script>
-        CKEDITOR.replace('<?= $idx ?>');
-    </script>
-<?php endforeach
-?>
-<!-- SCRIPT AJAX -->
-<script>
     $(document).ready(function() {
         //  function tambah
         $('.tambah').submit(function() {

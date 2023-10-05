@@ -45,7 +45,6 @@
         </div>
     </div>
     <div class="card-block">
-
         <div class="dt-responsive table-responsive">
             <table id="simpletable" class="table table-striped table-hover-animation nowrap">
                 <thead>

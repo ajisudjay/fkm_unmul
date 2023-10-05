@@ -7,8 +7,8 @@
             </div>
             <div class="col-lg-3" align="right">
                 <a href="/submenu#tambah">
-                    <button type="button" class="btn-sm btn-success border-0">
-                        <span class="feather icon-plus text-default"> Tambah</span>
+                    <button type="button" class="btn btn-primary">
+                        <span class="feather icon-plus text-light"></span>
                     </button>
                 </a>
             </div>

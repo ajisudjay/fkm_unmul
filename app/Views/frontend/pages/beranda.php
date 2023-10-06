@@ -140,7 +140,7 @@
                             <div class="box-berita">
                                 <div class="single_department">
                                     <div class="department_thumb">
-                                        <img src="<?= base_url('writable/uploads/content/berita/' . $item_berita['banner'] . ''); ?>" height="300px">
+                                        <img src="<?= base_url('writable/uploads/content/berita/' . $item_berita['banner']); ?>" height="300px">
                                     </div>
                                     <div class="department_content">
                                         <!-- limit Judul max 6 kata -->
@@ -258,61 +258,19 @@
                 <div class="col-xl-12">
                     <div class="cards">
                         <div class="expert_active owl-carousel">
-                            <div class="single_expert">
-                                <div class="box-berita">
-                                    <div class="expert_thumb">
-                                        <img src="img/content/dekan.png">
-                                    </div>
-                                    <div class="experts_name text-center">
-                                        <h5>Prof. Dr. Iwan M. Ramdan,M.Kes</h5>
-                                        <span>Dekan</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="single_expert">
-                                <div class="box-berita">
-                                    <div class="expert_thumb">
-                                        <img src="img/content/wd13.png">
-                                    </div>
-                                    <div class="experts_name text-center">
-                                        <h5>Ratih Wirapuspita W,Ph.D</h5>
-                                        <span>Wakil Dekan I</span>
+                            <?php foreach ($pejabat as $item_pejabat) : ?>
+                                <div class="single_expert">
+                                    <div class="box-berita">
+                                        <div class="expert_thumb">
+                                            <img src="<?= base_url('writable/uploads/content/pejabat/' . $item_pejabat['gambar']); ?>">
+                                        </div>
+                                        <div class="experts_name text-center">
+                                            <h5><?= $item_pejabat['nama'] ?></h5>
+                                            <span><?= $item_pejabat['jabatan'] ?></span>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="single_expert">
-                                <div class="box-berita">
-                                    <div class="expert_thumb">
-                                        <img src="img/content/wd2.png">
-                                    </div>
-                                    <div class="experts_name text-center">
-                                        <h5>Dr.Ratno Adrianto,M.Kes</h5>
-                                        <span>Wakil Dekan II</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="single_expert">
-                                <div class="box-berita">
-                                    <div class="expert_thumb">
-                                        <img src="img/content/kaprodis1.png">
-                                    </div>
-                                    <div class="experts_name text-center">
-                                        <h5>Blego Sedionoto, P.hD</h5>
-                                        <span>Kaprodi S1 SKM</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="single_expert">
-                                <div class="box-berita">
-                                    <div class="expert_thumb">
-                                        <img src="img/content/kaprodis2.png">
-                                    </div>
-                                    <div class="experts_name text-center">
-                                        <h5>Dr. Irfansyah B P, M.Kes</h5>
-                                        <span>Kaprodi S2 MKM</span>
-                                    </div>
-                                </div>
-                            </div>
+                            <?php endforeach ?>
                         </div>
                     </div>
                 </div>

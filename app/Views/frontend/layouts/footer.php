@@ -4,9 +4,9 @@
              <div class="row">
                  <div class="col-lg-3">
                      <div class="footer_widget">
-                         <h4 class="text-white">
-                             Fakultas Kesehatan Masyarakat Universitas Mulawarman
-                         </h4>
+                         <h3 class="text-white">
+                             FKM UNMUL
+                         </h3>
                          <ul class="contact">
                              <?php foreach ($konf as $item) : ?>
                                  <div class="info_button">

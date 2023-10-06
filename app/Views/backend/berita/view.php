@@ -17,10 +17,9 @@
                     <tr>
                         <th width="5%">No</th>
                         <th width="5%" style="text-align: center;">AKSI</th>
-                        <th width="30%">JUDUL</th>
-                        <th width="15%">TANGGAL</th>
+                        <th width="33%">JUDUL</th>
+                        <th width="12%">TANGGAL</th>
                         <th width="25%" style="text-align: center;">BANNER</th>
-                        <th width="5%">VIEWS</th>
                         <th width="20%">LOG</th>
                     </tr>
                 </thead>
@@ -30,7 +29,7 @@
                         <tr>
                             <!-- ISI VIEW -->
                             <td><?= $no++ ?></td>
-                            <td style="text-align: center;min-width: 150px; max-width: 150px;">
+                            <td style="text-align: center;min-width: 100px; max-width: 150px;">
                                 <a href="/berita-edit/<?= $item['slug'] ?>">
                                     <button type="button" class="btn-sm btn-primary border-0">
                                         <span class="feather icon-edit-1 text-default"></span>
@@ -51,8 +50,7 @@
                             }
                             ?>
                             <td style="text-align: center;"><img src="<?= base_url($banner); ?>" width="50%"></td>
-                            <td><?= $item['dilihat'] ?></td>
-                            <td><?= $item['timestamp'] . ' | ' . $item['penulis'] ?></td>
+                            <td style="min-width: 10%; max-width: 25%; white-space: normal;"><?= $item['timestamp'] . ' | ' . $item['penulis'] ?></td>
                         </tr>
                     <?php endforeach ?>
                 </tbody>

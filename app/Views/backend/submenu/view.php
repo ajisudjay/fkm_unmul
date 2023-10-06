@@ -45,7 +45,7 @@
                                     <span class="btn-sm btn-danger feather icon-trash-2 text-default"></span>
                                 </a>
                             <td><?= $item['mainmenu'] ?></td>
-                            <td style="min-width: 300px;max-width: 500px; white-space: normal;"><?= $item['submenu'] ?></td>
+                            <td style="min-width: 200px;max-width: 400px; white-space: normal;"><?= $item['submenu'] ?></td>
                             <td><?= $item['timestamp'] . ' | ' . $item['penulis'] ?></td>
                         </tr>
                     <?php endforeach ?>

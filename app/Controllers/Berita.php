@@ -67,7 +67,8 @@ class Berita extends BaseController
         $tanggal = $request->getVar('tanggal');
         $isi = $request->getVar('isi');
         $tag = $request->getVar('tag');
-        $timestamp = date("Y-m-d");
+        date_default_timezone_set("Asia/Kuala_Lumpur");
+        $timestamp = date("Y-m-d h:i:sa");
         $penulis = $username;
         $file = $request->getFile('file');
         $input = $this->validate([
@@ -136,7 +137,8 @@ class Berita extends BaseController
         $tanggal = $request->getVar('tanggal');
         $isi = $request->getVar('isi');
         $tag = $request->getVar('tag');
-        $timestamp = date("Y-m-d");
+        date_default_timezone_set("Asia/Kuala_Lumpur");
+        $timestamp = date("Y-m-d h:i:sa");
         $penulis = $username;
         $file = $request->getFile('file');
         if (!file_exists($_FILES['file']['tmp_name'])) {

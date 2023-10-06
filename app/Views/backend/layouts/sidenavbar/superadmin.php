@@ -17,7 +17,7 @@
                 </li>
                 <li class="navigation-header"><span>CONTENT WEBSITE</span>
                 </li>
-                <li class=""><a href="#"><i class="feather icon-layers"></i><span class="menu-title" data-i18n="Dashboard">Content</span><span class="badge badge badge-warning badge-pill float-right mr-2">6</span></a>
+                <li class=""><a href="#"><i class="feather icon-layers"></i><span class="menu-title" data-i18n="Dashboard">Content</span><span class="badge badge badge-warning badge-pill float-right mr-2">4</span></a>
                     <ul class="menu-content">
                         <li class=""><a href="#"><i class="feather icon-menu"></i><span class="menu-title" data-i18n="Dashboard">Menu</span><span class="badge badge badge-warning badge-pill float-right mr-2">2</span></a>
                             <ul class="menu-content">
@@ -27,7 +27,7 @@
                                 </li>
                             </ul>
                         </li>
-                        <li class=""><a href="#"><i class="feather icon-settings"></i><span class="menu-title" data-i18n="Dashboard">Konfigurasi</span><span class="badge badge badge-warning badge-pill float-right mr-2">4</span></a>
+                        <li class=""><a href="#"><i class="feather icon-settings"></i><span class="menu-title" data-i18n="Dashboard">Konfigurasi</span><span class="badge badge badge-warning badge-pill float-right mr-2">5</span></a>
                             <ul class="menu-content">
                                 <li class="<?= $title == 'Konfigurasi' ? 'active' : '' ?>"><a href="<?= base_url('konfigurasi'); ?>"><i class="feather icon-home"></i><span class="menu-item" data-i18n="Analytics">Atur Beranda</span></a>
                                 </li>
@@ -37,14 +37,15 @@
                                 </li>
                                 <li class="<?= $title == 'Pejabat' ? 'active' : '' ?>"><a href="<?= base_url('pejabat'); ?>"><i class="feather icon-home"></i><span class="menu-item" data-i18n="Analytics">Pejabat</span></a>
                                 </li>
+                                <li class="<?= $title == 'Laboratorium' ? 'active' : '' ?>"><a href="<?= base_url('laboratorium'); ?>"><i class="feather icon-octagon"></i><span class="menu-item" data-i18n="Analytics">Laboratorium</span></a>
+                                </li>
                             </ul>
                         </li>
                         <li class="<?= $title == 'Berita' ? 'active' : '' ?>"><a href="<?= base_url('berita'); ?>"><i class="feather icon-file-text"></i><span class="menu-item" data-i18n="Analytics">Berita</span></a>
                         </li>
                         <li class="<?= $title == 'Galeri' ? 'active' : '' ?>"><a href="<?= base_url('galeri'); ?>"><i class="feather icon-image"></i><span class="menu-item" data-i18n="Analytics">Galeri</span></a>
                         </li>
-                        <li class="<?= $title == 'Laboratorium' ? 'active' : '' ?>"><a href="<?= base_url('laboratorium'); ?>"><i class="feather icon-octagon"></i><span class="menu-item" data-i18n="Analytics">Laboratorium</span></a>
-                        </li>
+
                     </ul>
                 </li>
                 </li>
@@ -59,7 +60,7 @@
                         </li>
                     </ul>
                 </li>
-                <li class="<?= $title == 'Surat Keputusan' ? 'active' : '' ?>"><a href="<?= base_url('mainmenu'); ?>"><i class="feather icon-book"></i><span class="menu-item" data-i18n="Analytics">Surat Keputusan</span></a>
+                <li class="<?= $title == 'Surat Keputusan' ? 'active' : '' ?>"><a href="<?= base_url('sk'); ?>"><i class="feather icon-book"></i><span class="menu-item" data-i18n="Analytics">Surat Keputusan</span></a>
                 </li>
                 <li class="navigation-header"><span>BANK DATA</span>
                 <li class="<?= $title == 'Surat Masuk' ? 'active' : '' ?>"><a href="<?= base_url('dosen'); ?>"><i class="feather icon-database"></i><span class="menu-item" data-i18n="Analytics">Repository</span></a>

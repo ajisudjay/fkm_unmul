@@ -55,105 +55,100 @@ class Sk extends BaseController
             return redirect()->to(base_url('/login'));
         }
     }
+
     public function tambah()
     {
-        if (session()->get('username') == NULL || session()->get('level') !== 'Superadmin') {
-            return redirect()->to(base_url('/login'));
-        }
-        $request = \Config\Services::request();
-        if ($request->isAJAX()) {
+        if (session()->get('username') == NULL || session()->get('level') === 'Superadmin' || session()->get('level') === 'Enum') {
+            $request = \Config\Services::request();
+            $validation = \Config\Services::validation();
             $nomor = $request->getVar('nomor');
             $jenis = $request->getVar('jenis');
             $tanggal = $request->getVar('tanggal');
             $perihal = $request->getVar('perihal');
-            $kategori = $request->getVar('kategori');
             $sasaran = $request->getVar('sasaran');
+            $file = $request->getFile('file');
             $admin = 'aji';
             date_default_timezone_set("Asia/Kuala_Lumpur");
             $timestamp = date("Y-m-d h:i:sa");
-            $validation = \Config\Services::validation();
-            $valid = $this->validate([
-                'nomor' => [
-                    'label' => 'Nomor',
-                    'rules' => 'required',
-                    'errors' => [
-                        'required' => '{field} Tidak Boleh Kosong',
-                    ]
-                ],
-                'jenis' => [
-                    'label' => 'Jenis',
-                    'rules' => 'required',
-                    'errors' => [
-                        'required' => '{field} Tidak Boleh Kosong',
-                    ]
-                ],
-                'tanggal' => [
-                    'label' => 'Tanggal',
-                    'rules' => 'required',
-                    'errors' => [
-                        'required' => '{field} Tidak Boleh Kosong',
-                    ]
-                ],
-                'perihal' => [
-                    'label' => 'Perihal',
-                    'rules' => 'required',
-                    'errors' => [
-                        'required' => '{field} Tidak Boleh Kosong',
-                    ]
-                ],
-                'kategori' => [
-                    'label' => 'Kategori',
-                    'rules' => 'required',
-                    'errors' => [
-                        'required' => '{field} Tidak Boleh Kosong',
-                    ]
-                ],
-                'sasaran' => [
-                    'label' => 'Sasaran',
-                    'rules' => 'required',
-                    'errors' => [
-                        'required' => '{field} Tidak Boleh Kosong',
-                    ]
-                ],
-            ]);
-            if (!$valid) {
-                $msg = [
-                    'error' => [
-                        'nomor' => $validation->getError('nomor'),
-                        'jenis' => $validation->getError('jenis'),
-                        'tanggal' => $validation->getError('tanggal'),
-                        'perihal' => $validation->getError('perihal'),
-                        'kategori' => $validation->getError('kategori'),
-                        'sasaran' => $validation->getError('sasaran'),
+
+            if ($request->isAJAX()) {
+                $valid = $this->validate([
+                    'jenis' => [
+                        'label' => 'Jenis',
+                        'rules' => 'required',
+                        'errors' => [
+                            'required' => '{field} Tidak Boleh Kosong',
+                        ]
                     ],
-                ];
-                echo json_encode($msg);
+                    'nomor' => [
+                        'label' => 'Nomor',
+                        'rules' => 'required',
+                        'errors' => [
+                            'required' => '{field} Tidak Boleh Kosong',
+                        ]
+                    ],
+                    'tanggal' => [
+                        'label' => 'Tanggal',
+                        'rules' => 'required',
+                        'errors' => [
+                            'required' => '{field} Tidak Boleh Kosong',
+                        ]
+                    ],
+                    'sasaran' => [
+                        'label' => 'Sasaran',
+                        'rules' => 'required',
+                        'errors' => [
+                            'required' => '{field} Tidak Boleh Kosong',
+                        ]
+                    ],
+                    'perihal' => [
+                        'label' => 'Perihal',
+                        'rules' => 'required',
+                        'errors' => [
+                            'required' => '{field} Tidak Boleh Kosong',
+                        ]
+                    ],
+                ]);
+                if (!$valid) {
+                    $msg = [
+                        'error' => [
+                            'jenis' => $validation->getError('jenis'),
+                            'nomor' => $validation->getError('nomor'),
+                            'tanggal' => $validation->getError('tanggal'),
+                            'sasaran' => $validation->getError('sasaran'),
+                            'perihal' => $validation->getError('perihal'),
+                        ],
+                    ];
+                    return $this->response->setJSON($msg);
+                } else {
+                    $newName = $file->getRandomName();
+                    $file->store('content/sk/', $newName);
+                    $data = [
+                        'nomor' => $nomor,
+                        'jenis' => $jenis,
+                        'tanggal' => $tanggal,
+                        'perihal' => $perihal,
+                        'sasaran' => $sasaran,
+                        'file' => $newName,
+                        'admin' => $admin,
+                        'timestamps' => $timestamp,
+                    ];
+                    $this->SkModel->insert($data);
+
+                    $data2 = [
+                        'sk' => $this->SkModel->orderBy('tanggal', 'DESC')->get()->getResultArray(),
+                        'validation' => \Config\Services::validation(),
+                    ];
+                    $msg = [
+                        'data' => view('backend/sk/view', $data2)
+                    ];
+                    echo json_encode($msg);
+                }
             } else {
-                $data = [
-                    'nomor' => $nomor,
-                    'jenis' => $jenis,
-                    'tanggal' => $tanggal,
-                    'perihal' => $perihal,
-                    'kategori' => $kategori,
-                    'sasaran' => $sasaran,
-                    'admin' => $admin,
-                    'timestamps' => $timestamp,
-                ];
-                $this->SkModel->insert($data);
-
-                $data2 = [
-                    'sk' => $this->SkModel->orderBy('tanggal', 'DESC')->get()->getResultArray(),
-                ];
-
-                $msg = [
-                    'sukses' => 'SK Berhasil Ditambahkan !',
-                    'status' => 'berhasil',
-                    'data' => view('backend/sk/view', $data2)
-                ];
-                echo json_encode($msg);
+                exit('Data Tidak Dapat diproses');
             }
         } else {
-            exit('Data Tidak Dapat diproses');
+            return redirect()->to(base_url('/login'));
         }
     }
 
@@ -223,9 +218,14 @@ class Sk extends BaseController
         if (session()->get('username') == NULL || session()->get('level') !== 'Superadmin') {
             return redirect()->to(base_url('/login'));
         }
+        $cekfile = $this->SkModel->where('id', $id)->first();
+        $nama_file = $cekfile['file'];
+        $filepath = '../writable/uploads/content/sk/' . $nama_file . '';
+        chmod($filepath, 0777);
+        unlink($filepath);
         $this->SkModel->delete($id);
 
-        session()->setFlashdata('pesanHapus', 'Main Menu Berhasil Di Hapus !');
-        return redirect()->to(base_url('/mainmenu'));
+        session()->setFlashdata('pesanHapus', 'SK Berhasil Di Hapus !');
+        return redirect()->to(base_url('/sk'));
     }
 }

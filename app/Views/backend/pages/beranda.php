@@ -23,9 +23,8 @@
                                 <div class="card-header">
                                     <div class="container-fluid p-5" align="center">
                                         <span><img class="round mb-1" src="<?= $foto ?>" height="100" width="100"></span>
-                                        <h4 class="mb-1">Selamat datang</h4>
-                                        <h4 class="mb-1"><?= $admin ?></h4>
-                                        <h4 class="mb-1">Anda Login Sebagai <?= $lvl ?></h4>
+                                        <h4 class="mb-1">Selamat Datang</h4>
+                                        <h4 class="mb-1"><?= $admin . ' - ' . $lvl ?></h4>
                                         <h4 class="mb-0">Fakultas Kesehatan Masyarakat Universitas Mulawarman</h4>
                                     </div>
                                 </div>

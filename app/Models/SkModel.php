@@ -14,7 +14,7 @@ class SkModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['id', 'jenis', 'tanggal', 'perihal', 'timestamps', 'admin', 'kategori', 'sasaran'];
+    protected $allowedFields    = ['id', 'jenis', 'tanggal', 'perihal', 'timestamps', 'admin', 'nomor', 'sasaran', 'file'];
 
     // Dates
     protected $useTimestamps = false;

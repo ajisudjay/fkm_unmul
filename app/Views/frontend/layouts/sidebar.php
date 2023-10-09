@@ -1,4 +1,4 @@
-<div class="col-lg-2">
+<div class="col-lg-3">
     <div class="blog_right_sidebar">
 
         <!-- Kategori -->
@@ -7,33 +7,33 @@
             <ul class="list cat-list">
                 <li>
                     <div align="center">
-                        <p><img src="<?= base_url('/writable/uploads/content/berita/' . $berita['banner'] . ''); ?>" width="150px"> &nbsp;&nbsp;&nbsp;
-                            <i class="fa fa-eye"></i> : 137
+                        <img src="<?= base_url('/writable/uploads/content/berita/' . $berita['banner'] . ''); ?>" width="150px"> &nbsp;&nbsp;&nbsp;
+                        <p> <i class="fa fa-eye"></i> : 137
                         </p>
                     </div>
                     <a href="#" class="d-flex">
-                        <p>Penerimaan Mahasiswa Baru Prodi S2 Fakultas Kesehatan Masyarakat</p>
+                        <p style="font-size: small;">Penerimaan Mahasiswa Baru Prodi S2 Fakultas Kesehatan Masyarakat</p>
                         &nbsp;&nbsp;&nbsp;
                     </a>
                 </li>
                 <li>
                     <div align="center">
-                        <p><img src="<?= base_url('/writable/uploads/content/berita/' . $berita['banner'] . ''); ?>" width="150px"> &nbsp;&nbsp;&nbsp;
-                            <i class="fa fa-eye"></i> : 100
+                        <img src="<?= base_url('/writable/uploads/content/berita/' . $berita['banner'] . ''); ?>" width="150px"> &nbsp;&nbsp;&nbsp;
+                        <p> <i class="fa fa-eye"></i> : 100
                         </p>
                     </div>
                     <a href="#" class="d-flex">
-                        <p>The Second Mulawarman International Conference on Tropical Public Health</p>
+                        <p style="font-size: small;">The Second Mulawarman International Conference on Tropical Public Health</p>
                     </a>
                 </li>
                 <li>
                     <div align="center">
-                        <p><img src="<?= base_url('/writable/uploads/content/berita/' . $berita['banner'] . ''); ?>" width="150px"> &nbsp;&nbsp;&nbsp;
-                            <i class="fa fa-eye"></i> : 93
+                        <img src="<?= base_url('/writable/uploads/content/berita/' . $berita['banner'] . ''); ?>" width="150px"> &nbsp;&nbsp;&nbsp;
+                        <p> <i class="fa fa-eye"></i> : 93
                         </p>
                     </div>
                     <a href="#" class="d-flex">
-                        <p>Chandra Pangli Lolo, Mahasiswa FKM Unmul Angkatan 2021, Juara 1 Duta Genre Kota Samarinda</p>
+                        <p style="font-size: small;">Chandra Pangli Lolo, Mahasiswa FKM Unmul Angkatan 2021, Juara 1 Duta Genre Kota Samarinda</p>
                     </a>
                 </li>
             </ul>

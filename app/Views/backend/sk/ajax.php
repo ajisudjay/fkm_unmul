@@ -4,14 +4,19 @@
         //  function tambah
         $('.tambah').submit(function(e) {
             e.preventDefault();
+            var form = $(this)[0];
+            var data = new FormData(form);
+            var formData = new FormData(this);
             $.ajax({
                 type: "post",
                 url: $(this).attr('action'),
-                data: $(this).serialize(),
+                data: formData,
                 dataType: "json",
+                contentType: false,
+                processData: false,
                 beforeSend: function() {
                     $('.btnSimpan').attr('disable', 'disabled');
-                    $('.btnSimpan').html('<i class="fa fa-spin fa-spinner"></i>');
+                    $('.btnSimpan').html('<i class="fa fa-spin fa-spinner text-light"></i>');
                 },
                 complete: function() {
                     $('.btnSimpan').removeAttr('disable', 'disabled');
@@ -19,19 +24,19 @@
                 },
                 success: function(response) {
                     if (response.error) {
-                        if (response.error.nomor) {
-                            $('.nomor').addClass('is-invalid');
-                            $('.errornomor').html(response.error.nomor);
-                        } else {
-                            $('.nomor').removeClass('is-invalid');
-                            $('.errornomor').html('');
-                        }
                         if (response.error.jenis) {
                             $('.jenis').addClass('is-invalid');
                             $('.errorjenis').html(response.error.jenis);
                         } else {
                             $('.jenis').removeClass('is-invalid');
                             $('.errorjenis').html('');
+                        }
+                        if (response.error.nomor) {
+                            $('.nomor').addClass('is-invalid');
+                            $('.errornomor').html(response.error.nomor);
+                        } else {
+                            $('.nomor').removeClass('is-invalid');
+                            $('.errornomor').html('');
                         }
                         if (response.error.tanggal) {
                             $('.tanggal').addClass('is-invalid');
@@ -40,20 +45,6 @@
                             $('.tanggal').removeClass('is-invalid');
                             $('.errortanggal').html('');
                         }
-                        if (response.error.perihal) {
-                            $('.perihal').addClass('is-invalid');
-                            $('.errorperihal').html(response.error.perihal);
-                        } else {
-                            $('.perihal').removeClass('is-invalid');
-                            $('.errorperihal').html('');
-                        }
-                        if (response.error.kategori) {
-                            $('.kategori').addClass('is-invalid');
-                            $('.errorkategori').html(response.error.kategori);
-                        } else {
-                            $('.kategori').removeClass('is-invalid');
-                            $('.errorkategori').html('');
-                        }
                         if (response.error.sasaran) {
                             $('.sasaran').addClass('is-invalid');
                             $('.errorsasaran').html(response.error.sasaran);
@@ -61,23 +52,24 @@
                             $('.sasaran').removeClass('is-invalid');
                             $('.errorsasaran').html('');
                         }
-                    } else {
-                        if (response.status == 'gagal') {
-                            Swal.fire({
-                                icon: 'error',
-                                title: 'Gagal',
-                                text: response.sukses,
-                            })
-                        } else if (response.status == 'berhasil') {
-                            Swal.fire({
-                                icon: 'success',
-                                title: 'Berhasil',
-                                text: response.sukses,
-                            });
+                        if (response.error.perihal) {
+                            $('.perihal').addClass('is-invalid');
+                            $('.errorperihal').html(response.error.perihal);
+                        } else {
+                            $('.perihal').removeClass('is-invalid');
+                            $('.errorperihal').html('');
                         }
+                    } else {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Berhasil',
+                            text: response.sukses,
+                        });
                         $('body').removeClass('modal-open');
+                        //modal-open class is added on body so it has to be removed
                         $('.modal-backdrop').remove();
-                        $('#result').html(response.data);
+                        //need to remove div with modal-backdrop class
+                        $("#result").html(response.data);
                     }
                 },
                 error: function(xhr, ajaxOptions, thrownError) {

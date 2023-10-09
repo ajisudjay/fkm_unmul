@@ -17,40 +17,49 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="<?= base_url('sk/tambah'); ?>" method="post" class="tambah">
+                    <form action="<?= base_url('sk/tambah'); ?>" method="post" enctype="multipart/form-data" class="tambah">
                         <?php csrf_field() ?>
                         <div class="modal-body">
                             <div class="row">
-                                <div class="col-lg-3">
+                                <div class="col-lg-2">
                                     <label class="text-primary">Jenis</label>
-                                    <input type="text" name="jenis" class="form-control jenis" placeholder="Jenis">
+                                    <select name="jenis" class="form-control jenis">
+                                        <option value="Rektor">Rektor</option>
+                                        <option value="Usulan">Usulan</option>
+                                    </select>
                                     <div class="invalid-feedback errorjenis"></div>
                                     <br>
                                 </div>
-                                <div class="col-lg-9">
+                                <div class="col-lg-4">
                                     <label class="text-primary">Nomor</label>
                                     <input type="text" name="nomor" class="form-control nomor" placeholder="Nomor">
                                     <div class="invalid-feedback errornomor"></div>
                                 </div>
                                 <div class="col-lg-3">
                                     <label class="text-primary">Tanggal</label>
-                                    <input type="text" name="tanggal" class="form-control tanggal" placeholder="Main Menu">
+                                    <input type="date" name="tanggal" class="form-control tanggal">
                                     <div class="invalid-feedback errortanggal"></div>
-                                </div>
-                                <div class="col-lg-9">
-                                    <label class="text-primary">Perihal</label>
-                                    <input type="text" name="perihal" class="form-control perihal" placeholder="Main Menu">
-                                    <div class="invalid-feedback errorperihal"></div>
-                                </div>
-                                <div class="col-lg-3">
-                                    <label class="text-primary">Kategori</label>
-                                    <input type="text" name="kategori" class="form-control kategori" placeholder="Main Menu">
-                                    <div class="invalid-feedback errorkategori"></div>
                                 </div>
                                 <div class="col-lg-3">
                                     <label class="text-primary">Sasaran</label>
-                                    <input type="text" name="sasaran" class="form-control sasaran" placeholder="Main Menu">
+                                    <select name="sasaran" class="form-control sasaran">
+                                        <option value="Dosen">Dosen</option>
+                                        <option value="Tendik">Tendik</option>
+                                        <option value="Mahasiswa">Mahasiswa</option>
+                                        <option value="Semua">Semua</option>
+                                    </select>
                                     <div class="invalid-feedback errorsasaran"></div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <label class="text-primary">Perihal</label>
+                                    <textarea name="perihal" cols="30" class="form-control perihal" rows="10"></textarea>
+                                    <div class="invalid-feedback errorperihal"></div>
+                                    <br>
+                                </div>
+                                <div class="col-lg-6">
+                                    <label class="text-primary">File</label>
+                                    <input type="file" name="file" accept=".pdf" class="form-control file" required>
+                                    <div class="invalid-feedback errorfile"></div>
                                 </div>
                                 <hr>
                             </div>
@@ -71,10 +80,10 @@
                     <tr>
                         <th width="3%">No</th>
                         <th width="3%" style="text-align: center;">AKSI</th>
-                        <th width="15%">Jenis</th>
-                        <th width="15%">Nomor</th>
-                        <th width="15%">Tanggal</th>
-                        <th width="45%">Perihal</th>
+                        <th width="20%">Nomor</th>
+                        <th width="10%">Tanggal</th>
+                        <th width="55%">Perihal</th>
+                        <th width="10%">Sasaran</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -127,13 +136,13 @@
                                     </div>
                                 </div>
                                 <!-- button hapus modal-->
-                                <a href="<?= base_url('mainmenu/hapus/' . $item['id']); ?>" class="hapus">
+                                <a href="<?= base_url('sk/hapus/' . $item['id']); ?>" class="hapus">
                                     <span class="btn-sm btn-danger feather icon-trash-2 text-default"></span>
                                 </a>
-                            <td><?= $item['jenis'] ?></td>
-                            <td><?= $item['jenis'] ?></td>
+                            <td><?= $item['nomor'] ?></td>
                             <td><?= $item['tanggal'] ?></td>
                             <td><?= $item['perihal'] ?></td>
+                            <td><?= $item['sasaran'] ?></td>
                         </tr>
                     <?php endforeach ?>
                 </tbody>

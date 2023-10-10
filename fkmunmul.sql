@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 06 Okt 2023 pada 09.44
+-- Waktu pembuatan: 10 Okt 2023 pada 08.51
 -- Versi server: 10.4.27-MariaDB
 -- Versi PHP: 8.0.25
 
@@ -563,6 +563,25 @@ INSERT INTO `jenis` (`id`, `jenis`, `area`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `kategori_sk`
+--
+
+CREATE TABLE `kategori_sk` (
+  `id` int(255) NOT NULL,
+  `kategori` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `kategori_sk`
+--
+
+INSERT INTO `kategori_sk` (`id`, `kategori`) VALUES
+(1, 'Pengajaran'),
+(2, 'Pembimbing');
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `kelompok`
 --
 
@@ -788,17 +807,36 @@ CREATE TABLE `sk` (
   `perihal` text NOT NULL,
   `timestamps` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `admin` varchar(255) NOT NULL,
-  `kategori` varchar(255) NOT NULL,
-  `sasaran` varchar(255) NOT NULL
+  `sasaran` varchar(255) NOT NULL,
+  `file` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `sk`
 --
 
-INSERT INTO `sk` (`id`, `nomor`, `jenis`, `tanggal`, `perihal`, `timestamps`, `admin`, `kategori`, `sasaran`) VALUES
-(1, '123123', 'rektor', '2023-06-10', 'tes saja', '2023-10-06 03:05:11', 'aji', 'mainmain', 'semua'),
-(2, '', 'dekan', '2023-06-10', 'tes kedua', '2023-10-06 03:05:35', 'aji', 'mainaja', 'dosen');
+INSERT INTO `sk` (`id`, `nomor`, `jenis`, `tanggal`, `perihal`, `timestamps`, `admin`, `sasaran`, `file`) VALUES
+(16, '123', 'Rektor', '2023-10-10', 'tes', '2023-10-10 02:41:09', 'aji', 'Dosen', '1696905669_ad6788bdeeb06d501164.pdf');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `sk_kat`
+--
+
+CREATE TABLE `sk_kat` (
+  `id` int(255) NOT NULL,
+  `id_sk` int(255) NOT NULL,
+  `id_kat` int(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `sk_kat`
+--
+
+INSERT INTO `sk_kat` (`id`, `id_sk`, `id_kat`) VALUES
+(1, 16, 1),
+(2, 16, 2);
 
 -- --------------------------------------------------------
 
@@ -970,6 +1008,12 @@ ALTER TABLE `jenis`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indeks untuk tabel `kategori_sk`
+--
+ALTER TABLE `kategori_sk`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indeks untuk tabel `kelompok`
 --
 ALTER TABLE `kelompok`
@@ -1022,6 +1066,14 @@ ALTER TABLE `prodi`
 --
 ALTER TABLE `sk`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indeks untuk tabel `sk_kat`
+--
+ALTER TABLE `sk_kat`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_sk` (`id_sk`),
+  ADD KEY `id_kat` (`id_kat`);
 
 --
 -- Indeks untuk tabel `slideshow`
@@ -1077,6 +1129,12 @@ ALTER TABLE `jenis`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
+-- AUTO_INCREMENT untuk tabel `kategori_sk`
+--
+ALTER TABLE `kategori_sk`
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT untuk tabel `kelompok`
 --
 ALTER TABLE `kelompok`
@@ -1128,7 +1186,13 @@ ALTER TABLE `prodi`
 -- AUTO_INCREMENT untuk tabel `sk`
 --
 ALTER TABLE `sk`
-  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+
+--
+-- AUTO_INCREMENT untuk tabel `sk_kat`
+--
+ALTER TABLE `sk_kat`
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT untuk tabel `slideshow`
@@ -1151,6 +1215,13 @@ ALTER TABLE `tendik`
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
 --
+
+--
+-- Ketidakleluasaan untuk tabel `sk_kat`
+--
+ALTER TABLE `sk_kat`
+  ADD CONSTRAINT `sk_kat_ibfk_1` FOREIGN KEY (`id_kat`) REFERENCES `kategori_sk` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `sk_kat_ibfk_2` FOREIGN KEY (`id_sk`) REFERENCES `sk` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Ketidakleluasaan untuk tabel `submenu`

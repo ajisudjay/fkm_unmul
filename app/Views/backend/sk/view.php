@@ -50,6 +50,16 @@
                                     </select>
                                     <div class="invalid-feedback errorsasaran"></div>
                                 </div>
+                                <div class="col-lg-3">
+                                    <label class="text-primary">Kategori</label>
+                                    <select name="kategori" class="form-control kategori">
+                                        <option value="Dosen">Dosen</option>
+                                        <option value="Tendik">Tendik</option>
+                                        <option value="Mahasiswa">Mahasiswa</option>
+                                        <option value="Semua">Semua</option>
+                                    </select>
+                                    <div class="invalid-feedback errorkategori"></div>
+                                </div>
                                 <div class="col-lg-12">
                                     <label class="text-primary">Perihal</label>
                                     <textarea name="perihal" cols="30" class="form-control perihal" rows="10"></textarea>

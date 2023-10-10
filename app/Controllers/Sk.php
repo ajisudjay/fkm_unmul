@@ -3,14 +3,20 @@
 namespace App\Controllers;
 
 use App\Models\SkModel;
+use App\Models\KategoriskModel;
+use App\Models\Sk_katModel;
 use App\Controllers\BaseController;
 
 class Sk extends BaseController
 {
     protected $SkModel;
+    protected $KategoriskModel;
+    protected $Sk_katModel;
     public function __construct()
     {
         $this->SkModel = new SkModel();
+        $this->KategoriskModel = new KategoriskModel();
+        $this->Sk_katModel = new Sk_katModel();
     }
     public function index()
     {
@@ -42,6 +48,7 @@ class Sk extends BaseController
             if ($request->isAJAX()) {
                 $data = [
                     'sk' => $this->SkModel->orderBy('tanggal', 'DESC')->get()->getResultArray(),
+                    'kategori_sk' => $this->KategoriskModel->orderBy('kategori', 'ASC')->get()->getResultArray(),
                     'validation' => \Config\Services::validation(),
                 ];
                 $msg = [

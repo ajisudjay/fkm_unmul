@@ -41,16 +41,6 @@
                                     <div class="invalid-feedback errortanggal"></div>
                                 </div>
                                 <div class="col-lg-3">
-                                    <label class="text-primary">Sasaran</label>
-                                    <select name="sasaran" class="form-control sasaran">
-                                        <option value="Dosen">Dosen</option>
-                                        <option value="Tendik">Tendik</option>
-                                        <option value="Mahasiswa">Mahasiswa</option>
-                                        <option value="Semua">Semua</option>
-                                    </select>
-                                    <div class="invalid-feedback errorsasaran"></div>
-                                </div>
-                                <div class="col-lg-3">
                                     <label class="text-primary">Kategori</label>
                                     <select name="kategori" class="form-control kategori">
                                         <option value="Dosen">Dosen</option>
@@ -59,6 +49,7 @@
                                         <option value="Semua">Semua</option>
                                     </select>
                                     <div class="invalid-feedback errorkategori"></div>
+                                    <br>
                                 </div>
                                 <div class="col-lg-12">
                                     <label class="text-primary">Perihal</label>
@@ -70,6 +61,20 @@
                                     <label class="text-primary">File</label>
                                     <input type="file" name="file" accept=".pdf" class="form-control file" required>
                                     <div class="invalid-feedback errorfile"></div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <label class="text-primary">Sasaran</label>
+                                    <select name="sasaran" class="form-control sasaran">
+                                        <option value="Semua">Semua</option>
+                                        <option value="Dosen">Dosen</option>
+                                        <option value="Dosen-Tendik">Dosen-Tendik</option>
+                                        <option value="Dosen-Mahiswa">Dosen-Mahiswa</option>
+                                        <option value="Tendik">Tendik</option>
+                                        <option value="Tendik-Mahasiswa">Tendik-Mahasiswa</option>
+                                        <option value="Mahasiswa">Mahasiswa</option>
+                                        <option value="Tertutup">Tertutup</option>
+                                    </select>
+                                    <div class="invalid-feedback errorsasaran"></div>
                                 </div>
                                 <hr>
                             </div>

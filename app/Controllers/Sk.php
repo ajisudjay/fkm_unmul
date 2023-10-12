@@ -24,10 +24,10 @@ class Sk extends BaseController
             $admin = session()->get('nama');
             $lvl = session()->get('level');
             $file = session()->get('file');
-            if ($file <  1) {
-                $gambar = 'app-assets/images/profile/user-profile.png';
+            if ($file === NULL) {
+                $gambar = 'user-profile.png';
             } else {
-                $gambar = 'content/user/' . $file;
+                $gambar = $file;
             }
             $data = [
                 'title' => 'Surat Keputusan',
@@ -161,64 +161,100 @@ class Sk extends BaseController
 
     public function edit()
     {
-        if (session()->get('username') == NULL || session()->get('level') !== 'Superadmin') {
-            return redirect()->to(base_url('/login'));
-        }
-        $request = \Config\Services::request();
-        if ($request->isAJAX()) {
-            $id = $request->getVar('id');
-            $urutan = $request->getVar('urutan');
-            $mainmenu = $request->getVar('mainmenu');
+        if (session()->get('username') == NULL || session()->get('level') === 'Superadmin' || session()->get('level') === 'Enum') {
+            $request = \Config\Services::request();
             $validation = \Config\Services::validation();
-            $valid = $this->validate([
-                'urutan' => [
-                    'label' => 'Urutan',
-                    'rules' => 'required',
-                    'errors' => [
-                        'required' => '{field} Tidak Boleh Kosong',
-                    ]
-                ],
-                'mainmenu' => [
-                    'label' => 'Main Menu',
-                    'rules' => 'required',
-                    'errors' => [
-                        'required' => '{field} Tidak Boleh Kosong',
-                    ]
-                ],
-            ]);
+            $id = $request->getVar('id');
+            $nomor = $request->getVar('nomor');
+            $jenis = $request->getVar('jenis');
+            $tanggal = $request->getVar('tanggal');
+            $perihal = $request->getVar('perihal');
+            $sasaran = $request->getVar('sasaran');
+            $file = $request->getFile('file');
+            $admin = 'aji';
+            date_default_timezone_set("Asia/Kuala_Lumpur");
+            $timestamp = date("Y-m-d h:i:sa");
 
-            if (!$valid) {
-                $msg = [
-                    'error' => [
-                        'urutan' => $validation->getError('urutan'),
-                        'mainmenu' => $validation->getError('mainmenu'),
+            if ($request->isAJAX()) {
+                $valid = $this->validate([
+                    'jenis' => [
+                        'label' => 'Jenis',
+                        'rules' => 'required',
+                        'errors' => [
+                            'required' => '{field} Tidak Boleh Kosong',
+                        ]
                     ],
-                ];
-                echo json_encode($msg);
+                    'nomor' => [
+                        'label' => 'Nomor',
+                        'rules' => 'required',
+                        'errors' => [
+                            'required' => '{field} Tidak Boleh Kosong',
+                        ]
+                    ],
+                    'tanggal' => [
+                        'label' => 'Tanggal',
+                        'rules' => 'required',
+                        'errors' => [
+                            'required' => '{field} Tidak Boleh Kosong',
+                        ]
+                    ],
+                    'sasaran' => [
+                        'label' => 'Sasaran',
+                        'rules' => 'required',
+                        'errors' => [
+                            'required' => '{field} Tidak Boleh Kosong',
+                        ]
+                    ],
+                    'perihal' => [
+                        'label' => 'Perihal',
+                        'rules' => 'required',
+                        'errors' => [
+                            'required' => '{field} Tidak Boleh Kosong',
+                        ]
+                    ],
+                ]);
+                if (!$valid) {
+                    $msg = [
+                        'error' => [
+                            'jenis' => $validation->getError('jenis'),
+                            'nomor' => $validation->getError('nomor'),
+                            'tanggal' => $validation->getError('tanggal'),
+                            'sasaran' => $validation->getError('sasaran'),
+                            'perihal' => $validation->getError('perihal'),
+                        ],
+                    ];
+                    return $this->response->setJSON($msg);
+                } else {
+                    $newName = $file->getRandomName();
+                    $file->store('content/sk/', $newName);
+                    $data = [
+                        'nomor' => $nomor,
+                        'jenis' => $jenis,
+                        'tanggal' => $tanggal,
+                        'perihal' => $perihal,
+                        'sasaran' => $sasaran,
+                        'file' => $newName,
+                        'admin' => $admin,
+                        'timestamps' => $timestamp,
+                    ];
+                    $this->SkModel->update($id, $data);
+
+                    $data2 = [
+                        'sk' => $this->SkModel->orderBy('tanggal', 'DESC')->get()->getResultArray(),
+                        'validation' => \Config\Services::validation(),
+                    ];
+                    $msg = [
+                        'data' => view('backend/sk/view', $data2)
+                    ];
+                    echo json_encode($msg);
+                }
             } else {
-                $data = [
-                    'urutan' => $urutan,
-                    'mainmenu' => $mainmenu,
-                ];
-
-                $this->SkModel->update($id, $data);
-
-                $data2 = [
-                    'sk' => $this->SkModel->orderBy('tanggal', 'ASC')->get()->getResultArray(),
-                ];
-                $msg = [
-                    'sukses' => 'Main Menu Berhasil Diubah !',
-                    'status' => 'Berhasil',
-                    'data' => view('backend/sk/view', $data2)
-                ];
-                echo json_encode($msg);
+                exit('Data Tidak Dapat diproses');
             }
         } else {
-            exit('Data Tidak Dapat diproses');
+            return redirect()->to(base_url('/login'));
         }
     }
-
-
 
     public function hapus($id)
     {

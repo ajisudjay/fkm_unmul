@@ -41,28 +41,6 @@
                                     <div class="invalid-feedback errortanggal"></div>
                                 </div>
                                 <div class="col-lg-3">
-                                    <label class="text-primary">Kategori</label>
-                                    <select name="kategori" class="form-control kategori">
-                                        <option value="Dosen">Dosen</option>
-                                        <option value="Tendik">Tendik</option>
-                                        <option value="Mahasiswa">Mahasiswa</option>
-                                        <option value="Semua">Semua</option>
-                                    </select>
-                                    <div class="invalid-feedback errorkategori"></div>
-                                    <br>
-                                </div>
-                                <div class="col-lg-12">
-                                    <label class="text-primary">Perihal</label>
-                                    <textarea name="perihal" cols="30" class="form-control perihal" rows="10"></textarea>
-                                    <div class="invalid-feedback errorperihal"></div>
-                                    <br>
-                                </div>
-                                <div class="col-lg-6">
-                                    <label class="text-primary">File</label>
-                                    <input type="file" name="file" accept=".pdf" class="form-control file" required>
-                                    <div class="invalid-feedback errorfile"></div>
-                                </div>
-                                <div class="col-lg-3">
                                     <label class="text-primary">Sasaran</label>
                                     <select name="sasaran" class="form-control sasaran">
                                         <option value="Semua">Semua</option>
@@ -75,6 +53,28 @@
                                         <option value="Tertutup">Tertutup</option>
                                     </select>
                                     <div class="invalid-feedback errorsasaran"></div>
+                                </div>
+                                <!-- <div class="col-lg-3">
+                                    <label class="text-primary">Kategori</label>
+                                    <select name="kategori" class="form-control kategori">
+                                        <option value="Dosen">Dosen</option>
+                                        <option value="Tendik">Tendik</option>
+                                        <option value="Mahasiswa">Mahasiswa</option>
+                                        <option value="Semua">Semua</option>
+                                    </select>
+                                    <div class="invalid-feedback errorkategori"></div>
+                                    <br>
+                                </div> -->
+                                <div class="col-lg-12">
+                                    <label class="text-primary">Perihal</label>
+                                    <textarea name="perihal" cols="30" class="form-control perihal" rows="10"></textarea>
+                                    <div class="invalid-feedback errorperihal"></div>
+                                    <br>
+                                </div>
+                                <div class="col-lg-6">
+                                    <label class="text-primary">File</label>
+                                    <input type="file" name="file" accept=".pdf" class="form-control file" required>
+                                    <div class="invalid-feedback errorfile"></div>
                                 </div>
                                 <hr>
                             </div>
@@ -93,7 +93,7 @@
             <table id="simpletable" class="table table-striped table-hover-animation nowrap">
                 <thead>
                     <tr>
-                        <th width="3%">No</th>
+                        <th width="2%">No</th>
                         <th width="3%" style="text-align: center;">AKSI</th>
                         <th width="20%">Nomor</th>
                         <th width="10%">Tanggal</th>
@@ -122,28 +122,63 @@
                                                 </button>
                                             </div>
                                             <div class="modal-body">
-                                                <form action="<?= base_url('mainmenu/edit'); ?>" method="post" class="edit">
+                                                <form action="<?= base_url('sk/edit'); ?>" method="post" enctype="multipart/form-data" class="edit">
                                                     <?php csrf_field() ?>
-                                                    <div class="modal-body" style="text-align:left ;">
+                                                    <div class="modal-body">
                                                         <div class="row">
-                                                            <div class="col-lg-3">
-                                                                <label class="text-primary">Urutan</label>
+                                                            <div class="col-lg-2">
+                                                                <label class="text-primary">Jenis</label>
+                                                                <select name="jenis" class="form-control jenis">
+                                                                    <option value="<?= $item['jenis'] ?>"><?= $item['jenis'] ?></option>
+                                                                    <option value="Rektor">Rektor</option>
+                                                                    <option value="Usulan">Usulan</option>
+                                                                </select>
+                                                                <div class="invalid-feedback errorjenis"></div>
+                                                                <br>
+                                                            </div>
+                                                            <div class="col-lg-4">
+                                                                <label class="text-primary">Nomor</label>
                                                                 <input type="text" name="id" value="<?= $item['id'] ?>" hidden>
-                                                                <input type="text" name="urutan" value="<?= $item['id'] ?>" class="form-control urutan" placeholder="Urutan">
-                                                                <div class="invalid-feedback errorUrutan"></div>
+                                                                <input type="text" name="nomor" class="form-control nomor" value="<?= $item['nomor'] ?>" placeholder="Nomor">
+                                                                <div class="invalid-feedback errornomor"></div>
+                                                            </div>
+                                                            <div class="col-lg-3">
+                                                                <label class="text-primary">Tanggal</label>
+                                                                <input type="date" name="tanggal" class="form-control tanggal" value="<?= $item['tanggal'] ?>">
+                                                                <div class="invalid-feedback errortanggal"></div>
+                                                            </div>
+                                                            <div class="col-lg-3">
+                                                                <label class="text-primary">Sasaran</label>
+                                                                <select name="sasaran" class="form-control sasaran">
+                                                                    <option value="<?= $item['sasaran'] ?>"><?= $item['sasaran'] ?></option>
+                                                                    <option value="Semua">Semua</option>
+                                                                    <option value="Dosen">Dosen</option>
+                                                                    <option value="Dosen-Tendik">Dosen-Tendik</option>
+                                                                    <option value="Dosen-Mahiswa">Dosen-Mahiswa</option>
+                                                                    <option value="Tendik">Tendik</option>
+                                                                    <option value="Tendik-Mahasiswa">Tendik-Mahasiswa</option>
+                                                                    <option value="Mahasiswa">Mahasiswa</option>
+                                                                    <option value="Tertutup">Tertutup</option>
+                                                                </select>
+                                                                <div class="invalid-feedback errorsasaran"></div>
+                                                            </div>
+                                                            <div class="col-lg-12">
+                                                                <label class="text-primary">Perihal</label>
+                                                                <textarea name="perihal" cols="30" class="form-control perihal" rows="10"><?= $item['perihal'] ?></textarea>
+                                                                <div class="invalid-feedback errorperihal"></div>
                                                                 <br>
                                                             </div>
-                                                            <div class="col-lg-9">
-                                                                <label class="text-primary">Main Menu</label>
-                                                                <input type="text" name="mainmenu" value="<?= $item['id'] ?>" class="form-control mainmenu" placeholder="Main Menu">
-                                                                <div class="invalid-feedback errorMainmenu"></div>
-                                                                <br>
+                                                            <div class="col-lg-6">
+                                                                <label class="text-primary">File</label>
+                                                                <input type="file" name="file" accept=".pdf" class="form-control file" required>
+                                                                <div class="invalid-feedback errorfile"></div>
                                                             </div>
+                                                            <hr>
                                                         </div>
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-danger" data-dismiss="modal">Batalkan</button>
-                                                        <button type="submit" class="btn btn-primary btnEdit">Simpan</button>
+                                                        <button type="submit" class="btn btn-primary btnSimpan">Simpan</button>
                                                     </div>
                                                 </form>
                                             </div>
@@ -154,9 +189,39 @@
                                 <a href="<?= base_url('sk/hapus/' . $item['id']); ?>" class="hapus">
                                     <span class="btn-sm btn-danger feather icon-trash-2 text-default"></span>
                                 </a>
-                            <td><?= $item['nomor'] ?></td>
+                            <td>
+                                <button type="button" class="btn-sm btn-success border-0" data-toggle="modal" data-target="#fileviewmodal<?= $id = $item['id'] ?>">
+                                    <?= $item['nomor'] ?>
+                                </button>
+                                <!-- file view modal-->
+                                <div class="modal fade" id="fileviewmodal<?= $id = $item['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">File : <?= $item['nomor'] ?></h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <?php csrf_field() ?>
+                                                <div class="modal-body" style="text-align:left ;">
+                                                    <div class="row">
+                                                        <div class="col-lg-12">
+                                                            <embed src="<?= base_url('writable/uploads/content/sk/' . $item['file']) ?>" type='application/pdf' width='100%' height='750px'>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Tutup</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
                             <td><?= $item['tanggal'] ?></td>
-                            <td><?= $item['perihal'] ?></td>
+                            <td style="white-space: normal;"><?= $item['perihal'] ?></td>
                             <td><?= $item['sasaran'] ?></td>
                         </tr>
                     <?php endforeach ?>

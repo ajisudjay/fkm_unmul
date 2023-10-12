@@ -345,7 +345,7 @@ class Pages extends BaseController
         $lvl = session()->get('level');
         $file = session()->get('file');
         if ($file === NULL) {
-            $gambar = 'app-assets/images/profile/user-profile.png';
+            $gambar = 'user-profile.png';
         } else {
             $gambar = $file;
         }

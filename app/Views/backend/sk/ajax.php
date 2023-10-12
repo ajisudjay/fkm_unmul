@@ -80,34 +80,60 @@
 
         $('.edit').submit(function(e) {
             e.preventDefault();
+            var form = $(this)[0];
+            var data = new FormData(form);
+            var formData = new FormData(this);
             $.ajax({
                 type: "post",
                 url: $(this).attr('action'),
-                data: $(this).serialize(),
+                data: formData,
                 dataType: "json",
+                contentType: false,
+                processData: false,
                 beforeSend: function() {
-                    $('.btnEdit').attr('disable', 'disabled');
-                    $('.btnEdit').html('<i class="fa fa-spin fa-spinner"></i>');
+                    $('.btnSimpan').attr('disable', 'disabled');
+                    $('.btnSimpan').html('<i class="fa fa-spin fa-spinner text-light"></i>');
                 },
                 complete: function() {
-                    $('.btnEdit').removeAttr('disable', 'disabled');
-                    $('.btnEdit').html('Simpan');
+                    $('.btnSimpan').removeAttr('disable', 'disabled');
+                    $('.btnSimpan').html('Simpan');
                 },
                 success: function(response) {
                     if (response.error) {
-                        if (response.error.urutan) {
-                            $('.urutan').addClass('is-invalid');
-                            $('.errorUrutan').html(response.error.urutan);
+                        if (response.error.jenis) {
+                            $('.jenis').addClass('is-invalid');
+                            $('.errorjenis').html(response.error.jenis);
                         } else {
-                            $('.urutan').removeClass('is-invalid');
-                            $('.errorUrutan').html('');
+                            $('.jenis').removeClass('is-invalid');
+                            $('.errorjenis').html('');
                         }
-                        if (response.error.mainmenu) {
-                            $('.mainmenu').addClass('is-invalid');
-                            $('.errorMainmenu').html(response.error.mainmenu);
+                        if (response.error.nomor) {
+                            $('.nomor').addClass('is-invalid');
+                            $('.errornomor').html(response.error.nomor);
                         } else {
-                            $('.mainmenu').removeClass('is-invalid');
-                            $('.errorMainmenu').html('');
+                            $('.nomor').removeClass('is-invalid');
+                            $('.errornomor').html('');
+                        }
+                        if (response.error.tanggal) {
+                            $('.tanggal').addClass('is-invalid');
+                            $('.errortanggal').html(response.error.tanggal);
+                        } else {
+                            $('.tanggal').removeClass('is-invalid');
+                            $('.errortanggal').html('');
+                        }
+                        if (response.error.sasaran) {
+                            $('.sasaran').addClass('is-invalid');
+                            $('.errorsasaran').html(response.error.sasaran);
+                        } else {
+                            $('.sasaran').removeClass('is-invalid');
+                            $('.errorsasaran').html('');
+                        }
+                        if (response.error.perihal) {
+                            $('.perihal').addClass('is-invalid');
+                            $('.errorperihal').html(response.error.perihal);
+                        } else {
+                            $('.perihal').removeClass('is-invalid');
+                            $('.errorperihal').html('');
                         }
                     } else {
                         Swal.fire({

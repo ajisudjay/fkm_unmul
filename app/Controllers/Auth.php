@@ -96,6 +96,7 @@ class Auth extends BaseController
         session()->set('password', $cek['password']);
         session()->set('nama', $cek['nama']);
         session()->set('level', $cek['level']);
+        session()->set('file', $cek['file']);
         session()->setFlashdata('loginBerhasil', 'Login Berhasil');
         return redirect()->to(base_url('/beranda'));
     }

@@ -76,7 +76,7 @@
                     </div>
                     <div class="col-xl-1 col-lg-1 d-none d-lg-block">
                         <div class="logo">
-                            <a href="/">
+                            <a href="/login">
                                 <img src="<?= base_url('/img/logo/unmul.png'); ?>" alt="" width="70">
                             </a>
                         </div>

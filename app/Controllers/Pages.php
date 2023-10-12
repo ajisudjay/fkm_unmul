@@ -344,10 +344,10 @@ class Pages extends BaseController
         $admin = session()->get('nama');
         $lvl = session()->get('level');
         $file = session()->get('file');
-        if ($file <  1) {
+        if ($file === NULL) {
             $gambar = 'app-assets/images/profile/user-profile.png';
         } else {
-            $gambar = 'content/user/' . $file;
+            $gambar = $file;
         }
         $data = [
             'title' => 'Beranda',

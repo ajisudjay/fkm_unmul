@@ -22,7 +22,7 @@
                             <div class="card">
                                 <div class="card-header">
                                     <div class="container-fluid p-5" align="center">
-                                        <span><img class="round mb-1" src="<?= $foto ?>" height="100" width="100"></span>
+                                        <span><img class="round mb-1" src="<?= base_url('writable/uploads/content/user/' . $foto); ?>" height="100" width="100"></span>
                                         <h4 class="mb-1">Selamat Datang</h4>
                                         <h4 class="mb-1"><?= $admin . ' - ' . $lvl ?></h4>
                                         <h4 class="mb-0">Fakultas Kesehatan Masyarakat Universitas Mulawarman</h4>

@@ -172,4 +172,59 @@ class Konfigurasi extends BaseController
             exit('Data Tidak Dapat diproses');
         }
     }
+
+    public function editfoto()
+    {
+        if (session()->get('username') == NULL || session()->get('level') !== 'Superadmin') {
+            return redirect()->to(base_url('/login'));
+        }
+        $request = \Config\Services::request();
+        if ($request->isAJAX()) {
+            $id = $request->getVar('id');
+            $foto = $request->getFile('foto');
+            $cekfoto = $this->KonfigurasiModel->where('id', $id)->first();
+            $fotolama = $cekfoto['foto'];
+            $validation = \Config\Services::validation();
+            $valid = $this->validate([
+                'foto' => [
+                    'label' => 'File Foto',
+                    'rules' => 'max_size[foto,2048]',
+                    'errors' => [
+                        'max_size' => '{field} ukuran lebih dari 2 mb !',
+                    ]
+                ],
+            ]);
+            if (!$valid) {
+                $msg = [
+                    'error' => [
+                        'foto' => $validation->getError('foto'),
+                    ],
+                ];
+                return $this->response->setJSON($msg);
+            } else {
+                $nama_file = $foto->getRandomName();
+                $filepath = '../writable/uploads/content/konfigurasi/' . $fotolama;
+                chmod($filepath, 0777);
+                unlink($filepath);
+                $foto->store('content/konfigurasi/', $nama_file);
+                $data = [
+                    'foto' => $nama_file,
+                ];
+
+                $this->KonfigurasiModel->update($id, $data);
+
+                $data2 = [
+                    'konfigurasi' => $this->KonfigurasiModel->get()->getResultArray(),
+                ];
+                $msg = [
+                    'sukses' => 'Konfigurasi Berhasil Diperbarui !',
+                    'status' => 'Berhasil',
+                    'data' => view('backend/konfigurasi/view', $data2)
+                ];
+                echo json_encode($msg);
+            }
+        } else {
+            exit('Data Tidak Dapat diproses');
+        }
+    }
 }

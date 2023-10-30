@@ -194,7 +194,7 @@ class Pages extends BaseController
             'konfigurasi' => $this->KonfigurasiModel->first(),
             'berita' => $this->BeritaModel->orderBy('tanggal', 'DESC')->findAll(6),
             'mitra' => $this->MitraModel->orderBy('nama', 'DESC')->get()->getResultArray(),
-            'slideshow' => $this->SlideshowModel->orderBy('nama', 'ASC')->get()->getResultArray(),
+            'slideshow' => $this->SlideshowModel->orderBy('urutan', 'ASC')->get()->getResultArray(),
             'pejabat' => $this->PejabatModel->orderBy('urutan', 'ASC')->get()->getResultArray(),
             'konf' => $this->KonfigurasiModel->findAll(),
             'prodi' => $this->SubmenuModel->orderBy('urutan', 'ASC')->where('id_mainmenu', '25')->findAll(),

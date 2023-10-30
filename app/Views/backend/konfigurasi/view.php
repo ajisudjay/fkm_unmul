@@ -6,9 +6,27 @@
     </div>
     <div class="card-block">
         <?php foreach ($konfigurasi as $item) : ?>
+            <!-- ISI FORM -->
+            <form action="<?= base_url('konfigurasi/editfoto'); ?>" method="post" enctype="multipart/form-data" class="editfoto">
+                <?php csrf_field() ?>
+                <div class="row">
+                    <div class="col-lg-4">
+                        <img src="<?= base_url('writable/uploads/content/konfigurasi/' . $item['foto']); ?>" width="100%">
+                    </div>
+                    <div class="col-lg-4">
+                        <input type="text" name="id" value="<?= $item['id'] ?>" hidden>
+                        <input type="file" name="foto" accept="image/*" class="form-control foto">
+                        <div class="invalid-feedback errorfoto"></div>
+                        <br>
+                        <br>
+                    </div>
+                    <div class="col-lg-4">
+                        <button type="submit" class="btn btn-primary btnEditfoto">Perbarui</button>
+                    </div>
+                </div>
+            </form>
             <form action="<?= base_url('konfigurasi/edit'); ?>" method="post" class="edit">
                 <?php csrf_field() ?>
-                <!-- ISI FORM -->
                 <div class="row">
                     <div class="col-lg-12">
                         <label> Visi :</label>

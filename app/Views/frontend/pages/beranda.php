@@ -5,18 +5,10 @@
     <!-- Slider Beranda -->
     <div class="slider_area">
         <div class="slider_active owl-carousel carousels">
-            <div class="single_slider  d-flex align-items-center slider_bg_1">
-                <div class="container">
+            <?php foreach ($slideshow as $item) : ?>
+                <div class="single_slider  d-flex align-items-center" style="background-image: url(<?= base_url('writable/uploads/content/slideshow/' . $item['gambar']); ?>);">
                 </div>
-            </div>
-            <div class="single_slider  d-flex align-items-center slider_bg_2">
-                <div class="container">
-                </div>
-            </div>
-            <div class="single_slider  d-flex align-items-center slider_bg_3">
-                <div class="container">
-                </div>
-            </div>
+            <?php endforeach ?>
         </div>
     </div>
     <!-- akhir slider beranda -->
@@ -93,7 +85,7 @@
                 <div class="col-xl-4 col-lg-6" style="margin-top:10% ;">
                     <div class="box-visi">
                         <div class="welcome_thumb">
-                            <img src="<?= base_url('/img/content/wd1.PNG'); ?>">
+                            <img src="<?= base_url('writable/uploads/content/konfigurasi/' . $konfigurasi['foto']); ?>" width="100%">
                         </div>
                     </div>
                 </div>
@@ -144,7 +136,7 @@
                                     </div>
                                     <div class="department_content">
                                         <!-- limit Judul max 6 kata -->
-                                        <h3><a href="<?= base_url('informasi-detail/' . $item_berita['slug']); ?>"><?= $item_berita['judul'] ?></a></h3>
+                                        <h3><a href="<?= base_url('informasi-detail/' . $item_berita['slug']); ?>"><?= substr($item_berita['judul'], 0, 80) ?></a></h3>
                                         <!-- Limit Deskripsi 25 kata -->
                                         <div class="row">
                                             <div class="col-lg-6">

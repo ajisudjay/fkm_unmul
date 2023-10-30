@@ -94,6 +94,53 @@
             })
         });
 
+        $('.editfoto').submit(function(e) {
+            e.preventDefault();
+            var form = $(this)[0];
+            var data = new FormData(form);
+            var formData = new FormData(this);
+            $.ajax({
+                type: "post",
+                url: $(this).attr('action'),
+                data: formData,
+                dataType: "json",
+                contentType: false,
+                processData: false,
+                beforeSend: function() {
+                    $('.btnEditfoto').attr('disable', 'disabled');
+                    $('.btnEditfoto').html('<i class="fa fa-spin fa-spinner"></i>');
+                },
+                complete: function() {
+                    $('.btnEditfoto').removeAttr('disable', 'disabled');
+                    $('.btnEditfoto').html('Simpan');
+                },
+                success: function(response) {
+                    if (response.error) {
+                        if (response.error.foto) {
+                            $('.foto').addClass('is-invalid');
+                            $('.errorfoto').html(response.error.foto);
+                        } else {
+                            $('.foto').removeClass('is-invalid');
+                            $('.errorfoto').html('');
+                        }
+                    } else {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Berhasil',
+                            text: response.sukses,
+                        });
+                        $('body').removeClass('modal-open');
+                        //modal-open class is added on body so it has to be removed
+                        $('.modal-backdrop').remove();
+                        //need to remove div with modal-backdrop class
+                        $("#result").html(response.data);
+                    }
+                },
+                error: function(xhr, ajaxOptions, thrownError) {
+                    alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
+                }
+            })
+        });
 
         window.setTimeout(function() {
             $(".flashAjax").fadeTo(500, 0).slideUp(500, function() {

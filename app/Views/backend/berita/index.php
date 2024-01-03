@@ -21,17 +21,17 @@
                         <div class="col-12">
                             <?php if (session()->get('pesanInput')) { ?>
                                 <div class="alert alert-success alert-dismissible fade show flash" role="alert">
-                                    <strong>Berhasil !</strong> <?= session()->getFlashdata('pesanInput') ?>
+                                    <strong><?= session()->getFlashdata('pesanInput') ?></strong>
                                 </div>
                             <?php } ?>
                             <?php if (session()->get('pesanGagal')) { ?>
                                 <div class="alert alert-danger alert-dismissible fade show flash" role="alert">
-                                    <strong>Gagal !</strong> <?= session()->getFlashdata('pesanGagal') ?>
+                                    <strong><?= session()->getFlashdata('pesanGagal') ?></strong>
                                 </div>
                             <?php } ?>
                             <?php if (session()->get('pesanHapus')) { ?>
                                 <div class="alert alert-success alert-dismissible fade show flash" role="alert">
-                                    <strong>Berhasil !</strong> <?= session()->getFlashdata('pesanHapus') ?>
+                                    <strong><?= session()->getFlashdata('pesanHapus') ?></strong>
                                 </div>
                             <?php } ?>
                             <div class="card">

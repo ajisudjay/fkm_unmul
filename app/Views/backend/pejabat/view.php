@@ -18,31 +18,31 @@
                 </div>
                 <div class="modal-body">
                     <form action="<?= base_url('pejabat/tambah'); ?>" method="post" enctype="multipart/form-data" class="tambah">
-                        <?php csrf_field() ?>
+                        <?= csrf_field() ?>
                         <div class="modal-body">
                             <div class="row">
                                 <div class="col-lg-3">
                                     <label class="text-primary">Urutan</label>
-                                    <input type="text" name="urutan" class="form-control urutan" placeholder="Urutan" required>
-                                    <div class="invalid-feedback errorUrutan"></div>
+                                    <input type="text" name="urutan" class="form-control urutan" placeholder="Urutan">
+                                    <div class="invalid-feedback errorurutan"></div>
                                     <br>
                                 </div>
                                 <div class="col-lg-9">
                                     <label class="text-primary">Nama</label>
-                                    <input type="text" name="nama" class="form-control nama" placeholder="Nama" required>
-                                    <div class="invalid-feedback errorNama"></div>
+                                    <input type="text" name="nama" class="form-control nama" placeholder="Nama">
+                                    <div class="invalid-feedback errornama"></div>
                                     <br>
                                 </div>
                                 <br>
                                 <div class="col-lg-6">
                                     <label class="text-primary">Jabatan</label>
-                                    <input type="text" name="jabatan" class="form-control jabatan" placeholder="Jabatan" required>
-                                    <div class="invalid-feedback errorJabatan"></div>
+                                    <input type="text" name="jabatan" class="form-control jabatan" placeholder="Jabatan">
+                                    <div class="invalid-feedback errorjabatan"></div>
                                 </div>
                                 <div class="col-lg-6">
-                                    <label class="text-primary">Foto</label>
-                                    <input type="file" name="file" class="form-control gambar" accept="image/*" required>
-                                    <div class="invalid-feedback errorGambar"></div>
+                                    <label class="text-primary">Foto <span style="color: red;">*max size 2mb</span></label>
+                                    <input type="file" name="file" class="form-control file" accept="image/*">
+                                    <div class="invalid-feedback errorfile"></div>
                                 </div>
                             </div>
                         </div>
@@ -89,7 +89,7 @@
                                             </div>
                                             <div class="modal-body">
                                                 <form action="<?= base_url('pejabat/edit'); ?>" enctype="multipart/form-data" method="post" class="edit">
-                                                    <?php csrf_field() ?>
+                                                    <?= csrf_field() ?>
                                                     <div class="modal-body">
                                                         <div class="row">
                                                             <div class="col-lg-3">
@@ -112,7 +112,7 @@
                                                                 <div class="invalid-feedback errorJabatan"></div>
                                                             </div>
                                                             <div class="col-lg-6">
-                                                                <label class="text-primary">Foto</label>
+                                                                <label class="text-primary">Foto <span style="color: red;">*max size 2mb</span></label>
                                                                 <input type="file" name="file" class="form-control gambar" accept="image/*">
                                                                 <div class="invalid-feedback errorGambar"></div>
                                                             </div>

@@ -1,6 +1,6 @@
 <div class="container-fluid">
     <div class="card-header">
-        <h4 class="mb-0">Mitra</h4>
+        <h4 class="mb-0">MITRA</h4>
         <!-- button tambah modal -->
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tambahmodal">
             <span class="feather icon-plus text-light"></span>
@@ -21,7 +21,13 @@
                         <?= csrf_field() ?>
                         <div class="modal-body">
                             <div class="row">
-                                <div class="col-lg-12">
+                                <div class="col-lg-3">
+                                    <label class="text-primary">Urutan</label>
+                                    <input type="text" name="urutan" class="form-control urutan" placeholder="Urutan">
+                                    <div class="invalid-feedback errorurutan"></div>
+                                    <br>
+                                </div>
+                                <div class="col-lg-9">
                                     <label class="text-primary">Nama</label>
                                     <input type="text" name="nama" class="form-control nama" placeholder="Nama">
                                     <div class="invalid-feedback errorNama"></div>
@@ -29,7 +35,7 @@
                                 </div>
                                 <br>
                                 <div class="col-lg-12">
-                                    <label class="text-primary">Gambar</label>
+                                    <label class="text-primary">Gambar <span style="color: red;">*max size 2mb</span></label>
                                     <input type="file" name="gambar" class="form-control gambar" accept="image/*">
                                     <div class="invalid-feedback errorGambar"></div>
                                     <br>
@@ -59,12 +65,55 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php $no = 1 ?>
                     <?php foreach ($mitra as $item) : ?>
                         <tr>
                             <!-- ISI VIEW -->
-                            <td><?= $no++ ?></td>
+                            <td><?= $item['urutan'] ?></td>
                             <td style="text-align: center;">
+                                <!-- edit button-->
+                                <button type="button" class="btn-sm btn-primary border-0" data-toggle="modal" data-target="#editmodal<?= $id = $item['id'] ?>">
+                                    <span class="feather icon-edit-1 text-default"></span>
+                                </button>
+                                <!-- edit modal-->
+                                <div class="modal fade" id="editmodal<?= $id = $item['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">Ubah</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form action="<?= base_url('mitra/edit'); ?>" method="post" class="edit">
+                                                    <?= csrf_field() ?>
+                                                    <div class="modal-body" style="text-align:left ;">
+                                                        <div class="row">
+                                                            <div class="col-lg-3">
+                                                                <label class="text-primary">Urutan</label>
+                                                                <input type="text" name="id" value="<?= $item['id'] ?>" hidden>
+                                                                <input type="text" name="urutan" class="form-control urutan" value="<?= $item['urutan'] ?>">
+                                                                <div class="invalid-feedback errorurutan"></div>
+                                                                <br>
+                                                            </div>
+                                                            <div class="col-lg-9">
+                                                                <label class="text-primary">Nama</label>
+                                                                <input type="text" name="nama" class="form-control nama" value="<?= $item['nama'] ?>">
+                                                                <div class="invalid-feedback errorNama"></div>
+                                                                <br>
+                                                            </div>
+                                                            <hr>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Batalkan</button>
+                                                        <button type="submit" class="btn btn-primary btnSimpan">Simpan</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <!-- button hapus modal-->
                                 <a href="<?= base_url('mitra/hapus/' . $item['id']); ?>" class="hapus">
                                     <span class="btn-sm btn-danger feather icon-trash-2 text-default"></span>

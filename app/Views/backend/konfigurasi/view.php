@@ -11,17 +11,22 @@
                 <?php csrf_field() ?>
                 <div class="row">
                     <div class="col-lg-4">
-                        <img src="<?= base_url('writable/uploads/content/konfigurasi/' . $item['foto']); ?>" width="100%">
+                        <img src="<?= base_url('writable/uploads/content/konfigurasi/' . $item['foto']); ?>" width="50%">
                     </div>
-                    <div class="col-lg-4">
+                    <div class="col-lg-8">
+                        &nbsp;
+                    </div>
+                    <div class="col-lg-3">
+                        <br>
                         <input type="text" name="id" value="<?= $item['id'] ?>" hidden>
                         <input type="file" name="foto" accept="image/*" class="form-control foto">
                         <div class="invalid-feedback errorfoto"></div>
-                        <br>
-                        <br>
                     </div>
-                    <div class="col-lg-4">
+                    <div class="col-lg-3">
+                        <br>
                         <button type="submit" class="btn btn-primary btnEditfoto">Perbarui</button>
+                        <br>
+                        <br>
                     </div>
                 </div>
             </form>

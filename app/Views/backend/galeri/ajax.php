@@ -1,21 +1,14 @@
 <!-- SCRIPT AJAX -->
 <script>
     $(document).ready(function() {
-        $('.copy-btn').on("click", function() {
-            $("#text-copy").select();
-            document.execCommand("copy");
-        })
         //  function tambah
-        $('.tambah').submit(function() {
-            var nama = $('#nama').val();
-            var files = $('#file')[0].files;
-            var fd = new FormData();
-
-            fd.append('file', files[0]);
-            fd.append('nama', nama);
+        $('.tambah').submit(function(e) {
+            e.preventDefault();
+            var formData = new FormData(this);
             $.ajax({
                 type: "post",
-                data: fd,
+                url: $(this).attr('action'),
+                data: formData,
                 dataType: "json",
                 contentType: false,
                 processData: false,
@@ -31,22 +24,27 @@
                     if (response.error) {
                         if (response.error.nama) {
                             $('.nama').addClass('is-invalid');
-                            $('.errorNama').html(response.error.nama);
+                            $('.errornama').html(response.error.nama);
                         } else {
                             $('.nama').removeClass('is-invalid');
-                            $('.errorNama').html('');
+                            $('.errornama').html('');
+                        }
+                        if (response.error.file) {
+                            $('.file').addClass('is-invalid');
+                            $('.errorfile').html(response.error.file);
+                        } else {
+                            $('.file').removeClass('is-invalid');
+                            $('.errorfile').html('');
                         }
                     } else {
                         Swal.fire({
                             icon: 'success',
-                            title: 'berhasil',
+                            title: 'Berhasil',
                             text: response.sukses,
                         });
-                        $('body').removeClass('modal-open');
-                        //modal-open class is added on body so it has to be removed
-                        $('.modal-backdrop').remove();
-                        //need to remove div with modal-backdrop class
-                        $("#result").html(response.data);
+                        setTimeout(function() {
+                            window.location.reload();
+                        }, 1500);
                     }
                 },
                 error: function(xhr, ajaxOptions, thrownError) {

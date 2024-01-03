@@ -65,12 +65,9 @@ body {
   background-color: #f8f8f8; }
   .capcode {
     font-size: 46px;
+    color: #7367F0;
     text-align: center;
     display: block;
-    -moz-user-select: none;
-    -webkit-user-select: none;
-    user-select: none;
-    cursor: default;
     letter-spacing: 1px;
     font-family: 'Roboto Slab', serif;
     font-weight: 100;

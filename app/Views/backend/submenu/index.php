@@ -17,19 +17,14 @@
             <div class="content-body">
                 <!-- Dashboard Analytics Start -->
                 <section id="dashboard-analytics">
-                    <div class="card">
-                        <div class="row">
-                            <div class="col-12">
-                                <?php if (session()->get('pesanInput')) { ?>
-                                    <div class="alert alert-success alert-dismissible fade show flash" role="alert">
-                                        <strong>Berhasil !</strong> <?= session()->getFlashdata('pesanInput') ?>
-                                    </div>
-                                <?php } ?>
-                                <?php if (session()->get('pesanHapus')) { ?>
-                                    <div class="alert alert-success alert-dismissible fade show flash" role="alert">
-                                        <strong>Berhasil !</strong> <?= session()->getFlashdata('pesanHapus') ?>
-                                    </div>
-                                <?php } ?>
+                    <div class="row">
+                        <div class="col-12">
+                            <?php if (session()->get('pesanHapus')) { ?>
+                                <div class="alert alert-success alert-dismissible fade show flash" role="alert">
+                                    <strong><?= session()->getFlashdata('pesanHapus') ?></strong>
+                                </div>
+                            <?php } ?>
+                            <div class="card">
                                 <div class="bg-transparent border-0" id="result"></div>
                             </div>
                         </div>

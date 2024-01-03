@@ -21,15 +21,21 @@
                         <?php csrf_field() ?>
                         <div class="modal-body">
                             <div class="row">
-                                <div class="col-lg-12">
+                                <div class="col-lg-3">
+                                    <label class="text-primary">Urutan</label>
+                                    <input type="text" name="urutan" class="form-control urutan" placeholder="Urutan" required>
+                                    <div class="invalid-feedback errorurutan"></div>
+                                    <br>
+                                </div>
+                                <div class="col-lg-9">
                                     <label class="text-primary">Nama</label>
                                     <input type="text" name="nama" class="form-control nama" placeholder="Nama" required>
                                     <div class="invalid-feedback errorNama"></div>
                                     <br>
                                 </div>
                                 <br>
-                                <div class="col-lg-6">
-                                    <label class="text-primary">Gambar</label>
+                                <div class="col-lg-12">
+                                    <label class="text-primary">Gambar <span style="color: red;">*max size 2mb</span></label>
                                     <input type="file" name="file" class="form-control gambar" accept="image/*" required>
                                     <div class="invalid-feedback errorGambar"></div>
                                     <br>
@@ -54,22 +60,20 @@
                         <th width="5%">No</th>
                         <th width="5%" style="text-align: center;">AKSI</th>
                         <th width="35%">Nama</th>
-                        <th width="25%" style="text-align: center;">Gambar</th>
+                        <th width="55%" style="text-align: center;">Gambar</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php $no = 1 ?>
                     <?php foreach ($slideshow as $item) : ?>
                         <tr>
                             <!-- ISI VIEW -->
-                            <td><?= $no++ ?></td>
+                            <td><?= $item['urutan'] ?></td>
                             <td style="text-align: center;">
                                 <!-- button hapus modal-->
                                 <a href="<?= base_url('slideshow/hapus/' . $item['id']); ?>" class="hapus">
                                     <span class="btn-sm btn-danger feather icon-trash-2 text-default"></span>
                                 </a>
                             <td><?= $item['nama'] ?></td>
-
                             <td style="text-align: center;"><img src="<?= base_url('writable/uploads/content/slideshow/' . $item['gambar'] . ''); ?>" width="100%"></td>
                         </tr>
                     <?php endforeach ?>

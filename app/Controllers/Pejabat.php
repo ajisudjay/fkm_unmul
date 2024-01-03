@@ -12,9 +12,9 @@ class Pejabat extends BaseController
     {
         $this->PejabatModel = new PejabatModel();
     }
+
     public function index()
     {
-
         if (session()->get('username') == NULL || session()->get('level') !== 'Superadmin') {
             return redirect()->to(base_url('/login'));
         }
@@ -42,7 +42,7 @@ class Pejabat extends BaseController
         $request = \Config\Services::request();
         if ($request->isAJAX()) {
             $data = [
-                'pejabat' => $this->PejabatModel->orderBy('urutan', 'ASC')->get()->getResultArray(),
+                'pejabat' => $this->PejabatModel->orderBy('id', 'DESC')->get()->getResultArray(),
                 'validation' => \Config\Services::validation(),
             ];
             $msg = [
@@ -60,31 +60,73 @@ class Pejabat extends BaseController
             return redirect()->to(base_url('/login'));
         }
         $request = \Config\Services::request();
-
+        $validation = \Config\Services::validation();
         $nama = $request->getVar('nama');
-        $jabatan = $request->getVar('jabatan');
         $urutan = $request->getVar('urutan');
-        $file = $request->getFile('file');
-        $input = $this->validate([
-            'file' => 'uploaded[file]|max_size[file,2048],'
-        ]);
-        if (!$input) { // Not valid
-            session()->setFlashdata('pesanGagal', 'Gagal Ukuran Gambar Maksimal 2MB');
-            return redirect()->to(base_url('/pejabat'));
-        } else {
-            $newName = $file->getRandomName();
-            $file->store('content/pejabat/', $newName);
-            $nama_foto = $newName;
-            $data = [
-                'nama' => $nama,
-                'jabatan' => $jabatan,
-                'urutan' => $urutan,
-                'gambar' => $nama_foto,
-            ];
-            $this->PejabatModel->insert($data);
+        $jabatan = $request->getVar('jabatan');
+        $file = $request->getfile('file');
+        if ($request->isAJAX()) {
+            $valid = $this->validate([
+                'urutan' => [
+                    'label' => 'Urutan',
+                    'rules' => 'required',
+                    'errors' => [
+                        'required' => '* {field} Tidak Boleh Kosong',
+                    ]
+                ],
+                'nama' => [
+                    'label' => 'Nama',
+                    'rules' => 'required',
+                    'errors' => [
+                        'required' => '* {field} Tidak Boleh Kosong',
+                    ]
+                ],
+                'jabatan' => [
+                    'label' => 'Jabatan',
+                    'rules' => 'required',
+                    'errors' => [
+                        'required' => '* {field} Tidak Boleh Kosong',
+                    ]
+                ],
+                'file' => [
+                    'label' => 'Gambar',
+                    'rules' => 'uploaded[file]|max_size[file,2048]|mime_in[file,image/png,image/jpeg]|is_image[file]',
+                    'errors' => [
+                        'uploaded' => '* {field} Tidak Boleh Kosong !',
+                        'max_size' => '{field} ukuran lebih dari 2 mb !',
+                        'mime_in' => 'Ekstensi tidak sesuai !',
+                        'is_image' => 'Ekstensi tidak sesuai !',
+                    ]
+                ],
+            ]);
+            if (!$valid) {
+                $msg = [
+                    'error' => [
+                        'urutan' => $validation->getError('urutan'),
+                        'nama' => $validation->getError('nama'),
+                        'jabatan' => $validation->getError('jabatan'),
+                        'file' => $validation->getError('file'),
+                    ],
+                ];
+                return $this->response->setJSON($msg);
+            } else {
+                $namagambar = $file->getRandomName();
+                $file->store('content/pejabat/', $namagambar);
+                $data = [
+                    'urutan' => $urutan,
+                    'nama' => $nama,
+                    'jabatan' => $jabatan,
+                    'gambar' => $namagambar,
+                ];
+                $this->PejabatModel->insert($data);
 
-            session()->setFlashdata('pesanInput', 'Berhasil Menambahkan Pejabat');
-            return redirect()->to(base_url('/pejabat'));
+                $msg = [
+                    'title' => 'Berhasil'
+                ];
+                echo json_encode($msg);
+            }
+        } else {
+            exit('Data Tidak Dapat diproses');
         }
     }
 
@@ -111,10 +153,10 @@ class Pejabat extends BaseController
             return redirect()->to(base_url('/pejabat'));
         } else {
             $input = $this->validate([
-                'file' => 'uploaded[file]|max_size[file,2048],'
+                'file' => 'uploaded[file]|max_size[file,2048]|mime_in[file,image/png,image/jpeg]|is_image[file],'
             ]);
             if (!$input) { // Not valid
-                session()->setFlashdata('pesanGagal', 'Gagal Ukuran Gambar Maksimal 2MB');
+                session()->setFlashdata('pesanGagal', 'Format gambar tidak sesuai');
                 return redirect()->to(base_url('/pejabat'));
             } else {
                 $file = $request->getFile('file');
@@ -134,7 +176,7 @@ class Pejabat extends BaseController
                 ];
                 $this->PejabatModel->update($id, $data);
 
-                session()->setFlashdata('pesanInput', 'Berhasil Mengubah Data Pejabat');
+                session()->setFlashdata('pesanInput', 'Berhasil diubah');
                 return redirect()->to(base_url('/pejabat'));
             }
         }
@@ -152,7 +194,7 @@ class Pejabat extends BaseController
         unlink($filesource);
         $this->PejabatModel->delete($id);
 
-        session()->setFlashdata('pesanHapus', 'Pejabat Berhasil Di Hapus !');
+        session()->setFlashdata('pesanHapus', 'Berhasil dihapus !');
         return redirect()->to(base_url('/pejabat'));
     }
 }

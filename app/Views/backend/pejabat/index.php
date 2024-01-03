@@ -21,7 +21,7 @@
                         <div class="col-12">
                             <?php if (session()->get('pesanInput')) { ?>
                                 <div class="alert alert-success alert-dismissible fade show flash" role="alert">
-                                    <strong>Berhasil !</strong> <?= session()->getFlashdata('pesanInput') ?>
+                                    <strong><?= session()->getFlashdata('pesanInput') ?></strong>
                                 </div>
                             <?php } ?>
                             <?php if (session()->get('pesanGagal')) { ?>
@@ -31,7 +31,7 @@
                             <?php } ?>
                             <?php if (session()->get('pesanHapus')) { ?>
                                 <div class="alert alert-success alert-dismissible fade show flash" role="alert">
-                                    <strong>Berhasil !</strong> <?= session()->getFlashdata('pesanHapus') ?>
+                                    <strong><?= session()->getFlashdata('pesanHapus') ?></strong>
                                 </div>
                             <?php } ?>
                             <div class="card">

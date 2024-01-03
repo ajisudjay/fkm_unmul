@@ -42,7 +42,7 @@ class Slideshow extends BaseController
         $request = \Config\Services::request();
         if ($request->isAJAX()) {
             $data = [
-                'slideshow' => $this->SlideshowModel->orderBy('id', 'DESC')->get()->getResultArray(),
+                'slideshow' => $this->SlideshowModel->orderBy('urutan', 'DESC')->get()->getResultArray(),
                 'validation' => \Config\Services::validation(),
             ];
             $msg = [
@@ -61,6 +61,7 @@ class Slideshow extends BaseController
         }
         $request = \Config\Services::request();
 
+        $urutan = $request->getVar('urutan');
         $nama = $request->getVar('nama');
         $file = $request->getFile('file');
         $input = $this->validate([
@@ -74,6 +75,7 @@ class Slideshow extends BaseController
             $file->store('content/slideshow/', $newName);
             $nama_foto = $newName;
             $data = [
+                'urutan' => $urutan,
                 'nama' => $nama,
                 'gambar' => $nama_foto,
             ];

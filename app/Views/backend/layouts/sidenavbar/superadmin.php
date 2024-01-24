@@ -46,7 +46,7 @@
                 </li>
                 <li class="<?= $title == 'Galeri' ? 'active' : '' ?>"><a href="<?= base_url('galeri'); ?>"><i class="feather icon-image"></i><span class="menu-item" data-i18n="Analytics">Galeri</span></a>
                 </li>
-                <li class="navigation-header"><span>E-OFFICE</span>
+                <!-- <li class="navigation-header"><span>E-OFFICE</span>
                 <li class=""><a href="#"><i class="feather icon-inbox"></i><span class="menu-title" data-i18n="Dashboard">Surat</span><span class="badge badge badge-warning badge-pill float-right mr-2">2</span></a>
                     <ul class="menu-content">
                         <li class="<?= $title == 'Surat Masuk' ? 'active' : '' ?>"><a href="<?= base_url('dosen'); ?>"><i class="feather icon-mail"></i><span class="menu-item" data-i18n="Analytics">Surat Masuk</span></a>
@@ -87,7 +87,7 @@
                         <li class="<?= $title == 'Tendik' ? 'active' : '' ?>"><a href="<?= base_url('tendik'); ?>"><i class="feather icon-heart"></i><span class="menu-item" data-i18n="Analytics">Luaran</span></a>
                         </li>
                     </ul>
-                </li>
+                </li> -->
                 <li class=" navigation-header"><span>AKUN</span>
                 </li>
                 <li class="<?= $title == 'Akun' ? 'active' : '' ?>"><a href="<?= base_url('user'); ?>"><i class="feather icon-users"></i><span class="menu-item" data-i18n="Analytics">Akun</span></a>

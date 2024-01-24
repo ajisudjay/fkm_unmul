@@ -55,6 +55,13 @@
                     </tr>
                 </thead>
                 <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td> <button type="button" class="btn-sm btn-secondary border-0" data-toggle="modal" disabled>
+                                <span class="feather icon-home text-default"></span>
+                            </button></td>
+                        <td>Beranda</td>
+                    </tr>
                     <?php foreach ($mainmenu as $item) : ?>
                         <tr>
                             <!-- ISI VIEW -->

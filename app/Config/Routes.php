@@ -40,6 +40,7 @@ $routes->get('/pages/(:any)', 'Pages::pages/$1');
 $routes->get('/prodi/(:any)', 'Pages::prodi/$1');
 $routes->get('/sdm/(:any)', 'Pages::sdm/$1');
 $routes->get('/informasi', 'Pages::informasi');
+$routes->get('/informasi-lengkap', 'Pages::informasi_lengkap');
 $routes->get('/informasi-detail/(:any)', 'Pages::informasi_detail/$1');
 // $routes->get('/laboratorium', 'Pages::laboratorium/$1');
 $routes->get('/laboratorium-detail/(:any)', 'Pages::laboratorium_detail/$1');

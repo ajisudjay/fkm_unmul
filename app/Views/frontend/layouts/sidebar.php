@@ -9,7 +9,7 @@
                     <li style="margin-bottom: -10px;margin-top: -10px;">
                         <a href="<?= base_url('informasi-detail/' . $item['slug']); ?>">
                             <div align="center">
-                                <img src="<?= base_url('/writable/uploads/content/berita/' . $item['banner'] . ''); ?>" width="150px">
+                                <img src="<?= base_url('/writable/uploads/content/berita/thumb/' . $item['banner'] . ''); ?>" width="150px">
                             </div>
                         </a>
                         <?php
@@ -20,30 +20,28 @@
                         }
 
                         ?>
-                        <p align="justify" style="font-size: small;"><?= $judul ?></p>
+                        <p align="justify" style="font-size: small;color:#360A5B;line-height:22px;"><?= $judul ?></p>
                     </li>
                 <?php endforeach ?>
             </ul>
-        </aside>
 
-        <!-- Kategori -->
-        <aside class="single_sidebar_widget post_category_widget">
+            <!-- Kategori -->
             <h4 class="widget_title">Kategori</h4>
             <ul class="list cat-list" style="margin-bottom: -10px;">
-                <li style="margin-bottom: -10px;margin-top: -10px;">
-                    <a href="#" class="d-flex">
+                <li style="margin-bottom: -10px;margin-top: -30px;">
+                    <a href="/informasi" class="d-flex">
                         <p>Berita</p>
                         <p>(37)</p>
                     </a>
                 </li>
                 <li style="margin-bottom: -10px;margin-top: -10px;">
-                    <a href="#" class="d-flex">
+                    <a href="/informasi" class="d-flex">
                         <p>Pengumuman</p>
                         <p>(10)</p>
                     </a>
                 </li>
                 <li style="margin-bottom: -10px;margin-top: -10px;">
-                    <a href="#" class="d-flex">
+                    <a href="/informasi" class="d-flex">
                         <p>Kegiatan</p>
                         <p>(03)</p>
                     </a>

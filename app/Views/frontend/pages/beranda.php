@@ -133,7 +133,7 @@
                                 <div class="single_department">
                                     <div class="department_thumb">
                                         <a href="<?= base_url('informasi-detail/' . $item_berita['slug']); ?>">
-                                            <img src="<?= base_url('writable/uploads/content/berita/' . $item_berita['banner']); ?>" height="300px">
+                                            <img src="<?= base_url('writable/uploads/content/berita/thumb/' . $item_berita['banner']); ?>" height="300px">
                                         </a>
                                     </div>
                                     <div class="department_content">
@@ -162,7 +162,7 @@
                 </div>
             </div>
             <!-- Lihat Semua Berita -->
-            <div align="right" class="mt-5">
+            <div align="center" class="mt-5">
                 <a href="<?= base_url('informasi'); ?>" class="boxed-btn3">Lihat Semua</a>
             </div>
         </div>

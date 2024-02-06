@@ -26,11 +26,11 @@
                     <div class="blog_left_sidebar">
                         <article class="blog_item">
                             <div class="row">
-                                <?php foreach ($berita20 as $item) : ?>
+                                <?php foreach ($beritalengkap as $item) : ?>
                                     <div class="col-lg-4">
                                         <div class="blog_item_img">
                                             <a class="d-inline-block" href="<?= base_url('informasi-detail/' . $item['slug']); ?>">
-                                                <img class="card-img rounded-0" src="<?= base_url('/writable/uploads/content/berita/thumb/' . $item['banner']); ?>" style="width: 100%;">
+                                                <img class="card-img rounded-0" src="<?= base_url('/writable/uploads/content/berita/' . $item['banner']); ?>" style="width: 100%;">
                                             </a>
                                         </div>
                                         <br>
@@ -57,9 +57,6 @@
                                 <?php endforeach ?>
                             </div>
                         </article>
-                        <center class="mt-5">
-                            <a href="<?= base_url('informasi-lengkap'); ?>" class="boxed-btn3">Lihat Lengkap</a>
-                        </center>
                     </div>
                 </div>
                 <!-- Akhir Berita -->

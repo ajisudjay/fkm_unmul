@@ -254,6 +254,33 @@ class Pages extends BaseController
         return view('frontend/pages/sdm', $data);
     }
 
+    public function informasi()
+    {
+        $data = [
+            'title' => 'Informasi',
+            'title_pages' => '',
+            'slug'  => 'Berita, Artikel dan Kegiatan',
+            'submenu' => $this->SubmenuModel->select('*')->select('submenu.id as submenu_id')->select('mainmenu.id as mainmenu_id')->select('mainmenu.urutan as urutan_mainmenu')->select('submenu.urutan as urutan_submenu')->join('mainmenu', 'submenu.id_mainmenu=mainmenu.id')->orderBy('urutan_mainmenu', 'ASC')->orderBy('urutan_submenu', 'ASC')->get()->getResultArray(),
+            'mainmenu' => $this->MainmenuModel->orderBy('urutan', 'ASC')->get()->getResultArray(),
+            'menu' => $this->MainmenuModel->orderBy('urutan', 'ASC')->findAll(5),
+            'menu2' => $this->MainmenuModel->orderBy('urutan', 'ASC')->findAll(7, 5),
+            'berita' => $this->BeritaModel->first(),
+            'berita20' => $this->BeritaModel->orderBy('tanggal', 'DESC')->findAll(20),
+            'populer' => $this->BeritaModel->orderBy('dilihat', 'DESC')->findAll(3),
+            'mitra' => $this->MitraModel->orderBy('nama', 'DESC')->get()->getResultArray(),
+            'slideshow' => $this->SlideshowModel->orderBy('nama', 'ASC')->get()->getResultArray(),
+            'pejabat' => $this->PejabatModel->orderBy('urutan', 'ASC')->get()->getResultArray(),
+            'konf' => $this->KonfigurasiModel->findAll(),
+            'konfigurasi' => $this->KonfigurasiModel->first(),
+            'link_library' => $this->LinkModel->orderBy('judul', 'ASC')->where('kategori', 'Library')->findAll(),
+            'link_partner' => $this->LinkModel->orderBy('judul', 'ASC')->where('kategori', 'Partner')->findAll(),
+            'link_jurnal' => $this->LinkModel->orderBy('judul', 'ASC')->where('kategori', 'Journal')->findAll(),
+            'terbaru' => $this->BeritaModel->orderBy('tanggal', 'DESC')->findAll(3),
+            'beritalengkap' => $this->BeritaModel->orderBy('tanggal', 'DESC')->findAll(),
+        ];
+        return view('frontend/pages/informasi', $data);
+    }
+
     public function informasi_detail($slug)
     {
         $data = [
@@ -269,10 +296,12 @@ class Pages extends BaseController
             'slideshow' => $this->SlideshowModel->orderBy('nama', 'ASC')->get()->getResultArray(),
             'pejabat' => $this->PejabatModel->orderBy('urutan', 'ASC')->get()->getResultArray(),
             'konf' => $this->KonfigurasiModel->findAll(),
+            'konfigurasi' => $this->KonfigurasiModel->first(),
             'prodi' => $this->SubmenuModel->orderBy('urutan', 'ASC')->where('id_mainmenu', '25')->findAll(),
             'link_library' => $this->LinkModel->orderBy('judul', 'ASC')->where('kategori', 'Library')->findAll(),
             'link_partner' => $this->LinkModel->orderBy('judul', 'ASC')->where('kategori', 'Partner')->findAll(),
             'link_jurnal' => $this->LinkModel->orderBy('judul', 'ASC')->where('kategori', 'Journal')->findAll(),
+            'terbaru' => $this->BeritaModel->orderBy('tanggal', 'DESC')->findAll(3),
         ];
         return view('frontend/pages/informasi-detail', $data);
     }

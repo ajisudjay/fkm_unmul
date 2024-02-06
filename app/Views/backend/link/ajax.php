@@ -22,19 +22,19 @@
                 },
                 success: function(response) {
                     if (response.error) {
-                        if (response.error.nama) {
-                            $('.nama').addClass('is-invalid');
-                            $('.errornama').html(response.error.nama);
+                        if (response.error.judul) {
+                            $('.judul').addClass('is-invalid');
+                            $('.errorjudul').html(response.error.judul);
                         } else {
-                            $('.nama').removeClass('is-invalid');
-                            $('.errornama').html('');
+                            $('.judul').removeClass('is-invalid');
+                            $('.errorjudul').html('');
                         }
-                        if (response.error.file) {
-                            $('.file').addClass('is-invalid');
-                            $('.errorfile').html(response.error.file);
+                        if (response.error.link) {
+                            $('.link').addClass('is-invalid');
+                            $('.errorlink').html(response.error.link);
                         } else {
-                            $('.file').removeClass('is-invalid');
-                            $('.errorfile').html('');
+                            $('.link').removeClass('is-invalid');
+                            $('.errorlink').html('');
                         }
                     } else {
                         Swal.fire({
@@ -42,6 +42,10 @@
                             title: 'Berhasil',
                             text: response.sukses,
                         });
+                        // $('body').removeClass('modal-open');
+                        // $('.modal-backdrop').remove();
+                        // $(".close_btn").trigger("click");
+                        // $("#result").html(response.data);
                         setTimeout(function() {
                             window.location.reload();
                         }, 1500);
@@ -72,11 +76,5 @@
             });
         });
 
-
-        window.setTimeout(function() {
-            $(".flashAjax").fadeTo(500, 0).slideUp(500, function() {
-                $(this).remove();
-            });
-        }, 5000);
     });
 </script>

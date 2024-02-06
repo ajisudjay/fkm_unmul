@@ -93,11 +93,11 @@
                     <div class="welcome_docmed_info">
                         <div class="slide-in-text">
                             <h4 style="color:360A5B;">Visi</h4>
-                            <p><?= $konfigurasi['visi'] ?></p>
+                            <p align="justify"><?= $konfigurasi['visi'] ?></p>
                         </div>
                         <div class="box-berita">
                             <h4 style="color:360A5B;">Misi</h4>
-                            <p><?= $konfigurasi['misi'] ?></p>
+                            <p align="justify"><?= $konfigurasi['misi'] ?></p>
                         </div>
                     </div>
                 </div>
@@ -132,7 +132,9 @@
                             <div class="box-berita">
                                 <div class="single_department">
                                     <div class="department_thumb">
-                                        <img src="<?= base_url('writable/uploads/content/berita/' . $item_berita['banner']); ?>" height="300px">
+                                        <a href="<?= base_url('informasi-detail/' . $item_berita['slug']); ?>">
+                                            <img src="<?= base_url('writable/uploads/content/berita/' . $item_berita['banner']); ?>" height="300px">
+                                        </a>
                                     </div>
                                     <div class="department_content">
                                         <!-- limit Judul max 6 kata -->

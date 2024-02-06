@@ -34,8 +34,8 @@
                                     <div class="card-block">
                                         <br>
                                         <h4 class="mb-0">Sub Menu</h4>
-                                        <form action="<?= base_url('submenu/edit'); ?>" method="post" enctype="multipart/form-data" class="edit">
-                                            <?php csrf_field() ?>
+                                        <form action="<?= base_url('submenu/edit'); ?>" method="post">
+                                            <?= csrf_field() ?>
                                             <div class="modal-body">
                                                 <div class="row">
                                                     <div class="col-lg-3">
@@ -47,29 +47,23 @@
                                                                 <option value="<?= $item_mainmenu['id'] ?>"><?= $item_mainmenu['mainmenu'] ?></option>
                                                             <?php endforeach ?>
                                                         </select>
-                                                        <div class="invalid-feedback errorMainmenu"></div>
+                                                        <div class="invalid-feedback errormainmenu"></div>
                                                         <br>
                                                     </div>
                                                     <div class="col-lg-3">
                                                         <label class="text-primary">Urutan</label>
-                                                        <input type="text" name="urutan" class="form-control urutan" value="<?= $submenu['urutan_submenu'] ?>" required>
-                                                        <div class="invalid-feedback errorUrutan"></div>
+                                                        <input type="number" min="1" name="urutan" class="form-control urutan" value="<?= $submenu['urutan_submenu'] ?>" required>
+                                                        <div class="invalid-feedback errorurutan"></div>
                                                         <br>
                                                     </div>
                                                     <div class="col-lg-6">
                                                         <label class="text-primary">Sub Menu</label>
                                                         <input type="text" name="submenu" class="form-control submenu" value="<?= $submenu['submenu'] ?>" required>
-                                                        <div class="invalid-feedback errorSubmenu"></div>
+                                                        <div class="invalid-feedback errorsubmenu"></div>
                                                     </div>
                                                     <div class="col-lg-12">
                                                         <label class="text-primary">Content</label>
                                                         <textarea name="isi" id="isi-edit" rows="10" cols="80"><?= $submenu['content'] ?></textarea>
-                                                        <div class="invalid-feedback errorIsi"></div>
-                                                    </div>
-                                                    <div class="col-lg-12">
-                                                        <label class="text-primary">Tag</label>
-                                                        <input type="text" name="tag" class="form-control tag" value="<?= $submenu['tag'] ?>" required>
-                                                        <div class="invalid-feedback errortag"></div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -77,12 +71,12 @@
                                                 <a href="/submenu">
                                                     <button type="button" class="btn btn-danger">Batal</button>
                                                 </a>
-                                                <button type="submit" class="btn btn-primary btnEdit">Simpan</button>
+                                                <button type="submit" class="btn btn-primary btnSimpan">Simpan</button>
                                             </div>
                                         </form>
                                     </div>
                                 </div>
-                                <?= $this->include('backend/layouts/js_view') ?>
+                                <?= $this->include('backend/layouts/js_edit') ?>
                             </div>
                         </div>
                     </div>

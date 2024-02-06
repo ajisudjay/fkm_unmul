@@ -1,6 +1,6 @@
 <div class="container-fluid">
     <div class="card-header">
-        <h4 class="mb-0">Slideshow</h4>
+        <h4 class="mb-0"><?= $title ?></h4>
         <!-- button tambah modal -->
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tambahmodal">
             <span class="feather icon-plus text-light"></span>
@@ -12,34 +12,38 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Tambah</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <button type="button" class="close close_btn" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="<?= base_url('slideshow/tambah'); ?>" method="post" enctype="multipart/form-data" class="tambah">
-                        <?php csrf_field() ?>
+                    <form action="<?= base_url('link/tambah'); ?>" method="post" class="tambah">
+                        <?= csrf_field() ?>
                         <div class="modal-body">
                             <div class="row">
-                                <div class="col-lg-3">
-                                    <label class="text-primary">Urutan</label>
-                                    <input type="text" name="urutan" class="form-control urutan" placeholder="Urutan" required>
-                                    <div class="invalid-feedback errorurutan"></div>
+                                <div class="col-lg-12">
+                                    <label class="text-primary">Kategori</label>
+                                    <select name="kategori" class="form-control kategori">
+                                        <option value="Link Partner">Link Partner</option>
+                                        <option value="eLib / eJournal">eLib & eJournal</option>
+                                    </select>
+                                    <div class="invalid-feedback errorkategori"></div>
                                     <br>
                                 </div>
-                                <div class="col-lg-9">
-                                    <label class="text-primary">Nama</label>
-                                    <input type="text" name="nama" class="form-control nama" placeholder="Nama" required>
-                                    <div class="invalid-feedback errorNama"></div>
+                                <div class="col-lg-12">
+                                    <label class="text-primary">Judul</label>
+                                    <input type="text" name="judul" class="form-control judul" placeholder="Judul">
+                                    <div class="invalid-feedback errorjudul"></div>
                                     <br>
                                 </div>
                                 <br>
                                 <div class="col-lg-12">
-                                    <label class="text-primary">Gambar <span style="color: red;">*max size 2mb</span></label>
-                                    <input type="file" name="file" class="form-control gambar" accept="image/*" required>
-                                    <div class="invalid-feedback errorGambar"></div>
+                                    <label class="text-primary">Link</label>
+                                    <input type="text" name="link" class="form-control link" placeholder="Link">
+                                    <div class="invalid-feedback errorlink"></div>
                                     <br>
                                 </div>
+                                <hr>
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -51,30 +55,33 @@
             </div>
         </div>
     </div>
-
     <div class="card-block">
+
         <div class="dt-responsive table-responsive">
             <table id="simpletable" class="table table-striped table-hover-animation nowrap">
                 <thead>
                     <tr>
                         <th width="5%">No</th>
                         <th width="5%" style="text-align: center;">AKSI</th>
-                        <th width="35%">Nama</th>
-                        <th width="55%" style="text-align: center;">Gambar</th>
+                        <th width="10%">Kategori</th>
+                        <th width="30%">Judul</th>
+                        <th width="50%">Link</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($slideshow as $item) : ?>
+                    <?php $no = 1 ?>
+                    <?php foreach ($link as $item) : ?>
                         <tr>
                             <!-- ISI VIEW -->
-                            <td><?= $item['urutan'] ?></td>
+                            <td><?= $no++ ?></td>
                             <td style="text-align: center;">
                                 <!-- button hapus modal-->
-                                <a href="<?= base_url('slideshow/hapus/' . $item['id']); ?>" class="hapus">
+                                <a href="<?= base_url('link/hapus/' . $item['id']); ?>" class="hapus">
                                     <span class="btn-sm btn-danger feather icon-trash-2 text-default"></span>
                                 </a>
-                            <td><?= $item['nama'] ?></td>
-                            <td style="text-align: center;"><img src="<?= base_url('writable/uploads/content/slideshow/' . $item['gambar'] . ''); ?>" width="100%"></td>
+                            <td><?= $item['kategori'] ?></td>
+                            <td style="min-width: 200px;max-width: 250px; white-space: normal;"><?= $item['judul'] ?></a></td>
+                            <td style="min-width: 150px;max-width: 250px; white-space: normal;"><a href="<?= $item['link'] ?>" target="_blank"><?= $item['link'] ?></a></td>
                         </tr>
                     <?php endforeach ?>
                 </tbody>
@@ -82,7 +89,5 @@
         </div>
     </div>
 </div>
-
-
-<?= $this->include('backend/slideshow/ajax') ?>
+<?= $this->include('backend/link/ajax') ?>
 <?= $this->include('backend/layouts/js_view') ?>

@@ -32,38 +32,32 @@
                                             <form class="login-form" action="<?= base_url('auth/index'); ?>" method="post">
                                                 <?= csrf_field() ?>
                                                 <fieldset class="form-label-group form-group position-relative has-icon-left">
-                                                    <input type="text" name="username" class="form-control username" placeholder="Username" required>
+                                                    <input type="text" name="username" class="form-control username" id="user-name" placeholder="Username" required>
                                                     <div class="invalid-feedback errorUsername"></div>
                                                     <div class="form-control-position">
                                                         <i class="feather icon-user"></i>
                                                     </div>
-                                                    <label>Username</label>
                                                 </fieldset>
 
                                                 <fieldset class="form-label-group position-relative has-icon-left">
-                                                    <input type="password" name="password" class="form-control password" placeholder="Password" required>
+                                                    <input type="password" name="password" class="form-control password" id="user-password" placeholder="Password" required>
                                                     <div class="invalid-feedback errorPassword"></div>
                                                     <div class="form-control-position">
                                                         <i class="feather icon-lock"></i>
                                                     </div>
-                                                    <label>Password</label>
                                                 </fieldset>
-
+                                                <div class="capcode" style="margin-left: 100px;margin-right: 100px;margin-top: 10px;margin-bottom: 10px;">
+                                                    <?= $captcha ?>
+                                                    <input type="text" name="captcha" value=" <?= $captcha ?>" hidden>
+                                                </div>
                                                 <fieldset class="form-label-group position-relative has-icon-left">
-                                                    <div class="capcode">
-                                                        <?= $captcha ?>
-                                                        <input type="text" name="captcha" value=" <?= $captcha ?>" hidden>
-                                                    </div>
-                                                </fieldset>
-                                                <fieldset class="form-label-group position-relative has-icon-left">
-                                                    <input type="text" name="captcha2" class="form-control captcha2" placeholder="Kode Keamanan" required>
+                                                    <input type="text" name="captcha2" class="form-control captcha2" id="user-password" placeholder="Kode Keamanan" required>
                                                     <div class="form-control-position">
                                                         <i class="feather icon-lock"></i>
                                                     </div>
-                                                    <label>Kode Keamanan</label>
                                                     <div class="font-weight-bold text-danger errorgagal_login"></div>
-
                                                 </fieldset>
+                                                <br>
                                                 <p align="center">
                                                     <button type="submit" class="btn btn-primary btn-inline btnSubmit">Login</button>
                                                 </p>
@@ -71,7 +65,7 @@
                                         </div>
                                         <div class="login-footer">
                                             <div class="divider">
-                                                <div class="divider-text">FKM UNMUL</div>
+                                                <div class="divider-text"><a href="/">FKM UNMUL</a></div>
                                             </div>
                                         </div>
                                     </div>

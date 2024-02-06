@@ -3,24 +3,25 @@
         <div class="header-top_area">
             <div class="container">
                 <div class="row">
-                    <div class="col-xl-4 col-md-6">
+                    <div class="col-xl-5 col-md-6">
                         <div class="social_media_links">
-                            <a href="#">
+                            <a href="http://instagram.com/<?= $konfigurasi['ig'] ?>" target="_blank">
                                 <i class="fa fa-instagram"></i>
                             </a>
-                            <a href="#">
+                            &nbsp;|&nbsp;
+                            <a href="http://youtube.com/<?= $konfigurasi['yt'] ?>" target="_blank">
                                 <i class="fa fa-youtube-play"></i>
                             </a>
-                            <a href="#">
-                                <i class="fa fa-envelope"></i>
-                                fkm.unmul.ac.id
-                            </a>
-                            <a href="#"> <i class="fa fa-phone"></i>
-                                (0541) 7031343
-                            </a>
+                            &nbsp;|&nbsp;
+                            <i class="fa fa-envelope"></i>
+                            <?= $konfigurasi['email'] ?>
+                            &nbsp;|&nbsp;
+                            <i class="fa fa-phone"></i>
+                            <?= $konfigurasi['telepon'] ?>
+
                         </div>
                     </div>
-                    <div class="col-xl-8 col-md-6 ">
+                    <div class="col-xl-7 col-md-6 ">
                         <div class="social_media_links" align="right">
                             <p class="small">The Leading Center of Excellence of Public Health Based On Tropical Studies</p>
                         </div>

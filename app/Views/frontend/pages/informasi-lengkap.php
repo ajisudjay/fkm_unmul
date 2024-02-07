@@ -29,8 +29,11 @@
                                 <?php foreach ($beritalengkap as $item) : ?>
                                     <div class="col-lg-4">
                                         <div class="blog_item_img">
+                                            <?php
+
+                                            ?>
                                             <a class="d-inline-block" href="<?= base_url('informasi-detail/' . $item['slug']); ?>">
-                                                <img class="card-img rounded-0" src="<?= base_url('/writable/uploads/content/berita/' . $item['banner']); ?>" style="width: 100%;">
+                                                <img class="card-img rounded-0" src="<?= base_url('/writable/uploads/content/berita/thumb/' . $item['banner']); ?>" style="width: 100%;">
                                             </a>
                                         </div>
                                         <br>

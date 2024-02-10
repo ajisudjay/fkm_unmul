@@ -231,8 +231,9 @@
                                             <img src="<?= base_url('writable/uploads/content/pejabat/' . $item_pejabat['gambar']); ?>">
                                         </div>
                                         <div class="experts_name text-center">
+                                            <h5><?= $item_pejabat['jabatan'] ?></h5>
+                                            <hr>
                                             <h5><?= $item_pejabat['nama'] ?></h5>
-                                            <span><?= $item_pejabat['jabatan'] ?></span>
                                         </div>
                                     </div>
                                 </div>

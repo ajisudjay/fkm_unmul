@@ -55,7 +55,7 @@
                          </h4>
                          <ul>
                              <?php foreach ($link_partner as $lp) : ?>
-                                 <li><a href="<?= base_url($lp['link']); ?>"><?= $lp['judul'] ?></a></li>
+                                 <li><a href="<?= $lp['link']; ?>"><?= $lp['judul'] ?></a></li>
                              <?php endforeach ?>
                          </ul>
                      </div>
@@ -68,7 +68,7 @@
                          </h4>
                          <ul>
                              <?php foreach ($link_jurnal as $lj) : ?>
-                                 <li><a href="<?= base_url($lj['link']); ?>"><?= $lj['judul'] ?></a></li>
+                                 <li><a href="<?= $lj['link']; ?>"><?= $lj['judul'] ?></a></li>
                              <?php endforeach ?>
                          </ul>
                      </div>
@@ -81,7 +81,7 @@
                          </h4>
                          <ul>
                              <?php foreach ($link_library as $lb) : ?>
-                                 <li><a href="<?= base_url($lb['link']); ?>"><?= $lb['judul'] ?></a></li>
+                                 <li><a href="<?= $lb['link']; ?>"><?= $lb['judul'] ?></a></li>
                              <?php endforeach ?>
                          </ul>
                      </div>

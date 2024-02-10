@@ -27,18 +27,7 @@
                         <article class="blog_item">
                             <div class="row">
                                 <?php foreach ($beritalengkap as $item) : ?>
-                                    <div class="col-lg-4">
-                                        <div class="blog_item_img">
-                                            <?php
-
-                                            ?>
-                                            <a class="d-inline-block" href="<?= base_url('informasi-detail/' . $item['slug']); ?>">
-                                                <img class="card-img rounded-0" src="<?= base_url('/writable/uploads/content/berita/thumb/' . $item['banner']); ?>" style="width: 100%;">
-                                            </a>
-                                        </div>
-                                        <br>
-                                    </div>
-                                    <div class="col-lg-8">
+                                    <div class="col-lg-12">
                                         <div class="blog_details">
                                             <a class="d-inline-block" href="<?= base_url('informasi-detail/' . $item['slug']); ?>">
                                                 <!-- Maksimal tampil 10 kata -->

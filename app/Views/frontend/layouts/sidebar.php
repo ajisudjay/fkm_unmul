@@ -29,21 +29,18 @@
             <h4 class="widget_title">Kategori</h4>
             <ul class="list cat-list" style="margin-bottom: -10px;">
                 <li style="margin-bottom: -10px;margin-top: -30px;">
-                    <a href="/informasi" class="d-flex">
+                    <a href="<?= base_url('informasi-kategori/Berita'); ?>" class="d-flex">
                         <p>Berita</p>
-                        <p>(37)</p>
                     </a>
                 </li>
                 <li style="margin-bottom: -10px;margin-top: -10px;">
-                    <a href="/informasi" class="d-flex">
+                    <a href="<?= base_url('informasi-kategori/Pengumuman'); ?>" class="d-flex">
                         <p>Pengumuman</p>
-                        <p>(10)</p>
                     </a>
                 </li>
                 <li style="margin-bottom: -10px;margin-top: -10px;">
-                    <a href="/informasi" class="d-flex">
+                    <a href="<?= base_url('informasi-kategori/Kegiatan'); ?>" class="d-flex">
                         <p>Kegiatan</p>
-                        <p>(03)</p>
                     </a>
                 </li>
             </ul>

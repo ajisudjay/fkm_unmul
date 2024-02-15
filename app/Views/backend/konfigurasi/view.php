@@ -42,7 +42,7 @@
                     </div>
                     <div class="col-lg-12">
                         <label> Misi :</label>
-                        <textarea name="misi" class="form-control misi" rows="30"><?= $item['misi'] ?></textarea>
+                        <textarea name="misi" class="form-control misi" rows="10"><?= $item['misi'] ?></textarea>
                         <div class="invalid-feedback errorMisi"></div>
                         <br>
                     </div>
@@ -91,3 +91,6 @@
 
 <?= $this->include('backend/konfigurasi/ajax') ?>
 <?= $this->include('backend/layouts/js_view') ?>
+<script>
+    CKEDITOR.replace('isi-edit');
+</script>

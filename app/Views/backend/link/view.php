@@ -24,9 +24,11 @@
                                 <div class="col-lg-12">
                                     <label class="text-primary">Kategori</label>
                                     <select name="kategori" class="form-control kategori">
-                                        <option value="Link Partner">Link Partner</option>
-                                        <option value="eLib / eJournal">eLib & eJournal</option>
+                                        <option value="Partner">Partner</option>
+                                        <option value="Journal">Journal</option>
+                                        <option value="Library">Library</option>
                                     </select>
+
                                     <div class="invalid-feedback errorkategori"></div>
                                     <br>
                                 </div>

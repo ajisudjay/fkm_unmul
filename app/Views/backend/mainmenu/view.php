@@ -50,8 +50,9 @@
                 <thead>
                     <tr>
                         <th width="3%">No</th>
-                        <th width="3%" style="text-align: center;">AKSI</th>
-                        <th width="90%">MAIN MENU</th>
+                        <th width="10%" style="text-align: center;">AKSI</th>
+                        <th width="87%">MAIN MENU</th>
+
                     </tr>
                 </thead>
                 <tbody>

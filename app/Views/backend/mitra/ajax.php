@@ -22,6 +22,13 @@
                 },
                 success: function(response) {
                     if (response.error) {
+                        if (response.error.urutan) {
+                            $('.urutan').addClass('is-invalid');
+                            $('.errorurutan').html(response.error.urutan);
+                        } else {
+                            $('.urutan').removeClass('is-invalid');
+                            $('.errorurutan').html('');
+                        }
                         if (response.error.nama) {
                             $('.nama').addClass('is-invalid');
                             $('.errorNama').html(response.error.nama);
@@ -39,13 +46,61 @@
                     } else {
                         Swal.fire({
                             icon: 'success',
-                            title: 'berhasil',
+                            title: 'Berhasil',
                             text: response.sukses,
                         });
-                        // $('body').removeClass('modal-open');
-                        // $('.modal-backdrop').remove();
-                        // $(".close_btn").trigger("click");
-                        // $("#result").html(response.data);
+                        setTimeout(function() {
+                            window.location.reload();
+                        }, 1500);
+                    }
+                },
+                error: function(xhr, ajaxOptions, thrownError) {
+                    alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
+                }
+            })
+        });
+
+        //  function tambah
+        $('.edit').submit(function(e) {
+            e.preventDefault();
+            var formData = new FormData(this);
+            $.ajax({
+                type: "post",
+                url: $(this).attr('action'),
+                data: formData,
+                dataType: "json",
+                contentType: false,
+                processData: false,
+                beforeSend: function() {
+                    $('.btnSimpan').attr('disable', 'disabled');
+                    $('.btnSimpan').html('<i class="fa fa-spin fa-spinner"></i>');
+                },
+                complete: function() {
+                    $('.btnSimpan').removeAttr('disable', 'disabled');
+                    $('.btnSimpan').html('Simpan');
+                },
+                success: function(response) {
+                    if (response.error) {
+                        if (response.error.urutan) {
+                            $('.urutan').addClass('is-invalid');
+                            $('.errorurutan').html(response.error.urutan);
+                        } else {
+                            $('.urutan').removeClass('is-invalid');
+                            $('.errorurutan').html('');
+                        }
+                        if (response.error.nama) {
+                            $('.nama').addClass('is-invalid');
+                            $('.errorNama').html(response.error.nama);
+                        } else {
+                            $('.nama').removeClass('is-invalid');
+                            $('.errorNama').html('');
+                        }
+                    } else {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Berhasil',
+                            text: response.sukses,
+                        });
                         setTimeout(function() {
                             window.location.reload();
                         }, 1500);

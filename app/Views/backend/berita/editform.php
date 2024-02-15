@@ -22,12 +22,12 @@
                             <div class="col-12">
                                 <?php if (session()->get('pesanInput')) { ?>
                                     <div class="alert alert-success alert-dismissible fade show flash" role="alert">
-                                        <strong>Berhasil !</strong> <?= session()->getFlashdata('pesanInput') ?>
+                                        <strong><?= session()->getFlashdata('pesanInput') ?></strong>
                                     </div>
                                 <?php } ?>
                                 <?php if (session()->get('pesanHapus')) { ?>
                                     <div class="alert alert-success alert-dismissible fade show flash" role="alert">
-                                        <strong>Berhasil !</strong> <?= session()->getFlashdata('pesanHapus') ?>
+                                        <strong><?= session()->getFlashdata('pesanHapus') ?></strong>
                                     </div>
                                 <?php } ?>
                                 <div class="container-fluid">
@@ -35,9 +35,25 @@
                                         <br>
                                         <h4 class="mb-0">Berita</h4>
                                         <form action="<?= base_url('berita/edit'); ?>" enctype="multipart/form-data" method="post" class="edit">
-                                            <?php csrf_field() ?>
+                                            <?= csrf_field() ?>
                                             <div class="modal-body">
                                                 <div class="row">
+                                                    <div class="col-lg-12" align="center">
+                                                        <img src="<?= base_url('writable/uploads/content/berita/' . $berita['banner']); ?>" height="200px">
+                                                        <br>
+                                                        <br>
+                                                    </div>
+                                                    <div class="col-lg-3">
+                                                        <label class="text-primary">Banner <span style="color: red;">*max size 2mb</span></label>
+                                                        <input type="file" name="file" class="form-control gambar" accept="image/*">
+                                                        <div class="invalid-feedback errorGambar"></div>
+                                                    </div>
+                                                    <div class="col-lg-3">
+                                                        <label class="text-primary">Tanggal</label>
+                                                        <input type="date" name="tanggal" class="form-control tanggal" value="<?= $berita['tanggal'] ?>" required>
+                                                        <div class="invalid-feedback errorTanggal"></div>
+                                                        <br>
+                                                    </div>
                                                     <div class="col-lg-12">
                                                         <label class="text-primary">Judul</label>
                                                         <input type="text" name="id" value="<?= $berita['id'] ?>" hidden>
@@ -46,27 +62,13 @@
                                                         <br>
                                                     </div>
                                                     <br>
-                                                    <div class="col-lg-3">
-                                                        <img src="<?= base_url('writable/uploads/content/berita/' . $berita['banner']); ?>" alt="avatar" height="100" width="100">
-                                                    </div>
-                                                    <div class="col-lg-3">
-                                                        <label class="text-primary">Banner</label>
-                                                        <input type="file" name="file" class="form-control gambar" accept="image/*">
-                                                        <div class="invalid-feedback errorGambar"></div>
-                                                    </div>
-                                                    <div class="col-lg-3">
-                                                        <label class="text-primary">Tanggal</label>
-                                                        <input type="date" name="tanggal" class="form-control tanggal" value="<?= $berita['tanggal'] ?>" required>
-                                                        <div class="invalid-feedback errorTanggal"></div>
-                                                    </div>
-                                                    <div class="col-lg-3">
+                                                    <!-- <div class="col-lg-3">
                                                         <label class="text-primary">Tag</label>
                                                         <input type="text" name="tag" class="form-control tag" value="<?= $berita['tag'] ?>" required>
                                                         <div class="invalid-feedback errorTag"></div>
                                                         <br>
-                                                    </div>
+                                                    </div> -->
                                                     <div class="col-lg-12">
-                                                        <br>
                                                         <label class="text-primary">Content</label>
                                                         <textarea name="isi" id="isi-edit"><?= $berita['isi'] ?></textarea>
                                                         <div class="invalid-feedback errorIsi"></div>
@@ -96,7 +98,7 @@
     <!-- END: Content-->
     <?= $this->include('backend/berita/ajax') ?>
     <?= $this->include('backend/layouts/js') ?>
-
+    <?= $this->include('backend/layouts/js_view') ?>
 </body>
 <!-- END: Body-->
 <script>

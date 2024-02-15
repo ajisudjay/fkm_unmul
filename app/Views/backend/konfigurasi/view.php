@@ -11,17 +11,22 @@
                 <?php csrf_field() ?>
                 <div class="row">
                     <div class="col-lg-4">
-                        <img src="<?= base_url('writable/uploads/content/konfigurasi/' . $item['foto']); ?>" width="100%">
+                        <img src="<?= base_url('writable/uploads/content/konfigurasi/' . $item['foto']); ?>" width="50%">
                     </div>
-                    <div class="col-lg-4">
+                    <div class="col-lg-8">
+                        &nbsp;
+                    </div>
+                    <div class="col-lg-3">
+                        <br>
                         <input type="text" name="id" value="<?= $item['id'] ?>" hidden>
                         <input type="file" name="foto" accept="image/*" class="form-control foto">
                         <div class="invalid-feedback errorfoto"></div>
-                        <br>
-                        <br>
                     </div>
-                    <div class="col-lg-4">
+                    <div class="col-lg-3">
+                        <br>
                         <button type="submit" class="btn btn-primary btnEditfoto">Perbarui</button>
+                        <br>
+                        <br>
                     </div>
                 </div>
             </form>
@@ -37,7 +42,7 @@
                     </div>
                     <div class="col-lg-12">
                         <label> Misi :</label>
-                        <textarea name="misi" class="form-control misi" rows="30"><?= $item['misi'] ?></textarea>
+                        <textarea name="misi" class="form-control misi" rows="10"><?= $item['misi'] ?></textarea>
                         <div class="invalid-feedback errorMisi"></div>
                         <br>
                     </div>
@@ -86,3 +91,6 @@
 
 <?= $this->include('backend/konfigurasi/ajax') ?>
 <?= $this->include('backend/layouts/js_view') ?>
+<script>
+    CKEDITOR.replace('isi-edit');
+</script>

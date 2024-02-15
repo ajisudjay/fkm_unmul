@@ -50,11 +50,19 @@
                 <thead>
                     <tr>
                         <th width="3%">No</th>
-                        <th width="3%" style="text-align: center;">AKSI</th>
-                        <th width="90%">MAIN MENU</th>
+                        <th width="10%" style="text-align: center;">AKSI</th>
+                        <th width="87%">MAIN MENU</th>
+
                     </tr>
                 </thead>
                 <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td> <button type="button" class="btn-sm btn-secondary border-0" data-toggle="modal" disabled>
+                                <span class="feather icon-home text-default"></span>
+                            </button></td>
+                        <td>Beranda</td>
+                    </tr>
                     <?php foreach ($mainmenu as $item) : ?>
                         <tr>
                             <!-- ISI VIEW -->

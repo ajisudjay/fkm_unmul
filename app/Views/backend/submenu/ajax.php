@@ -1,23 +1,18 @@
 <!-- SCRIPT AJAX -->
 <script>
+    CKEDITOR.replace('isi');
     $(document).ready(function() {
         //  function tambah
-        $('.tambah').submit(function() {
-            var judul = $('#judul').val();
-            var tanggal = $('#tanggal').val();
-            var tag = $('#tag').val();
-            var isi = $('#isi').val();
-            var files = $('#file')[0].files;
-            var fd = new FormData();
-
-            fd.append('file', files[0]);
-            fd.append('judul', judul);
-            fd.append('tanggal', tanggal);
-            fd.append('tag', tag);
-            fd.append('isi', isi);
+        $('.tambah').submit(function(e) {
+            e.preventDefault();
+            var form = $(this)[0];
+            var data = new FormData(form);
+            var formData = new FormData(this);
+            formData.append('isi', CKEDITOR.instances.isi.getData());
             $.ajax({
                 type: "post",
-                data: fd,
+                url: $(this).attr('action'),
+                data: formData,
                 dataType: "json",
                 contentType: false,
                 processData: false,
@@ -31,52 +26,44 @@
                 },
                 success: function(response) {
                     if (response.error) {
-                        if (response.error.judul) {
-                            $('.judul').addClass('is-invalid');
-                            $('.errorJudul').html(response.error.judul);
+                        if (response.error.urutan) {
+                            $('.urutan').addClass('is-invalid');
+                            $('.errorurutan').html(response.error.urutan);
                         } else {
-                            $('.judul').removeClass('is-invalid');
-                            $('.errorJudul').html('');
+                            $('.urutan').removeClass('is-invalid');
+                            $('.errorurutan').html('');
                         }
-                        if (response.error.tanggal) {
-                            $('.tanggal').addClass('is-invalid');
-                            $('.errorTanggal').html(response.error.tanggal);
+                        if (response.error.mainmenu) {
+                            $('.mainmenu').addClass('is-invalid');
+                            $('.errormainmenu').html(response.error.mainmenu);
                         } else {
-                            $('.tanggal').removeClass('is-invalid');
-                            $('.errorTanggal').html('');
+                            $('.mainmenu').removeClass('is-invalid');
+                            $('.errormainmenu').html('');
                         }
-                        if (response.error.file) {
-                            $('.file').addClass('is-invalid');
-                            $('.errorFile').html(response.error.file);
+                        if (response.error.submenu) {
+                            $('.submenu').addClass('is-invalid');
+                            $('.errorsubmenu').html(response.error.submenu);
                         } else {
-                            $('.file').removeClass('is-invalid');
-                            $('.errorFile').html('');
-                        }
-                        if (response.error.tag) {
-                            $('.tag').addClass('is-invalid');
-                            $('.errorTag').html(response.error.tag);
-                        } else {
-                            $('.tag').removeClass('is-invalid');
-                            $('.errorTag').html('');
-                        }
-                        if (response.error.isi) {
-                            $('.isi').addClass('is-invalid');
-                            $('.errorIsi').html(response.error.isi);
-                        } else {
-                            $('.isi').removeClass('is-invalid');
-                            $('.errorIsi').html('');
+                            $('.submenu').removeClass('is-invalid');
+                            $('.errorsubmenu').html('');
                         }
                     } else {
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'berhasil',
-                            text: response.sukses,
-                        });
+                        if (response.status == 'gagal') {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Gagal',
+                                text: response.sukses,
+                            })
+                        } else if (response.status == 'berhasil') {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Berhasil',
+                                text: response.sukses,
+                            });
+                        }
                         $('body').removeClass('modal-open');
-                        //modal-open class is added on body so it has to be removed
                         $('.modal-backdrop').remove();
-                        //need to remove div with modal-backdrop class
-                        $("#result").html(response.data);
+                        $('#result').html(response.data);
                     }
                 },
                 error: function(xhr, ajaxOptions, thrownError) {
@@ -85,82 +72,61 @@
             })
         });
 
-        //  function edit
-        $('.edit').submit(function() {
-            var judul = $('#judul').val();
-            var tanggal = $('#tanggal').val();
-            var tag = $('#tag').val();
-            var isi = $('#isi').val();
-            var files = $('#file')[0].files;
-            var fd = new FormData();
-
-            fd.append('file', files[0]);
-            fd.append('judul', judul);
-            fd.append('tanggal', tanggal);
-            fd.append('tag', tag);
-            fd.append('isi', isi);
+        $('.edit').submit(function(e) {
+            e.preventDefault();
             $.ajax({
                 type: "post",
-                data: fd,
+                url: $(this).attr('action'),
+                data: $(this).serialize(),
                 dataType: "json",
-                contentType: false,
-                processData: false,
                 beforeSend: function() {
-                    $('.btnEdit').attr('disable', 'disabled');
-                    $('.btnEdit').html('<i class="fa fa-spin fa-spinner"></i>');
+                    $('.btnSimpan').attr('disable', 'disabled');
+                    $('.btnSimpan').html('<i class="fa fa-spin fa-spinner"></i>');
                 },
                 complete: function() {
-                    $('.btnEdit').removeAttr('disable', 'disabled');
-                    $('.btnEdit').html('Simpan');
+                    $('.btnSimpan').removeAttr('disable', 'disabled');
+                    $('.btnSimpan').html('Simpan');
                 },
                 success: function(response) {
                     if (response.error) {
-                        if (response.error.judul) {
-                            $('.judul').addClass('is-invalid');
-                            $('.errorJudul').html(response.error.judul);
+                        if (response.error.urutan) {
+                            $('.urutan').addClass('is-invalid');
+                            $('.errorurutan').html(response.error.urutan);
                         } else {
-                            $('.judul').removeClass('is-invalid');
-                            $('.errorJudul').html('');
+                            $('.urutan').removeClass('is-invalid');
+                            $('.errorurutan').html('');
                         }
-                        if (response.error.tanggal) {
-                            $('.tanggal').addClass('is-invalid');
-                            $('.errorTanggal').html(response.error.tanggal);
+                        if (response.error.mainmenu) {
+                            $('.mainmenu').addClass('is-invalid');
+                            $('.errormainmenu').html(response.error.mainmenu);
                         } else {
-                            $('.tanggal').removeClass('is-invalid');
-                            $('.errorTanggal').html('');
+                            $('.mainmenu').removeClass('is-invalid');
+                            $('.errormainmenu').html('');
                         }
-                        if (response.error.file) {
-                            $('.file').addClass('is-invalid');
-                            $('.errorFile').html(response.error.file);
+                        if (response.error.submenu) {
+                            $('.submenu').addClass('is-invalid');
+                            $('.errorsubmenu').html(response.error.submenu);
                         } else {
-                            $('.file').removeClass('is-invalid');
-                            $('.errorFile').html('');
-                        }
-                        if (response.error.tag) {
-                            $('.tag').addClass('is-invalid');
-                            $('.errorTag').html(response.error.tag);
-                        } else {
-                            $('.tag').removeClass('is-invalid');
-                            $('.errorTag').html('');
-                        }
-                        if (response.error.isi) {
-                            $('.isi').addClass('is-invalid');
-                            $('.errorIsi').html(response.error.isi);
-                        } else {
-                            $('.isi').removeClass('is-invalid');
-                            $('.errorIsi').html('');
+                            $('.submenu').removeClass('is-invalid');
+                            $('.errorsubmenu').html('');
                         }
                     } else {
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'berhasil',
-                            text: response.sukses,
-                        });
+                        if (response.status == 'gagal') {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Gagal',
+                                text: response.sukses,
+                            })
+                        } else if (response.status == 'berhasil') {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Berhasil',
+                                text: response.sukses,
+                            });
+                        }
                         $('body').removeClass('modal-open');
-                        //modal-open class is added on body so it has to be removed
                         $('.modal-backdrop').remove();
-                        //need to remove div with modal-backdrop class
-                        $("#result").html(response.data);
+                        $('#result').html(response.data);
                     }
                 },
                 error: function(xhr, ajaxOptions, thrownError) {
@@ -168,6 +134,7 @@
                 }
             })
         });
+
         //  function hapus
         $('.hapus').on('click', function(e) {
             e.preventDefault();

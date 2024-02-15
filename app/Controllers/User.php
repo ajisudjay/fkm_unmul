@@ -21,10 +21,10 @@ class User extends BaseController
         $admin = session()->get('nama');
         $lvl = session()->get('level');
         $file = session()->get('file');
-        if ($file <  1) {
-            $gambar = 'app-assets/images/profile/user-profile.png';
+        if ($file === NULL) {
+            $gambar = 'user-profile.png';
         } else {
-            $gambar = 'content/user/' . $file;
+            $gambar = $file;
         }
         $data = [
             'title' => 'Akun',

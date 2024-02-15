@@ -93,11 +93,11 @@
                     <div class="welcome_docmed_info">
                         <div class="slide-in-text">
                             <h4 style="color:360A5B;">Visi</h4>
-                            <p><?= $konfigurasi['visi'] ?></p>
+                            <p align="justify"><?= $konfigurasi['visi'] ?></p>
                         </div>
                         <div class="box-berita">
                             <h4 style="color:360A5B;">Misi</h4>
-                            <p><?= $konfigurasi['misi'] ?></p>
+                            <p align="justify"><?= $konfigurasi['misi'] ?></p>
                         </div>
                     </div>
                 </div>
@@ -132,7 +132,9 @@
                             <div class="box-berita">
                                 <div class="single_department">
                                     <div class="department_thumb">
-                                        <img src="<?= base_url('writable/uploads/content/berita/' . $item_berita['banner']); ?>" height="300px">
+                                        <a href="<?= base_url('informasi-detail/' . $item_berita['slug']); ?>">
+                                            <img src="<?= base_url('writable/uploads/content/berita/thumb/' . $item_berita['banner']); ?>" height="300px">
+                                        </a>
                                     </div>
                                     <div class="department_content">
                                         <!-- limit Judul max 6 kata -->
@@ -160,7 +162,7 @@
                 </div>
             </div>
             <!-- Lihat Semua Berita -->
-            <div align="right" class="mt-5">
+            <div align="center" class="mt-5">
                 <a href="<?= base_url('informasi'); ?>" class="boxed-btn3">Lihat Semua</a>
             </div>
         </div>
@@ -175,7 +177,6 @@
                     <div class="col-xl-12">
                         <div class="section_title text-center">
                             <h3 style="color: white;">Mitra Kerjasama</h3>
-                            <p style="color: white">List dan Dokumentasi Mitra FKM Unmul</p>
                         </div>
                     </div>
                 </div>
@@ -184,55 +185,28 @@
     </div>
     <div class="testmonial_area">
         <div class="testmonial_active owl-carousel">
-            <div class="single-testmonial testmonial_bg_1 overlay2">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-xl-10 offset-xl-1">
-                            <div class="testmonial_info text-center">
-                                <p>Judul Kerjasama Fakultas kedokteran dengan Rumah Sakit Judul Kerjasama Fakultas kedokteran dengan Rumah Sakit Judul Kerjasama Fakultas kedokteran dengan Rumah Sakit Judul Kerjasama Fakultas kedokteran dengan Rumah Sakit
-                                </p>
-                                <div class="testmonial_author">
-                                    <h4>Rumah Sakit IA Moeis</h4>
+            <?php foreach ($mitra as $item_mitra) : ?>
+                <div class="single-testmonial overlay2" style="background-image: url(<?= base_url('writable/uploads/content/mitra/' . $item_mitra['gambar']); ?>)">
+                    <div class="container">
+                        <div class="row">
+
+                            <div class="col-xl-10 offset-xl-1">
+                                <div class="testmonial_info text-center">
+                                    <h4 style="font-size: larger;"><?= $item_mitra['nama'] ?>
+                                    </h4>
+                                    <div class="testmonial_author">
+                                        <h4>Fakultas Kesehatan Masyarakat Universitas Mulawarman</h4>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="single-testmonial testmonial_bg_2 overlay2">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-xl-10 offset-xl-1">
-                            <div class="testmonial_info text-center">
-                                <p>Judul Kerjasama Fakultas kedokteran dengan Rumah Sakit Judul Kerjasama Fakultas kedokteran dengan Rumah Sakit Judul Kerjasama Fakultas kedokteran dengan Rumah Sakit Judul Kerjasama Fakultas kedokteran dengan Rumah Sakit
-                                </p>
-                                <div class="testmonial_author">
-                                    <h4>Rumah Sakit IA Moeis</h4>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="single-testmonial testmonial_bg_1 overlay2">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-xl-10 offset-xl-1">
-                            <div class="testmonial_info text-center">
-                                <p>Judul Kerjasama Fakultas kedokteran dengan Rumah Sakit Judul Kerjasama Fakultas kedokteran dengan Rumah Sakit Judul Kerjasama Fakultas kedokteran dengan Rumah Sakit Judul Kerjasama Fakultas kedokteran dengan Rumah Sakit
-                                </p>
-                                <div class="testmonial_author">
-                                    <h4>Rumah Sakit IA Moeis</h4>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <?php endforeach ?>
         </div>
         <!-- Lihat Semua Kerjasama -->
         <center class="mt-5">
-            <a href="<?= base_url('/mitra'); ?>" class="boxed-btn3">Lihat Semua</a>
+            <a href="https://drive.google.com/drive/folders/1Q781-XJMI7UNyC5q8igMhkaza5Geh6JS?usp=share_link" class="boxed-btn3" target="_blank">Lihat Selengkapnya</a>
         </center>
     </div>
     <!-- Akhir Kerjasama Fakultas-->
@@ -257,8 +231,9 @@
                                             <img src="<?= base_url('writable/uploads/content/pejabat/' . $item_pejabat['gambar']); ?>">
                                         </div>
                                         <div class="experts_name text-center">
+                                            <h5><?= $item_pejabat['jabatan'] ?></h5>
+                                            <hr>
                                             <h5><?= $item_pejabat['nama'] ?></h5>
-                                            <span><?= $item_pejabat['jabatan'] ?></span>
                                         </div>
                                     </div>
                                 </div>

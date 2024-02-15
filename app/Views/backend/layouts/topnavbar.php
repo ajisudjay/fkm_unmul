@@ -9,6 +9,7 @@
                     </ul>
                 </div>
                 <ul class="nav navbar-nav float-right">
+                    <li class="nav-item d-none d-lg-block"><a href="/" class="nav-link" target="_blank"><i class="ficon feather icon-airplay"></i></a></li>
                     <li class="nav-item d-none d-lg-block"><a class="nav-link nav-link-expand"><i class="ficon feather icon-maximize"></i></a></li>
                     <li class="dropdown dropdown-user nav-item"><a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown">
                             <div class="user-nav d-sm-flex d-none"><span class="user-name text-bold-600"><?= $admin ?></span><span class="user-status"><?= $lvl ?></span></div><span><img class="round" src="<?= base_url('writable/uploads/content/user/' . $foto); ?>" alt="avatar" height="40" width="40"></span>

@@ -30,12 +30,12 @@
                                 <?= $berita['judul'] ?>
                             </h2>
                             <ul class="blog-info-link mt-3 mb-4">
-                                <li><a href="#"><i class="fa fa-user"></i><?= $berita['penulis'] ?></a></li>
-                                <li><a href="#"><i class="fa fa-calendar"></i> <?= $berita['tanggal'] ?></a></li>
-                                <li><a href="#"><i class="fa fa-list"></i> <?= $berita['kategori'] ?></a></li>
+                                <li><i class="fa fa-user"></i><?= $berita['penulis'] ?></li>
+                                <li><i class="fa fa-calendar"></i> <?= $berita['tanggal'] ?></li>
+                                <li><i class="fa fa-list"></i> <?= $berita['kategori'] ?></li>
                             </ul>
                             <ul class="blog-info-link mt-3 mb-4">
-                                <li><a href="#"><i class="fa fa-tag"></i> <?= $berita['tag'] ?></a></li>
+                                <li><i class="fa fa-tag"></i> <?= $berita['tag'] ?></li>
                             </ul>
                             <p class="excert">
                                 <?= $berita['isi'] ?>

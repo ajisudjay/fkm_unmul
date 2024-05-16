@@ -2,9 +2,11 @@
     <div class="card-header">
         <h4 class="mb-0">Sub Menu</h4>
         <!-- button tambah modal -->
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tambahmodal">
-            <span class="feather icon-plus text-light"></span>
-        </button>
+        <a href="submenu/tambahform">
+            <button type="button" class="btn btn-primary">
+                <span class="feather icon-plus text-light"></span>
+            </button>
+        </a>
     </div>
     <!-- tambah modal-->
     <div class="modal fade" id="tambahmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -67,10 +69,10 @@
                     <tr>
                         <th width="5%">No</th>
                         <th width="5%">Urutan</th>
-                        <th style="text-align: center;">AKSI</th>
+                        <th style="text-align: center;" width="10%">AKSI</th>
                         <th width="10%">MAIN MENU</th>
-                        <th width="30%">SUB MENU</th>
-                        <th width="30%">LOG</th>
+                        <th width="50%">SUB MENU</th>
+                        <th width="20%">LOG</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -99,7 +101,7 @@
                             </td>
                             <td><?= $item['mainmenu'] ?></td>
                             <td style="min-width: 150px;max-width: 500px; white-space: normal;"><?= $item['submenu'] ?></td>
-                            <td><?= $item['timestamp'] . ' | ' . $item['penulis'] ?></td>
+                            <td><?= $item['timestamp_submenu'] . ' | ' . $item['penulis'] ?></td>
                         </tr>
                     <?php endforeach ?>
                 </tbody>

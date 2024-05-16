@@ -14,7 +14,7 @@ class MitraModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['id', 'urutan', 'nama', 'gambar'];
+    protected $allowedFields    = ['id', 'urutan', 'nama', 'gambar', 'admin', 'timestamp'];
 
     // Dates
     protected $useTimestamps = false;

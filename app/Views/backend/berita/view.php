@@ -2,9 +2,11 @@
     <div class="card-header">
         <h4 class="mb-0">Berita</h4>
         <!-- button tambah modal -->
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tambahmodal">
-            <span class="feather icon-plus text-light"></span>
-        </button>
+        <a href="berita/tambahform">
+            <button type="button" class="btn btn-primary">
+                <span class="feather icon-plus text-light"></span>
+            </button>
+        </a>
     </div>
     <!-- tambah modal-->
     <div class="modal fade" id="tambahmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

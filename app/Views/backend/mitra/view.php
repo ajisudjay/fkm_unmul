@@ -60,8 +60,9 @@
                     <tr>
                         <th width="5%">No</th>
                         <th width="5%" style="text-align: center;">AKSI</th>
-                        <th width="35%">Nama</th>
-                        <th width="25%" style="text-align: center;">Gambar</th>
+                        <th width="30%">Nama</th>
+                        <th width="20%" style="text-align: center;">Gambar</th>
+                        <th width="10%">Log</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -119,8 +120,8 @@
                                     <span class="btn-sm btn-danger feather icon-trash-2 text-default"></span>
                                 </a>
                             <td><?= $item['nama'] ?></td>
-
                             <td style="text-align: center;"><img src="<?= base_url('writable/uploads/content/mitra/' . $item['gambar'] . ''); ?>" width="100%"></td>
+                            <td><?= $item['timestamp'] . ' | ' . $item['admin'] ?></td>
                         </tr>
                     <?php endforeach ?>
                 </tbody>

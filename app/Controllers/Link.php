@@ -14,7 +14,7 @@ class Link extends BaseController
     }
     public function index()
     {
-        if (session()->get('username') == NULL || session()->get('level') === 'Superadmin') {
+        if (session()->get('username') !== NULL && (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Fakultas')) {
             $admin = session()->get('nama');
             $lvl = session()->get('level');
             $file = session()->get('file');
@@ -36,7 +36,7 @@ class Link extends BaseController
     }
     public function view()
     {
-        if (session()->get('username') == NULL || session()->get('level') === 'Superadmin') {
+        if (session()->get('username') !== NULL && (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Fakultas')) {
             $request = \Config\Services::request();
             $username = session()->get('username');
             if ($request->isAJAX()) {
@@ -58,68 +58,79 @@ class Link extends BaseController
     }
     public function tambah()
     {
-        if (session()->get('username') == NULL || session()->get('level') !== 'Superadmin') {
-            return redirect()->to(base_url('/login'));
-        }
-        $request = \Config\Services::request();
-        $validation = \Config\Services::validation();
-        $kategori = $request->getVar('kategori');
-        $judul = $request->getVar('judul');
-        $link = $request->getVar('link');
-        $request = \Config\Services::request();
-        if ($request->isAJAX()) {
-            $valid = $this->validate([
-                'judul' => [
-                    'label' => 'Judul',
-                    'rules' => 'required',
-                    'errors' => [
-                        'required' => '* {field} Tidak Boleh Kosong',
-                    ]
-                ],
-                'link' => [
-                    'label' => 'Link',
-                    'rules' => 'required',
-                    'errors' => [
-                        'required' => '* {field} Tidak Boleh Kosong',
-                    ]
-                ],
-            ]);
-            if (!$valid) {
-                $msg = [
-                    'error' => [
-                        'judul' => $validation->getError('judul'),
-                        'link' => $validation->getError('link'),
+        if (session()->get('username') !== NULL && (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Fakultas')) {
+
+            $request = \Config\Services::request();
+            $validation = \Config\Services::validation();
+            $kategori = $request->getVar('kategori');
+            $judul = $request->getVar('judul');
+            $link = $request->getVar('link');
+            $username = session()->get('username');
+            date_default_timezone_set("Asia/Kuala_Lumpur");
+            $timestamp = date("Y-m-d h:i:sa");
+            $request = \Config\Services::request();
+            if ($request->isAJAX()) {
+                $valid = $this->validate([
+                    'judul' => [
+                        'label' => 'Judul',
+                        'rules' => 'required|alpha_numeric_punct',
+                        'errors' => [
+                            'required' => '* {field} Tidak Boleh Kosong',
+                            'alpha_numeric_punct' => '{field} Format Tidak Sesuai',
+                        ]
                     ],
-                ];
-                return $this->response->setJSON($msg);
+                    'link' => [
+                        'label' => 'Link',
+                        'rules' => 'required|valid_url_strict',
+                        'errors' => [
+                            'required' => '* {field} Tidak Boleh Kosong',
+                            'valid_url_strict' => '* {field} Format Tidak Sesuai',
+                        ]
+                    ],
+                ]);
+                if (!$valid) {
+                    $msg = [
+                        'error' => [
+                            'judul' => $validation->getError('judul'),
+                            'link' => $validation->getError('link'),
+                        ],
+                    ];
+                    return $this->response->setJSON($msg);
+                } else {
+                    $data = [
+                        'kategori' => $kategori,
+                        'judul' => $judul,
+                        'link' => $link,
+                        'timestamp' => $timestamp,
+                        'admin' => $username,
+                    ];
+                    $this->LinkModel->insert($data);
+
+                    $msg = [
+                        'title' => 'Berhasil'
+                    ];
+
+                    session()->setFlashdata('pesanBerhasil', 'Data Berhasil Ditambahkan !');
+                    echo json_encode($msg);
+                }
             } else {
-                $data = [
-                    'kategori' => $kategori,
-                    'judul' => $judul,
-                    'link' => $link,
-                ];
-                $this->LinkModel->insert($data);
-
-                $msg = [
-                    'title' => 'Berhasil'
-                ];
-
-                session()->setFlashdata('pesanBerhasil', 'Data Berhasil Ditambahkan !');
-                echo json_encode($msg);
+                exit('Data Tidak Dapat diproses');
             }
         } else {
-            exit('Data Tidak Dapat diproses');
+            return redirect()->to(base_url('/login'));
         }
     }
 
     public function hapus($id)
     {
-        if (session()->get('username') == NULL || session()->get('level') !== 'Superadmin') {
+        if (session()->get('username') !== NULL && (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Fakultas')) {
+
+            $this->LinkModel->delete($id);
+
+            session()->setFlashdata('pesanHapus', 'Main Menu Berhasil Di Hapus !');
+            return redirect()->to(base_url('/link'));
+        } else {
             return redirect()->to(base_url('/login'));
         }
-        $this->LinkModel->delete($id);
-
-        session()->setFlashdata('pesanHapus', 'Main Menu Berhasil Di Hapus !');
-        return redirect()->to(base_url('/link'));
     }
 }

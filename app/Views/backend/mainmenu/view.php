@@ -51,7 +51,8 @@
                     <tr>
                         <th width="3%">No</th>
                         <th width="10%" style="text-align: center;">AKSI</th>
-                        <th width="87%">MAIN MENU</th>
+                        <th width="77%">MAIN MENU</th>
+                        <th width="10%">LOG</th>
 
                     </tr>
                 </thead>
@@ -115,6 +116,7 @@
                                     <span class="btn-sm btn-danger feather icon-trash-2 text-default"></span>
                                 </a>
                             <td><?= $item['mainmenu'] ?></td>
+                            <td><?= $item['timestamp'] . ' | ' . $item['admin'] ?></td>
                         </tr>
                     <?php endforeach ?>
                 </tbody>

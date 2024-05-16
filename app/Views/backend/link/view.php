@@ -67,7 +67,8 @@
                         <th width="5%" style="text-align: center;">AKSI</th>
                         <th width="10%">Kategori</th>
                         <th width="30%">Judul</th>
-                        <th width="50%">Link</th>
+                        <th width="40%">Link</th>
+                        <th width="10%">Log</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -84,6 +85,7 @@
                             <td><?= $item['kategori'] ?></td>
                             <td style="min-width: 200px;max-width: 250px; white-space: normal;"><?= $item['judul'] ?></a></td>
                             <td style="min-width: 150px;max-width: 250px; white-space: normal;"><a href="<?= $item['link'] ?>" target="_blank"><?= $item['link'] ?></a></td>
+                            <td><?= $item['timestamp'] . ' | ' . $item['admin'] ?></td>
                         </tr>
                     <?php endforeach ?>
                 </tbody>

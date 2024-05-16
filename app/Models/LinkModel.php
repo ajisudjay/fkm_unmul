@@ -14,7 +14,7 @@ class LinkModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['id', 'kategori', 'judul', 'link'];
+    protected $allowedFields    = ['id', 'kategori', 'judul', 'link', 'admin', 'timestamp'];
 
     // Dates
     protected $useTimestamps = false;

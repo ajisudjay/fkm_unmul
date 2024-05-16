@@ -16,7 +16,7 @@ class Berita extends BaseController
 
     public function index()
     {
-        if (session()->get('username') == NULL || session()->get('level') !== 'Superadmin' || session()->get('level') !== 'Admin Prodi') {
+        if (session()->get('username') !== NULL && session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Fakultas' || session()->get('level') === 'Admin Prodi') {
             $admin = session()->get('nama');
             $lvl = session()->get('level');
             $file = session()->get('file');
@@ -40,7 +40,7 @@ class Berita extends BaseController
 
     public function view()
     {
-        if (session()->get('username') == NULL || session()->get('level') !== 'Superadmin' || session()->get('level') !== 'Admin Prodi') {
+        if (session()->get('username') !== NULL && session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Fakultas' || session()->get('level') === 'Admin Prodi') {
             $request = \Config\Services::request();
             if ($request->isAJAX()) {
                 $data = [
@@ -59,9 +59,34 @@ class Berita extends BaseController
         }
     }
 
+    public function tambahform()
+    {
+        if (session()->get('username') !== NULL && session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Fakultas' || session()->get('level') === 'Admin Prodi') {
+            $admin = session()->get('nama');
+            $lvl = session()->get('level');
+            $file = session()->get('file');
+            if ($file <  1) {
+                $gambar = '/app-assets/images/profile/user-profile.png';
+            } else {
+                $gambar = 'content/user/' . $file;
+            }
+            $data = [
+                'title' => 'Berita',
+                'title_pages' => '',
+                'admin' => $admin,
+                'lvl' => $lvl,
+                'foto' => $gambar,
+                'validation' => \Config\Services::validation(),
+            ];
+            return view('backend/berita/tambahform', $data);
+        } else {
+            return redirect()->to(base_url('/login'));
+        }
+    }
+
     public function tambah()
     {
-        if (session()->get('username') == NULL || session()->get('level') !== 'Superadmin' || session()->get('level') !== 'Admin Prodi') {
+        if (session()->get('username') !== NULL && session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Fakultas' || session()->get('level') === 'Admin Prodi') {
             $username = session()->get('username');
             $request = \Config\Services::request();
             $judul = $request->getVar('judul');
@@ -143,7 +168,7 @@ class Berita extends BaseController
 
     public function editform($slug)
     {
-        if (session()->get('username') == NULL || session()->get('level') !== 'Superadmin' || session()->get('level') !== 'Admin Prodi') {
+        if (session()->get('username') !== NULL && session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Fakultas' || session()->get('level') === 'Admin Prodi') {
             $admin = session()->get('nama');
             $lvl = session()->get('level');
             $file = session()->get('file');
@@ -169,7 +194,7 @@ class Berita extends BaseController
 
     public function edit()
     {
-        if (session()->get('username') == NULL || session()->get('level') !== 'Superadmin' || session()->get('level') !== 'Admin Prodi') {
+        if (session()->get('username') !== NULL && session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Fakultas' || session()->get('level') === 'Admin Prodi') {
             $username = session()->get('username');
             $request = \Config\Services::request();
             $id = $request->getVar('id');
@@ -237,7 +262,7 @@ class Berita extends BaseController
 
     public function hapus($id)
     {
-        if (session()->get('username') == NULL || session()->get('level') !== 'Superadmin' || session()->get('level') !== 'Admin Prodi') {
+        if (session()->get('username') !== NULL && session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Fakultas' || session()->get('level') === 'Admin Prodi') {
             $cekfile = $this->BeritaModel->where('id', $id)->first();
             $namafile = $cekfile['banner'];
             $filesource = '../writable/uploads/content/berita/' . $namafile . '';

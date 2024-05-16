@@ -14,7 +14,7 @@ class PejabatModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['id', 'nama', 'jabatan', 'gambar', 'urutan'];
+    protected $allowedFields    = ['id', 'nama', 'jabatan', 'gambar', 'urutan', 'admin', 'timestamp'];
 
     // Dates
     protected $useTimestamps = false;

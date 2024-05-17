@@ -18,7 +18,7 @@
                 <li class="navigation-header"><span>WEBSITE</span>
                 </li>
 
-                <li class=""><a href="#"><i class="feather icon-menu"></i><span class="menu-title" data-i18n="Dashboard">Menu</span><span class="badge badge badge-warning badge-pill float-right mr-2">2</span></a>
+                <li class=""><a href="#"><i class="feather icon-layers"></i><span class="menu-title" data-i18n="Dashboard">Menu</span><span class="badge badge badge-warning badge-pill float-right mr-2">2</span></a>
                     <ul class="menu-content">
                         <li class="<?= $title == 'Main Menu' ? 'active' : '' ?>"><a href="<?= base_url('mainmenu'); ?>"><i class="feather icon-menu"></i><span class="menu-item" data-i18n="Analytics">Main Menu</span></a>
                         </li>
@@ -45,6 +45,8 @@
                 <li class="<?= $title == 'Berita' ? 'active' : '' ?>"><a href="<?= base_url('berita'); ?>"><i class="feather icon-file-text"></i><span class="menu-item" data-i18n="Analytics">Berita</span></a>
                 </li>
                 <li class="<?= $title == 'Galeri' ? 'active' : '' ?>"><a href="<?= base_url('galeri'); ?>"><i class="feather icon-image"></i><span class="menu-item" data-i18n="Analytics">Galeri</span></a>
+                </li>
+                <li class="<?= $title == 'Dokumen' ? 'active' : '' ?>"><a href="<?= base_url('dokumen'); ?>"><i class="feather icon-file-plus"></i><span class="menu-item" data-i18n="Analytics">Dokumen</span></a>
                 </li>
                 <!-- <li class="navigation-header"><span>E-OFFICE</span>
                 <li class=""><a href="#"><i class="feather icon-inbox"></i><span class="menu-title" data-i18n="Dashboard">Surat</span><span class="badge badge badge-warning badge-pill float-right mr-2">2</span></a>
@@ -88,6 +90,12 @@
                         </li>
                     </ul>
                 </li> -->
+                <li class=" navigation-header"><span>BANK DATA</span>
+                </li>
+                <li class="<?= $title == 'Dosen' ? 'active' : '' ?>"><a href="<?= base_url('dosen'); ?>"><i class="feather icon-users"></i><span class="menu-item" data-i18n="Analytics">Dosen</span></a>
+                </li>
+                <li class="<?= $title == 'Tendik' ? 'active' : '' ?>"><a href="<?= base_url('tendik'); ?>"><i class="feather icon-users"></i><span class="menu-item" data-i18n="Analytics">Tendik</span></a>
+                </li>
                 <li class=" navigation-header"><span>AKUN</span>
                 </li>
                 <li class="<?= $title == 'Akun' ? 'active' : '' ?>"><a href="<?= base_url('user'); ?>"><i class="feather icon-users"></i><span class="menu-item" data-i18n="Analytics">Akun</span></a>

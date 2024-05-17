@@ -31,7 +31,7 @@
                             <?php } ?>
                             <?php if (session()->get('pesanHapus')) { ?>
                                 <div class="alert alert-success alert-dismissible fade show flash" role="alert">
-                                    <strong>Berhasil !</strong> <?= session()->getFlashdata('pesanHapus') ?>
+                                    <strong>Berhasil </strong> <?= session()->getFlashdata('pesanHapus') ?>
                                 </div>
                             <?php } ?>
                             <div class="card">

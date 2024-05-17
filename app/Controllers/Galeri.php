@@ -63,6 +63,9 @@ class Galeri extends BaseController
             $request = \Config\Services::request();
             $nama = $request->getVar('nama');
             $file = $request->getFile('file');
+            $username = session()->get('username');
+            date_default_timezone_set("Asia/Kuala_Lumpur");
+            $timestamp = date("Y-m-d h:i:sa");
             $input = $this->validate([
                 'file' => 'uploaded[file]|max_size[file,2048]|mime_in[file,image/png,image/jpeg]|is_image[file],'
             ]);
@@ -74,8 +77,10 @@ class Galeri extends BaseController
                 $file->store('content/galeri/', $newName);
                 $nama_foto = $newName;
                 $data = [
-                    'nama' => $nama,
+                    'nama' => 'tes',
                     'gambar' => $nama_foto,
+                    'timestamp' => $timestamp,
+                    'admin' => $username,
                 ];
                 $this->GaleriModel->insert($data);
 

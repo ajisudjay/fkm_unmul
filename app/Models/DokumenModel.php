@@ -14,7 +14,7 @@ class DokumenModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['id', 'nama', 'file'];
+    protected $allowedFields    = ['id', 'nama', 'file', 'admin', 'timestamp'];
 
     // Dates
     protected $useTimestamps = false;

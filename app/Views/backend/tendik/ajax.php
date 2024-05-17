@@ -2,22 +2,13 @@
 <script>
     $(document).ready(function() {
         //  function tambah
-        $('.tambah').submit(function() {
-            var nama = $('#nama').val();
-            var nip = $('#nip').val();
-            var jabatan = $('#jabatan').val();
-            var ruangan = $('#ruangan').val();
-            var files = $('#file')[0].files;
-            var fd = new FormData();
-
-            fd.append('file', files[0]);
-            fd.append('nip', nip);
-            fd.append('nama', nama);
-            fd.append('jabatan', jabatan);
-            fd.append('ruangan', ruangan);
+        $('.input').submit(function(e) {
+            e.preventDefault();
+            var formData = new FormData(this);
             $.ajax({
                 type: "post",
-                data: fd,
+                url: $(this).attr('action'),
+                data: formData,
                 dataType: "json",
                 contentType: false,
                 processData: false,
@@ -31,122 +22,85 @@
                 },
                 success: function(response) {
                     if (response.error) {
+                        if (response.error.nip) {
+                            $('.nip').addClass('is-invalid');
+                            $('.errornip').html(response.error.nip);
+                        } else {
+                            $('.nip').removeClass('is-invalid');
+                            $('.errornip').html('');
+                        }
                         if (response.error.nama) {
                             $('.nama').addClass('is-invalid');
-                            $('.errorNama').html(response.error.nama);
+                            $('.errornama').html(response.error.nama);
                         } else {
                             $('.nama').removeClass('is-invalid');
-                            $('.errorNama').html('');
+                            $('.errornama').html('');
                         }
-                        if (response.error.jabatan) {
-                            $('.jabatan').addClass('is-invalid');
-                            $('.errorJabatan').html(response.error.jabatan);
+                        if (response.error.bagian_unit) {
+                            $('.bagian_unit').addClass('is-invalid');
+                            $('.errorbagian_unit').html(response.error.bagian_unit);
                         } else {
-                            $('.jabatan').removeClass('is-invalid');
-                            $('.errorJabatan').html('');
+                            $('.bagian_unit').removeClass('is-invalid');
+                            $('.errorbagian_unit').html('');
+                        }
+                        if (response.error.ruangan) {
+                            $('.ruangan').addClass('is-invalid');
+                            $('.errorruangan').html(response.error.ruangan);
+                        } else {
+                            $('.ruangan').removeClass('is-invalid');
+                            $('.errorruangan').html('');
+                        }
+                        if (response.error.tempat_lahir) {
+                            $('.tempat_lahir').addClass('is-invalid');
+                            $('.errortempat_lahir').html(response.error.tempat_lahir);
+                        } else {
+                            $('.tempat_lahir').removeClass('is-invalid');
+                            $('.errortempat_lahir').html('');
+                        }
+                        if (response.error.tanggal_lahir) {
+                            $('.tanggal_lahir').addClass('is-invalid');
+                            $('.errortanggal_lahir').html(response.error.tanggal_lahir);
+                        } else {
+                            $('.tanggal_lahir').removeClass('is-invalid');
+                            $('.errortanggal_lahir').html('');
+                        }
+                        if (response.error.alamat) {
+                            $('.alamat').addClass('is-invalid');
+                            $('.erroralamat').html(response.error.alamat);
+                        } else {
+                            $('.alamat').removeClass('is-invalid');
+                            $('.erroralamat').html('');
+                        }
+                        if (response.error.telp) {
+                            $('.telp').addClass('is-invalid');
+                            $('.errortelp').html(response.error.telp);
+                        } else {
+                            $('.telp').removeClass('is-invalid');
+                            $('.errortelp').html('');
+                        }
+                        if (response.error.email) {
+                            $('.email').addClass('is-invalid');
+                            $('.erroremail').html(response.error.email);
+                        } else {
+                            $('.email').removeClass('is-invalid');
+                            $('.erroremail').html('');
                         }
                         if (response.error.file) {
                             $('.file').addClass('is-invalid');
-                            $('.errorFile').html(response.error.file);
+                            $('.errorfile').html(response.error.file);
                         } else {
                             $('.file').removeClass('is-invalid');
-                            $('.errorFile').html('');
-                        }
-                        if (response.error.nip) {
-                            $('.nip').addClass('is-invalid');
-                            $('.errorUrutan').html(response.error.nip);
-                        } else {
-                            $('.nip').removeClass('is-invalid');
-                            $('.errorUrutan').html('');
+                            $('.errorfile').html('');
                         }
                     } else {
                         Swal.fire({
                             icon: 'success',
-                            title: 'berhasil',
+                            title: 'Berhasil',
                             text: response.sukses,
                         });
-                        $('body').removeClass('modal-open');
-                        //modal-open class is added on body so it has to be removed
-                        $('.modal-backdrop').remove();
-                        //need to remove div with modal-backdrop class
-                        $("#result").html(response.data);
-                    }
-                },
-                error: function(xhr, ajaxOptions, thrownError) {
-                    alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
-                }
-            })
-        });
-
-        //  function edit
-        $('.edit').submit(function() {
-            var nama = $('#nama').val();
-            var nip = $('#nip').val();
-            var jabatan = $('#jabatan').val();
-            var ruangan = $('#ruangan').val();
-            var files = $('#file')[0].files;
-            var fd = new FormData();
-
-            fd.append('file', files[0]);
-            fd.append('nip', nip);
-            fd.append('nama', nama);
-            fd.append('jabatan', jabatan);
-            fd.append('ruangan', ruangan);
-            $.ajax({
-                type: "post",
-                data: fd,
-                dataType: "json",
-                contentType: false,
-                processData: false,
-                beforeSend: function() {
-                    $('.btnSimpan').attr('disable', 'disabled');
-                    $('.btnSimpan').html('<i class="fa fa-spin fa-spinner"></i>');
-                },
-                complete: function() {
-                    $('.btnSimpan').removeAttr('disable', 'disabled');
-                    $('.btnSimpan').html('Simpan');
-                },
-                success: function(response) {
-                    if (response.error) {
-                        if (response.error.nama) {
-                            $('.nama').addClass('is-invalid');
-                            $('.errorNama').html(response.error.nama);
-                        } else {
-                            $('.nama').removeClass('is-invalid');
-                            $('.errorNama').html('');
-                        }
-                        if (response.error.jabatan) {
-                            $('.jabatan').addClass('is-invalid');
-                            $('.errorJabatan').html(response.error.jabatan);
-                        } else {
-                            $('.jabatan').removeClass('is-invalid');
-                            $('.errorJabatan').html('');
-                        }
-                        if (response.error.file) {
-                            $('.file').addClass('is-invalid');
-                            $('.errorFile').html(response.error.file);
-                        } else {
-                            $('.file').removeClass('is-invalid');
-                            $('.errorFile').html('');
-                        }
-                        if (response.error.nip) {
-                            $('.nip').addClass('is-invalid');
-                            $('.errorUrutan').html(response.error.nip);
-                        } else {
-                            $('.nip').removeClass('is-invalid');
-                            $('.errorUrutan').html('');
-                        }
-                    } else {
-                        Swal.fire({
-                            icon: 'success',
-                            title: 'berhasil',
-                            text: response.sukses,
-                        });
-                        $('body').removeClass('modal-open');
-                        //modal-open class is added on body so it has to be removed
-                        $('.modal-backdrop').remove();
-                        //need to remove div with modal-backdrop class
-                        $("#result").html(response.data);
+                        setTimeout(function() {
+                            window.location.reload();
+                        }, 1500);
                     }
                 },
                 error: function(xhr, ajaxOptions, thrownError) {
@@ -173,7 +127,6 @@
                 }
             });
         });
-
 
         window.setTimeout(function() {
             $(".flashAjax").fadeTo(500, 0).slideUp(500, function() {

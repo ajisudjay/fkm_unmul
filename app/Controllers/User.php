@@ -14,7 +14,6 @@ class User extends BaseController
     }
     public function index()
     {
-
         if (session()->get('username') !== NULL && session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Fakultas' || session()->get('level') === 'Admin Prodi') {
             $admin = session()->get('nama');
             $lvl = session()->get('level');
@@ -35,15 +34,27 @@ class User extends BaseController
             return redirect()->to(base_url('/login'));
         }
     }
+
     public function view()
     {
         if (session()->get('username') !== NULL && session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Fakultas' || session()->get('level') === 'Admin Prodi') {
             $request = \Config\Services::request();
+            $namauser = session()->get('username');
+            $lvl = session()->get('level');
             if ($request->isAJAX()) {
-                $data = [
-                    'user' => $this->UsersModel->orderBy('nama', 'DESC')->get()->getResultArray(),
-                    'validation' => \Config\Services::validation(),
-                ];
+                if (session()->get('level') === "Superadmin") {
+                    $data = [
+                        'user' => $this->UsersModel->orderBy('nama', 'DESC')->get()->getResultArray(),
+                        'lvl' => $lvl,
+                        'validation' => \Config\Services::validation(),
+                    ];
+                } else {
+                    $data = [
+                        'user' => $this->UsersModel->where('username', $namauser)->orderBy('nama', 'DESC')->get()->getResultArray(),
+                        'lvl' => $lvl,
+                        'validation' => \Config\Services::validation(),
+                    ];
+                }
                 $msg = [
                     'data' => view('backend/user/view', $data)
                 ];
@@ -58,44 +69,98 @@ class User extends BaseController
 
     public function tambah()
     {
-        if (session()->get('username') !== NULL && session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Fakultas' || session()->get('level') === 'Admin Prodi') {
+        if (session()->get('username') !== NULL && session()->get('level') === 'Superadmin') {
             $request = \Config\Services::request();
-
-            $username = $request->getVar('username');
+            $validation = \Config\Services::validation();
             $nama = $request->getVar('nama');
+            $username = $request->getVar('username');
+            $level = $request->getVar('level');
             $password = $request->getVar('password');
             $repassword = $request->getVar('repassword');
-            $level = $request->getVar('level');
             $file = $request->getFile('file');
-            $input = $this->validate([
-                'file' => 'uploaded[file]|max_size[file,2048],'
-            ]);
-            $input2 = $this->validate([
-                'repassword' => 'matches[password],'
-            ]);
-            if ($input2) { // Not valid
-                if (!$input) { // Not valid
-                    session()->setFlashdata('pesanGagal', 'Gagal Ukuran Gambar Maksimal 2MB');
-                    return redirect()->to(base_url('/user'));
+            $userx = session()->get('username');
+            date_default_timezone_set("Asia/Kuala_Lumpur");
+            $timestamp = date("Y-m-d h:i:sa");
+            if ($request->isAJAX()) {
+                $valid = $this->validate([
+                    'nama' => [
+                        'label' => 'Nama',
+                        'rules' => 'required',
+                        'errors' => [
+                            'required' => '* {field} Tidak Boleh Kosong',
+                        ]
+                    ],
+                    'username' => [
+                        'label' => 'Username',
+                        'rules' => 'required',
+                        'errors' => [
+                            'required' => '* {field} Tidak Boleh Kosong',
+                        ]
+                    ],
+                    'level' => [
+                        'label' => 'Level',
+                        'rules' => 'required',
+                        'errors' => [
+                            'required' => '* {field} Tidak Boleh Kosong',
+                        ]
+                    ],
+                    'password' => [
+                        'label' => 'Password',
+                        'rules' => 'required',
+                        'errors' => [
+                            'required' => '* {field} Tidak Boleh Kosong',
+                        ]
+                    ],
+                    'repassword' => [
+                        'label' => 'Ulangi Password',
+                        'rules' => 'required|matches[password]',
+                        'errors' => [
+                            'required' => '* {field} Tidak Boleh Kosong',
+                            'matches' => '* {field} tidak sesuai',
+                        ]
+                    ],
+                    'file' => [
+                        'label' => 'Gambar',
+                        'rules' => 'uploaded[file]|max_size[file,2048]|mime_in[file,image/png,image/jpeg]|is_image[file]',
+                        'errors' => [
+                            'uploaded' => '* {field} Tidak Boleh Kosong !',
+                            'max_size' => '* {field} Ukuran Max 1 mb !',
+                        ]
+                    ],
+                ]);
+                if (!$valid) {
+                    $msg = [
+                        'error' => [
+                            'nama' => $validation->getError('nama'),
+                            'username' => $validation->getError('username'),
+                            'level' => $validation->getError('level'),
+                            'password' => $validation->getError('password'),
+                            'repassword' => $validation->getError('repassword'),
+                            'file' => $validation->getError('file'),
+                        ],
+                    ];
+                    return $this->response->setJSON($msg);
                 } else {
-                    $newName = $file->getRandomName();
-                    $file->store('content/user/', $newName);
-                    $nama_foto = $newName;
+                    $namagambar = $file->getRandomName();
+                    $file->store('content/user/', $namagambar);
                     $data = [
-                        'username' => $username,
                         'nama' => $nama,
-                        'password' => password_hash($password, PASSWORD_DEFAULT),
+                        'username' => $username,
                         'level' => $level,
-                        'file' => $nama_foto,
+                        'password' => password_hash($password, PASSWORD_DEFAULT),
+                        'file' => $namagambar,
+                        'timestamp' => $timestamp,
+                        'admin' => $userx,
                     ];
                     $this->UsersModel->insert($data);
 
-                    session()->setFlashdata('pesanInput', 'Berhasil Menambahkan Akun');
-                    return redirect()->to(base_url('/user'));
+                    $msg = [
+                        'title' => 'Berhasil'
+                    ];
+                    echo json_encode($msg);
                 }
             } else {
-                session()->setFlashdata('pesanGagal2', 'Konfirmasi password tidak sesuai');
-                return redirect()->to(base_url('/user'));
+                exit('Data Tidak Dapat diproses');
             }
         } else {
             return redirect()->to(base_url('/login'));
@@ -109,67 +174,145 @@ class User extends BaseController
             $request = \Config\Services::request();
             $username = $request->getVar('username');
             $nama = $request->getVar('nama');
-            $password = $request->getVar('password');
-            $repassword = $request->getVar('repassword');
             $level = $request->getVar('level');
             $file = $request->getFile('file');
-            $input2 = $this->validate([
-                'repassword' => 'matches[password],'
-            ]);
-            if ($input2) { // Not valid
-                if (!file_exists($_FILES['file']['tmp_name'])) {
+            $userx = session()->get('username');
+            date_default_timezone_set("Asia/Kuala_Lumpur");
+            $timestamp = date("Y-m-d h:i:sa");
+            if (!file_exists($_FILES['file']['tmp_name'])) {
+                $input2 = $this->validate([
+                    'nama' => 'required[nama]|alpha_numeric_punct[nama],',
+                ]);
+                if (!$input2) { // Not valid
+                    session()->setFlashdata('pesanGagal', 'Format tidak sesuai');
+                    return redirect()->to(base_url('/user'));
+                }
+                $data = [
+                    'username' => $username,
+                    'nama' => $nama,
+                    'level' => $level,
+                    'timestamp' => $timestamp,
+                    'admin' => $userx,
+                ];
+                $this->UsersModel->update($username, $data);
+
+                session()->setFlashdata('pesanInput', 'Mengubah Data User');
+                return redirect()->to(base_url('/user'));
+            } else {
+                $input = $this->validate([
+                    'file' => 'uploaded[file]|max_size[file,2048]|mime_in[file,image/png,image/jpeg]|is_image[file],'
+                ]);
+                $input2 = $this->validate([
+                    'nama' => 'required[nama],',
+                ]);
+                if (!$input) { // Not valid
+                    session()->setFlashdata('pesanGagal', 'format gambar tidak sesuai');
+                    return redirect()->to(base_url('/user'));
+                } elseif (!$input2) { // Not valid
+                    session()->setFlashdata('pesanGagal', 'Format tidak sesuai');
+                    return redirect()->to(base_url('/user'));
+                } else {
+                    $file = $request->getFile('file');
+                    $cekfile = $this->UsersModel->where('username', $username)->first();
+                    $namafile = $cekfile['file'];
+                    $filesource = '../writable/uploads/content/user/' . $namafile . '';
+                    chmod($filesource, 0777);
+                    unlink($filesource);
+                    $newName = $file->getRandomName();
+                    $file->store('content/user/', $newName);
+                    $nama_foto = $newName;
                     $data = [
                         'username' => $username,
                         'nama' => $nama,
-                        'password' => password_hash($password, PASSWORD_DEFAULT),
                         'level' => $level,
+                        'file' => $nama_foto,
+                        'timestamp' => $timestamp,
+                        'admin' => $userx,
                     ];
                     $this->UsersModel->update($username, $data);
 
-                    session()->setFlashdata('pesanInput', 'Berhasil Mengubah Data User');
+                    session()->setFlashdata('pesanInput', 'Mengubah Data Akun');
                     return redirect()->to(base_url('/user'));
-                } else {
-                    $input = $this->validate([
-                        'file' => 'uploaded[file]|max_size[file,2048],'
-                    ]);
-                    if (!$input) { // Not valid
-                        session()->setFlashdata('pesanGagal', 'Gagal Ukuran Gambar Maksimal 2MB');
-                        return redirect()->to(base_url('/user'));
-                    } else {
-                        $file = $request->getFile('file');
-                        $cekfile = $this->UsersModel->where('username', $username)->first();
-                        $namafile = $cekfile['file'];
-                        $filesource = '../writable/uploads/content/user/' . $namafile . '';
-                        chmod($filesource, 0777);
-                        unlink($filesource);
-                        $newName = $file->getRandomName();
-                        $file->store('content/user/', $newName);
-                        $nama_foto = $newName;
-                        $data = [
-                            'username' => $username,
-                            'nama' => $nama,
-                            'password' => password_hash($password, PASSWORD_DEFAULT),
-                            'level' => $level,
-                            'file' => $nama_foto,
-                        ];
-                        $this->UsersModel->update($username, $data);
-
-                        session()->setFlashdata('pesanInput', 'Berhasil Mengubah Data Akun');
-                        return redirect()->to(base_url('/user'));
-                    }
                 }
-            } else {
-                session()->setFlashdata('pesanGagal2', 'Konfirmasi password tidak sesuai');
-                return redirect()->to(base_url('/user'));
             }
         } else {
             return redirect()->to(base_url('/login'));
         }
     }
 
-    public function hapus($username)
+    public function editpass()
     {
         if (session()->get('username') !== NULL && session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Fakultas' || session()->get('level') === 'Admin Prodi') {
+            $request = \Config\Services::request();
+            if ($request->isAJAX()) {
+                $username = $request->getVar('username');
+                $password = $request->getVar('password');
+                $repassword = $request->getVar('repassword');
+                $namauser = session()->get('username');
+                $lvl = session()->get('level');
+                $validation = \Config\Services::validation();
+                $valid = $this->validate([
+                    'password' => [
+                        'label' => 'Password',
+                        'rules' => 'required',
+                        'errors' => [
+                            'required' => '{field} Tidak Boleh Kosong',
+                        ]
+                    ],
+                    'repassword' => [
+                        'label' => 'Ulangi Password',
+                        'rules' => 'required|matches[password]',
+                        'errors' => [
+                            'required' => '{field} Tidak Boleh Kosong',
+                            'matches' => '* {field} tidak sesuai',
+                        ]
+                    ],
+                ]);
+                if (!$valid) {
+                    $msg = [
+                        'error' => [
+                            'password' => $validation->getError('password'),
+                            'repassword' => $validation->getError('repassword'),
+                        ],
+                    ];
+                    echo json_encode($msg);
+                } else {
+                    $data = [
+                        'password' => password_hash($password, PASSWORD_DEFAULT),
+                    ];
+                    $this->UsersModel->update($username, $data);
+
+                    if (session()->get('level') === "Superadmin") {
+                        $data2 = [
+                            'user' => $this->UsersModel->orderBy('nama', 'DESC')->get()->getResultArray(),
+                            'lvl' => $lvl,
+                            'validation' => \Config\Services::validation(),
+                        ];
+                    } else {
+                        $data2 = [
+                            'user' => $this->UsersModel->where('username', $namauser)->orderBy('nama', 'DESC')->get()->getResultArray(),
+                            'lvl' => $lvl,
+                            'validation' => \Config\Services::validation(),
+                        ];
+                    }
+                    $msg = [
+                        'status' => 'berhasil',
+                        'data' => view('backend/user/view', $data2)
+                    ];
+                    echo json_encode($msg);
+                }
+            } else {
+                exit('Data Tidak Dapat diproses');
+            }
+        } else {
+            return redirect()->to(base_url('/login'));
+        }
+    }
+
+
+    public function hapus($username)
+    {
+        if (session()->get('username') !== NULL && session()->get('level') === 'Superadmin') {
             $cekfile = $this->UsersModel->where('username', $username)->first();
             $namafile = $cekfile['file'];
             $filesource = '../writable/uploads/content/user/' . $namafile . '';

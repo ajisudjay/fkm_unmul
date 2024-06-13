@@ -8,7 +8,7 @@
         <?php foreach ($konfigurasi as $item) : ?>
             <!-- ISI FORM -->
             <form action="<?= base_url('konfigurasi/editfoto'); ?>" method="post" enctype="multipart/form-data" class="editfoto">
-                <?php csrf_field() ?>
+                <?= csrf_field() ?>
                 <div class="row">
                     <div class="col-lg-4">
                         <img src="<?= base_url('writable/uploads/content/konfigurasi/' . $item['foto']); ?>" width="50%">
@@ -31,7 +31,7 @@
                 </div>
             </form>
             <form action="<?= base_url('konfigurasi/edit'); ?>" method="post" class="edit">
-                <?php csrf_field() ?>
+                <?= csrf_field() ?>
                 <div class="row">
                     <div class="col-lg-12">
                         <label> Visi :</label>

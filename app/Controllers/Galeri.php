@@ -77,7 +77,7 @@ class Galeri extends BaseController
                 $file->store('content/galeri/', $newName);
                 $nama_foto = $newName;
                 $data = [
-                    'nama' => 'tes',
+                    'nama' => $nama,
                     'gambar' => $nama_foto,
                     'timestamp' => $timestamp,
                     'admin' => $username,

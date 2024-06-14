@@ -74,9 +74,12 @@ class Submenu extends BaseController
             $request = \Config\Services::request();
             $urutan = $request->getVar('urutan');
             $mainmenu = $request->getVar('mainmenu');
+            $namamain =   $this->MainmenuModel->select('*')->select('mainmenu.mainmenu as namamain')->where('mainmenu.id', $mainmenu)->first();
             $submenu = $request->getVar('submenu');
             $akses = $request->getVar('akses');
-            $slug = preg_replace('/[^a-z0-9]+/i', '-', trim(strtolower($submenu)) . $mainmenu);
+            $slugmain = preg_replace('/[^a-z0-9]+/i', '-', trim(strtolower($namamain['namamain'])));
+            $slugsub = preg_replace('/[^a-z0-9]+/i', '-', trim(strtolower($submenu)));
+            $slug = $slugmain . 'X' . $slugsub;
             $isi = $request->getVar('isi');
             date_default_timezone_set("Asia/Kuala_Lumpur");
             $timestamp = date("Y-m-d h:i:sa");
@@ -171,9 +174,12 @@ class Submenu extends BaseController
             $id = $request->getVar('id');
             $urutan = $request->getVar('urutan');
             $mainmenu = $request->getVar('mainmenu');
+            $namamain =   $this->MainmenuModel->select('*')->select('mainmenu.mainmenu as namamain')->where('mainmenu.id', $mainmenu)->first();
             $submenu = $request->getVar('submenu');
             $akses = $request->getVar('akses');
-            $slug = preg_replace('/[^a-z0-9]+/i', '-', trim(strtolower($submenu)) . $mainmenu);
+            $slugmain = preg_replace('/[^a-z0-9]+/i', '-', trim(strtolower($namamain['namamain'])));
+            $slugsub = preg_replace('/[^a-z0-9]+/i', '-', trim(strtolower($submenu)));
+            $slug = $slugmain . 'X' . $slugsub;
             $isi = $request->getVar('isi');
             date_default_timezone_set("Asia/Kuala_Lumpur");
             $timestamp = date("Y-m-d h:i:sa");

@@ -50,7 +50,9 @@
                                             <ul class="submenu">
                                                 <?php foreach ($submenu as $item_submenu) : ?>
                                                     <?php if ($item_submenu['mainmenu'] == $menu) { ?>
-                                                        <li><a href="<?= base_url('pages/' . $item_submenu['slug']); ?>"><?= $item_submenu['submenu'] ?></a></li>
+                                                        <li>
+                                                            <a href="<?= base_url('pages/' . $item_submenu['slug']); ?>"><?= $item_submenu['submenu'] ?></a>
+                                                        </li>
                                                     <?php } ?>
                                                 <?php endforeach ?>
                                             </ul>

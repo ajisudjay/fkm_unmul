@@ -138,42 +138,37 @@ class Dosen extends BaseController
                     ],
                     'peminatan' => [
                         'label' => 'Peminatan Ilmu',
-                        'rules' => 'required|alpha_numeric_punct',
+                        'rules' => 'required',
                         'errors' => [
                             'required' => '* {field} Tidak Boleh Kosong',
-                            'alpha_numeric_punct' => '{field} Format Tidak Sesuai',
                         ]
                     ],
                     'pohon' => [
                         'label' => 'Pohon Ilmu',
-                        'rules' => 'required|alpha_numeric_punct',
+                        'rules' => 'required',
                         'errors' => [
                             'required' => '* {field} Tidak Boleh Kosong',
-                            'alpha_numeric_punct' => '{field} Format Tidak Sesuai',
                         ]
                     ],
                     'cabang' => [
                         'label' => 'Cabang Ilmu',
-                        'rules' => 'required|alpha_numeric_punct',
+                        'rules' => 'required',
                         'errors' => [
                             'required' => '* {field} Tidak Boleh Kosong',
-                            'alpha_numeric_punct' => '{field} Format Tidak Sesuai',
                         ]
                     ],
                     'bidang' => [
                         'label' => 'Bidang Ilmu',
-                        'rules' => 'required|alpha_numeric_punct',
+                        'rules' => 'required',
                         'errors' => [
                             'required' => '* {field} Tidak Boleh Kosong',
-                            'alpha_numeric_punct' => '{field} Format Tidak Sesuai',
                         ]
                     ],
                     'homebase' => [
                         'label' => 'Homebase',
-                        'rules' => 'required|alpha_numeric_punct',
+                        'rules' => 'required',
                         'errors' => [
                             'required' => '* {field} Tidak Boleh Kosong',
-                            'alpha_numeric_punct' => '{field} Format Tidak Sesuai',
                         ]
                     ],
                     's1' => [
@@ -240,7 +235,7 @@ class Dosen extends BaseController
                     ],
                     'sinta' => [
                         'label' => 'Sinta',
-                        'rules' => 'required|valid_url_strict',
+                        'rules' => 'required',
                         'errors' => [
                             'required' => '* {field} Tidak Boleh Kosong',
                             'valid_url_strict' => '* {field} Format Tidak Sesuai',
@@ -248,7 +243,7 @@ class Dosen extends BaseController
                     ],
                     'gs' => [
                         'label' => 'Google Scholar',
-                        'rules' => 'required|valid_url_strict',
+                        'rules' => 'required',
                         'errors' => [
                             'required' => '* {field} Tidak Boleh Kosong',
                             'valid_url_strict' => '* {field} Format Tidak Sesuai',
@@ -402,11 +397,11 @@ class Dosen extends BaseController
                 $input2 = $this->validate([
                     'nip' => 'required[nip]|alpha_numeric_punct[nip],',
                     'nidn' => 'required[nidn]|alpha_numeric_punct[nidn],',
-                    'peminatan' => 'required[peminatan]|alpha_numeric_punct[peminatan],',
-                    'pohon' => 'required[pohon]|alpha_numeric_punct[pohon],',
-                    'cabang' => 'required[cabang]|alpha_numeric_punct[cabang],',
-                    'bidang' => 'required[bidang]|alpha_numeric_punct[bidang],',
-                    'homebase' => 'required[homebase]|alpha_numeric_punct[homebase],',
+                    'peminatan' => 'required[peminatan]',
+                    'pohon' => 'required[pohon]',
+                    'cabang' => 'required[cabang]',
+                    'bidang' => 'required[bidang]',
+                    'homebase' => 'required[homebase]',
                     's1' => 'required[s1]|alpha_numeric_punct[s1],',
                     's2' => 'required[s2]|alpha_numeric_punct[s2],',
                     's3' => 'required[s3]|alpha_numeric_punct[s3],',
@@ -455,11 +450,11 @@ class Dosen extends BaseController
                 $input2 = $this->validate([
                     'nip' => 'required[nip]|alpha_numeric_punct[nip],',
                     'nidn' => 'required[nidn]|alpha_numeric_punct[nidn],',
-                    'peminatan' => 'required[peminatan]|alpha_numeric_punct[peminatan],',
-                    'pohon' => 'required[pohon]|alpha_numeric_punct[pohon],',
-                    'cabang' => 'required[cabang]|alpha_numeric_punct[cabang],',
-                    'bidang' => 'required[bidang]|alpha_numeric_punct[bidang],',
-                    'homebase' => 'required[homebase]|alpha_numeric_punct[homebase],',
+                    'peminatan' => 'required[peminatan]',
+                    'pohon' => 'required[pohon]',
+                    'cabang' => 'required[cabang]',
+                    'bidang' => 'required[bidang]',
+                    'homebase' => 'required[homebase]',
                     's1' => 'required[s1]|alpha_numeric_punct[s1],',
                     's2' => 'required[s2]|alpha_numeric_punct[s2],',
                     's3' => 'required[s3]|alpha_numeric_punct[s3],',

@@ -8,6 +8,8 @@ use App\Models\SubmenuModel;
 use App\Models\MitraModel;
 use App\Models\SlideshowModel;
 use App\Models\PejabatModel;
+use App\Models\DosenModel;
+use App\Models\TendikModel;
 use App\Models\BeritaModel;
 use App\Models\LinkModel;
 
@@ -18,6 +20,8 @@ class Pages extends BaseController
     protected $MitraModel;
     protected $SlideshowModel;
     protected $PejabatModel;
+    protected $DosenModel;
+    protected $TendikModel;
     protected $KonfigurasiModel;
     protected $BeritaModel;
     protected $LinkModel;
@@ -28,6 +32,8 @@ class Pages extends BaseController
         $this->MitraModel = new MitraModel();
         $this->SlideshowModel = new SlideshowModel();
         $this->PejabatModel = new PejabatModel();
+        $this->DosenModel = new DosenModel();
+        $this->TendikModel = new TendikModel();
         $this->KonfigurasiModel = new KonfigurasiModel();
         $this->BeritaModel = new BeritaModel();
         $this->LinkModel = new LinkModel();
@@ -256,6 +262,62 @@ class Pages extends BaseController
         return view('frontend/pages/sdm', $data);
     }
 
+    public function dosen()
+    {
+        $data = [
+            'title' => 'SDM',
+            'title_pages' => 'Tenaga Pendidik',
+            'submenu' => $this->SubmenuModel->select('*')->select('submenu.id as submenu_id')->select('mainmenu.id as mainmenu_id')->select('mainmenu.urutan as urutan_mainmenu')->select('submenu.urutan as urutan_submenu')->join('mainmenu', 'submenu.id_mainmenu=mainmenu.id')->orderBy('urutan_mainmenu', 'ASC')->orderBy('urutan_submenu', 'ASC')->get()->getResultArray(),
+            'mainmenu' => $this->MainmenuModel->orderBy('urutan', 'ASC')->get()->getResultArray(),
+            'menu' => $this->MainmenuModel->orderBy('urutan', 'ASC')->findAll(6),
+            'menu2' => $this->MainmenuModel->orderBy('urutan', 'ASC')->findAll(7, 6),
+            'dosen' => $this->DosenModel->orderBy('homebase', 'ASC')->orderBy('nip', 'ASC')->orderBy('nama', 'ASC')->get()->getResultArray(),
+            'konf' => $this->KonfigurasiModel->findAll(),
+            'konfigurasi' => $this->KonfigurasiModel->first(),
+            'link_library' => $this->LinkModel->orderBy('judul', 'ASC')->where('kategori', 'Library')->findAll(),
+            'link_partner' => $this->LinkModel->orderBy('judul', 'ASC')->where('kategori', 'Partner')->findAll(),
+            'link_jurnal' => $this->LinkModel->orderBy('judul', 'ASC')->where('kategori', 'Journal')->findAll(),
+        ];
+        return view('frontend/pages/dosen', $data);
+    }
+
+    public function dosen_detail($nip)
+    {
+        $data = [
+            'title' => 'Dosen',
+            'title_pages' => 'Dosen',
+            'submenu' => $this->SubmenuModel->select('*')->select('submenu.id as submenu_id')->select('mainmenu.id as mainmenu_id')->select('mainmenu.urutan as urutan_mainmenu')->select('submenu.urutan as urutan_submenu')->join('mainmenu', 'submenu.id_mainmenu=mainmenu.id')->orderBy('urutan_mainmenu', 'ASC')->orderBy('urutan_submenu', 'ASC')->get()->getResultArray(),
+            'mainmenu' => $this->MainmenuModel->orderBy('urutan', 'ASC')->get()->getResultArray(),
+            'menu' => $this->MainmenuModel->orderBy('urutan', 'ASC')->findAll(4),
+            'menu2' => $this->MainmenuModel->orderBy('urutan', 'ASC')->findAll(10, 4),
+            'dosen' => $this->DosenModel->where('nip', $nip)->first(),
+            'konf' => $this->KonfigurasiModel->findAll(),
+            'konfigurasi' => $this->KonfigurasiModel->first(),
+            'link_library' => $this->LinkModel->orderBy('judul', 'ASC')->where('kategori', 'Library')->findAll(),
+            'link_partner' => $this->LinkModel->orderBy('judul', 'ASC')->where('kategori', 'Partner')->findAll(),
+            'link_jurnal' => $this->LinkModel->orderBy('judul', 'ASC')->where('kategori', 'Journal')->findAll(),
+        ];
+        return view('frontend/pages/dosen-detail', $data);
+    }
+
+    public function tendik()
+    {
+        $data = [
+            'title' => 'SDM',
+            'title_pages' => 'Tenaga Kependidikan',
+            'submenu' => $this->SubmenuModel->select('*')->select('submenu.id as submenu_id')->select('mainmenu.id as mainmenu_id')->select('mainmenu.urutan as urutan_mainmenu')->select('submenu.urutan as urutan_submenu')->join('mainmenu', 'submenu.id_mainmenu=mainmenu.id')->orderBy('urutan_mainmenu', 'ASC')->orderBy('urutan_submenu', 'ASC')->get()->getResultArray(),
+            'menu' => $this->MainmenuModel->orderBy('urutan', 'ASC')->findAll(4),
+            'menu2' => $this->MainmenuModel->orderBy('urutan', 'ASC')->findAll(10, 4),
+            'tendik' => $this->TendikModel->orderBy('nip', 'ASC')->orderBy('nama', 'ASC')->get()->getResultArray(),
+            'konf' => $this->KonfigurasiModel->findAll(),
+            'konfigurasi' => $this->KonfigurasiModel->first(),
+            'link_library' => $this->LinkModel->orderBy('judul', 'ASC')->where('kategori', 'Library')->findAll(),
+            'link_partner' => $this->LinkModel->orderBy('judul', 'ASC')->where('kategori', 'Partner')->findAll(),
+            'link_jurnal' => $this->LinkModel->orderBy('judul', 'ASC')->where('kategori', 'Journal')->findAll(),
+        ];
+        return view('frontend/pages/tendik', $data);
+    }
+
     public function informasi()
     {
         $data = [
@@ -358,45 +420,6 @@ class Pages extends BaseController
             'terbaru' => $this->BeritaModel->orderBy('tanggal', 'DESC')->findAll(3),
         ];
         return view('frontend/pages/informasi-detail', $data);
-    }
-
-    public function laboratorium($slug)
-    {
-        $data = [
-            'title' => 'Laboratorium',
-            'title_pages' => '',
-            'slug'  => $slug,
-            'submenu' => $this->SubmenuModel->select('*')->select('submenu.id as submenu_id')->select('mainmenu.id as mainmenu_id')->select('mainmenu.urutan as urutan_mainmenu')->select('submenu.urutan as urutan_submenu')->join('mainmenu', 'submenu.id_mainmenu=mainmenu.id')->orderBy('urutan_mainmenu', 'ASC')->orderBy('urutan_submenu', 'ASC')->get()->getResultArray(),
-            'mainmenu' => $this->MainmenuModel->orderBy('urutan', 'ASC')->get()->getResultArray(),
-            'menu' => $this->MainmenuModel->orderBy('urutan', 'ASC')->findAll(6),
-            'menu2' => $this->MainmenuModel->orderBy('urutan', 'ASC')->findAll(7, 6),
-            'mitra' => $this->MitraModel->orderBy('nama', 'DESC')->get()->getResultArray(),
-            'slideshow' => $this->SlideshowModel->orderBy('nama', 'ASC')->get()->getResultArray(),
-            'pejabat' => $this->PejabatModel->orderBy('urutan', 'ASC')->get()->getResultArray(),
-            'konf' => $this->KonfigurasiModel->findAll(),
-            'prodi' => $this->SubmenuModel->orderBy('urutan', 'ASC')->where('id_mainmenu', '25')->findAll(),
-        ];
-        return view('frontend/pages/laboratorium', $data);
-    }
-
-
-    public function laboratorium_detail($slug)
-    {
-        $data = [
-            'title' => 'Laboratorium',
-            'title_pages' => '',
-            'slug'  => $slug,
-            'submenu' => $this->SubmenuModel->select('*')->select('submenu.id as submenu_id')->select('mainmenu.id as mainmenu_id')->select('mainmenu.urutan as urutan_mainmenu')->select('submenu.urutan as urutan_submenu')->join('mainmenu', 'submenu.id_mainmenu=mainmenu.id')->orderBy('urutan_mainmenu', 'ASC')->orderBy('urutan_submenu', 'ASC')->get()->getResultArray(),
-            'mainmenu' => $this->MainmenuModel->orderBy('urutan', 'ASC')->get()->getResultArray(),
-            'menu' => $this->MainmenuModel->orderBy('urutan', 'ASC')->findAll(6),
-            'menu2' => $this->MainmenuModel->orderBy('urutan', 'ASC')->findAll(7, 6),
-            'mitra' => $this->MitraModel->orderBy('nama', 'DESC')->get()->getResultArray(),
-            'slideshow' => $this->SlideshowModel->orderBy('nama', 'ASC')->get()->getResultArray(),
-            'pejabat' => $this->PejabatModel->orderBy('urutan', 'ASC')->get()->getResultArray(),
-            'konf' => $this->KonfigurasiModel->findAll(),
-            'prodi' => $this->SubmenuModel->orderBy('urutan', 'ASC')->where('id_mainmenu', '25')->findAll(),
-        ];
-        return view('frontend/pages/laboratorium-detail', $data);
     }
 
     public function menu()

@@ -87,6 +87,9 @@ class Dosen extends BaseController
             $nip = $request->getVar('nip');
             $nidn = $request->getVar('nidn');
             $nama = $request->getVar('nama');
+            $peminatan = $request->getVar('peminatan');
+            $pohon = $request->getVar('pohon');
+            $cabang = $request->getVar('cabang');
             $bidang = $request->getVar('bidang');
             $homebase = $request->getVar('homebase');
             $jabatan = $request->getVar('jabatan');
@@ -94,7 +97,6 @@ class Dosen extends BaseController
             $pangkat = $request->getVar('pangkat');
             $pendidikan = $request->getVar('pendidikan');
             $s1 = $request->getVar('s1');
-            $sp = $request->getVar('sp');
             $s2 = $request->getVar('s2');
             $s3 = $request->getVar('s3');
             $jk = $request->getVar('jk');
@@ -134,6 +136,30 @@ class Dosen extends BaseController
                             'required' => '* {field} Tidak Boleh Kosong',
                         ]
                     ],
+                    'peminatan' => [
+                        'label' => 'Peminatan Ilmu',
+                        'rules' => 'required|alpha_numeric_punct',
+                        'errors' => [
+                            'required' => '* {field} Tidak Boleh Kosong',
+                            'alpha_numeric_punct' => '{field} Format Tidak Sesuai',
+                        ]
+                    ],
+                    'pohon' => [
+                        'label' => 'Pohon Ilmu',
+                        'rules' => 'required|alpha_numeric_punct',
+                        'errors' => [
+                            'required' => '* {field} Tidak Boleh Kosong',
+                            'alpha_numeric_punct' => '{field} Format Tidak Sesuai',
+                        ]
+                    ],
+                    'cabang' => [
+                        'label' => 'Cabang Ilmu',
+                        'rules' => 'required|alpha_numeric_punct',
+                        'errors' => [
+                            'required' => '* {field} Tidak Boleh Kosong',
+                            'alpha_numeric_punct' => '{field} Format Tidak Sesuai',
+                        ]
+                    ],
                     'bidang' => [
                         'label' => 'Bidang Ilmu',
                         'rules' => 'required|alpha_numeric_punct',
@@ -152,14 +178,6 @@ class Dosen extends BaseController
                     ],
                     's1' => [
                         'label' => 'Asal S1',
-                        'rules' => 'required|alpha_numeric_punct',
-                        'errors' => [
-                            'required' => '* {field} Tidak Boleh Kosong',
-                            'alpha_numeric_punct' => '{field} Format Tidak Sesuai',
-                        ]
-                    ],
-                    'sp' => [
-                        'label' => 'Asal Spesialis',
                         'rules' => 'required|alpha_numeric_punct',
                         'errors' => [
                             'required' => '* {field} Tidak Boleh Kosong',
@@ -253,10 +271,12 @@ class Dosen extends BaseController
                             'nip' => $validation->getError('nip'),
                             'nidn' => $validation->getError('nidn'),
                             'nama' => $validation->getError('nama'),
+                            'peminatan' => $validation->getError('peminatan'),
+                            'pohon' => $validation->getError('pohon'),
+                            'cabang' => $validation->getError('cabang'),
                             'bidang' => $validation->getError('bidang'),
                             'homebase' => $validation->getError('homebase'),
                             's1' => $validation->getError('s1'),
-                            'sp' => $validation->getError('sp'),
                             's2' => $validation->getError('s2'),
                             's3' => $validation->getError('s3'),
                             'tempat_lahir' => $validation->getError('tempat_lahir'),
@@ -277,6 +297,9 @@ class Dosen extends BaseController
                         'nip' => $nip,
                         'nidn' => $nidn,
                         'nama' => $nama,
+                        'peminatan' => $peminatan,
+                        'pohon' => $pohon,
+                        'cabang' => $cabang,
                         'bidang' => $bidang,
                         'homebase' => $homebase,
                         'jabatan' => $jabatan,
@@ -284,7 +307,6 @@ class Dosen extends BaseController
                         'pangkat' => $pangkat,
                         'pendidikan' => $pendidikan,
                         's1' => $s1,
-                        'sp' => $sp,
                         's2' => $s2,
                         's3' => $s3,
                         'jk' => $jk,
@@ -300,7 +322,40 @@ class Dosen extends BaseController
                         'admin' => $username,
                     ];
                     $this->DosenModel->insert($data);
-                    return redirect()->to(base_url("/dosen/thumb/$namagambar"));
+                    $cekfile = $this->DosenModel->where('gambar', $namagambar)->first();
+                    $namafile = $cekfile['gambar'];
+                    $filesource = '../writable/uploads/content/dosen/' . $namafile;
+                    list($width, $heigth) = getimagesize($filesource);
+                    $ratio = $width / $heigth;
+                    $max = 500;
+                    if ($width > $max || $heigth > $max) {
+                        if ($width > $heigth) {
+                            $newwidht = round($max);
+                            $newheigth = round($max / $ratio);
+                        } else {
+                            $newheigth = round($max);
+                            $newwidht = round($max * $ratio);
+                        }
+                    } else {
+                        $newwidht = round($width);
+                        $newheigth = round($heigth);
+                    }
+                    $thumb = imagecreatetruecolor($newwidht, $newheigth);
+                    $exp = explode(".", $namafile);
+                    $extension = end($exp);
+                    if ($extension == 'png' | $extension == 'PNG') {
+                        $source = imagecreatefrompng($filesource);
+                    } else {
+                        $source = imagecreatefromjpeg($filesource);
+                    }
+
+                    imagecopyresized($thumb, $source, 0, 0, 0, 0, $newwidht, $newheigth, $width, $heigth);
+                    $target = "../writable/uploads/content/dosen/thumb/$namagambar";
+                    imagewebp($thumb, $target, 80);
+                    $msg = [
+                        'title' => 'Berhasil'
+                    ];
+                    echo json_encode($msg);
                 }
             } else {
                 exit('Data Tidak Dapat diproses');
@@ -319,6 +374,9 @@ class Dosen extends BaseController
             $nip = $request->getVar('nip');
             $nidn = $request->getVar('nidn');
             $nama = $request->getVar('nama');
+            $peminatan = $request->getVar('peminatan');
+            $pohon = $request->getVar('pohon');
+            $cabang = $request->getVar('cabang');
             $bidang = $request->getVar('bidang');
             $homebase = $request->getVar('homebase');
             $jabatan = $request->getVar('jabatan');
@@ -326,7 +384,6 @@ class Dosen extends BaseController
             $pangkat = $request->getVar('pangkat');
             $pendidikan = $request->getVar('pendidikan');
             $s1 = $request->getVar('s1');
-            $sp = $request->getVar('sp');
             $s2 = $request->getVar('s2');
             $s3 = $request->getVar('s3');
             $jk = $request->getVar('jk');
@@ -345,10 +402,12 @@ class Dosen extends BaseController
                 $input2 = $this->validate([
                     'nip' => 'required[nip]|alpha_numeric_punct[nip],',
                     'nidn' => 'required[nidn]|alpha_numeric_punct[nidn],',
+                    'peminatan' => 'required[peminatan]|alpha_numeric_punct[peminatan],',
+                    'pohon' => 'required[pohon]|alpha_numeric_punct[pohon],',
+                    'cabang' => 'required[cabang]|alpha_numeric_punct[cabang],',
                     'bidang' => 'required[bidang]|alpha_numeric_punct[bidang],',
                     'homebase' => 'required[homebase]|alpha_numeric_punct[homebase],',
                     's1' => 'required[s1]|alpha_numeric_punct[s1],',
-                    'sp' => 'required[sp]|alpha_numeric_punct[sp],',
                     's2' => 'required[s2]|alpha_numeric_punct[s2],',
                     's3' => 'required[s3]|alpha_numeric_punct[s3],',
                     'tempat_lahir' => 'required[tempat_lahir]|alpha_numeric_punct[tempat_lahir],',
@@ -362,6 +421,9 @@ class Dosen extends BaseController
                     'nip' => $nip,
                     'nidn' => $nidn,
                     'nama' => $nama,
+                    'peminatan' => $peminatan,
+                    'pohon' => $pohon,
+                    'cabang' => $cabang,
                     'bidang' => $bidang,
                     'homebase' => $homebase,
                     'jabatan' => $jabatan,
@@ -369,7 +431,6 @@ class Dosen extends BaseController
                     'pangkat' => $pangkat,
                     'pendidikan' => $pendidikan,
                     's1' => $s1,
-                    'sp' => $sp,
                     's2' => $s2,
                     's3' => $s3,
                     'jk' => $jk,
@@ -394,10 +455,12 @@ class Dosen extends BaseController
                 $input2 = $this->validate([
                     'nip' => 'required[nip]|alpha_numeric_punct[nip],',
                     'nidn' => 'required[nidn]|alpha_numeric_punct[nidn],',
+                    'peminatan' => 'required[peminatan]|alpha_numeric_punct[peminatan],',
+                    'pohon' => 'required[pohon]|alpha_numeric_punct[pohon],',
+                    'cabang' => 'required[cabang]|alpha_numeric_punct[cabang],',
                     'bidang' => 'required[bidang]|alpha_numeric_punct[bidang],',
                     'homebase' => 'required[homebase]|alpha_numeric_punct[homebase],',
                     's1' => 'required[s1]|alpha_numeric_punct[s1],',
-                    'sp' => 'required[sp]|alpha_numeric_punct[sp],',
                     's2' => 'required[s2]|alpha_numeric_punct[s2],',
                     's3' => 'required[s3]|alpha_numeric_punct[s3],',
                     'tempat_lahir' => 'required[tempat_lahir]|alpha_numeric_punct[tempat_lahir],',
@@ -426,6 +489,9 @@ class Dosen extends BaseController
                         'nip' => $nip,
                         'nidn' => $nidn,
                         'nama' => $nama,
+                        'peminatan' => $peminatan,
+                        'pohon' => $pohon,
+                        'cabang' => $cabang,
                         'bidang' => $bidang,
                         'homebase' => $homebase,
                         'jabatan' => $jabatan,
@@ -433,7 +499,6 @@ class Dosen extends BaseController
                         'pangkat' => $pangkat,
                         'pendidikan' => $pendidikan,
                         's1' => $s1,
-                        'sp' => $sp,
                         's2' => $s2,
                         's3' => $s3,
                         'jk' => $jk,

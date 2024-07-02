@@ -72,6 +72,12 @@
                                             </ul>
                                         </li>
                                     <?php endforeach ?>
+                                    <li><a class="<?= $title == 'SDM' ? 'text-primary' : '' ?>" href="<?= base_url('/'); ?>">SDM</a>
+                                        <ul class="submenu">
+                                            <li><a href="<?= base_url('pages-dosen/'); ?>">Dosen</a></li>
+                                            <li><a href="<?= base_url('pages-tendik/'); ?>">Tendik & Laboran</a></li>
+                                        </ul>
+                                    </li>
                                     <!-- <li><a class="<?= $title == 'Menu' ? 'text-primary' : '' ?>" href="<?= base_url('/menu'); ?>">Semua Menu</a></li> -->
                                 </ul>
                             </nav>

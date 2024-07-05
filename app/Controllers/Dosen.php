@@ -41,7 +41,7 @@ class Dosen extends BaseController
             $request = \Config\Services::request();
             if ($request->isAJAX()) {
                 $data = [
-                    'dosen' => $this->DosenModel->orderBy('nama', 'ASC')->get()->getResultArray(),
+                    'dosen' => $this->DosenModel->orderBy('nip', 'ASC')->get()->getResultArray(),
                     // jumlah pendidikan tendik
                     'jumlahLs1' => $this->DosenModel->selectCount('id')->where('pendidikan', 'S1')->where('jk', 'Laki-laki')->first(),
                     'jumlahPs1' => $this->DosenModel->selectCount('id')->where('pendidikan', 'S1')->where('jk', 'Perempuan')->first(),
@@ -197,10 +197,9 @@ class Dosen extends BaseController
                     ],
                     'tempat_lahir' => [
                         'label' => 'Tempat Lahir',
-                        'rules' => 'required|alpha_numeric_punct',
+                        'rules' => 'required',
                         'errors' => [
                             'required' => '* {field} Tidak Boleh Kosong',
-                            'alpha_numeric_punct' => '{field} Format Tidak Sesuai',
                         ]
                     ],
                     'tanggal_lahir' => [
@@ -238,7 +237,6 @@ class Dosen extends BaseController
                         'rules' => 'required',
                         'errors' => [
                             'required' => '* {field} Tidak Boleh Kosong',
-                            'valid_url_strict' => '* {field} Format Tidak Sesuai',
                         ]
                     ],
                     'gs' => [
@@ -246,7 +244,6 @@ class Dosen extends BaseController
                         'rules' => 'required',
                         'errors' => [
                             'required' => '* {field} Tidak Boleh Kosong',
-                            'valid_url_strict' => '* {field} Format Tidak Sesuai',
                         ]
                     ],
                     'file' => [
@@ -405,7 +402,7 @@ class Dosen extends BaseController
                     's1' => 'required[s1]|alpha_numeric_punct[s1],',
                     's2' => 'required[s2]|alpha_numeric_punct[s2],',
                     's3' => 'required[s3]|alpha_numeric_punct[s3],',
-                    'tempat_lahir' => 'required[tempat_lahir]|alpha_numeric_punct[tempat_lahir],',
+                    'tempat_lahir' => 'required[tempat_lahir],',
                     'telp' => 'required[telp]|alpha_numeric_punct[telp],',
                 ]);
                 if (!$input2) { // Not valid
@@ -458,7 +455,7 @@ class Dosen extends BaseController
                     's1' => 'required[s1]|alpha_numeric_punct[s1],',
                     's2' => 'required[s2]|alpha_numeric_punct[s2],',
                     's3' => 'required[s3]|alpha_numeric_punct[s3],',
-                    'tempat_lahir' => 'required[tempat_lahir]|alpha_numeric_punct[tempat_lahir],',
+                    'tempat_lahir' => 'required[tempat_lahir],',
                     'telp' => 'required[telp]|alpha_numeric_punct[telp],',
                 ]);
                 if (!$input) { // Not valid

@@ -77,7 +77,7 @@
                                     <div class="invalid-feedback errortelp"></div>
                                     <br>
                                 </div>
-                                <div class="col-lg-2">
+                                <div class="col-lg-3">
                                     <label class="text-primary">Homebase</label>
                                     <input type="text" name="homebase" class="form-control homebase" placeholder="Homebase">
                                     <div class="invalid-feedback errorhomebase"></div>
@@ -115,6 +115,7 @@
                                         <option value="III/d">III/d</option>
                                         <option value="IV/a">IV/a</option>
                                         <option value="IV/b">IV/b</option>
+                                        <option value="IV/c">IV/c</option>
                                     </select>
                                     <br>
                                 </div>
@@ -158,8 +159,16 @@
                                 </div>
                                 <div class="col-lg-3">
                                     <label class="text-primary">Peminatan</label>
-                                    <input type="text" required name="peminatan" class="form-control peminatan" placeholder="Peminatan">
-                                    <div class="invalid-feedback errorpeminatan"></div>
+                                    <select name="peminatan" class="form-control peminatan">
+                                        <option value="Administrasi & Kebijakan Kesehatan">Administrasi & Kebijakan Kesehatan</option>
+                                        <option value="Biostatistik & Kependudukan">Biostatistik & Kependudukan</option>
+                                        <option value="Epidemiologi">Epidemiologi</option>
+                                        <option value="Gizi">Gizi</option>
+                                        <option value="Kesehatan & Keselamatan Kerja">Kesehatan & Keselamatan Kerja</option>
+                                        <option value="Kesehatan Lingkungan">Kesehatan Lingkungan</option>
+                                        <option value="Promosi Kesehatan">Promosi Kesehatan</option>
+                                        <option value="-">-</option>
+                                    </select>
                                     <br>
                                 </div>
                                 <div class="col-lg-3">
@@ -311,7 +320,7 @@
                     <th width="30%">NAMA</th>
                     <th width="10%">BAGIAN UNIT</th>
                     <th width="10%">PEND.</th>
-                    <th width="20%" style="text-align: center;">FOTO</th>
+                    <th width="10%" style="text-align: center;">FOTO</th>
                     <th width="10%">LOG</th>
                 </tr>
             </thead>
@@ -398,7 +407,7 @@
                                                             <div class="invalid-feedback errortelp"></div>
                                                             <br>
                                                         </div>
-                                                        <div class="col-lg-2">
+                                                        <div class="col-lg-3">
                                                             <label class="text-primary">Homebase</label>
                                                             <input type="text" required name="homebase" class="form-control homebase" value="<?= $item['homebase'] ?>">
                                                             <div class="invalid-feedback errorhomebase"></div>
@@ -439,6 +448,7 @@
                                                                 <option value="III/d">III/d</option>
                                                                 <option value="IV/a">IV/a</option>
                                                                 <option value="IV/b">IV/b</option>
+                                                                <option value="IV/c">IV/c</option>
                                                             </select>
                                                             <br>
                                                         </div>
@@ -465,7 +475,7 @@
                                                         </div>
                                                         <div class="col-lg-3">
                                                             <label class="text-primary">Asal S1</label>
-                                                            <input type="text" required name="s1" class="form-control s1" value="<?= $item['s1'] ?> S1">
+                                                            <input type="text" required name="s1" class="form-control s1" value="<?= $item['s1'] ?>">
                                                             <div class="invalid-feedback errors1"></div>
                                                             <br>
                                                         </div>
@@ -483,8 +493,17 @@
                                                         </div>
                                                         <div class="col-lg-3">
                                                             <label class="text-primary">Peminatan</label>
-                                                            <input type="text" required name="peminatan" class="form-control peminatan" value="<?= $item['peminatan'] ?>">
-                                                            <div class="invalid-feedback errorpeminatan"></div>
+                                                            <select name="peminatan" class="form-control peminatan">
+                                                                <option value="<?= $item['peminatan'] ?>"><?= $item['peminatan'] ?></option>
+                                                                <option value="Administrasi & Kebijakan Kesehatan">Administrasi & Kebijakan Kesehatan</option>
+                                                                <option value="Biostatistik & Kependudukan">Biostatistik & Kependudukan</option>
+                                                                <option value="Epidemiologi">Epidemiologi</option>
+                                                                <option value="Gizi">Gizi</option>
+                                                                <option value="Kesehatan & Keselamatan Kerja">Kesehatan & Keselamatan Kerja</option>
+                                                                <option value="Kesehatan Lingkungan">Kesehatan Lingkungan</option>
+                                                                <option value="Promosi Kesehatan">Promosi Kesehatan</option>
+                                                                <option value="-">-</option>
+                                                            </select>
                                                             <br>
                                                         </div>
                                                         <div class="col-lg-3">
@@ -527,10 +546,10 @@
                                 <span class="btn-sm btn-danger feather icon-trash-2 text-default"></span>
                             </a>
                         <td><?= $item['nip'] ?></td>
-                        <td style="min-width: 200px;max-width: 400px; white-space: normal;"><?= $item['nama'] ?></td>
-                        <td style="min-width: 150px;max-width: 400px; white-space: normal;"><?= $item['bidang'] ?></td>
-                        <td style="min-width: 50px;max-width: 100px; white-space: normal;"><?= $item['pendidikan'] ?></td>
-                        <td style="text-align: center;"><img src="<?= base_url('writable/uploads/content/dosen/thumb/' . $item['gambar'] . ''); ?>" width="100%"></td>
+                        <td style="min-width: 150px;max-width: 200px; white-space: normal;"><?= $item['nama'] ?></td>
+                        <td style="min-width: 100px;max-width: 200px; white-space: normal;"><?= $item['bidang'] ?></td>
+                        <td style="min-width: 25px;max-width: 50px; white-space: normal;"><?= $item['pendidikan'] ?></td>
+                        <td style=";text-align: center;"><img src="<?= base_url('writable/uploads/content/dosen/thumb/' . $item['gambar'] . ''); ?>" width="100px"></td>
                         <td><?= $item['timestamp'] . ' | ' . $item['admin'] ?></td>
                     </tr>
                 <?php endforeach ?>

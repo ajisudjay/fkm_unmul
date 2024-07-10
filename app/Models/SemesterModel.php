@@ -4,17 +4,17 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class KategoriskModel extends Model
+class SemesterModel extends Model
 {
     protected $DBGroup          = 'default';
-    protected $table            = 'kategori_sk';
+    protected $table            = 'semester';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $insertID         = 0;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['id', 'kategori'];
+    protected $allowedFields    = ['id', 'semester'];
 
     // Dates
     protected $useTimestamps = false;

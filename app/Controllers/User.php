@@ -249,6 +249,9 @@ class User extends BaseController
                 $password = $request->getVar('password');
                 $repassword = $request->getVar('repassword');
                 $namauser = session()->get('username');
+                $userx = session()->get('username');
+                date_default_timezone_set("Asia/Kuala_Lumpur");
+                $timestamp = date("Y-m-d h:i:sa");
                 $lvl = session()->get('level');
                 $validation = \Config\Services::validation();
                 $valid = $this->validate([
@@ -279,6 +282,8 @@ class User extends BaseController
                 } else {
                     $data = [
                         'password' => password_hash($password, PASSWORD_DEFAULT),
+                        'timestamp' => $timestamp,
+                        'admin' => $userx,
                     ];
                     $this->UsersModel->update($username, $data);
 

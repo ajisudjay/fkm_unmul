@@ -3,20 +3,20 @@
 namespace App\Controllers;
 
 use App\Models\SkModel;
-use App\Models\KategoriskModel;
-use App\Models\Sk_katModel;
+use App\Models\Kategori_skModel;
+use App\Models\SemesterModel;
 use App\Controllers\BaseController;
 
 class Sk extends BaseController
 {
     protected $SkModel;
-    protected $KategoriskModel;
-    protected $Sk_katModel;
+    protected $Kategori_skModel;
+    protected $SemesterModel;
     public function __construct()
     {
         $this->SkModel = new SkModel();
-        $this->KategoriskModel = new KategoriskModel();
-        $this->Sk_katModel = new Sk_katModel();
+        $this->Kategori_skModel = new Kategori_skModel();
+        $this->SemesterModel = new SemesterModel();
     }
     public function index()
     {
@@ -47,8 +47,9 @@ class Sk extends BaseController
             $username = session()->get('username');
             if ($request->isAJAX()) {
                 $data = [
-                    'sk' => $this->SkModel->orderBy('tanggal', 'DESC')->get()->getResultArray(),
-                    'kategori_sk' => $this->KategoriskModel->orderBy('kategori', 'ASC')->get()->getResultArray(),
+                    'sk' => $this->SkModel->orderBy('tanggal', 'DESC')->select('*')->select('sk.id as id_sk')->select('kategori_sk.kategori as nama_kategori')->select('semester.semester as nama_semester')->join('kategori_sk', 'kategori_sk.id=sk.kategori')->join('semester', 'semester.id=sk.semester')->get()->getResultArray(),
+                    'kategori_sk' => $this->Kategori_skModel->orderBy('kategori', 'ASC')->get()->getResultArray(),
+                    'semester' => $this->SemesterModel->orderBy('semester', 'DESC')->get()->getResultArray(),
                     'validation' => \Config\Services::validation(),
                 ];
                 $msg = [
@@ -71,10 +72,12 @@ class Sk extends BaseController
             $nomor = $request->getVar('nomor');
             $jenis = $request->getVar('jenis');
             $tanggal = $request->getVar('tanggal');
+            $kategori = $request->getVar('kategori');
+            $semester = $request->getVar('semester');
             $perihal = $request->getVar('perihal');
             $sasaran = $request->getVar('sasaran');
             $file = $request->getFile('file');
-            $admin = 'aji';
+            $admin = session()->get('username');
             date_default_timezone_set("Asia/Kuala_Lumpur");
             $timestamp = date("Y-m-d h:i:sa");
 
@@ -115,6 +118,14 @@ class Sk extends BaseController
                             'required' => '{field} Tidak Boleh Kosong',
                         ]
                     ],
+                    'file' => [
+                        'label' => 'File',
+                        'rules' => 'uploaded[file]|max_size[file,50480]',
+                        'errors' => [
+                            'uploaded' => '{field} Tidak Boleh Kosong',
+                            'max_size' => '{field} Ukuran File Lebih 5mb',
+                        ]
+                    ],
                 ]);
                 if (!$valid) {
                     $msg = [
@@ -124,6 +135,7 @@ class Sk extends BaseController
                             'tanggal' => $validation->getError('tanggal'),
                             'sasaran' => $validation->getError('sasaran'),
                             'perihal' => $validation->getError('perihal'),
+                            'file' => $validation->getError('file'),
                         ],
                     ];
                     return $this->response->setJSON($msg);
@@ -134,6 +146,8 @@ class Sk extends BaseController
                         'nomor' => $nomor,
                         'jenis' => $jenis,
                         'tanggal' => $tanggal,
+                        'kategori' => $kategori,
+                        'semester' => $semester,
                         'perihal' => $perihal,
                         'sasaran' => $sasaran,
                         'file' => $newName,
@@ -143,7 +157,9 @@ class Sk extends BaseController
                     $this->SkModel->insert($data);
 
                     $data2 = [
-                        'sk' => $this->SkModel->orderBy('tanggal', 'DESC')->get()->getResultArray(),
+                        'sk' => $this->SkModel->orderBy('tanggal', 'DESC')->select('*')->select('sk.id as id_sk')->select('kategori_sk.kategori as nama_kategori')->select('semester.semester as nama_semester')->join('kategori_sk', 'kategori_sk.id=sk.kategori')->join('semester', 'semester.id=sk.semester')->get()->getResultArray(),
+                        'kategori_sk' => $this->Kategori_skModel->orderBy('kategori', 'ASC')->get()->getResultArray(),
+                        'semester' => $this->SemesterModel->orderBy('semester', 'DESC')->get()->getResultArray(),
                         'validation' => \Config\Services::validation(),
                     ];
                     $msg = [
@@ -168,88 +184,81 @@ class Sk extends BaseController
             $nomor = $request->getVar('nomor');
             $jenis = $request->getVar('jenis');
             $tanggal = $request->getVar('tanggal');
+            $kategori = $request->getVar('kategori');
+            $semester = $request->getVar('semester');
             $perihal = $request->getVar('perihal');
             $sasaran = $request->getVar('sasaran');
             $file = $request->getFile('file');
-            $admin = 'aji';
+            $admin = session()->get('username');
             date_default_timezone_set("Asia/Kuala_Lumpur");
             $timestamp = date("Y-m-d h:i:sa");
 
-            if ($request->isAJAX()) {
-                $valid = $this->validate([
-                    'jenis' => [
-                        'label' => 'Jenis',
-                        'rules' => 'required',
-                        'errors' => [
-                            'required' => '{field} Tidak Boleh Kosong',
-                        ]
-                    ],
-                    'nomor' => [
-                        'label' => 'Nomor',
-                        'rules' => 'required',
-                        'errors' => [
-                            'required' => '{field} Tidak Boleh Kosong',
-                        ]
-                    ],
-                    'tanggal' => [
-                        'label' => 'Tanggal',
-                        'rules' => 'required',
-                        'errors' => [
-                            'required' => '{field} Tidak Boleh Kosong',
-                        ]
-                    ],
-                    'sasaran' => [
-                        'label' => 'Sasaran',
-                        'rules' => 'required',
-                        'errors' => [
-                            'required' => '{field} Tidak Boleh Kosong',
-                        ]
-                    ],
-                    'perihal' => [
-                        'label' => 'Perihal',
-                        'rules' => 'required',
-                        'errors' => [
-                            'required' => '{field} Tidak Boleh Kosong',
-                        ]
-                    ],
+            if (!file_exists($_FILES['file']['tmp_name'])) {
+                $input2 = $this->validate([
+                    'nomor' => 'required[nomor],',
+                    'tanggal' => 'required[tanggal],',
+                    'perihal' => 'required[perihal],',
                 ]);
-                if (!$valid) {
-                    $msg = [
-                        'error' => [
-                            'jenis' => $validation->getError('jenis'),
-                            'nomor' => $validation->getError('nomor'),
-                            'tanggal' => $validation->getError('tanggal'),
-                            'sasaran' => $validation->getError('sasaran'),
-                            'perihal' => $validation->getError('perihal'),
-                        ],
-                    ];
-                    return $this->response->setJSON($msg);
+                if (!$input2) { // Not valid
+                    session()->setFlashdata('pesanGagal', 'Format tidak sesuai');
+                    return redirect()->to(base_url('/sk'));
+                }
+                $data = [
+                    'nomor' => $nomor,
+                    'jenis' => $jenis,
+                    'tanggal' => $tanggal,
+                    'kategori' => $kategori,
+                    'semester' => $semester,
+                    'perihal' => $perihal,
+                    'sasaran' => $sasaran,
+                    'admin' => $admin,
+                    'timestamps' => $timestamp,
+                ];
+                $this->SkModel->update($id, $data);
+
+                session()->setFlashdata('pesanInput', 'Mengubah Data SK');
+                return redirect()->to(base_url('/sk'));
+            } else {
+                $input = $this->validate([
+                    'file' => 'uploaded[file]|max_size[file,50480],'
+                ]);
+                $input2 = $this->validate([
+                    'nomor' => 'required[nomor],',
+                    'tanggal' => 'required[tanggal],',
+                    'perihal' => 'required[perihal],',
+                ]);
+                if (!$input) { // Not valid
+                    session()->setFlashdata('pesanGagal', 'Format Dokumen tidak sesuai');
+                    return redirect()->to(base_url('/sk'));
+                } elseif (!$input2) { // Not valid
+                    session()->setFlashdata('pesanGagal', 'Format tidak sesuai');
+                    return redirect()->to(base_url('/sk'));
                 } else {
+                    $file = $request->getFile('file');
+                    $cekfile = $this->SkModel->where('id', $id)->first();
+                    $namafile = $cekfile['file'];
+                    $filesource = '../writable/uploads/content/sk/' . $namafile . '';
+                    chmod($filesource, 0777);
+                    unlink($filesource);
                     $newName = $file->getRandomName();
                     $file->store('content/sk/', $newName);
+                    $nama_foto = $newName;
                     $data = [
                         'nomor' => $nomor,
                         'jenis' => $jenis,
                         'tanggal' => $tanggal,
+                        'kategori' => $kategori,
+                        'semester' => $semester,
                         'perihal' => $perihal,
                         'sasaran' => $sasaran,
-                        'file' => $newName,
+                        'file' => $nama_foto,
                         'admin' => $admin,
                         'timestamps' => $timestamp,
                     ];
                     $this->SkModel->update($id, $data);
-
-                    $data2 = [
-                        'sk' => $this->SkModel->orderBy('tanggal', 'DESC')->get()->getResultArray(),
-                        'validation' => \Config\Services::validation(),
-                    ];
-                    $msg = [
-                        'data' => view('backend/sk/view', $data2)
-                    ];
-                    echo json_encode($msg);
+                    session()->setFlashdata('pesanInput', 'Mengubah Data SK');
+                    return redirect()->to(base_url('/sk'));
                 }
-            } else {
-                exit('Data Tidak Dapat diproses');
             }
         } else {
             return redirect()->to(base_url('/login'));

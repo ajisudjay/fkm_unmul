@@ -69,9 +69,9 @@
                     <tr>
                         <th width="5%">No</th>
                         <th width="5%">Urutan</th>
-                        <th style="text-align: center;" width="10%">AKSI</th>
+                        <th style="text-align: center;" width="5%"><i class="fa fa-gear"></i></th>
                         <th width="10%">MAIN MENU</th>
-                        <th width="50%">SUB MENU</th>
+                        <th width="55%">SUB MENU</th>
                         <th width="20%">LOG</th>
                     </tr>
                 </thead>
@@ -83,18 +83,20 @@
                             <td><?= $no++ ?></td>
                             <td align="center"><?= $item['urutan_submenu'] ?></td>
                             <td style="text-align: center;min-width: 100px;max-width: 300px; white-space: normal;">
-                                <div class="row">
-                                    <div class="col-lg-6">
+                                <div class="btn-group dropright">
+                                    <button class="btn btn-outline-primary fa fa-ellipsis-v" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <!-- button ubah modal-->
                                         <form action="<?= base_url('submenu/editform'); ?>" method="post" class="editform">
                                             <?= csrf_field(); ?>
                                             <input type="text" name="slug" value="<?= $item['slug'] ?>" hidden>
-                                            <button class="btn-sm btn-primary border-0" type="submit"><span class="feather icon-edit-1 text-default"></span></button>
+                                            <button class="dropdown-item" type="submit"><span class="feather icon-edit-1 text-primary"> Ubah</span></button>
                                         </form>
-                                    </div>
-                                    <div class="col-lg-6">
+                                        <div class="dropdown-divider"></div>
                                         <!-- button hapus modal-->
-                                        <a href="<?= base_url('submenu/hapus/' . $item['submenu_id']); ?>" class="hapus">
-                                            <span class="btn-sm btn-danger feather icon-trash-2 text-default"></span>
+                                        <a href="<?= base_url('submenu/hapus/' . $item['submenu_id']); ?>" class="dropdown-item hapus">
+                                            <span class="feather icon-trash-2 text-danger"> Hapus</span>
                                         </a>
                                     </div>
                                 </div>

@@ -28,7 +28,7 @@ class Submenu extends BaseController
                 $gambar = $file;
             }
             $data = [
-                'title' => 'Submenu',
+                'title' => 'Sub Menu',
                 'admin' => $admin,
                 'lvl' => $lvl,
                 'foto' => $gambar,

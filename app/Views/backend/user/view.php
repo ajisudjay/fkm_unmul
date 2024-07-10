@@ -87,7 +87,7 @@
                 <thead>
                     <tr>
                         <th width="5%">No</th>
-                        <th width="10%" style="text-align: center;">AKSI</th>
+                        <th width="10%" style="text-align: center;"><i class="fa fa-gear"></th>
                         <th width="25%">Username</th>
                         <th width="30%">Nama</th>
                         <th width="15%">Level</th>
@@ -102,9 +102,48 @@
                             <td><?= $no++ ?></td>
                             <!-- ISI VIEW -->
                             <td style="text-align: center;">
-                                <button type="button" class="btn-sm btn-primary border-0" data-toggle="modal" data-target="#editmodal<?= $id = $item['username'] ?>">
-                                    <span class="feather icon-edit-1 text-default"></span>
-                                </button>
+                                <div class="btn-group dropright">
+                                    <button class="btn btn-outline-primary fa fa-ellipsis-v" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <!-- button ubah modal-->
+                                        <button type="button" class="dropdown-item" data-toggle="modal" data-target="#editmodal<?= $id = $item['username'] ?>">
+                                            <span class="feather icon-edit-1 text-primary"> Ubah</span>
+                                        </button>
+                                        <div class="dropdown-divider"></div>
+                                        <!-- editpassword -->
+                                        <?php
+                                        if ($item['username'] == session()->get('username')) {
+                                            $editpass = '';
+                                        } elseif (session()->get('level') === "Superadmin") {
+                                            $editpass = '';
+                                        } else {
+                                            $editpass = 'hidden';
+                                        }
+                                        ?>
+                                        <button type="button" class="dropdown-item" data-toggle="modal" data-target="#editpassmodal<?= $id = $item['username'] ?>" <?= $editpass ?>>
+                                            <span class="fa fa-key text-warning"> Ubah</span>
+                                        </button>
+                                        <div class="dropdown-divider"></div>
+                                        <!-- button hapus modal-->
+                                        <?php
+                                        if (session()->get('username') === $item['username']) {
+                                            $tom_hapus = 'hidden';
+                                        } else {
+                                            $tom_hapus = '';
+                                        }
+                                        if ($item['file'] < 1) {
+                                            $gambar = 'app-assets/images/profile/user-profile.png';
+                                        } else {
+                                            $gambar = 'content/user/' . $item['file'];
+                                        }
+                                        ?>
+                                        <a href="<?= base_url('user/hapus/' . $item['username']); ?>" class="dropdown-item hapus" <?= $tom_hapus ?>>
+                                            <span class="feather icon-trash-2 text-danger"> Hapus</span>
+                                        </a>
+                                    </div>
+                                </div>
+
                                 <!-- edit modal-->
                                 <div class="modal fade" id="editmodal<?= $id = $item['username'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
@@ -161,19 +200,7 @@
                                     </div>
                                 </div>
 
-                                <!-- editpassword -->
-                                <?php
-                                if ($item['username'] == session()->get('username')) {
-                                    $editpass = '';
-                                } elseif (session()->get('level') === "Superadmin") {
-                                    $editpass = '';
-                                } else {
-                                    $editpass = 'hidden';
-                                }
-                                ?>
-                                <button type="button" class="btn-sm btn-warning border-0" data-toggle="modal" data-target="#editpassmodal<?= $id = $item['username'] ?>" <?= $editpass ?>>
-                                    <span class="fa fa-key text-default"></span>
-                                </button>
+
                                 <!-- editpassword modal-->
                                 <div class="modal fade" id="editpassmodal<?= $id = $item['username'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
@@ -214,22 +241,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                <!-- button hapus modal-->
-                                <?php
-                                if (session()->get('username') === $item['username']) {
-                                    $tom_hapus = 'hidden';
-                                } else {
-                                    $tom_hapus = '';
-                                }
-                                if ($item['file'] < 1) {
-                                    $gambar = 'app-assets/images/profile/user-profile.png';
-                                } else {
-                                    $gambar = 'content/user/' . $item['file'];
-                                }
-                                ?>
-                                <a href="<?= base_url('user/hapus/' . $item['username']); ?>" class="hapus" <?= $tom_hapus ?>>
-                                    <span class="btn-sm btn-danger feather icon-trash-2 text-default"></span>
-                                </a>
                             <td><?= $item['username'] ?></td>
                             <td><?= $item['nama'] ?></td>
                             <td><?= $item['level'] ?></td>

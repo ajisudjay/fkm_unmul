@@ -79,10 +79,10 @@
                 <thead>
                     <tr>
                         <th width="5%">No</th>
-                        <th style="text-align: center;">AKSI</th>
+                        <th width="5%" style="text-align: center;"><i class="fa fa-gear"></i></th>
                         <th width="10%">TANGGAL</th>
-                        <th width="45%">JUDUL</th>
-                        <th width="25%" style="text-align: center;">BANNER</th>
+                        <th width="30%">JUDUL</th>
+                        <th width="20%" style="text-align: center;">BANNER</th>
                         <th width="30%">LOG</th>
                     </tr>
                 </thead>
@@ -93,18 +93,20 @@
                             <!-- ISI VIEW -->
                             <td><?= $no++ ?></td>
                             <td style="text-align: center;min-width: 100px;max-width: 300px; white-space: normal;">
-                                <div class="row">
-                                    <div class="col-lg-6">
+                                <div class="btn-group dropright">
+                                    <button class="btn btn-outline-primary fa fa-ellipsis-v" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <!-- button ubah modal-->
                                         <a href="/berita-edit/<?= $item['slug'] ?>">
-                                            <button type="button" class="btn-sm btn-primary border-0">
-                                                <span class="feather icon-edit-1 text-default"></span>
+                                            <button type="button" class="dropdown-item">
+                                                <span class="feather icon-edit-1 text-primary"> Ubah</span>
                                             </button>
                                         </a>
-                                    </div>
-                                    <div class="col-lg-6">
+                                        <div class="dropdown-divider"></div>
                                         <!-- button hapus modal-->
-                                        <a href="<?= base_url('berita/hapus/' . $item['id']); ?>" class="hapus">
-                                            <span class="btn-sm btn-danger feather icon-trash-2 text-default"></span>
+                                        <a href="<?= base_url('berita/hapus/' . $item['id']); ?>" class="dropdown-item hapus">
+                                            <span class="feather icon-trash-2 text-danger"> Hapus</span>
                                         </a>
                                     </div>
                                 </div>

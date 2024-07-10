@@ -97,10 +97,12 @@
                 <thead>
                     <tr>
                         <th width="2%">No</th>
-                        <th width="3%" style="text-align: center;">AKSI</th>
-                        <th width="20%">Nomor</th>
+                        <th width="3%" style="text-align: center;"><i class="fa fa-gear"></i></th>
+                        <th width="10%">Nomor</th>
                         <th width="10%">Tanggal</th>
-                        <th width="55%">Perihal</th>
+                        <th width="45%">Perihal</th>
+                        <th width="10%">Semester</th>
+                        <th width="10%">Kategori</th>
                         <th width="10%">Sasaran</th>
                     </tr>
                 </thead>
@@ -111,9 +113,21 @@
                             <!-- ISI VIEW -->
                             <td><?= $no++ ?></td>
                             <td>
-                                <button type="button" class="btn-sm btn-primary border-0" data-toggle="modal" data-target="#editmodal<?= $id = $item['id_sk'] ?>">
-                                    <span class="feather icon-edit-1 text-default"></span>
-                                </button>
+                                <div class="btn-group dropright">
+                                    <button class="btn btn-outline-primary fa fa-ellipsis-v" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <!-- button ubah modal-->
+                                        <button type="button" class="dropdown-item" data-toggle="modal" data-target="#editmodal<?= $id = $item['id_sk'] ?>">
+                                            <span class="feather icon-edit-1 text-primary"> Ubah</span>
+                                        </button>
+                                        <div class="dropdown-divider"></div>
+                                        <!-- button hapus modal-->
+                                        <a href="<?= base_url('sk/hapus/' . $item['id_sk']); ?>" class="dropdown-item hapus">
+                                            <span class="feather icon-trash-2 text-danger"> Hapus</span>
+                                        </a>
+                                    </div>
+                                </div>
                                 <!-- edit modal-->
                                 <div class="modal fade" id="editmodal<?= $id = $item['id_sk'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
@@ -204,11 +218,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <!-- button hapus modal-->
-                                <a href="<?= base_url('sk/hapus/' . $item['id_sk']); ?>" class="hapus">
-                                    <span class="btn-sm btn-danger feather icon-trash-2 text-default"></span>
-                                </a>
-                            <td>
+                            <td style="white-space: normal;">
                                 <button type="button" class="btn-sm btn-success border-0" data-toggle="modal" data-target="#fileviewmodal<?= $id = $item['id_sk'] ?>">
                                     <?= $item['nomor'] ?>
                                 </button>
@@ -241,6 +251,8 @@
                             </td>
                             <td><?= $item['tanggal'] ?></td>
                             <td style="white-space: normal;"><?= $item['perihal'] ?></td>
+                            <td><?= $item['nama_semester'] ?></td>
+                            <td><?= $item['nama_kategori'] ?></td>
                             <td><?= $item['sasaran'] ?></td>
                         </tr>
                     <?php endforeach ?>

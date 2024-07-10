@@ -236,7 +236,7 @@
                 <thead>
                     <tr>
                         <th width="5%">No</th>
-                        <th width="5%" style="text-align: center;">AKSI</th>
+                        <th width="5%" style="text-align: center;"><i class="fa fa-gear"></th>
                         <th width="20%">NIP</th>
                         <th width="30%">NAMA</th>
                         <th width="10%">BAGIAN UNIT</th>
@@ -252,9 +252,21 @@
                             <td><?= $no++ ?></td>
                             <!-- ISI VIEW -->
                             <td style="text-align: center;">
-                                <button type="button" class="btn-sm btn-primary border-0" data-toggle="modal" data-target="#editmodal<?= $id = $item['id'] ?>">
-                                    <span class="feather icon-edit-1 text-default"></span>
-                                </button>
+                                <div class="btn-group dropright">
+                                    <button class="btn btn-outline-primary fa fa-ellipsis-v" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <!-- button ubah modal-->
+                                        <button type="button" class="dropdown-item" data-toggle="modal" data-target="#editmodal<?= $id = $item['id'] ?>">
+                                            <span class="feather icon-edit-1 text-primary"> Ubah</span>
+                                        </button>
+                                        <div class="dropdown-divider"></div>
+                                        <!-- button hapus modal-->
+                                        <a href="<?= base_url('tendik/hapus/' . $item['id']); ?>" class="dropdown-item hapus">
+                                            <span class="feather icon-trash-2 text-default"> Hapus</span>
+                                        </a>
+                                    </div>
+                                </div>
                                 <!-- edit modal-->
                                 <div class="modal fade" id="editmodal<?= $id = $item['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
@@ -378,10 +390,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                <!-- button hapus modal-->
-                                <a href="<?= base_url('tendik/hapus/' . $item['id']); ?>" class="hapus">
-                                    <span class="btn-sm btn-danger feather icon-trash-2 text-default"></span>
-                                </a>
                             <td><?= $item['nip'] ?></td>
                             <td style="min-width: 200px;max-width: 400px; white-space: normal;"><?= $item['nama'] ?></td>
                             <td style="min-width: 100px;max-width: 400px; white-space: normal;"><?= $item['bagian_unit'] ?></td>

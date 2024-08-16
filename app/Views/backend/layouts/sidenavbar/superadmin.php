@@ -36,13 +36,13 @@
                     <ul class="menu-content">
                         <li class="<?= $title == 'Konfigurasi' ? 'active' : '' ?>"><a href="<?= base_url('konfigurasi'); ?>"><i class="feather icon-home"></i><span class="menu-item" data-i18n="Analytics">Atur Beranda</span></a>
                         </li>
-                        <li class="<?= $title == 'Slideshow' ? 'active' : '' ?>"><a href="<?= base_url('slideshow'); ?>"><i class="feather icon-home"></i><span class="menu-item" data-i18n="Analytics">Slideshow</span></a>
+                        <li class="<?= $title == 'Slideshow' ? 'active' : '' ?>"><a href="<?= base_url('slideshow'); ?>"><i class="feather icon-film"></i><span class="menu-item" data-i18n="Analytics">Slideshow</span></a>
                         </li>
-                        <li class="<?= $title == 'Mitra' ? 'active' : '' ?>"><a href="<?= base_url('mitra'); ?>"><i class="feather icon-home"></i><span class="menu-item" data-i18n="Analytics">Mitra</span></a>
+                        <li class="<?= $title == 'Mitra' ? 'active' : '' ?>"><a href="<?= base_url('mitra'); ?>"><i class="fa fa-handshake-o"></i><span class="menu-item" data-i18n="Analytics">Mitra</span></a>
                         </li>
-                        <li class="<?= $title == 'Pejabat' ? 'active' : '' ?>"><a href="<?= base_url('pejabat'); ?>"><i class="feather icon-home"></i><span class="menu-item" data-i18n="Analytics">Pejabat</span></a>
+                        <li class="<?= $title == 'Pejabat' ? 'active' : '' ?>"><a href="<?= base_url('pejabat'); ?>"><i class="fa fa-black-tie"></i><span class="menu-item" data-i18n="Analytics">Pejabat</span></a>
                         </li>
-                        <li class="<?= $title == 'Link Partner' ? 'active' : '' ?>"><a href="<?= base_url('link'); ?>"><i class="feather icon-home"></i><span class="menu-item" data-i18n="Analytics">Link Partner</span></a>
+                        <li class="<?= $title == 'Link Partner' ? 'active' : '' ?>"><a href="<?= base_url('link'); ?>"><i class="feather icon-link"></i><span class="menu-item" data-i18n="Analytics">Link Partner</span></a>
                         </li>
                     </ul>
                 </li>

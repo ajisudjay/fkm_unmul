@@ -29,7 +29,7 @@
                                         <div class="font-weight-bold text-danger errorgagal_user"></div>
                                         <div class="font-weight-bold text-danger errorgagal_user2"></div><br>
                                         <div class="card-content">
-                                            <form class="login-form" action="<?= base_url('auth/index'); ?>" method="post">
+                                            <form class="login-form" action="<?= base_url('/auth'); ?>" method="post">
                                                 <?= csrf_field() ?>
                                                 <fieldset class="form-label-group form-group position-relative has-icon-left">
                                                     <input type="text" name="username" class="form-control username" id="user-name" placeholder="Username" required>

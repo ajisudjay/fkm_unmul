@@ -122,7 +122,7 @@
                                         }
                                         ?>
                                         <button type="button" class="dropdown-item" data-toggle="modal" data-target="#editpassmodal<?= $id = $item['username'] ?>" <?= $editpass ?>>
-                                            <span class="fa fa-key text-warning"> Ubah</span>
+                                            <span class="fa fa-key text-warning"> Ganti Password</span>
                                         </button>
                                         <div class="dropdown-divider"></div>
                                         <!-- button hapus modal-->

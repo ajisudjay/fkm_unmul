@@ -100,10 +100,11 @@
                         <th width="3%" style="text-align: center;"><i class="fa fa-gear"></i></th>
                         <th width="10%">Nomor</th>
                         <th width="10%">Tanggal</th>
-                        <th width="45%">Perihal</th>
+                        <th width="35%">Perihal</th>
                         <th width="10%">Semester</th>
                         <th width="10%">Kategori</th>
                         <th width="10%">Sasaran</th>
+                        <th width="10%">Log</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -218,8 +219,9 @@
                                         </div>
                                     </div>
                                 </div>
+                            </td>
                             <td style="white-space: normal;">
-                                <button type="button" class="btn-sm btn-success border-0" data-toggle="modal" data-target="#fileviewmodal<?= $id = $item['id_sk'] ?>">
+                                <button type="button" class="btn-sm btn-primary border-0" data-toggle="modal" data-target="#fileviewmodal<?= $id = $item['id_sk'] ?>">
                                     <?= $item['nomor'] ?>
                                 </button>
                                 <!-- file view modal-->
@@ -254,6 +256,7 @@
                             <td><?= $item['nama_semester'] ?></td>
                             <td><?= $item['nama_kategori'] ?></td>
                             <td><?= $item['sasaran'] ?></td>
+                            <td><?= $item['timestamps'] . ' | ' . $item['admin'] ?></td>
                         </tr>
                     <?php endforeach ?>
                 </tbody>

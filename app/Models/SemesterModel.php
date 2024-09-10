@@ -14,7 +14,7 @@ class SemesterModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['id', 'semester'];
+    protected $allowedFields    = ['id', 'semester', 'masa'];
 
     // Dates
     protected $useTimestamps = false;

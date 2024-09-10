@@ -1,8 +1,11 @@
+<br>
+<h5 class="primary" align="center">Semester : <?= $sel_semester['semester']  ?></h5>
+<h5 class="primary" align="center">Masa : <?= $sel_semester['masa'] ?></h5>
 <div class="container-fluid">
     <div class="card-header">
         <h4 class="mb-0">Surat Keputusan</h4>
         <!-- button tambah modal -->
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tambahmodal">
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tambahmodal" <?= $aksesbutton ?>>
             <span class="feather icon-plus text-light"></span>
         </button>
     </div>
@@ -115,7 +118,7 @@
                             <td><?= $no++ ?></td>
                             <td>
                                 <div class="btn-group dropright">
-                                    <button class="btn btn-outline-primary fa fa-ellipsis-v" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <button class="btn btn-outline-primary fa fa-ellipsis-v" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" <?= $aksesbutton ?>>
                                     </button>
                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                         <!-- button ubah modal-->

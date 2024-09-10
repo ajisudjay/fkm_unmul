@@ -17,7 +17,6 @@
                 </li>
                 <li class="navigation-header"><span>WEBSITE</span>
                 </li>
-
                 <li class=""><a href="#"><i class="feather icon-layers"></i><span class="menu-title" data-i18n="Dashboard">Content</span><span class="badge badge badge-warning badge-pill float-right mr-2">5</span></a>
                     <ul class="menu-content">
                         <li class="<?= $title == 'Main Menu' ? 'active' : '' ?>"><a href="<?= base_url('mainmenu'); ?>"><i class="feather icon-menu"></i><span class="menu-item" data-i18n="Analytics">Main Menu</span></a>
@@ -55,8 +54,6 @@
                         </li>
                         <li class="<?= $title == 'Tendik' ? 'active' : '' ?>"><a href="<?= base_url('tendik'); ?>"><i class="feather icon-users"></i><span class="menu-item" data-i18n="eCommerce">Tendik</span></a>
                         </li>
-                        <!-- <li class="<?= $title == 'Student Body' ? 'active' : '' ?>"><a href="<?= base_url('studentbody'); ?>"><i class="feather icon-home"></i><span class="menu-item" data-i18n="Analytics">Student Body</span></a>
-                        </li> -->
                     </ul>
                 </li>
                 <li class="<?= $title == 'Semester' ? 'active' : '' ?>"><a href="<?= base_url('semester'); ?>"><i class="feather icon-home"></i><span class="menu-item" data-i18n="Analytics">Semester</span></a>

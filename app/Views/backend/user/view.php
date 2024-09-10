@@ -44,8 +44,10 @@
                                     <label class="text-primary">Level</label>
                                     <select name="level" class="form-control level">
                                         <option value="">Pilih Level</option>
+                                        <option value="Tendik">Tendik</option>
+                                        <option value="Dosen">Dosen</option>
                                         <option value="Admin Prodi">Admin Prodi</option>
-                                        <option value="Admin Fakultas">Admin Fakultas</option>
+                                        <option value="Admin Website">Admin Website</option>
                                         <option value="Superadmin">Superadmin</option>
                                     </select>
                                     <div class="invalid-feedback errorluevel"></div>
@@ -175,8 +177,10 @@
                                                                 <label class="text-primary">Level</label>
                                                                 <select name="level" class="form-control level">
                                                                     <option value="<?= $item['level'] ?>"><?= $item['level'] ?></option>
+                                                                    <option value="Tendik">Tendik</option>
+                                                                    <option value="Dosen">Dosen</option>
                                                                     <option value="Admin Prodi" <?= $hakakses ?>>Admin Prodi</option>
-                                                                    <option value="Admin Fakultas" <?= $hakakses ?>>Admin Fakultas</option>
+                                                                    <option value="Admin Website">Admin Website</option>
                                                                     <option value="Superadmin" <?= $hakakses ?>>Superadmin</option>
                                                                 </select>
                                                                 <div class="invalid-feedback errorLevel"></div>

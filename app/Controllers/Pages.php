@@ -453,26 +453,7 @@ class Pages extends BaseController
     // END FRONTEND
 
     // START BACKEND
-    public function superadmin()
-    {
-        $admin = session()->get('nama');
-        $lvl = session()->get('level');
-        $file = session()->get('file');
-        if ($file === NULL) {
-            $gambar = 'user-profile.png';
-        } else {
-            $gambar = $file;
-        }
-        $data = [
-            'title' => 'Beranda',
-            'lvl' => $lvl,
-            'admin' => $admin,
-            'foto' => $gambar,
-        ];
-        return view('backend/pages/beranda', $data);
-    }
-
-    public function adminfakultas()
+    public function beranda()
     {
         $admin = session()->get('nama');
         $lvl = session()->get('level');

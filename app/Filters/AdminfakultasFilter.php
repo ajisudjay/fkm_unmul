@@ -27,7 +27,7 @@ class AdminfakultasFilter implements FilterInterface
     {
         if (session()->get('username') == '') {
             return redirect()->to(base_url('/login'));
-        } else if (session()->get('level') !== 'Admin Fakultas') {
+        } else if (session()->get('level') !== 'Admin Website') {
             return redirect()->to(base_url('/login'));
         }
     }

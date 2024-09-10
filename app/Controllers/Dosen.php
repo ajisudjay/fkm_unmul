@@ -15,7 +15,7 @@ class Dosen extends BaseController
     public function index()
     {
 
-        if (session()->get('username') !== NULL && (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Fakultas')) {
+        if (session()->get('username') !== NULL && (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Website') || session()->get('level') === 'Dosen') {
             $admin = session()->get('nama');
             $lvl = session()->get('level');
             $file = session()->get('file');
@@ -37,36 +37,69 @@ class Dosen extends BaseController
     }
     public function view()
     {
-        if (session()->get('username') !== NULL && (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Fakultas')) {
+        if (session()->get('username') !== NULL && (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Website') || session()->get('level') === 'Dosen') {
             $request = \Config\Services::request();
             if ($request->isAJAX()) {
-                $data = [
-                    'dosen' => $this->DosenModel->orderBy('nip', 'ASC')->get()->getResultArray(),
-                    // jumlah pendidikan tendik
-                    'jumlahLs1' => $this->DosenModel->selectCount('id')->where('pendidikan', 'S1')->where('jk', 'Laki-laki')->first(),
-                    'jumlahPs1' => $this->DosenModel->selectCount('id')->where('pendidikan', 'S1')->where('jk', 'Perempuan')->first(),
-                    'jumlahLs2' => $this->DosenModel->selectCount('id')->where('pendidikan', 'S2')->where('jk', 'Laki-laki')->first(),
-                    'jumlahPs2' => $this->DosenModel->selectCount('id')->where('pendidikan', 'S2')->where('jk', 'Perempuan')->first(),
-                    'jumlahLsp' => $this->DosenModel->selectCount('id')->where('pendidikan', 'Sp')->where('jk', 'Laki-laki')->first(),
-                    'jumlahPsp' => $this->DosenModel->selectCount('id')->where('pendidikan', 'Sp')->where('jk', 'Perempuan')->first(),
-                    'jumlahLs3' => $this->DosenModel->selectCount('id')->where('pendidikan', 'S3')->where('jk', 'Laki-laki')->first(),
-                    'jumlahPs3' => $this->DosenModel->selectCount('id')->where('pendidikan', 'S3')->where('jk', 'Perempuan')->first(),
-                    // jumlah jabatan tendik
-                    'jumlahLnon' => $this->DosenModel->selectCount('id')->where('jabatan', 'Non Fungsional')->where('jk', 'Laki-laki')->first(),
-                    'jumlahLpengajar' => $this->DosenModel->selectCount('id')->where('jabatan', 'Tenaga Pengajar')->where('jk', 'Laki-laki')->first(),
-                    'jumlahLasistenahli' => $this->DosenModel->selectCount('id')->where('jabatan', 'Asisten Ahli')->where('jk', 'Laki-laki')->first(),
-                    'jumlahLlektor' => $this->DosenModel->selectCount('id')->where('jabatan', 'Lektor')->where('jk', 'Laki-laki')->first(),
-                    'jumlahLlektorkepala' => $this->DosenModel->selectCount('id')->where('jabatan', 'Lektor Kepala')->where('jk', 'Laki-laki')->first(),
-                    'jumlahLgurubesar' => $this->DosenModel->selectCount('id')->where('jabatan', 'Guru Besar')->where('jk', 'Laki-laki')->first(),
-                    'jumlahPnon' => $this->DosenModel->selectCount('id')->where('jabatan', 'Non Fungsional')->where('jk', 'Perempuan')->first(),
-                    'jumlahPpengajar' => $this->DosenModel->selectCount('id')->where('jabatan', 'Tenaga Pengajar')->where('jk', 'Perempuan')->first(),
-                    'jumlahPasistenahli' => $this->DosenModel->selectCount('id')->where('jabatan', 'Asisten Ahli')->where('jk', 'Perempuan')->first(),
-                    'jumlahPlektor' => $this->DosenModel->selectCount('id')->where('jabatan', 'Lektor')->where('jk', 'Perempuan')->first(),
-                    'jumlahPlektorkepala' => $this->DosenModel->selectCount('id')->where('jabatan', 'Lektor Kepala')->where('jk', 'Perempuan')->first(),
-                    'jumlahPgurubesar' => $this->DosenModel->selectCount('id')->where('jabatan', 'Guru Besar')->where('jk', 'Perempuan')->first(),
+                if (session()->get('level') === 'Dosen') {
+                    $data = [
+                        'dosen' => $this->DosenModel->where('nip', session()->get('username'))->get()->getResultArray(),
+                        'akseshapus' => 'hidden',
+                        // jumlah pendidikan tendik
+                        'jumlahLs1' => $this->DosenModel->selectCount('id')->where('pendidikan', 'S1')->where('jk', 'Laki-laki')->first(),
+                        'jumlahPs1' => $this->DosenModel->selectCount('id')->where('pendidikan', 'S1')->where('jk', 'Perempuan')->first(),
+                        'jumlahLs2' => $this->DosenModel->selectCount('id')->where('pendidikan', 'S2')->where('jk', 'Laki-laki')->first(),
+                        'jumlahPs2' => $this->DosenModel->selectCount('id')->where('pendidikan', 'S2')->where('jk', 'Perempuan')->first(),
+                        'jumlahLsp' => $this->DosenModel->selectCount('id')->where('pendidikan', 'Sp')->where('jk', 'Laki-laki')->first(),
+                        'jumlahPsp' => $this->DosenModel->selectCount('id')->where('pendidikan', 'Sp')->where('jk', 'Perempuan')->first(),
+                        'jumlahLs3' => $this->DosenModel->selectCount('id')->where('pendidikan', 'S3')->where('jk', 'Laki-laki')->first(),
+                        'jumlahPs3' => $this->DosenModel->selectCount('id')->where('pendidikan', 'S3')->where('jk', 'Perempuan')->first(),
+                        // jumlah jabatan tendik
+                        'jumlahLnon' => $this->DosenModel->selectCount('id')->where('jabatan', 'Non Fungsional')->where('jk', 'Laki-laki')->first(),
+                        'jumlahLpengajar' => $this->DosenModel->selectCount('id')->where('jabatan', 'Tenaga Pengajar')->where('jk', 'Laki-laki')->first(),
+                        'jumlahLasistenahli' => $this->DosenModel->selectCount('id')->where('jabatan', 'Asisten Ahli')->where('jk', 'Laki-laki')->first(),
+                        'jumlahLlektor' => $this->DosenModel->selectCount('id')->where('jabatan', 'Lektor')->where('jk', 'Laki-laki')->first(),
+                        'jumlahLlektorkepala' => $this->DosenModel->selectCount('id')->where('jabatan', 'Lektor Kepala')->where('jk', 'Laki-laki')->first(),
+                        'jumlahLgurubesar' => $this->DosenModel->selectCount('id')->where('jabatan', 'Guru Besar')->where('jk', 'Laki-laki')->first(),
+                        'jumlahPnon' => $this->DosenModel->selectCount('id')->where('jabatan', 'Non Fungsional')->where('jk', 'Perempuan')->first(),
+                        'jumlahPpengajar' => $this->DosenModel->selectCount('id')->where('jabatan', 'Tenaga Pengajar')->where('jk', 'Perempuan')->first(),
+                        'jumlahPasistenahli' => $this->DosenModel->selectCount('id')->where('jabatan', 'Asisten Ahli')->where('jk', 'Perempuan')->first(),
+                        'jumlahPlektor' => $this->DosenModel->selectCount('id')->where('jabatan', 'Lektor')->where('jk', 'Perempuan')->first(),
+                        'jumlahPlektorkepala' => $this->DosenModel->selectCount('id')->where('jabatan', 'Lektor Kepala')->where('jk', 'Perempuan')->first(),
+                        'jumlahPgurubesar' => $this->DosenModel->selectCount('id')->where('jabatan', 'Guru Besar')->where('jk', 'Perempuan')->first(),
 
-                    'validation' => \Config\Services::validation(),
-                ];
+                        'validation' => \Config\Services::validation(),
+                    ];
+                } else {
+                    $data = [
+                        'akseshapus' => '',
+                        'dosen' => $this->DosenModel->orderBy('nip', 'ASC')->get()->getResultArray(),
+                        // jumlah pendidikan tendik
+                        'jumlahLs1' => $this->DosenModel->selectCount('id')->where('pendidikan', 'S1')->where('jk', 'Laki-laki')->first(),
+                        'jumlahPs1' => $this->DosenModel->selectCount('id')->where('pendidikan', 'S1')->where('jk', 'Perempuan')->first(),
+                        'jumlahLs2' => $this->DosenModel->selectCount('id')->where('pendidikan', 'S2')->where('jk', 'Laki-laki')->first(),
+                        'jumlahPs2' => $this->DosenModel->selectCount('id')->where('pendidikan', 'S2')->where('jk', 'Perempuan')->first(),
+                        'jumlahLsp' => $this->DosenModel->selectCount('id')->where('pendidikan', 'Sp')->where('jk', 'Laki-laki')->first(),
+                        'jumlahPsp' => $this->DosenModel->selectCount('id')->where('pendidikan', 'Sp')->where('jk', 'Perempuan')->first(),
+                        'jumlahLs3' => $this->DosenModel->selectCount('id')->where('pendidikan', 'S3')->where('jk', 'Laki-laki')->first(),
+                        'jumlahPs3' => $this->DosenModel->selectCount('id')->where('pendidikan', 'S3')->where('jk', 'Perempuan')->first(),
+                        // jumlah jabatan tendik
+                        'jumlahLnon' => $this->DosenModel->selectCount('id')->where('jabatan', 'Non Fungsional')->where('jk', 'Laki-laki')->first(),
+                        'jumlahLpengajar' => $this->DosenModel->selectCount('id')->where('jabatan', 'Tenaga Pengajar')->where('jk', 'Laki-laki')->first(),
+                        'jumlahLasistenahli' => $this->DosenModel->selectCount('id')->where('jabatan', 'Asisten Ahli')->where('jk', 'Laki-laki')->first(),
+                        'jumlahLlektor' => $this->DosenModel->selectCount('id')->where('jabatan', 'Lektor')->where('jk', 'Laki-laki')->first(),
+                        'jumlahLlektorkepala' => $this->DosenModel->selectCount('id')->where('jabatan', 'Lektor Kepala')->where('jk', 'Laki-laki')->first(),
+                        'jumlahLgurubesar' => $this->DosenModel->selectCount('id')->where('jabatan', 'Guru Besar')->where('jk', 'Laki-laki')->first(),
+                        'jumlahPnon' => $this->DosenModel->selectCount('id')->where('jabatan', 'Non Fungsional')->where('jk', 'Perempuan')->first(),
+                        'jumlahPpengajar' => $this->DosenModel->selectCount('id')->where('jabatan', 'Tenaga Pengajar')->where('jk', 'Perempuan')->first(),
+                        'jumlahPasistenahli' => $this->DosenModel->selectCount('id')->where('jabatan', 'Asisten Ahli')->where('jk', 'Perempuan')->first(),
+                        'jumlahPlektor' => $this->DosenModel->selectCount('id')->where('jabatan', 'Lektor')->where('jk', 'Perempuan')->first(),
+                        'jumlahPlektorkepala' => $this->DosenModel->selectCount('id')->where('jabatan', 'Lektor Kepala')->where('jk', 'Perempuan')->first(),
+                        'jumlahPgurubesar' => $this->DosenModel->selectCount('id')->where('jabatan', 'Guru Besar')->where('jk', 'Perempuan')->first(),
+
+                        'validation' => \Config\Services::validation(),
+                    ];
+                }
+
                 $msg = [
                     'data' => view('backend/dosen/view', $data)
                 ];
@@ -81,7 +114,7 @@ class Dosen extends BaseController
 
     public function tambah()
     {
-        if (session()->get('username') !== NULL && (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Fakultas')) {
+        if (session()->get('username') !== NULL && (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Website') || session()->get('level') === 'Dosen') {
             $request = \Config\Services::request();
             $validation = \Config\Services::validation();
             $nip = $request->getVar('nip');
@@ -359,7 +392,7 @@ class Dosen extends BaseController
 
     public function edit()
     {
-        if (session()->get('username') !== NULL && (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Fakultas')) {
+        if (session()->get('username') !== NULL && (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Website') || session()->get('level') === 'Dosen') {
             $request = \Config\Services::request();
             $id = $request->getVar('id');
             $validation = \Config\Services::validation();
@@ -553,7 +586,7 @@ class Dosen extends BaseController
 
     public function hapus($id)
     {
-        if (session()->get('username') !== NULL && (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Fakultas')) {
+        if (session()->get('username') !== NULL && (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Website') || session()->get('level') === 'Dosen') {
             $cekfile = $this->DosenModel->where('id', $id)->first();
             $namafile = $cekfile['gambar'];
             $filesource = '../writable/uploads/content/dosen/' . $namafile . '';

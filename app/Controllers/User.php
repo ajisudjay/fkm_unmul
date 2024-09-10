@@ -14,7 +14,7 @@ class User extends BaseController
     }
     public function index()
     {
-        if (session()->get('username') !== NULL && session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Fakultas' || session()->get('level') === 'Admin Prodi') {
+        if (session()->get('username') !== NULL && session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Website' || session()->get('level') === 'Dosen') {
             $admin = session()->get('nama');
             $lvl = session()->get('level');
             $file = session()->get('file');
@@ -37,7 +37,7 @@ class User extends BaseController
 
     public function view()
     {
-        if (session()->get('username') !== NULL && session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Fakultas' || session()->get('level') === 'Admin Prodi') {
+        if (session()->get('username') !== NULL && session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Website' || session()->get('level') === 'Dosen') {
             $request = \Config\Services::request();
             $namauser = session()->get('username');
             $lvl = session()->get('level');
@@ -170,7 +170,7 @@ class User extends BaseController
 
     public function edit()
     {
-        if (session()->get('username') !== NULL && session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Fakultas' || session()->get('level') === 'Admin Prodi') {
+        if (session()->get('username') !== NULL && session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Website' || session()->get('level') === 'Dosen') {
             $request = \Config\Services::request();
             $username = $request->getVar('username');
             $nama = $request->getVar('nama');
@@ -242,7 +242,7 @@ class User extends BaseController
 
     public function editpass()
     {
-        if (session()->get('username') !== NULL && session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Fakultas' || session()->get('level') === 'Admin Prodi') {
+        if (session()->get('username') !== NULL && session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Website' || session()->get('level') === 'Dosen') {
             $request = \Config\Services::request();
             if ($request->isAJAX()) {
                 $username = $request->getVar('username');

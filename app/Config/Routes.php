@@ -55,8 +55,7 @@ $routes->get('/pages-sk', 'Sk_view::index');
 // ===>>Login<<===
 $routes->get('/login', 'Pages::login');
 // ===>>Beranda<<===
-$routes->get('/adminfakultas', 'Pages::adminfakultas', ['filter' => 'adminfakultasFilter']);
-$routes->get('/superadmin', 'Pages::superadmin', ['filter' => 'superadminFilter']);
+$routes->get('/beranda', 'Pages::beranda');
 // ===>>Main Menu<<===
 // ===>>Sub Menu<<===
 $routes->get('/submenu-edit/(:any)', 'Submenu::editform/$1');

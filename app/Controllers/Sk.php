@@ -20,7 +20,7 @@ class Sk extends BaseController
     }
     public function index()
     {
-        if (session()->get('username') == NULL || session()->get('level') === 'Superadmin') {
+        if (session()->get('username') !== NULL && (session()->get('level') === 'Superadmin' || session()->get('level') === 'Dosen')) {
             $admin = session()->get('nama');
             $lvl = session()->get('level');
             $file = session()->get('file');
@@ -34,6 +34,7 @@ class Sk extends BaseController
                 'admin' => $admin,
                 'lvl' => $lvl,
                 'foto' => $gambar,
+                'semester' => $this->SemesterModel->orderBy('semester', 'DESC')->get()->getResultArray(),
             ];
             return view('backend/sk/index', $data);
         } else {
@@ -42,12 +43,21 @@ class Sk extends BaseController
     }
     public function view()
     {
-        if (session()->get('username') == NULL || session()->get('level') === 'Superadmin') {
+        if (session()->get('username') !== NULL && (session()->get('level') === 'Superadmin' || session()->get('level') === 'Dosen')) {
             $request = \Config\Services::request();
             $username = session()->get('username');
             if ($request->isAJAX()) {
+                $level = session()->get('level');
+                if ($level === 'Dosen') {
+                    $aksesbutton = 'hidden';
+                } else {
+                    $aksesbutton = '';
+                }
+                $semesterx = $request->getVar('semesterx');
                 $data = [
-                    'sk' => $this->SkModel->orderBy('tanggal', 'DESC')->select('*')->select('sk.id as id_sk')->select('kategori_sk.kategori as nama_kategori')->select('semester.semester as nama_semester')->join('kategori_sk', 'kategori_sk.id=sk.kategori')->join('semester', 'semester.id=sk.semester')->get()->getResultArray(),
+                    'aksesbutton' => $aksesbutton,
+                    'sel_semester' => $this->SemesterModel->where('id', $semesterx)->first(),
+                    'sk' => $this->SkModel->orderBy('tanggal', 'DESC')->select('*')->select('sk.id as id_sk')->select('kategori_sk.kategori as nama_kategori')->select('semester.semester as nama_semester')->where('sk.semester', $semesterx)->join('kategori_sk', 'kategori_sk.id=sk.kategori')->join('semester', 'semester.id=sk.semester')->get()->getResultArray(),
                     'kategori_sk' => $this->Kategori_skModel->orderBy('kategori', 'ASC')->get()->getResultArray(),
                     'semester' => $this->SemesterModel->orderBy('semester', 'DESC')->get()->getResultArray(),
                     'validation' => \Config\Services::validation(),
@@ -66,7 +76,7 @@ class Sk extends BaseController
 
     public function tambah()
     {
-        if (session()->get('username') == NULL || session()->get('level') === 'Superadmin' || session()->get('level') === 'Enum') {
+        if (session()->get('username') !== NULL && (session()->get('level') === 'Superadmin')) {
             $request = \Config\Services::request();
             $validation = \Config\Services::validation();
             $nomor = $request->getVar('nomor');
@@ -177,7 +187,7 @@ class Sk extends BaseController
 
     public function edit()
     {
-        if (session()->get('username') == NULL || session()->get('level') === 'Superadmin' || session()->get('level') === 'Enum') {
+        if (session()->get('username') !== NULL && (session()->get('level') === 'Superadmin')) {
             $request = \Config\Services::request();
             $validation = \Config\Services::validation();
             $id = $request->getVar('id');
@@ -267,7 +277,7 @@ class Sk extends BaseController
 
     public function hapus($id)
     {
-        if (session()->get('username') == NULL || session()->get('level') !== 'Superadmin') {
+        if (session()->get('username') !== NULL && (session()->get('level') === 'Superadmin')) {
             return redirect()->to(base_url('/login'));
         }
         $cekfile = $this->SkModel->where('id', $id)->first();

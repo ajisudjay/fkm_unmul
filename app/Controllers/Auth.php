@@ -98,14 +98,10 @@ class Auth extends BaseController
         session()->set('level', $cek['level']);
         session()->set('file', $cek['file']);
         session()->setFlashdata('loginBerhasil', 'Login Berhasil');
-        if ($cek['level'] === 'Superadmin') {
-            return redirect()->to(base_url('/superadmin'));
-        } elseif ($cek['level'] === 'Admin Fakultas') {
-            return redirect()->to(base_url('/adminfakultas'));
+        if ($cek['level'] !== NULL) {
+            return redirect()->to(base_url('/beranda'));
         }
     }
-
-
 
     public function logout()
     {

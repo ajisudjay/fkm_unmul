@@ -5,7 +5,13 @@
 
 <body class="vertical-layout vertical-menu-modern semi-dark-layout 2-columns  navbar-floating footer-static" data-menu="vertical-menu-modern" data-col="2-columns" data-layout="semi-dark-layout">
     <?= $this->include('backend/layouts/topnavbar') ?>
-    <?= $this->include('backend/layouts/sidenavbar/superadmin') ?>
+    <?php if ($lvl === 'Superadmin') { ?>
+        <?= $this->include('backend/layouts/sidenavbar/superadmin') ?>
+    <?php } elseif ($lvl === 'Admin Website') { ?>
+        <?= $this->include('backend/layouts/sidenavbar/adminwebsite') ?>
+    <?php } elseif ($lvl === 'Dosen') { ?>
+        <?= $this->include('backend/layouts/sidenavbar/dosen') ?>
+    <?php } ?>
 
     <!-- BEGIN: Content-->
     <div class="app-content content">
@@ -34,7 +40,22 @@
                                     <strong>Berhasil </strong> <?= session()->getFlashdata('pesanHapus') ?>
                                 </div>
                             <?php } ?>
-                            <div class="card">
+                            <div class="card" style="padding: 25px;">
+                                <form action="<?= base_url('sk/view'); ?>" method="post" class="semesterx">
+                                    <?= csrf_field(); ?>
+                                    <div class="row">
+                                        <div class="col-lg-2">
+                                            <select name="semesterx" class="form-control semesterx">
+                                                <?php foreach ($semester as $item_semester) : ?>
+                                                    <option value="<?= $item_semester['id'] ?>"><?= $item_semester['semester'] ?></option>
+                                                <?php endforeach ?>
+                                            </select>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <button class="btn btn-primary btnTampilkan" type="submit">Tampilkan</button>
+                                        </div>
+                                    </div>
+                                </form>
                                 <div class="bg-transparent border-0" id="result"></div>
                             </div>
                         </div>
@@ -48,15 +69,32 @@
     <!-- END: Content-->
     <script>
         $(document).ready(function() {
-            $.ajax({
-                url: '<?= base_url('sk/view') ?>',
-                dataType: 'json',
-                success: function(response) {
-                    $("#result").html(response.data);
-                },
-                error: function(xhr, ajaxOptions, thrownError) {
-                    alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
-                }
+            $(".semesterx").submit(function(e) {
+                var formObj = $(this);
+                var formURL = formObj.attr("action");
+                var formData = new FormData(this);
+                $.ajax({
+                    url: formURL,
+                    type: 'POST',
+                    data: formData,
+                    dataType: 'json',
+                    contentType: false,
+                    cache: false,
+                    processData: false,
+                    beforeSend: function() {
+                        $('.btnTampilkan').attr('disable', 'disabled');
+                        $('.btnTampilkan').html('<i class="fa fa-spin fa-spinner"></i>');
+                    },
+                    complete: function() {
+                        $('.btnTampilkan').removeAttr('disable', 'disabled');
+                        $('.btnTampilkan').html('Tampilkan');
+                    },
+                    success: function(response) {
+                        $("#result").html(response.data);
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {}
+                });
+                e.preventDefault(); //Prevent Default action.
             });
         });
     </script>

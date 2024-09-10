@@ -5,8 +5,13 @@
 
 <body class="vertical-layout vertical-menu-modern semi-dark-layout 2-columns  navbar-floating footer-static  " data-open="click" data-menu="vertical-menu-modern" data-col="2-columns" data-layout="semi-dark-layout">
     <?= $this->include('backend/layouts/topnavbar') ?>
-    <?= $this->include('backend/layouts/sidenavbar/superadmin') ?>
-
+    <?php if ($lvl === 'Superadmin') { ?>
+        <?= $this->include('backend/layouts/sidenavbar/superadmin') ?>
+    <?php } elseif ($lvl === 'Admin Website') { ?>
+        <?= $this->include('backend/layouts/sidenavbar/adminwebsite') ?>
+    <?php } elseif ($lvl === 'Dosen') { ?>
+        <?= $this->include('backend/layouts/sidenavbar/dosen') ?>
+    <?php } ?>
     <!-- BEGIN: Content-->
     <div class="app-content content">
         <div class="content-overlay"></div>

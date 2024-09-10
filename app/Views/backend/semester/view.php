@@ -21,10 +21,16 @@
                         <?= csrf_field() ?>
                         <div class="modal-body">
                             <div class="row">
-                                <div class="col-lg-12">
+                                <div class="col-lg-6">
                                     <label class="text-primary">Semester</label>
                                     <input type="text" name="semester" class="form-control semester" placeholder="Semester">
                                     <div class="invalid-feedback errorsemester"></div>
+                                    <br>
+                                </div>
+                                <div class="col-lg-6">
+                                    <label class="text-primary">Masa</label>
+                                    <input type="text" name="masa" class="form-control masa" placeholder="Masa">
+                                    <div class="invalid-feedback errormasa"></div>
                                     <br>
                                 </div>
                                 <br>
@@ -47,7 +53,8 @@
                     <tr>
                         <th width="5%">No</th>
                         <th width="5%" style="text-align: center;">AKSI</th>
-                        <th width="90%">Semester</th>
+                        <th width="40%">Semester</th>
+                        <th width="50%">Masa</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -62,6 +69,7 @@
                                     <span class="btn-sm btn-danger feather icon-trash-2 text-default"></span>
                                 </a>
                             <td style="min-width: 100px;max-width: 300px; white-space: normal;"><?= $item['semester'] ?></td>
+                            <td style="min-width: 100px;max-width: 300px; white-space: normal;"><?= $item['masa'] ?></td>
                         </tr>
                     <?php endforeach ?>
                 </tbody>

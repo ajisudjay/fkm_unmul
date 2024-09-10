@@ -29,6 +29,13 @@
                             $('.semester').removeClass('is-invalid');
                             $('.errorsemester').html('');
                         }
+                        if (response.error.masa) {
+                            $('.masa').addClass('is-invalid');
+                            $('.errormasa').html(response.error.masa);
+                        } else {
+                            $('.masa').removeClass('is-invalid');
+                            $('.errormasa').html('');
+                        }
                     } else {
                         Swal.fire({
                             icon: 'success',

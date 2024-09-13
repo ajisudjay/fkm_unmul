@@ -11,6 +11,8 @@
         <?= $this->include('backend/layouts/sidenavbar/adminwebsite') ?>
     <?php } elseif ($lvl === 'Dosen') { ?>
         <?= $this->include('backend/layouts/sidenavbar/dosen') ?>
+    <?php } elseif ($lvl === 'Admin eOffice') { ?>
+        <?= $this->include('backend/layouts/sidenavbar/eoffice') ?>
     <?php } ?>
     <!-- BEGIN: Content-->
     <div class="app-content content">

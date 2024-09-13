@@ -47,21 +47,29 @@ class Sk extends BaseController
             $request = \Config\Services::request();
             $username = session()->get('username');
             if ($request->isAJAX()) {
+                $semesterx = $request->getVar('semesterx');
                 $level = session()->get('level');
                 if ($level === 'Dosen') {
                     $aksesbutton = 'hidden';
+                    $data = [
+                        'aksesbutton' => $aksesbutton,
+                        'sel_semester' => $this->SemesterModel->where('id', $semesterx)->first(),
+                        'sk' => $this->SkModel->select('*')->select('sk.id as id_sk')->select('sk.kategori as id_katsk')->select('kategori_sk.kategori as nama_kategori')->select('semester.semester as nama_semester')->where('sk.semester', $semesterx)->join('kategori_sk', 'kategori_sk.id=sk.kategori')->join('semester', 'semester.id=sk.semester')->where('sk.sasaran', 'Terbuka')->orderBy('tanggal', 'DESC')->orderBy('nomor', 'DESC')->get()->getResultArray(),
+                        'kategori_sk' => $this->Kategori_skModel->orderBy('kategori', 'ASC')->get()->getResultArray(),
+                        'semester' => $this->SemesterModel->orderBy('semester', 'DESC')->get()->getResultArray(),
+                        'validation' => \Config\Services::validation(),
+                    ];
                 } else {
                     $aksesbutton = '';
+                    $data = [
+                        'aksesbutton' => $aksesbutton,
+                        'sel_semester' => $this->SemesterModel->where('id', $semesterx)->first(),
+                        'sk' => $this->SkModel->select('*')->select('sk.id as id_sk')->select('sk.kategori as id_katsk')->select('kategori_sk.kategori as nama_kategori')->select('semester.semester as nama_semester')->where('sk.semester', $semesterx)->join('kategori_sk', 'kategori_sk.id=sk.kategori')->join('semester', 'semester.id=sk.semester')->orderBy('tanggal', 'DESC')->orderBy('nomor', 'DESC')->get()->getResultArray(),
+                        'kategori_sk' => $this->Kategori_skModel->orderBy('kategori', 'ASC')->get()->getResultArray(),
+                        'semester' => $this->SemesterModel->orderBy('semester', 'DESC')->get()->getResultArray(),
+                        'validation' => \Config\Services::validation(),
+                    ];
                 }
-                $semesterx = $request->getVar('semesterx');
-                $data = [
-                    'aksesbutton' => $aksesbutton,
-                    'sel_semester' => $this->SemesterModel->where('id', $semesterx)->first(),
-                    'sk' => $this->SkModel->orderBy('tanggal', 'DESC')->select('*')->select('sk.id as id_sk')->select('kategori_sk.kategori as nama_kategori')->select('semester.semester as nama_semester')->where('sk.semester', $semesterx)->join('kategori_sk', 'kategori_sk.id=sk.kategori')->join('semester', 'semester.id=sk.semester')->get()->getResultArray(),
-                    'kategori_sk' => $this->Kategori_skModel->orderBy('kategori', 'ASC')->get()->getResultArray(),
-                    'semester' => $this->SemesterModel->orderBy('semester', 'DESC')->get()->getResultArray(),
-                    'validation' => \Config\Services::validation(),
-                ];
                 $msg = [
                     'data' => view('backend/sk/view', $data)
                 ];

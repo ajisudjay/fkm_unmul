@@ -1,0 +1,66 @@
+SUPERADMIN :
+
++ Beranda
+CONTENT :
+    + Main menu
+    + Sub menu
+    + Berita
+    + Galeri
+    + Dokumen
+KONFIGURASI :
+    + Atur beranda
+    + Slideshow
+    + Mitra
+    + Pejabat
+    + Link Partner
+SDM :
+    + Dosen
+    + Tendik
++Semester
+SK :
+    + Surat Keputusan
+    + Kategori
++Akun
+
+=============================================================
+Admin Website :
+
++ Beranda
+CONTENT :
+    + Main menu
+    + Sub menu
+    + Berita
+    + Galeri
+    + Dokumen
+KONFIGURASI :
+    + Atur beranda
+    + Slideshow
+    + Mitra
+    + Pejabat
+    + Link Partner
+SDM :
+    + Dosen
+    + Tendik
++Akun (HANYA DATA PRIBADI)
+
+=============================================================
+Admin eOffice : 
+
++ Beranda
+SDM :
+    + Dosen
+    + Tendik
+SK :
+    + Surat Keputusan
+    + Kategori
++Akun (HANYA DATA PRIBADI)
+
+=============================================================
+Dosen :
+
++ Beranda
+SDM :
+    + Dosen (HANYA DATA PRIBADI)
+SK :
+    + Surat Keputusan (VIEW ONLY)
++Akun (HANYA DATA PRIBADI)

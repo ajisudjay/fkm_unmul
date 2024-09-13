@@ -102,12 +102,8 @@
                         <th width="2%">No</th>
                         <th width="3%" style="text-align: center;"><i class="fa fa-gear"></i></th>
                         <th width="10%">Nomor</th>
-                        <th width="10%">Tanggal</th>
-                        <th width="35%">Perihal</th>
-                        <th width="10%">Semester</th>
-                        <th width="10%">Kategori</th>
-                        <th width="10%">Sasaran</th>
-                        <th width="10%">Log</th>
+                        <th width="75%">Perihal</th>
+                        <th width="5%">Log</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -180,7 +176,7 @@
                                                             <div class="col-lg-5">
                                                                 <label class="text-primary">Kategori</label>
                                                                 <select name="kategori" class="form-control kategori">
-                                                                    <option value="<?= $item['id'] ?>"><?= $item['kategori'] ?></option>
+                                                                    <option value="<?= $item['id_katsk'] ?>"><?= $item['kategori'] ?></option>
                                                                     <?php foreach ($kategori_sk as $itemkat) : ?>
                                                                         <option value="<?= $itemkat['id'] ?>"><?= $itemkat['kategori'] ?></option>
                                                                     <?php endforeach ?>
@@ -224,42 +220,49 @@
                                 </div>
                             </td>
                             <td style="white-space: normal;">
-                                <button type="button" class="btn-sm btn-primary border-0" data-toggle="modal" data-target="#fileviewmodal<?= $id = $item['id_sk'] ?>">
-                                    <?= $item['nomor'] ?>
-                                </button>
-                                <!-- file view modal-->
-                                <div class="modal fade" id="fileviewmodal<?= $id = $item['id_sk'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title">File : <?= $item['nomor'] ?></h5>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <?= csrf_field() ?>
-                                                <div class="modal-body" style="text-align:left ;">
-                                                    <div class="row">
-                                                        <div class="col-lg-12">
-                                                            <embed src="<?= base_url('writable/uploads/content/sk/' . $item['file']) ?>" type='application/pdf' width='100%' height='750px'>
+                                <center>
+                                    <button type="button" class="btn-sm btn-primary border-0" data-toggle="modal" data-target="#fileviewmodal<?= $id = $item['id_sk'] ?>">
+                                        <?= $item['nomor'] ?>
+                                    </button>
+                                    <!-- file view modal-->
+                                    <div class="modal fade" id="fileviewmodal<?= $id = $item['id_sk'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title">File : <?= $item['nomor'] ?></h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <?= csrf_field() ?>
+                                                    <div class="modal-body" style="text-align:left ;">
+                                                        <div class="row">
+                                                            <div class="col-lg-12">
+                                                                <embed src="<?= base_url('writable/uploads/content/sk/' . $item['file']) ?>" type='application/pdf' width='100%' height='750px'>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Tutup</button>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Tutup</button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                    <br>
+                                    <br>
+                                    <i class="btn-sm btn-success border-0"><i class="fa fa-calendar"></i> <?= $item['tanggal'] ?></i>
+                                    <br>
+                                    <br>
+                                    <i class="btn-sm btn-warning border-0"><i class="fa fa-list"></i> <?= $item['nama_kategori'] ?></i>
+                                </center>
                             </td>
-                            <td><?= $item['tanggal'] ?></td>
-                            <td style="white-space: normal;"><?= $item['perihal'] ?></td>
-                            <td><?= $item['nama_semester'] ?></td>
-                            <td><?= $item['nama_kategori'] ?></td>
-                            <td><?= $item['sasaran'] ?></td>
-                            <td><?= $item['timestamps'] . ' | ' . $item['admin'] ?></td>
+                            <td style="white-space: normal;min-width: 350px;"><?= $item['perihal'] ?></td>
+                            <td align="center">
+                                <i class="btn-sm btn-primary border-0"><i class="fa fa-clock-o"></i> <?= $item['timestamps'] ?></i><br><br>
+                                <i class="btn-sm btn-success border-0"><i class="fa fa-user"></i> <?= $item['admin'] ?></i>
+                            </td>
                         </tr>
                     <?php endforeach ?>
                 </tbody>

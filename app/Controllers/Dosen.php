@@ -15,7 +15,7 @@ class Dosen extends BaseController
     public function index()
     {
 
-        if (session()->get('username') !== NULL && (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Website') || session()->get('level') === 'Dosen') {
+        if (session()->get('username') !== NULL && (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Website') || session()->get('level') === 'Dosen' || session()->get('level') === 'Admin eOffice') {
             $admin = session()->get('nama');
             $lvl = session()->get('level');
             $file = session()->get('file');
@@ -37,7 +37,7 @@ class Dosen extends BaseController
     }
     public function view()
     {
-        if (session()->get('username') !== NULL && (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Website') || session()->get('level') === 'Dosen') {
+        if (session()->get('username') !== NULL && (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Website') || session()->get('level') === 'Dosen' || session()->get('level') === 'Admin eOffice') {
             $request = \Config\Services::request();
             if ($request->isAJAX()) {
                 if (session()->get('level') === 'Dosen') {
@@ -114,7 +114,7 @@ class Dosen extends BaseController
 
     public function tambah()
     {
-        if (session()->get('username') !== NULL && (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Website') || session()->get('level') === 'Dosen') {
+        if (session()->get('username') !== NULL && (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Website') || session()->get('level') === 'Admin eOffice') {
             $request = \Config\Services::request();
             $validation = \Config\Services::validation();
             $nip = $request->getVar('nip');
@@ -392,7 +392,7 @@ class Dosen extends BaseController
 
     public function edit()
     {
-        if (session()->get('username') !== NULL && (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Website') || session()->get('level') === 'Dosen') {
+        if (session()->get('username') !== NULL && (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Website') || session()->get('level') === 'Dosen' || session()->get('level') === 'Admin eOffice') {
             $request = \Config\Services::request();
             $id = $request->getVar('id');
             $validation = \Config\Services::validation();
@@ -586,7 +586,7 @@ class Dosen extends BaseController
 
     public function hapus($id)
     {
-        if (session()->get('username') !== NULL && (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Website') || session()->get('level') === 'Dosen') {
+        if (session()->get('username') !== NULL && (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Website') || session()->get('level') === 'Dosen' || session()->get('level') === 'Admin eOffice') {
             $cekfile = $this->DosenModel->where('id', $id)->first();
             $namafile = $cekfile['gambar'];
             $filesource = '../writable/uploads/content/dosen/' . $namafile . '';

@@ -44,7 +44,7 @@
                                 <form action="<?= base_url('sk/view'); ?>" method="post" class="semesterx">
                                     <?= csrf_field(); ?>
                                     <div class="row">
-                                        <div class="col-lg-2">
+                                        <div class="col-lg-4">
                                             <select name="semesterx" class="form-control semesterx">
                                                 <?php foreach ($semester as $item_semester) : ?>
                                                     <option value="<?= $item_semester['id'] ?>"><?= $item_semester['semester'] ?></option>

@@ -46,7 +46,7 @@
                                         <option value="">Pilih Level</option>
                                         <option value="Tendik">Tendik</option>
                                         <option value="Dosen">Dosen</option>
-                                        <option value="Admin Prodi">Admin Prodi</option>
+                                        <option value="Admin eOffice">Admin eOffice</option>
                                         <option value="Admin Website">Admin Website</option>
                                         <option value="Superadmin">Superadmin</option>
                                     </select>
@@ -179,7 +179,7 @@
                                                                     <option value="<?= $item['level'] ?>"><?= $item['level'] ?></option>
                                                                     <option value="Tendik">Tendik</option>
                                                                     <option value="Dosen">Dosen</option>
-                                                                    <option value="Admin Prodi" <?= $hakakses ?>>Admin Prodi</option>
+                                                                    <option value="Admin eOffice">Admin eOffice</option>
                                                                     <option value="Admin Website">Admin Website</option>
                                                                     <option value="Superadmin" <?= $hakakses ?>>Superadmin</option>
                                                                 </select>

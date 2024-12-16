@@ -68,6 +68,14 @@
                         </li>
                     </ul>
                 </li>
+                <li class=""><a href="#"><i class="feather icon-layers"></i><span class="menu-title" data-i18n="Dashboard">Surat</span><span class="badge badge badge-warning badge-pill float-right mr-2">2</span></a>
+                    <ul class="menu-content">
+                        <li class="<?= $title == 'Surat Masuk' ? 'active' : '' ?>"><a href="<?= base_url('s_masuk'); ?>"><i class="feather icon-book"></i><span class="menu-item" data-i18n="Analytics">Surat Masuk</span></a>
+                        </li>
+                        <li class="<?= $title == 'Surat Keluar' ? 'active' : '' ?>"><a href="<?= base_url('s_keluar'); ?>"><i class="feather icon-book"></i><span class="menu-item" data-i18n="Analytics">Surat Keluar</span></a>
+                        </li>
+                    </ul>
+                </li>
                 <li class=" navigation-header"><span>AKUN</span>
                 </li>
                 <li class="<?= $title == 'Akun' ? 'active' : '' ?>"><a href="<?= base_url('user'); ?>"><i class="feather icon-users"></i><span class="menu-item" data-i18n="Analytics">Akun</span></a>

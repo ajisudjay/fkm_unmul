@@ -22,12 +22,40 @@
                 },
                 success: function(response) {
                     if (response.error) {
-                        if (response.error.no) {
-                            $('.no').addClass('is-invalid');
-                            $('.errorno').html(response.error.no);
+                        if (response.error.no_disposisi) {
+                            $('.no_disposisi').addClass('is-invalid');
+                            $('.errorno_disposisi').html(response.error.no_disposisi);
                         } else {
-                            $('.no').removeClass('is-invalid');
-                            $('.errorno').html('');
+                            $('.no_disposisi').removeClass('is-invalid');
+                            $('.errorno_disposisi').html('');
+                        }
+                        if (response.error.tgl_sm) {
+                            $('.tgl_sm').addClass('is-invalid');
+                            $('.errortgl_sm').html(response.error.tgl_sm);
+                        } else {
+                            $('.tgl_sm').removeClass('is-invalid');
+                            $('.errortgl_sm').html('');
+                        }
+                        if (response.error.no_surat) {
+                            $('.no_surat').addClass('is-invalid');
+                            $('.errorno_surat').html(response.error.no_surat);
+                        } else {
+                            $('.no_surat').removeClass('is-invalid');
+                            $('.errorno_surat').html('');
+                        }
+                        if (response.error.tgl_surat) {
+                            $('.tgl_surat').addClass('is-invalid');
+                            $('.errortgl_surat').html(response.error.tgl_surat);
+                        } else {
+                            $('.tgl_surat').removeClass('is-invalid');
+                            $('.errortgl_surat').html('');
+                        }
+                        if (response.error.asal_surat) {
+                            $('.asal_surat').addClass('is-invalid');
+                            $('.errorasal_surat').html(response.error.asal_surat);
+                        } else {
+                            $('.asal_surat').removeClass('is-invalid');
+                            $('.errorasal_surat').html('');
                         }
                         if (response.error.perihal) {
                             $('.perihal').addClass('is-invalid');
@@ -35,6 +63,13 @@
                         } else {
                             $('.perihal').removeClass('is-invalid');
                             $('.errorperihal').html('');
+                        }
+                        if (response.error.keterangan) {
+                            $('.keterangan').addClass('is-invalid');
+                            $('.errorketerangan').html(response.error.keterangan);
+                        } else {
+                            $('.keterangan').removeClass('is-invalid');
+                            $('.errorketerangan').html('');
                         }
                         if (response.error.file) {
                             $('.file').addClass('is-invalid');

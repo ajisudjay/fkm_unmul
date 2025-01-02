@@ -8,7 +8,7 @@
     </div>
     <!-- tambah modal-->
     <div class="modal fade" id="tambahmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Tambah</h5>
@@ -21,12 +21,38 @@
                         <?= csrf_field() ?>
                         <div class="modal-body">
                             <div class="row">
-                                <div class="col-lg-12">
-                                    <label class="text-primary">Nomor</label>
-                                    <input type="text" name="no" class="form-control no" placeholder="Nomor" required>
-                                    <div class="invalid-feedback errorno"></div>
+                                <div class="col-lg-6">
+                                    <label class="text-primary">Nomor Disposisi</label>
+                                    <input type="text" name="no_disposisi" class="form-control no_disposisi" placeholder="Nomor Disposisi" required>
+                                    <div class="invalid-feedback errorno_disposisi"></div>
                                     <br>
                                 </div>
+                                <div class="col-lg-6">
+                                    <label class="text-primary">Tgl Surat Masuk</label>
+                                    <input type="date" name="tgl_sm" class="form-control tgl_sm" placeholder="Tanggal Surat Masuk" required>
+                                    <div class="invalid-feedback errortgl_sm"></div>
+                                    <br>
+                                </div>
+                                <br>
+                                <div class="col-lg-6">
+                                    <label class="text-primary">Nomor Surat</label>
+                                    <input type="text" name="no_surat" class="form-control no_surat" placeholder="Nomor Surat" required>
+                                    <div class="invalid-feedback errorno_surat"></div>
+                                    <br>
+                                </div>
+                                <div class="col-lg-6">
+                                    <label class="text-primary">Tgl Surat</label>
+                                    <input type="date" name="tgl_surat" class="form-control tgl_surat" placeholder="Tanggal Surat" required>
+                                    <div class="invalid-feedback errortgl_surat"></div>
+                                    <br>
+                                </div>
+                                <div class="col-lg-12">
+                                    <label class="text-primary">Asal Surat</label>
+                                    <input type="text" name="asal_surat" class="form-control asal_surat" placeholder="Asal Surat" required>
+                                    <div class="invalid-feedback errorasal_surat"></div>
+                                    <br>
+                                </div>
+                                <br>
                                 <div class="col-lg-12">
                                     <label class="text-primary">Perihal</label>
                                     <input type="text" name="perihal" class="form-control perihal" placeholder="Perihal" required>
@@ -35,9 +61,9 @@
                                 </div>
                                 <br>
                                 <div class="col-lg-12">
-                                    <label class="text-primary">Tanggal</label>
-                                    <input type="date" name="tanggal" class="form-control tanggal" required>
-                                    <div class="invalid-feedback errortanggal"></div>
+                                    <label class="text-primary">Keterangan</label>
+                                    <textarea name="keterangan" class="form-control keterangan"> - </textarea>
+                                    <div class="invalid-feedback errorketerangan"></div>
                                     <br>
                                 </div>
                                 <br>
@@ -65,11 +91,12 @@
                 <thead>
                     <tr>
                         <th width="5%">No</th>
-                        <th width="5%" style="text-align: center;">AKSI</th>
-                        <th width="35%">Nomor</th>
-                        <th width="35%">Perihal</th>
-                        <th width="35%">Tanggal</th>
-                        <th width="35%">Log</th>
+                        <th width="15%">Nomor Disposisi</th>
+                        <th width="10%">Tgl Surat Masuk</th>
+                        <th width="15%">Nomor Surat</th>
+                        <th width="25%">Perihal</th>
+                        <th width="15%">Asal Surat</th>
+                        <th width="25%">Log</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -77,9 +104,8 @@
                     <?php foreach ($s_masuk as $item) : ?>
                         <tr>
                             <!-- ISI VIEW -->
-                            <td><?= $no++ ?></td>
                             <td>
-                                <button class="btn btn-outline-primary fa fa-ellipsis-v" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <button class="btn btn-outline-primary btn-sm" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?= $no++ ?>
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                     <!-- button Disposisi modal-->
@@ -113,26 +139,50 @@
                                                     <div class="modal-body">
                                                         <div class="row">
                                                             <div class="col-lg-6">
-                                                                <label class="text-primary">Nomor</label>
+                                                                <label class="text-primary">Nomor Disposisi</label>
                                                                 <input type="text" name="id" value="<?= $item['id'] ?>" hidden>
-                                                                <input type="text" name="no" class="form-control no" value="<?= $item['no'] ?>" placeholder="Nomor">
-                                                                <div class="invalid-feedback errorno"></div>
+                                                                <input type="text" name="no_disposisi" class="form-control no_disposisi" value="<?= $item['no_disposisi'] ?>" placeholder="Nomor Disposisi">
+                                                                <div class="invalid-feedback errorno_disposisi"></div>
+                                                                <br>
                                                             </div>
-                                                            <div class="col-lg-4">
-                                                                <label class="text-primary">Tanggal</label>
-                                                                <input type="date" name="tanggal" class="form-control tanggal" value="<?= $item['tanggal'] ?>">
-                                                                <div class="invalid-feedback errortanggal"></div>
+                                                            <div class="col-lg-6">
+                                                                <label class="text-primary">Tanggal Surat Masuk</label>
+                                                                <input type="date" name="tgl_sm" class="form-control tgl_sm" value="<?= $item['tgl_sm'] ?>" placeholder="Tanggal Surat Masuk">
+                                                                <div class="invalid-feedback errortgl_sm"></div>
+                                                                <br>
+                                                            </div>
+                                                            <div class="col-lg-6">
+                                                                <label class="text-primary">Nomor Surat</label>
+                                                                <input type="text" name="no_surat" class="form-control no_surat" value="<?= $item['no_surat'] ?>" placeholder="Nomor Surat">
+                                                                <div class="invalid-feedback errorno_surat"></div>
+                                                            </div>
+                                                            <div class="col-lg-6">
+                                                                <label class="text-primary">Tanggal Surat</label>
+                                                                <input type="date" name="tgl_surat" class="form-control tgl_surat" value="<?= $item['tgl_surat'] ?>" placeholder="Tanggal Surat">
+                                                                <div class="invalid-feedback errortgl_surat"></div>
+                                                                <br>
+                                                            </div>
+                                                            <div class="col-lg-12">
+                                                                <label class="text-primary">Asal Surat</label>
+                                                                <input type="text" name="asal_surat" class="form-control asal_surat" value="<?= $item['asal_surat'] ?>" placeholder="Asal Surat">
+                                                                <div class="invalid-feedback errorasal_surat"></div>
+                                                                <br>
                                                             </div>
                                                             <div class="col-lg-12">
                                                                 <label class="text-primary">Perihal</label>
-                                                                <textarea name="perihal" cols="30" class="form-control perihal" rows="10"><?= $item['perihal'] ?></textarea>
+                                                                <input type="text" name="perihal" class="form-control perihal" value="<?= $item['perihal'] ?>" placeholder="Perihal">
                                                                 <div class="invalid-feedback errorperihal"></div>
                                                                 <br>
                                                             </div>
-
-                                                            <div class="col-lg-6">
+                                                            <div class="col-lg-12">
+                                                                <label class="text-primary">Keterangan</label>
+                                                                <input type="text" name="keterangan" class="form-control keterangan" value="<?= $item['keterangan'] ?>" placeholder="Keterangan">
+                                                                <div class="invalid-feedback errorketerangan"></div>
+                                                                <br>
+                                                            </div>
+                                                            <div class="col-lg-12">
                                                                 <label class="text-primary">File</label>
-                                                                <input type="file" name="file" accept=".pdf" class="form-control file">
+                                                                <input type="file" name="file" class="form-control file">
                                                                 <div class="invalid-feedback errorfile"></div>
                                                             </div>
                                                             <hr>
@@ -150,14 +200,14 @@
                             </td>
                             <td style="min-width: 100px;max-width: 300px; white-space: normal;">
                                 <button type="button" class="btn-sm btn-primary border-0" data-toggle="modal" data-target="#fileviewmodal<?= $id = $item['id'] ?>">
-                                    <?= $item['no'] ?>
+                                    <?= $item['no_surat'] ?>
                                 </button>
                                 <!-- file view modal-->
                                 <div class="modal fade" id="fileviewmodal<?= $id = $item['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+                                    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title">File : <?= $item['no'] ?></h5>
+                                                <h5 class="modal-title">File : <?= $item['no_surat'] ?></h5>
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
@@ -181,10 +231,11 @@
                                 <br>
                                 <br>
                             </td>
-
+                            <td style="min-width: 100px;max-width: 300px; white-space: normal;"><?= $item['tgl_sm'] ?></td>
+                            <td style="min-width: 100px;max-width: 300px; white-space: normal;"><?= $item['no_surat'] ?></td>
                             <td style="min-width: 100px;max-width: 300px; white-space: normal;"><?= $item['perihal'] ?></td>
-                            <td style="min-width: 100px;max-width: 300px; white-space: normal;"><?= $item['tanggal'] ?></td>
-                            <td style="min-width: 100px;max-width: 300px; white-space: normal;"><?= $item['timestamp'] ?></td>
+                            <td style="min-width: 100px;max-width: 300px; white-space: normal;"><?= $item['asal_surat'] ?></td>
+                            <td style="min-width: 75px;max-width: 300px; white-space: normal;"><span class="badge badge-pill badge-primary"><?= $item['status'] ?></span><span class="badge badge-pill badge-secondary"><?= $item['admin'] ?></span><br><span class="badge badge-pill badge-warning"><?= $item['timestamp'] ?></span></td>
                         </tr>
                     <?php endforeach ?>
                 </tbody>

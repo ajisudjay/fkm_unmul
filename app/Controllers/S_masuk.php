@@ -42,7 +42,7 @@ class S_masuk extends BaseController
             $request = \Config\Services::request();
             if ($request->isAJAX()) {
                 $data = [
-                    's_masuk' => $this->S_masukModel->orderBy('no', 'DESC')->get()->getResultArray(),
+                    's_masuk' => $this->S_masukModel->orderBy('tgl_sm', 'DESC')->get()->getResultArray(),
                     'validation' => \Config\Services::validation(),
                 ];
                 $msg = [
@@ -61,13 +61,19 @@ class S_masuk extends BaseController
     {
         if (session()->get('username') !== NULL && session()->get('level') === 'Superadmin') {
             $request = \Config\Services::request();
-            $no = $request->getVar('no');
+            $no_disposisi = $request->getVar('no_disposisi');
+            $tgl_sm = $request->getVar('tgl_sm');
+            $no_surat = $request->getVar('no_surat');
+            $tgl_surat = $request->getVar('tgl_surat');
+            $asal_surat = $request->getVar('asal_surat');
+            $keterangan = $request->getVar('keterangan');
             $perihal = $request->getVar('perihal');
-            $tanggal = $request->getVar('tanggal');
             $file = $request->getFile('file');
             $username = session()->get('username');
             date_default_timezone_set("Asia/Kuala_Lumpur");
             $timestamp = date("Y-m-d h:i:sa");
+            $date = new \DateTime($tgl_sm);
+            $tahun_surat = $date->format('Y');
             $input = $this->validate([
                 'file' => 'uploaded[file]|max_size[file,5048]'
             ]);
@@ -79,10 +85,16 @@ class S_masuk extends BaseController
                 $file->store('content/s_masuk/', $newName);
                 $nama_file = $newName;
                 $data = [
-                    'no' => $no,
+                    'no_disposisi' => $no_disposisi,
+                    'tgl_sm' => $tgl_sm,
+                    'no_surat' => $no_surat,
+                    'tgl_surat' => $tgl_surat,
+                    'asal_surat' => $asal_surat,
                     'perihal' => $perihal,
+                    'keterangan' => $keterangan,
                     'file' => $nama_file,
-                    'tanggal' => $tanggal,
+                    'tahun' => $tahun_surat,
+                    'status' => 'Belum Disposisi',
                     'timestamp' => $timestamp,
                     'admin' => $username,
                 ];
@@ -100,17 +112,23 @@ class S_masuk extends BaseController
         if (session()->get('username') !== NULL && session()->get('level') === 'Superadmin') {
             $request = \Config\Services::request();
             $id = $request->getVar('id');
-            $no = $request->getVar('no');
+            $no_disposisi = $request->getVar('no_disposisi');
+            $tgl_sm = $request->getVar('tgl_sm');
+            $no_surat = $request->getVar('no_surat');
+            $tgl_surat = $request->getVar('tgl_surat');
+            $asal_surat = $request->getVar('asal_surat');
+            $keterangan = $request->getVar('keterangan');
             $perihal = $request->getVar('perihal');
-            $tanggal = $request->getVar('tanggal');
             $file = $request->getFile('file');
             $username = session()->get('username');
             date_default_timezone_set("Asia/Kuala_Lumpur");
             $timestamp = date("Y-m-d h:i:sa");
+            $date = new \DateTime($tgl_sm);
+            $tahun_surat = $date->format('Y');
             if (!file_exists($_FILES['file']['tmp_name'])) {
                 $input2 = $this->validate([
-                    'no' => 'required[no],',
-                    'tanggal' => 'required[tanggal],',
+                    'no_surat' => 'required[no_surat],',
+                    'tgl_surat' => 'required[tgl_surat],',
                     'perihal' => 'required[perihal],',
                 ]);
                 if (!$input2) { // Not valid
@@ -118,10 +136,17 @@ class S_masuk extends BaseController
                     return redirect()->to(base_url('/s_masuk'));
                 }
                 $data = [
-                    'no' => $no,
+                    'no_disposisi' => $no_disposisi,
+                    'tgl_sm' => $tgl_sm,
+                    'no_surat' => $no_surat,
+                    'tgl_surat' => $tgl_surat,
+                    'asal_surat' => $asal_surat,
                     'perihal' => $perihal,
-                    'tanggal' => $tanggal,
-                    'timestamps' => $timestamp,
+                    'keterangan' => $keterangan,
+                    'tahun' => $tahun_surat,
+                    'status' => 'Belum Disposisi',
+                    'timestamp' => $timestamp,
+                    'admin' => $username,
                 ];
                 $this->S_masukModel->update($id, $data);
 
@@ -132,8 +157,8 @@ class S_masuk extends BaseController
                     'file' => 'uploaded[file]|max_size[file,5048],'
                 ]);
                 $input2 = $this->validate([
-                    'no' => 'required[no],',
-                    'tanggal' => 'required[tanggal],',
+                    'no_surat' => 'required[no_surat],',
+                    'tgl_surat' => 'required[tgl_surat],',
                     'perihal' => 'required[perihal],',
                 ]);
                 if (!$input) { // Not valid
@@ -153,14 +178,21 @@ class S_masuk extends BaseController
                     $file->store('content/s_masuk/', $newName);
                     $nama_file = $newName;
                     $data = [
-                        'no' => $no,
+                        'no_disposisi' => $no_disposisi,
+                        'tgl_sm' => $tgl_sm,
+                        'no_surat' => $no_surat,
+                        'tgl_surat' => $tgl_surat,
+                        'asal_surat' => $asal_surat,
                         'perihal' => $perihal,
-                        'tanggal' => $tanggal,
+                        'keterangan' => $keterangan,
                         'file' => $nama_file,
-                        'timestamps' => $timestamp,
+                        'tahun' => $tahun_surat,
+                        'status' => 'Belum Disposisi',
+                        'timestamp' => $timestamp,
+                        'admin' => $username,
                     ];
                     $this->S_masukModel->update($id, $data);
-                    session()->setFlashdata('pesanInput', 'Mengubah Data Surat Masuk');
+                    session()->setFlashdata('pesanInput', 'Berhasil Diubah');
                     return redirect()->to(base_url('/s_masuk'));
                 }
             }

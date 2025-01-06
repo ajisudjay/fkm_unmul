@@ -108,11 +108,6 @@
                                 <button class="btn btn-outline-primary btn-sm" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?= $no++ ?>
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <!-- button Disposisi modal-->
-                                    <button type="button" class="dropdown-item" data-toggle="modal" data-target="#editmodal<?= $id = $item['id'] ?>">
-                                        <span class="fa fa-reply-all text-success"> Disposisi</span>
-                                    </button>
-                                    <div class="dropdown-divider"></div>
                                     <!-- button ubah modal-->
                                     <button type="button" class="dropdown-item" data-toggle="modal" data-target="#editmodal<?= $id = $item['id'] ?>">
                                         <span class="fa fa-edit text-primary"> Ubah</span>
@@ -123,6 +118,7 @@
                                         <span class="fa fa-trash text-danger"> Hapus</span>
                                     </a>
                                 </div>
+
                                 <!-- edit modal-->
                                 <div class="modal fade" id="editmodal<?= $id = $item['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
@@ -200,47 +196,174 @@
                             </td>
                             <td style="min-width: 100px;max-width: 300px; white-space: normal;">
                                 <button type="button" class="btn-sm btn-primary border-0" data-toggle="modal" data-target="#fileviewmodal<?= $id = $item['id'] ?>">
-                                    <?= $item['no_surat'] ?>
+                                    <?= $item['no_disposisi'] ?>
                                 </button>
                                 <!-- file view modal-->
                                 <div class="modal fade" id="fileviewmodal<?= $id = $item['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                                    <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title">File : <?= $item['no_surat'] ?></h5>
+                                                <h5 class="modal-title">Nomor Disposisi : <?= $item['no_disposisi'] ?></h5> | <span class="badge badge-pill badge-primary"><?= $item['tgl_sm'] ?></span> | <span class="badge badge-pill badge-warning"><?= $item['status'] ?></span>
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
                                             </div>
                                             <div class="modal-body">
-                                                <?= csrf_field() ?>
-                                                <div class="modal-body" style="text-align:left ;">
-                                                    <div class="row">
-                                                        <div class="col-lg-12">
-                                                            <embed src="<?= base_url('writable/uploads/content/s_masuk/' . $item['file']) ?>" type='application/pdf' width='100%' height='750px'>
-                                                        </div>
+                                                <div class="row">
+                                                    <div class="dt-responsive table-responsive">
+                                                        <form action="<?= base_url('s_masuk/tambahdisposisi'); ?>" method="post">
+                                                            <?= csrf_field() ?>
+                                                            <div class="modal-body">
+                                                                <div class="row">
+                                                                    <table class="table table-hover-animation nowrap">
+                                                                        <tbody>
+                                                                            <tr>
+                                                                                <td>
+                                                                                    <h5> Nomor Surat : <?= $item['no_surat'] ?></h5>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <h5> Tanggal Surat : <?= $item['tgl_surat'] ?></h5>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <h5> Asal Surat : <?= $item['asal_surat'] ?></h5>
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td colspan="3">
+                                                                                    <h5 class="modal-title">Perihal : <?= $item['perihal'] ?></h5>
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td colspan="3">
+                                                                                    <h5 class="modal-title">Keterangan : <?= $item['keterangan'] ?></h5>
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td>
+                                                                                    <input type="text" name="id_sm" class="form-control id_sm" value="<?= $item['no_disposisi'] ?>" hidden>
+                                                                                    <input type="text" name="kepada" class="form-control kepada" placeholder="Kepada" required>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <select name="status" class="form-control">
+                                                                                        <option value="Sedang Diproses">Sedang Diproses</option>
+                                                                                        <option value="Selesai">Selesai</option>
+                                                                                        <option value="Ditolak">Ditolak</option>
+                                                                                        <option value="Belum Disposisi">Belum Disposisi</option>
+                                                                                    </select>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <button type="submit" class="btn btn-primary btnSimpan">Tambah</button>
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td colspan="3"><input type="text" name="tindak_lanjut" class="form-control tindak_lanjut" placeholder="Tindak Lanjut" required></td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+
+                                                                    <br>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                        <table id="simpletable" class="table table-striped table-hover-animation nowrap">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th width="5%">No</th>
+                                                                    <th width="25%">Kepada</th>
+                                                                    <th width="45%">Tindak Lanjut</th>
+                                                                    <th width="30%">Log</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <?php $no = 1 ?>
+                                                                <?php $s_masuk = $item['no_disposisi'] ?>
+                                                                <?php foreach ($disposisi as $item2) : ?>
+                                                                    <?php if ($item2['id_sm'] == $s_masuk) { ?>
+                                                                        <tr>
+                                                                            <td><?= $no++ ?></td>
+                                                                            <td><?= $item2['kepada'] ?></td>
+                                                                            <td>
+                                                                                <!-- button ubah disposisi modal-->
+                                                                                <button type="button" class="dropdown-item" data-toggle="modal" data-target="#editdismodal<?= $id = $item2['id'] ?>">
+                                                                                    <span> <?= $item2['tindak_lanjut'] ?></span>
+                                                                                </button>
+                                                                                <!-- ubah disposisi modal-->
+                                                                                <div class="modal fade" id="editdismodal<?= $id = $item2['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                                                    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                                                                                        <div class="modal-content">
+                                                                                            <div class="modal-header">
+                                                                                                <h5 class="modal-title">Ubah Disposisi</h5>
+                                                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                                    <span aria-hidden="true">&times;</span>
+                                                                                                </button>
+                                                                                            </div>
+                                                                                            <div class="modal-body">
+                                                                                                <form action="<?= base_url('s_masuk/editdisposisi'); ?>" method="post" class="edit">
+                                                                                                    <?= csrf_field() ?>
+                                                                                                    <div class="modal-body">
+                                                                                                        <div class="row">
+                                                                                                            <div class="col-lg-12">
+                                                                                                                <label class="text-primary">Kepada</label>
+                                                                                                                <input type="text" name="id" value="<?= $item2['id'] ?>" hidden>
+                                                                                                                <input type="text" name="kepada" class="form-control kepada" value="<?= $item2['kepada'] ?>" placeholder="Kepada">
+                                                                                                                <div class="invalid-feedback errorkepada"></div>
+                                                                                                                <br>
+                                                                                                            </div>
+                                                                                                            <div class="col-lg-12">
+                                                                                                                <label class="text-primary">Disposisi</label>
+                                                                                                                <input type="text" name="tindak_lanjut" class="form-control tindak_lanjut" value="<?= $item2['tindak_lanjut'] ?>" placeholder="Tindak Lanjut">
+                                                                                                                <div class="invalid-feedback errortindak_lanjut"></div>
+                                                                                                                <br>
+                                                                                                            </div>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                    <div class="modal-footer">
+                                                                                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Batalkan</button>
+                                                                                                        <button type="submit" class="btn btn-primary btnSimpan">Simpan</button>
+                                                                                                    </div>
+                                                                                                </form>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </td>
+                                                                            <td><span class="badge badge-pill badge-secondary"><?= $item2['admin'] ?></span> | <span class="badge badge-pill badge-warning"><?= $item2['timestamp'] ?></span> | <a href="<?= base_url('s_masuk/hapusdisposisi/' . $item2['id']); ?>">
+                                                                                    <span class="fa fa-trash text-danger"></span>
+                                                                                </a></td>
+                                                                        </tr>
+                                                                    <?php } ?>
+                                                                <?php endforeach ?>
+                                                            </tbody>
+                                                        </table>
                                                     </div>
                                                 </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Tutup</button>
+                                            </div>
+                                            <div class="modal-body" style="text-align:left ;">
+                                                <div class="row">
+                                                    <div class="col-lg-12">
+                                                        <embed src="<?= base_url('writable/uploads/content/s_masuk/' . $item['file']) ?>" type='application/pdf' width='100%' height='750px'>
+                                                    </div>
                                                 </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-danger" data-dismiss="modal">Tutup</button>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <br>
-                                <br>
-                            </td>
-                            <td style="min-width: 100px;max-width: 300px; white-space: normal;"><?= $item['tgl_sm'] ?></td>
-                            <td style="min-width: 100px;max-width: 300px; white-space: normal;"><?= $item['no_surat'] ?></td>
-                            <td style="min-width: 100px;max-width: 300px; white-space: normal;"><?= $item['perihal'] ?></td>
-                            <td style="min-width: 100px;max-width: 300px; white-space: normal;"><?= $item['asal_surat'] ?></td>
-                            <td style="min-width: 75px;max-width: 300px; white-space: normal;"><span class="badge badge-pill badge-primary"><?= $item['status'] ?></span><span class="badge badge-pill badge-secondary"><?= $item['admin'] ?></span><br><span class="badge badge-pill badge-warning"><?= $item['timestamp'] ?></span></td>
-                        </tr>
-                    <?php endforeach ?>
-                </tbody>
-            </table>
         </div>
+        <br>
+        <br>
+        </td>
+        <td style="min-width: 100px;max-width: 300px; white-space: normal;"><?= $item['tgl_sm'] ?></td>
+        <td style="min-width: 100px;max-width: 300px; white-space: normal;"><?= $item['no_surat'] ?></td>
+        <td style="min-width: 100px;max-width: 300px; white-space: normal;"><?= $item['perihal'] ?></td>
+        <td style="min-width: 100px;max-width: 300px; white-space: normal;"><?= $item['asal_surat'] ?></td>
+        <td style="min-width: 75px;max-width: 300px; white-space: normal;"><span class="badge badge-pill badge-primary"><?= $item['status'] ?></span><span class="badge badge-pill badge-secondary"><?= $item['admin'] ?></span><br><span class="badge badge-pill badge-warning"><?= $item['timestamp'] ?></span></td>
+        </tr>
+    <?php endforeach ?>
+    </tbody>
+    </table>
     </div>
 </div>
 

@@ -64,3 +64,8 @@ SDM :
 SK :
     + Surat Keputusan (VIEW ONLY)
 +Akun (HANYA DATA PRIBADI)
+
+=============================================================
+BUAT HAK AKSES BY TANDAIN DI USER
+Jadi user hanya ada 3 : DOSEN, TENDIK, 
+tapi nanti bisa ditandai akun untuk bisa menu apa saja

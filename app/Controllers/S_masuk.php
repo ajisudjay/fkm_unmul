@@ -3,14 +3,18 @@
 namespace App\Controllers;
 
 use App\Models\S_masukModel;
+use App\Models\DisposisiModel;
 use App\Controllers\BaseController;
+
 
 class S_masuk extends BaseController
 {
     protected $S_masukModel;
+    protected $DisposisiModel;
     public function __construct()
     {
         $this->S_masukModel = new S_masukModel();
+        $this->DisposisiModel = new DisposisiModel();
     }
     public function index()
     {
@@ -43,6 +47,7 @@ class S_masuk extends BaseController
             if ($request->isAJAX()) {
                 $data = [
                     's_masuk' => $this->S_masukModel->orderBy('tgl_sm', 'DESC')->get()->getResultArray(),
+                    'disposisi' => $this->DisposisiModel->orderBy('timestamp', 'DESC')->get()->getResultArray(),
                     'validation' => \Config\Services::validation(),
                 ];
                 $msg = [
@@ -71,7 +76,7 @@ class S_masuk extends BaseController
             $file = $request->getFile('file');
             $username = session()->get('username');
             date_default_timezone_set("Asia/Kuala_Lumpur");
-            $timestamp = date("Y-m-d h:i:sa");
+            $timestamp = date("Y-m-d H:i:sa");
             $date = new \DateTime($tgl_sm);
             $tahun_surat = $date->format('Y');
             $input = $this->validate([
@@ -107,6 +112,38 @@ class S_masuk extends BaseController
         }
     }
 
+    public function tambahdisposisi()
+    {
+        if (session()->get('username') !== NULL && session()->get('level') === 'Superadmin') {
+            $request = \Config\Services::request();
+            $kepada = $request->getVar('kepada');
+            $tindak_lanjut = $request->getVar('tindak_lanjut');
+            $status = $request->getVar('status');
+            $id_sm = $request->getVar('id_sm');
+            $username = session()->get('username');
+            date_default_timezone_set("Asia/Kuala_Lumpur");
+            $timestamp = date("Y-m-d H:i:sa");
+            $cek_id = $this->S_masukModel->where('no_disposisi', $id_sm)->first();
+            $id_surat = $cek_id['id'];
+            $data = [
+                'kepada' => $kepada,
+                'tindak_lanjut' => $tindak_lanjut,
+                'id_sm' => $id_sm,
+                'timestamp' => $timestamp,
+                'admin' => $username,
+            ];
+            $data2 = [
+                'status' => $status,
+            ];
+            $this->DisposisiModel->insert($data);
+            $this->S_masukModel->update($id_surat, $data2);
+            session()->setFlashdata('pesanHapus', 'Berhasil ditambah !');
+            return redirect()->to(base_url('/s_masuk'));
+        } else {
+            return redirect()->to(base_url('/login'));
+        }
+    }
+
     public function edit()
     {
         if (session()->get('username') !== NULL && session()->get('level') === 'Superadmin') {
@@ -122,7 +159,7 @@ class S_masuk extends BaseController
             $file = $request->getFile('file');
             $username = session()->get('username');
             date_default_timezone_set("Asia/Kuala_Lumpur");
-            $timestamp = date("Y-m-d h:i:sa");
+            $timestamp = date("Y-m-d H:i:sa");
             $date = new \DateTime($tgl_sm);
             $tahun_surat = $date->format('Y');
             if (!file_exists($_FILES['file']['tmp_name'])) {
@@ -201,6 +238,38 @@ class S_masuk extends BaseController
         }
     }
 
+    public function editdisposisi()
+    {
+        if (session()->get('username') !== NULL && session()->get('level') === 'Superadmin') {
+            $request = \Config\Services::request();
+            $id = $request->getVar('id');
+            $kepada = $request->getVar('kepada');
+            $tindak_lanjut = $request->getVar('tindak_lanjut');
+            $username = session()->get('username');
+            date_default_timezone_set("Asia/Kuala_Lumpur");
+            $timestamp = date("Y-m-d H:i:sa");
+            $input2 = $this->validate([
+                'tindak_lanjut' => 'required[tindak_lanjut],',
+            ]);
+            if (!$input2) { // Not valid
+                session()->setFlashdata('pesanGagal', 'Tidak Boleh Kosong');
+                return redirect()->to(base_url('/s_masuk'));
+            }
+            $data = [
+                'kepada' => $kepada,
+                'tindak_lanjut' => $tindak_lanjut,
+                'timestamp' => $timestamp,
+                'admin' => $username,
+            ];
+            $this->DisposisiModel->update($id, $data);
+
+            session()->setFlashdata('pesanInput', 'Sudah Diubah');
+            return redirect()->to(base_url('/s_masuk'));
+        } else {
+            return redirect()->to(base_url('/login'));
+        }
+    }
+
     public function hapus($id)
     {
         if (session()->get('username') !== NULL && session()->get('level') === 'Superadmin') {
@@ -211,6 +280,17 @@ class S_masuk extends BaseController
             unlink($filesource);
             $this->S_masukModel->delete($id);
 
+            session()->setFlashdata('pesanHapus', 'Berhasil dihapus !');
+            return redirect()->to(base_url('/s_masuk'));
+        } else {
+            return redirect()->to(base_url('/login'));
+        }
+    }
+
+    public function hapusdisposisi($id)
+    {
+        if (session()->get('username') !== NULL && session()->get('level') === 'Superadmin') {
+            $this->DisposisiModel->delete($id);
             session()->setFlashdata('pesanHapus', 'Berhasil dihapus !');
             return redirect()->to(base_url('/s_masuk'));
         } else {

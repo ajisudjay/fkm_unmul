@@ -3,14 +3,17 @@
 namespace App\Controllers;
 
 use App\Models\MainmenuModel;
+use App\Models\Hak_aksesModel;
 use App\Controllers\BaseController;
 
 class Mainmenu extends BaseController
 {
     protected $MainmenuModel;
+    protected $Hak_aksesModel;
     public function __construct()
     {
         $this->MainmenuModel = new MainmenuModel();
+        $this->Hak_aksesModel = new Hak_aksesModel();
     }
     public function index()
     {

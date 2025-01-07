@@ -100,12 +100,12 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php $no = 1 ?>
+                    <?php $nomor = 1 ?>
                     <?php foreach ($s_masuk as $item) : ?>
                         <tr>
                             <!-- ISI VIEW -->
                             <td>
-                                <button class="btn btn-outline-primary btn-sm" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?= $no++ ?>
+                                <button class="btn btn-outline-primary btn-sm" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?= $nomor++ ?>
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                     <!-- button ubah modal-->

@@ -67,5 +67,7 @@ SK :
 
 =============================================================
 BUAT HAK AKSES BY TANDAIN DI USER
-Jadi user hanya ada 3 : DOSEN, TENDIK, 
+Jadi user hanya ada 3 : DOSEN, TENDIK, SUPERADMIN
 tapi nanti bisa ditandai akun untuk bisa menu apa saja
+
+selesai buat hak akses, lanjut perbaiki hak akses di tiap menu

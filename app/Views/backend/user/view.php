@@ -98,10 +98,10 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php $no = 1 ?>
+                    <?php $nomor = 1 ?>
                     <?php foreach ($user as $item) : ?>
                         <tr>
-                            <td><?= $no++ ?></td>
+                            <td><?= $nomor++ ?></td>
                             <!-- ISI VIEW -->
                             <td style="text-align: center;">
                                 <div class="btn-group dropright">
@@ -112,6 +112,20 @@
                                         <button type="button" class="dropdown-item" data-toggle="modal" data-target="#editmodal<?= $id = $item['username'] ?>">
                                             <span class="feather icon-edit-1 text-primary"> Ubah</span>
                                         </button>
+                                        <div class="dropdown-divider"></div>
+                                        <!-- edithakakses -->
+                                        <?php
+                                        if ($item['username'] == session()->get('username')) {
+                                            $editakses = '';
+                                        } elseif (session()->get('level') === "Superadmin") {
+                                            $editakses = '';
+                                        } else {
+                                            $editakses = 'hidden';
+                                        }
+                                        ?>
+                                        <a href="<?= base_url('user/hakakses/' . $item['username']); ?>" class="dropdown-item" <?= $editakses ?>>
+                                            <span class="fa fa-sitemap text-info"> Hak Akses</span>
+                                        </a>
                                         <div class="dropdown-divider"></div>
                                         <!-- editpassword -->
                                         <?php
@@ -148,7 +162,7 @@
 
                                 <!-- edit modal-->
                                 <div class="modal fade" id="editmodal<?= $id = $item['username'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                                    <div class="modal-dialog modal-dialog-centered modal-md" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <h5 class="modal-title">Ubah</h5>

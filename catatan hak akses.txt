@@ -1,73 +1,32 @@
-SUPERADMIN :
+Level :
+1. SUPERADMIN
+2. Admin Website
+3. Admin eOffice
+4. Dosen
+5. Tendik
+MENU :
 
-+ Beranda
-CONTENT :
++ Beranda (1,2,3,4,5)
+CONTENT : (1,2)
     + Main menu
     + Sub menu
     + Berita
     + Galeri
     + Dokumen
-KONFIGURASI :
+KONFIGURASI : (1,2)
     + Atur beranda
     + Slideshow
     + Mitra
     + Pejabat
     + Link Partner
-SDM :
+SDM : (1,2,3) - (4,5 hanya bisa punya sendiri)
     + Dosen
     + Tendik
-+Semester
-SK :
++Semester (1,3)
+SK : (1,3) - (4,5 hanya bisa lihat)
     + Surat Keputusan
     + Kategori
-+Akun
-
-=============================================================
-Admin Website :
-
-+ Beranda
-CONTENT :
-    + Main menu
-    + Sub menu
-    + Berita
-    + Galeri
-    + Dokumen
-KONFIGURASI :
-    + Atur beranda
-    + Slideshow
-    + Mitra
-    + Pejabat
-    + Link Partner
-SDM :
-    + Dosen
-    + Tendik
-+Akun (HANYA DATA PRIBADI)
-
-=============================================================
-Admin eOffice : 
-
-+ Beranda
-SDM :
-    + Dosen
-    + Tendik
-SK :
-    + Surat Keputusan
-    + Kategori
-+Akun (HANYA DATA PRIBADI)
-
-=============================================================
-Dosen :
-
-+ Beranda
-SDM :
-    + Dosen (HANYA DATA PRIBADI)
-SK :
-    + Surat Keputusan (VIEW ONLY)
-+Akun (HANYA DATA PRIBADI)
-
-=============================================================
-BUAT HAK AKSES BY TANDAIN DI USER
-Jadi user hanya ada 3 : DOSEN, TENDIK, SUPERADMIN
-tapi nanti bisa ditandai akun untuk bisa menu apa saja
-
-selesai buat hak akses, lanjut perbaiki hak akses di tiap menu
+Surat : (1,3) - (4,5 menu lihat dan pengajuan surat keluar)
+    + Surat Masuk
+    + Surat Keluar
++Akun  (1) - (2-5 hanya bisa punya sendiri)

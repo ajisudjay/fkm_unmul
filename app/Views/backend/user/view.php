@@ -28,7 +28,7 @@
                         <?= csrf_field() ?>
                         <div class="modal-body">
                             <div class="row">
-                                <div class="col-lg-12">
+                                <div class="col-lg-6">
                                     <label class="text-primary">Nama</label>
                                     <input type="text" name="nama" class="form-control nama" placeholder="Nama">
                                     <div class="invalid-feedback errornama"></div>
@@ -41,7 +41,16 @@
                                     <br>
                                 </div>
                                 <div class="col-lg-6">
-                                    <label class="text-primary">Level</label>
+                                    <label class="text-primary">Jenis</label>
+                                    <select name="jenis" class="form-control jenis">
+                                        <option value="Dosen">Dosen</option>
+                                        <option value="Tendik">Tendik</option>
+                                    </select>
+                                    <div class="invalid-feedback errorljenis"></div>
+                                    <br>
+                                </div>
+                                <div class="col-lg-6">
+                                    <label class="text-primary">Hak Akses</label>
                                     <select name="level" class="form-control level">
                                         <option value="">Pilih Level</option>
                                         <option value="Tendik">Tendik</option>
@@ -92,7 +101,8 @@
                         <th width="10%" style="text-align: center;"><i class="fa fa-gear"></th>
                         <th width="25%">Username</th>
                         <th width="30%">Nama</th>
-                        <th width="15%">Level</th>
+                        <th width="15%">Hak Akses</th>
+                        <th width="15%">Jenis</th>
                         <th width="5%">Foto</th>
                         <th width="10%">Log</th>
                     </tr>
@@ -112,20 +122,6 @@
                                         <button type="button" class="dropdown-item" data-toggle="modal" data-target="#editmodal<?= $id = $item['username'] ?>">
                                             <span class="feather icon-edit-1 text-primary"> Ubah</span>
                                         </button>
-                                        <div class="dropdown-divider"></div>
-                                        <!-- edithakakses -->
-                                        <?php
-                                        if ($item['username'] == session()->get('username')) {
-                                            $editakses = '';
-                                        } elseif (session()->get('level') === "Superadmin") {
-                                            $editakses = '';
-                                        } else {
-                                            $editakses = 'hidden';
-                                        }
-                                        ?>
-                                        <a href="<?= base_url('user/hakakses/' . $item['username']); ?>" class="dropdown-item" <?= $editakses ?>>
-                                            <span class="fa fa-sitemap text-info"> Hak Akses</span>
-                                        </a>
                                         <div class="dropdown-divider"></div>
                                         <!-- editpassword -->
                                         <?php
@@ -162,7 +158,7 @@
 
                                 <!-- edit modal-->
                                 <div class="modal fade" id="editmodal<?= $id = $item['username'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+                                    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <h5 class="modal-title">Ubah</h5>
@@ -175,7 +171,7 @@
                                                     <?= csrf_field() ?>
                                                     <div class="modal-body">
                                                         <div class="row">
-                                                            <div class="col-lg-12">
+                                                            <div class="col-lg-6">
                                                                 <label class="text-primary">Nama</label>
                                                                 <input type="text" name="nama" class="form-control nama" value="<?= $item['nama'] ?>">
                                                                 <div class="invalid-feedback errorNama"></div>
@@ -185,6 +181,16 @@
                                                                 <label class="text-primary">Username</label>
                                                                 <input type="text" name="username" class="form-control username" value="<?= $item['username'] ?>" readonly>
                                                                 <div class="invalid-feedback errorUsername"></div>
+                                                                <br>
+                                                            </div>
+                                                            <div class="col-lg-6">
+                                                                <label class="text-primary">Jenis</label>
+                                                                <select name="jenis" class="form-control jenis">
+                                                                    <option value="<?= $item['jenis'] ?>"><?= $item['jenis'] ?></option>
+                                                                    <option value="Tendik">Tendik</option>
+                                                                    <option value="Dosen">Dosen</option>
+                                                                </select>
+                                                                <div class="invalid-feedback errorJenis"></div>
                                                                 <br>
                                                             </div>
                                                             <div class="col-lg-6">
@@ -262,6 +268,7 @@
                             <td><?= $item['username'] ?></td>
                             <td><?= $item['nama'] ?></td>
                             <td><?= $item['level'] ?></td>
+                            <td><?= $item['jenis'] ?></td>
                             <td><span><img class="round" src="<?= base_url('writable/uploads/content/user/' . $item['file']); ?>" height="80" width="80"></span></td>
                             <td><?= $item['timestamp'] . ' | ' . $item['admin'] ?></td>
                         </tr>

@@ -455,21 +455,25 @@ class Pages extends BaseController
     // START BACKEND
     public function beranda()
     {
-        $admin = session()->get('nama');
-        $lvl = session()->get('level');
-        $file = session()->get('file');
-        if ($file === NULL) {
-            $gambar = 'user-profile.png';
+        if (session()->get('username') !== NULL) {
+            $admin = session()->get('nama');
+            $lvl = session()->get('level');
+            $file = session()->get('file');
+            if ($file === NULL) {
+                $gambar = 'user-profile.png';
+            } else {
+                $gambar = $file;
+            }
+            $data = [
+                'title' => 'Beranda',
+                'lvl' => $lvl,
+                'admin' => $admin,
+                'foto' => $gambar,
+            ];
+            return view('backend/pages/beranda', $data);
         } else {
-            $gambar = $file;
+            return redirect()->to(base_url('/login'));
         }
-        $data = [
-            'title' => 'Beranda',
-            'lvl' => $lvl,
-            'admin' => $admin,
-            'foto' => $gambar,
-        ];
-        return view('backend/pages/beranda', $data);
     }
 
     public function login()

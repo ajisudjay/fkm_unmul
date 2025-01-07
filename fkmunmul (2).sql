@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 06 Jan 2025 pada 08.19
+-- Waktu pembuatan: 07 Jan 2025 pada 06.21
 -- Versi server: 10.4.27-MariaDB
 -- Versi PHP: 8.0.25
 
@@ -658,6 +658,31 @@ INSERT INTO `galeri` (`id`, `nama`, `gambar`, `admin`, `timestamp`) VALUES
 (258, 'Second Mictoph5', 'bf283d02c175646f2c9e8c9cd42cbacc.jpg', NULL, NULL),
 (786, 'tes', '1715912706_f01ea52648f44ec42640.png', 'ajisudjay', '2024-05-17 10:25:06'),
 (787, 'dfgdfg', '1719888305_dbb0bff08019153d5724.png', 'ajisudjay', '2024-07-02 10:45:05');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `hak_akses`
+--
+
+CREATE TABLE `hak_akses` (
+  `id` int(255) NOT NULL,
+  `id_username` varchar(255) NOT NULL,
+  `hak_akses` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `hak_akses`
+--
+
+INSERT INTO `hak_akses` (`id`, `id_username`, `hak_akses`) VALUES
+(8, 'ajisudjay', 'Content'),
+(9, 'ajisudjay', 'SDM'),
+(10, 'ajisudjay', 'SK'),
+(11, 'ajisudjay', 'Surat'),
+(12, 'admin2', 'Content'),
+(13, 'rezfian', 'Konfigurasi'),
+(14, 'rezfian', 'Surat');
 
 -- --------------------------------------------------------
 
@@ -1668,6 +1693,7 @@ CREATE TABLE `users` (
   `password` varchar(255) NOT NULL,
   `nama` varchar(255) NOT NULL,
   `level` varchar(255) NOT NULL,
+  `jenis` varchar(255) NOT NULL,
   `file` varchar(255) DEFAULT NULL,
   `admin` varchar(255) DEFAULT NULL,
   `timestamp` datetime DEFAULT NULL
@@ -1677,12 +1703,12 @@ CREATE TABLE `users` (
 -- Dumping data untuk tabel `users`
 --
 
-INSERT INTO `users` (`username`, `password`, `nama`, `level`, `file`, `admin`, `timestamp`) VALUES
-('198902212022031003', '$2y$10$V8QMjQqYhGGakA869CFHF.5p.hh6ou9MZGLAQPYS0ozyVgr68xhfC', 'Syamsir, S.KM., M.Kes', 'Dosen', '1725501822_f341792288a44b607044.jpg', 'ajisudjay', '2024-09-05 10:03:42'),
-('admin', '$2y$10$LCM4ZsvysbCKrRX65asD1.S28k0zKIywVf4JWIHdfVtNKekI5woZy', 'admin', 'Admin Website', '1678284961_c15baf32de8443948316.png', 'ajisudjay', '2024-09-05 10:34:42'),
-('admin2', '$2y$10$13DypfZo8/V14PjORjMRiOQkoVUCjBdmooJXEIPSYXysqbwwJBNp6', 'Admin Eoffice', 'Admin eOffice', '1726024185_8d86382bd73d764665c8.jpg', 'ajisudjay', '2024-09-11 11:09:45'),
-('ajisudjay', '$2y$10$vmkfhncZK2kOJvGSQDG5ruTkK27A8zGRkRfzYM4OpYGbu.GpDzWXO', 'Aji Sudjai Aswar', 'Superadmin', '1678284031_a0a3e3edbd23850a9a3a.png', NULL, NULL),
-('rezfian', '$2y$10$bxYVWq1eJggbmvERq356dehybA3tWJHH3bgleRL.D8tPUGvQ2z9NG', 'rezfian123', 'Superadmin', '1694821767_4942369a51e8dd35f4b1.jpg', 'ajisudjay', '2024-05-17 09:26:20');
+INSERT INTO `users` (`username`, `password`, `nama`, `level`, `jenis`, `file`, `admin`, `timestamp`) VALUES
+('198902212022031003', '$2y$10$V8QMjQqYhGGakA869CFHF.5p.hh6ou9MZGLAQPYS0ozyVgr68xhfC', 'Syamsir, S.KM., M.Kes', 'Dosen', 'Dosen', '1725501822_f341792288a44b607044.jpg', 'ajisudjay', '2024-09-05 10:03:42'),
+('admin', '$2y$10$LCM4ZsvysbCKrRX65asD1.S28k0zKIywVf4JWIHdfVtNKekI5woZy', 'admin', 'Admin Website', 'Tendik', '1678284961_c15baf32de8443948316.png', 'ajisudjay', '2024-09-05 10:34:42'),
+('admin2', '$2y$10$13DypfZo8/V14PjORjMRiOQkoVUCjBdmooJXEIPSYXysqbwwJBNp6', 'Admin Eoffice', 'Admin eOffice', 'Tendik', '1726024185_8d86382bd73d764665c8.jpg', 'ajisudjay', '2024-09-11 11:09:45'),
+('ajisudjay', '$2y$10$vmkfhncZK2kOJvGSQDG5ruTkK27A8zGRkRfzYM4OpYGbu.GpDzWXO', 'Aji Sudjai Aswar', 'Superadmin', 'Tendik', '1678284031_a0a3e3edbd23850a9a3a.png', 'ajisudjay', '2025-01-07 09:21:32'),
+('rezfian', '$2y$10$bxYVWq1eJggbmvERq356dehybA3tWJHH3bgleRL.D8tPUGvQ2z9NG', 'rezfian123', 'Superadmin', 'Tendik', '1694821767_4942369a51e8dd35f4b1.jpg', 'ajisudjay', '2025-01-07 01:07:28');
 
 --
 -- Indexes for dumped tables
@@ -1718,6 +1744,13 @@ ALTER TABLE `dosen`
 --
 ALTER TABLE `galeri`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indeks untuk tabel `hak_akses`
+--
+ALTER TABLE `hak_akses`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_user` (`id_username`);
 
 --
 -- Indeks untuk tabel `kategori_sk`
@@ -1845,6 +1878,12 @@ ALTER TABLE `dosen`
 --
 ALTER TABLE `galeri`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=788;
+
+--
+-- AUTO_INCREMENT untuk tabel `hak_akses`
+--
+ALTER TABLE `hak_akses`
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT untuk tabel `kategori_sk`

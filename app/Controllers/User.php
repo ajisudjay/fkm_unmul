@@ -3,17 +3,14 @@
 namespace App\Controllers;
 
 use App\Models\UsersModel;
-use App\Models\Hak_aksesModel;
 use App\Controllers\BaseController;
 
 class User extends BaseController
 {
     protected $UsersModel;
-    protected $Hak_aksesModel;
     public function __construct()
     {
         $this->UsersModel = new UsersModel();
-        $this->Hak_aksesModel = new Hak_aksesModel();
     }
     public function index()
     {
@@ -48,14 +45,12 @@ class User extends BaseController
                 if (session()->get('level') === "Superadmin") {
                     $data = [
                         'user' => $this->UsersModel->orderBy('nama', 'DESC')->get()->getResultArray(),
-                        'hak_akses' => $this->Hak_aksesModel->get()->getResultArray(),
                         'lvl' => $lvl,
                         'validation' => \Config\Services::validation(),
                     ];
                 } else {
                     $data = [
                         'user' => $this->UsersModel->where('username', $namauser)->orderBy('nama', 'DESC')->get()->getResultArray(),
-                        'hak_akses' => $this->Hak_aksesModel->get()->getResultArray(),
                         'lvl' => $lvl,
                         'validation' => \Config\Services::validation(),
                     ];
@@ -80,6 +75,7 @@ class User extends BaseController
             $nama = $request->getVar('nama');
             $username = $request->getVar('username');
             $level = $request->getVar('level');
+            $jenis = $request->getVar('jenis');
             $password = $request->getVar('password');
             $repassword = $request->getVar('repassword');
             $file = $request->getFile('file');
@@ -152,6 +148,7 @@ class User extends BaseController
                         'nama' => $nama,
                         'username' => $username,
                         'level' => $level,
+                        'jenis' => $jenis,
                         'password' => password_hash($password, PASSWORD_DEFAULT),
                         'file' => $namagambar,
                         'timestamp' => $timestamp,
@@ -180,6 +177,7 @@ class User extends BaseController
             $username = $request->getVar('username');
             $nama = $request->getVar('nama');
             $level = $request->getVar('level');
+            $jenis = $request->getVar('jenis');
             $file = $request->getFile('file');
             $userx = session()->get('username');
             date_default_timezone_set("Asia/Kuala_Lumpur");
@@ -196,6 +194,7 @@ class User extends BaseController
                     'username' => $username,
                     'nama' => $nama,
                     'level' => $level,
+                    'jenis' => $jenis,
                     'timestamp' => $timestamp,
                     'admin' => $userx,
                 ];
@@ -230,6 +229,7 @@ class User extends BaseController
                         'username' => $username,
                         'nama' => $nama,
                         'level' => $level,
+                        'jenis' => $jenis,
                         'file' => $nama_foto,
                         'timestamp' => $timestamp,
                         'admin' => $userx,
@@ -332,116 +332,6 @@ class User extends BaseController
 
             session()->setFlashdata('pesanHapus', 'Akun Berhasil Di Hapus !');
             return redirect()->to(base_url('/user'));
-        } else {
-            return redirect()->to(base_url('/login'));
-        }
-    }
-
-    public function hakakses()
-    {
-        if (session()->get('username') !== NULL && session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Website' || session()->get('level') === 'Dosen') {
-            $admin = session()->get('nama');
-            $lvl = session()->get('level');
-            $uri = service('uri');
-            $user = $uri->getSegment(3);
-            $file = session()->get('file');
-            if ($file === NULL) {
-                $gambar = 'user-profile.png';
-            } else {
-                $gambar = $file;
-            }
-            $data = [
-                'title' => 'Hak Akses',
-                'admin' => $admin,
-                'lvl' => $lvl,
-                'foto' => $gambar,
-                'namauser' => $user,
-            ];
-            return view('backend/hak_akses/index', $data);
-        } else {
-            return redirect()->to(base_url('/login'));
-        }
-    }
-
-    public function hakaksesview()
-    {
-        if (session()->get('username') !== NULL && session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Website' || session()->get('level') === 'Dosen') {
-            $request = \Config\Services::request();
-            $uri = service('uri');
-            $user = $uri->getSegment(3);
-            $lvl = session()->get('level');
-            if ($request->isAJAX()) {
-                $data = [
-                    'user' => $this->UsersModel->orderBy('nama', 'DESC')->get()->getResultArray(),
-                    'hak_akses' => $this->Hak_aksesModel->where('id_username', $user)->get()->getResultArray(),
-                    'lvl' => $lvl,
-                    'namauser' => $user,
-                    'validation' => \Config\Services::validation(),
-                ];
-                $msg = [
-                    'data' => view('backend/hak_akses/view', $data)
-                ];
-                echo json_encode($msg);
-            } else {
-                exit('Data Tidak Dapat diproses');
-            }
-        } else {
-            return redirect()->to(base_url('/login'));
-        }
-    }
-
-    public function tambahAkses()
-    {
-        if (session()->get('username') !== NULL && session()->get('level') === 'Superadmin') {
-            $request = \Config\Services::request();
-            $validation = \Config\Services::validation();
-            $username = $request->getVar('username');
-            $hak_akses = $request->getVar('hak_akses');
-
-            if ($request->isAJAX()) {
-                $valid = $this->validate([
-                    'username' => [
-                        'label' => 'Username',
-                        'rules' => 'required',
-                        'errors' => [
-                            'required' => '* {field} Tidak Boleh Kosong',
-                        ]
-                    ],
-                ]);
-                if (!$valid) {
-                    $msg = [
-                        'error' => [
-                            'username' => $validation->getError('username'),
-                        ],
-                    ];
-                    return $this->response->setJSON($msg);
-                } else {
-                    $data = [
-                        'id_username' => $username,
-                        'hak_akses' => $hak_akses,
-                    ];
-                    $this->Hak_aksesModel->insert($data);
-
-                    $msg = [
-                        'title' => 'Berhasil'
-                    ];
-                    echo json_encode($msg);
-                }
-            } else {
-                exit('Data Tidak Dapat diproses');
-            }
-        } else {
-            return redirect()->to(base_url('/login'));
-        }
-    }
-
-    public function hapusakses($id)
-    {
-        if (session()->get('username') !== NULL && session()->get('level') === 'Superadmin') {
-            $namauser = session()->get('username');
-            $this->Hak_aksesModel->delete($id);
-            session()->setFlashdata('pesanHapus', '');
-            return redirect()->to(base_url('user/hakakses/' . $namauser));
         } else {
             return redirect()->to(base_url('/login'));
         }

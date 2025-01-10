@@ -1,0 +1,47 @@
+Level :
+1. SUPERADMIN
+2. Admin Website
+3. Admin eOffice
+4. Dosen
+5. Tendik
+MENU :
+
+DONE + Beranda (1,2,3,4,5)
+DONE CONTENT : (1,2)
+DONE    + Main menu
+DONE    + Sub menu
+DONE    + Berita
+DONE    + Galeri
+DONE    + Dokumen
+DONE KONFIGURASI : (1,2)
+DONE    + Atur beranda
+DONE    + Slideshow
+DONE    + Mitra
+DONE    + Pejabat
+DONE    + Link Partner
+
+SDM : (1,2,3) - (4,5 hanya bisa punya sendiri belum dibuat pagenya)
+DONE    + Dosen
+DONE    + Tendik
+
+DONE +Semester (1,3)
+
+SK : 
+DONE    + Surat Keputusan (1,3) - (4,5 hanya bisa lihat)
+DONE    + Kategori (1,3)
+
+Surat : 
+DONE    + Surat Masuk  (1,3)
+DONE    + Surat Keluar (1,3) - (4,5 pengajuan surat keluar)
+
+DONE +Akun  (1) - (2-5 hanya bisa punya sendiri)
+
+PROGRESS
+LANJUTKAN BUAT SURAT KELUAR
+
+
+SURAT KELUAR:
+1. No surat , buatkan kategori DT dll
+2. apa perlu buat kategori untuk perihal? (gak perlu)
+3. semua tendik dan dosen bisa mengusulkan surat keluar (minta nomor) dengan syarat melengkapi form usulan perihal,tujuan,tgl,sub-bagian,cetaksendiri/dicetakkan (timestamp&username pengusul)
+4. TU melakukan validasi dan cetak surat/cetak sendiri->TTD

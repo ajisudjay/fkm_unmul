@@ -15,7 +15,7 @@ class S_keluar extends BaseController
     public function index()
     {
 
-        if (session()->get('username') !== NULL && session()->get('level') === 'Superadmin') {
+        if (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin eOffice') {
             $admin = session()->get('nama');
             $lvl = session()->get('level');
             $file = session()->get('file');
@@ -38,7 +38,7 @@ class S_keluar extends BaseController
 
     public function view()
     {
-        if (session()->get('username') !== NULL && session()->get('level') === 'Superadmin') {
+        if (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin eOffice') {
             $request = \Config\Services::request();
             if ($request->isAJAX()) {
                 $data = [
@@ -59,7 +59,7 @@ class S_keluar extends BaseController
 
     public function tambah()
     {
-        if (session()->get('username') !== NULL && session()->get('level') === 'Superadmin') {
+        if (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin eOffice') {
             $request = \Config\Services::request();
             $no = $request->getVar('no');
             $perihal = $request->getVar('perihal');
@@ -97,7 +97,7 @@ class S_keluar extends BaseController
 
     public function edit()
     {
-        if (session()->get('username') !== NULL && session()->get('level') === 'Superadmin') {
+        if (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin eOffice') {
             $request = \Config\Services::request();
             $id = $request->getVar('id');
             $no = $request->getVar('no');
@@ -171,7 +171,7 @@ class S_keluar extends BaseController
 
     public function hapus($id)
     {
-        if (session()->get('username') !== NULL && session()->get('level') === 'Superadmin') {
+        if (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin eOffice') {
             $cekfile = $this->S_keluarModel->where('id', $id)->first();
             $namafile = $cekfile['file'];
             $filesource = '../writable/uploads/content/s_keluar/' . $namafile . '';

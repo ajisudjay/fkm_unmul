@@ -14,8 +14,7 @@ class Dosen extends BaseController
     }
     public function index()
     {
-
-        if (session()->get('username') !== NULL && (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Website') || session()->get('level') === 'Dosen' || session()->get('level') === 'Admin eOffice') {
+        if (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Website' || session()->get('level') === 'Admin eOffice' || session()->get('level') === 'Dosen') {
             $admin = session()->get('nama');
             $lvl = session()->get('level');
             $file = session()->get('file');
@@ -37,7 +36,7 @@ class Dosen extends BaseController
     }
     public function view()
     {
-        if (session()->get('username') !== NULL && (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Website') || session()->get('level') === 'Dosen' || session()->get('level') === 'Admin eOffice') {
+        if (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Website' || session()->get('level') === 'Admin eOffice' || session()->get('level') === 'Dosen') {
             $request = \Config\Services::request();
             if ($request->isAJAX()) {
                 if (session()->get('level') === 'Dosen') {
@@ -114,7 +113,7 @@ class Dosen extends BaseController
 
     public function tambah()
     {
-        if (session()->get('username') !== NULL && (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Website') || session()->get('level') === 'Admin eOffice') {
+        if (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Website' || session()->get('level') === 'Admin eOffice' || session()->get('level') === 'Dosen') {
             $request = \Config\Services::request();
             $validation = \Config\Services::validation();
             $nip = $request->getVar('nip');
@@ -392,16 +391,14 @@ class Dosen extends BaseController
 
     public function edit()
     {
-        if (session()->get('username') !== NULL && (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Website') || session()->get('level') === 'Dosen' || session()->get('level') === 'Admin eOffice') {
+        if (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Website' || session()->get('level') === 'Admin eOffice' || session()->get('level') === 'Dosen') {
             $request = \Config\Services::request();
             $id = $request->getVar('id');
             $validation = \Config\Services::validation();
             $nip = $request->getVar('nip');
+            $urutan = $request->getVar('urutan');
             $nidn = $request->getVar('nidn');
             $nama = $request->getVar('nama');
-            $peminatan = $request->getVar('peminatan');
-            $pohon = $request->getVar('pohon');
-            $cabang = $request->getVar('cabang');
             $bidang = $request->getVar('bidang');
             $homebase = $request->getVar('homebase');
             $jabatan = $request->getVar('jabatan');
@@ -409,6 +406,7 @@ class Dosen extends BaseController
             $pangkat = $request->getVar('pangkat');
             $pendidikan = $request->getVar('pendidikan');
             $s1 = $request->getVar('s1');
+            $sp = $request->getVar('sp');
             $s2 = $request->getVar('s2');
             $s3 = $request->getVar('s3');
             $jk = $request->getVar('jk');
@@ -425,30 +423,17 @@ class Dosen extends BaseController
             $timestamp = date("Y-m-d h:i:sa");
             if (!file_exists($_FILES['file']['tmp_name'])) {
                 $input2 = $this->validate([
-                    'nip' => 'required[nip]|alpha_numeric_punct[nip],',
-                    'nidn' => 'required[nidn]|alpha_numeric_punct[nidn],',
-                    'peminatan' => 'required[peminatan]',
-                    'pohon' => 'required[pohon]',
-                    'cabang' => 'required[cabang]',
-                    'bidang' => 'required[bidang]',
-                    'homebase' => 'required[homebase]',
-                    's1' => 'required[s1]|alpha_numeric_punct[s1],',
-                    's2' => 'required[s2]|alpha_numeric_punct[s2],',
-                    's3' => 'required[s3]|alpha_numeric_punct[s3],',
-                    'tempat_lahir' => 'required[tempat_lahir],',
-                    'telp' => 'required[telp]|alpha_numeric_punct[telp],',
+                    'nip' => 'required[nip],',
                 ]);
                 if (!$input2) { // Not valid
                     session()->setFlashdata('pesanGagal', 'Format tidak sesuai');
                     return redirect()->to(base_url('/dosen'));
                 }
                 $data = [
+                    'urutan' => $urutan,
                     'nip' => $nip,
                     'nidn' => $nidn,
                     'nama' => $nama,
-                    'peminatan' => $peminatan,
-                    'pohon' => $pohon,
-                    'cabang' => $cabang,
                     'bidang' => $bidang,
                     'homebase' => $homebase,
                     'jabatan' => $jabatan,
@@ -456,6 +441,7 @@ class Dosen extends BaseController
                     'pangkat' => $pangkat,
                     'pendidikan' => $pendidikan,
                     's1' => $s1,
+                    'sp' => $sp,
                     's2' => $s2,
                     's3' => $s3,
                     'jk' => $jk,
@@ -478,18 +464,7 @@ class Dosen extends BaseController
                     'file' => 'uploaded[file]|max_size[file,1024]|mime_in[file,image/png,image/jpeg]|is_image[file],'
                 ]);
                 $input2 = $this->validate([
-                    'nip' => 'required[nip]|alpha_numeric_punct[nip],',
-                    'nidn' => 'required[nidn]|alpha_numeric_punct[nidn],',
-                    'peminatan' => 'required[peminatan]',
-                    'pohon' => 'required[pohon]',
-                    'cabang' => 'required[cabang]',
-                    'bidang' => 'required[bidang]',
-                    'homebase' => 'required[homebase]',
-                    's1' => 'required[s1]|alpha_numeric_punct[s1],',
-                    's2' => 'required[s2]|alpha_numeric_punct[s2],',
-                    's3' => 'required[s3]|alpha_numeric_punct[s3],',
-                    'tempat_lahir' => 'required[tempat_lahir],',
-                    'telp' => 'required[telp]|alpha_numeric_punct[telp],',
+                    'nip' => 'required[nip],',
                 ]);
                 if (!$input) { // Not valid
                     session()->setFlashdata('pesanGagal', 'Format gambar tidak sesuai');
@@ -511,12 +486,10 @@ class Dosen extends BaseController
                     $file->store('content/dosen/', $newName);
                     $nama_foto = $newName;
                     $data = [
+                        'urutan' => $urutan,
                         'nip' => $nip,
                         'nidn' => $nidn,
                         'nama' => $nama,
-                        'peminatan' => $peminatan,
-                        'pohon' => $pohon,
-                        'cabang' => $cabang,
                         'bidang' => $bidang,
                         'homebase' => $homebase,
                         'jabatan' => $jabatan,
@@ -524,6 +497,7 @@ class Dosen extends BaseController
                         'pangkat' => $pangkat,
                         'pendidikan' => $pendidikan,
                         's1' => $s1,
+                        'sp' => $sp,
                         's2' => $s2,
                         's3' => $s3,
                         'jk' => $jk,
@@ -586,7 +560,7 @@ class Dosen extends BaseController
 
     public function hapus($id)
     {
-        if (session()->get('username') !== NULL && (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Website') || session()->get('level') === 'Dosen' || session()->get('level') === 'Admin eOffice') {
+        if (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Website' || session()->get('level') === 'Admin eOffice' || session()->get('level') === 'Dosen') {
             $cekfile = $this->DosenModel->where('id', $id)->first();
             $namafile = $cekfile['gambar'];
             $filesource = '../writable/uploads/content/dosen/' . $namafile . '';

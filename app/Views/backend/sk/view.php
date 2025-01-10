@@ -250,18 +250,14 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <br>
-                                    <br>
-                                    <i class="btn-sm btn-success border-0"><i class="fa fa-calendar"></i> <?= $item['tanggal'] ?></i>
-                                    <br>
-                                    <br>
-                                    <i class="btn-sm btn-warning border-0"><i class="fa fa-list"></i> <?= $item['nama_kategori'] ?></i>
+                                    <span class="badge badge-pill badge-success"><i class="fa fa-calendar"></i> <?= $item['tanggal'] ?></span>
+                                    <span class="badge badge-pill badge-warning"><i class="fa fa-list"></i> <?= $item['nama_kategori'] ?></span>
                                 </center>
                             </td>
                             <td style="white-space: normal;min-width: 350px;"><?= $item['perihal'] ?></td>
                             <td align="center">
-                                <i class="btn-sm btn-primary border-0"><i class="fa fa-clock-o"></i> <?= $item['timestamps'] ?></i><br><br>
-                                <i class="btn-sm btn-success border-0"><i class="fa fa-user"></i> <?= $item['admin'] ?></i>
+                                <span class="badge badge-pill badge-primary"><i class="fa fa-clock-o"></i> <?= $item['timestamps'] ?></span><br>
+                                <span class="badge badge-pill badge-success"><i class="fa fa-user"></i> <?= $item['admin'] ?></span>
                             </td>
                         </tr>
                     <?php endforeach ?>

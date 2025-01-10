@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 07 Jan 2025 pada 06.21
+-- Waktu pembuatan: 10 Jan 2025 pada 08.32
 -- Versi server: 10.4.27-MariaDB
 -- Versi PHP: 8.0.25
 
@@ -330,7 +330,7 @@ CREATE TABLE `dosen` (
 --
 
 INSERT INTO `dosen` (`id`, `nama`, `bidang`, `pohon`, `cabang`, `peminatan`, `homebase`, `jabatan`, `pendidikan`, `nip`, `gambar`, `s1`, `s2`, `s3`, `nidn`, `tempat_lahir`, `tanggal_lahir`, `alamat`, `telp`, `email`, `golongan`, `pangkat`, `jk`, `sinta`, `gs`, `admin`, `timestamp`) VALUES
-(24, 'Dra.Sitti Badrah,M.Kes', 'Ilmu Kedokteran Dasar (Biomedik)', 'Kesehatan Masyarakat / Ilmu Kesehatan Masyarakat', 'Ilmu Kedokteran Dasar (Biomedik)', 'Kesehatan Lingkungan', 'S1 Kesehatan Masyarakat', 'Lektor Kepala', 'S2', '196007271992032002', '1720408523_9491a7d8c92bf2a38dd9.jpg', 'FKIP Unmul', 'Biomedik Unair', '-', '0027076015', 'Pinrang', '1960-07-27', '-', '08125877731', 'non@gmail.com', 'IV/c', 'Pembina', 'Perempuan', '-', '-', 'rezanurfahmi', '2024-07-08 11:15:23'),
+(24, 'Dra.Sitti Badrah,M.Kes', 'Ilmu Kedokteran Dasar (Biomedik)', 'Kesehatan Masyarakat / Ilmu Kesehatan Masyarakat', 'Ilmu Kedokteran Dasar (Biomedik)', 'Kesehatan Lingkungan', 'S1 Kesehatan Masyarakat', 'Lektor Kepala', 'S2', '196007271992032002', '1736319604_23e32003413f261f0434.jpg', 'FKIP Unmul', 'Biomedik Unair', '-', '0027076015', 'Pinrang', '1960-07-27', '-', '08125877731', 'non@gmail.com', 'IV/c', 'Pembina', 'Perempuan', '-', '-', '196007271992032002', '2025-01-08 03:00:04'),
 (25, 'Drs.Ismail AB.,M.Kes', 'Kependudukan', 'Kesehatan Masyarakat / Ilmu Kesehatan Masyarakat', 'Kependudukan', 'Biostatistik & Kependudukan', 'S1 Kesehatan Masyarakat', 'Lektor Kepala', 'S2', '195912311985031027', '1720408424_ad8c923c7f4b07a4f572.jpg', 'IKIP Ujung Pandang', 'FKM Unair', '-', '0001015916', 'Tajjuru', '1959-01-01', '-', '082158077798', 'non@gmail.com', 'IV/b', 'Pembina', 'Laki-laki', '-', '-', 'rezanurfahmi', '2024-07-08 11:13:44'),
 (26, 'Dina Lusiana S,SKM.,M.Kes', 'Kesehatan & Keselamatan Kerja', 'Kesehatan Masyarakat / Ilmu Kesehatan Masyarakat', 'Kesehatan & Keselamatan Kerja', 'Kesehatan & Keselamatan Kerja', 'S1 Kesehatan Masyarakat', 'Lektor Kepala', 'S2', '197912292008122001', '1722988920_49d2b06612bd3c181666.png', 'FKM Undip', 'FKM Undip', '-', '0029127910', 'Purworejo', '1984-04-06', '-', '081328292303', 'non@gmail.com', 'IV/a', 'Pembina', 'Perempuan', '-', '-', 'ajisudjay', '2024-08-07 08:02:00'),
 (27, 'Prof. Dr. Iwan Muhamad Ramdan, S.Kp., M.Kes.', 'Kesehatan & Keselamatan Kerja', 'Kesehatan Masyarakat / Ilmu Kesehatan Masyarakat', 'Kesehatan & Keselamatan Kerja', 'Kesehatan & Keselamatan Kerja', 'S2 Kesehatan Masyarakat', 'Guru Besar', 'S3', '197509072005011004', '1722988130_65315a752ca478b7d15e.png', 'Keperawatan Unpad', 'FK UGM', 'FK UGM', '0007097505', 'Kuningan', '1975-09-07', '-', '08125424118', 'non@gmail.com', 'IV/b', 'Penata Muda', 'Laki-laki', '-', '-', 'ajisudjay', '2024-08-07 07:48:50'),
@@ -1704,9 +1704,10 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`username`, `password`, `nama`, `level`, `jenis`, `file`, `admin`, `timestamp`) VALUES
-('198902212022031003', '$2y$10$V8QMjQqYhGGakA869CFHF.5p.hh6ou9MZGLAQPYS0ozyVgr68xhfC', 'Syamsir, S.KM., M.Kes', 'Dosen', 'Dosen', '1725501822_f341792288a44b607044.jpg', 'ajisudjay', '2024-09-05 10:03:42'),
-('admin', '$2y$10$LCM4ZsvysbCKrRX65asD1.S28k0zKIywVf4JWIHdfVtNKekI5woZy', 'admin', 'Admin Website', 'Tendik', '1678284961_c15baf32de8443948316.png', 'ajisudjay', '2024-09-05 10:34:42'),
-('admin2', '$2y$10$13DypfZo8/V14PjORjMRiOQkoVUCjBdmooJXEIPSYXysqbwwJBNp6', 'Admin Eoffice', 'Admin eOffice', 'Tendik', '1726024185_8d86382bd73d764665c8.jpg', 'ajisudjay', '2024-09-11 11:09:45'),
+('196007271992032002', '$2y$10$hwXMNa.IJ6ipfhP6l0EckO4dT41mSV.wjY63GQNuUvlDUBBe3lO2W', 'dosen', 'Dosen', 'Dosen', '1736308000_ee23180ed3a510481391.jpg', 'ajisudjay', '2025-01-08 11:46:40'),
+('1960072719920320023', '$2y$10$V8QMjQqYhGGakA869CFHF.5p.hh6ou9MZGLAQPYS0ozyVgr68xhfC', 'Syamsir, S.KM., M.Kes', 'Dosen', 'Dosen', '1725501822_f341792288a44b607044.jpg', 'ajisudjay', '2024-09-05 10:03:42'),
+('admin', '$2y$10$1s22wht9pNDfubkiJ.JXLOwRCFoQpBl.TllMYQIxhBi59aGK82Hj.', 'admin', 'Admin Website', 'Tendik', '1678284961_c15baf32de8443948316.png', 'ajisudjay', '2025-01-08 10:09:12'),
+('admin2', '$2y$10$8.qUL4VA0FonNrMI2j8nmOmQuPb0eO5jBS2uYumenhU/4FKSUUyeu', 'Admin Eoffice', 'Admin eOffice', 'Tendik', '1726024185_8d86382bd73d764665c8.jpg', 'ajisudjay', '2025-01-08 10:09:19'),
 ('ajisudjay', '$2y$10$vmkfhncZK2kOJvGSQDG5ruTkK27A8zGRkRfzYM4OpYGbu.GpDzWXO', 'Aji Sudjai Aswar', 'Superadmin', 'Tendik', '1678284031_a0a3e3edbd23850a9a3a.png', 'ajisudjay', '2025-01-07 09:21:32'),
 ('rezfian', '$2y$10$bxYVWq1eJggbmvERq356dehybA3tWJHH3bgleRL.D8tPUGvQ2z9NG', 'rezfian123', 'Superadmin', 'Tendik', '1694821767_4942369a51e8dd35f4b1.jpg', 'ajisudjay', '2025-01-07 01:07:28');
 

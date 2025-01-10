@@ -16,7 +16,7 @@ class Berita extends BaseController
 
     public function index()
     {
-        if (session()->get('username') !== NULL && session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Website' || session()->get('level') === 'Admin Prodi') {
+        if (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Website') {
             $admin = session()->get('nama');
             $lvl = session()->get('level');
             $file = session()->get('file');
@@ -40,7 +40,7 @@ class Berita extends BaseController
 
     public function view()
     {
-        if (session()->get('username') !== NULL && session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Website' || session()->get('level') === 'Admin Prodi') {
+        if (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Website') {
             $request = \Config\Services::request();
             if ($request->isAJAX()) {
                 $data = [
@@ -61,7 +61,7 @@ class Berita extends BaseController
 
     public function tambahform()
     {
-        if (session()->get('username') !== NULL && session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Website' || session()->get('level') === 'Admin Prodi') {
+        if (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Website') {
             $admin = session()->get('nama');
             $lvl = session()->get('level');
             $file = session()->get('file');
@@ -86,7 +86,7 @@ class Berita extends BaseController
 
     public function tambah()
     {
-        if (session()->get('username') !== NULL && session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Website' || session()->get('level') === 'Admin Prodi') {
+        if (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Website') {
             $username = session()->get('username');
             $request = \Config\Services::request();
             $judul = $request->getVar('judul');
@@ -168,7 +168,7 @@ class Berita extends BaseController
 
     public function editform($slug)
     {
-        if (session()->get('username') !== NULL && session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Website' || session()->get('level') === 'Admin Prodi') {
+        if (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Website') {
             $admin = session()->get('nama');
             $lvl = session()->get('level');
             $file = session()->get('file');
@@ -194,7 +194,7 @@ class Berita extends BaseController
 
     public function edit()
     {
-        if (session()->get('username') !== NULL && session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Website' || session()->get('level') === 'Admin Prodi') {
+        if (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Website') {
             $username = session()->get('username');
             $request = \Config\Services::request();
             $id = $request->getVar('id');
@@ -262,7 +262,7 @@ class Berita extends BaseController
 
     public function hapus($id)
     {
-        if (session()->get('username') !== NULL && session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Website' || session()->get('level') === 'Admin Prodi') {
+        if (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Website') {
             $cekfile = $this->BeritaModel->where('id', $id)->first();
             $namafile = $cekfile['banner'];
             $filesource = '../writable/uploads/content/berita/' . $namafile . '';

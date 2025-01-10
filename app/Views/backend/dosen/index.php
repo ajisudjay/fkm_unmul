@@ -9,6 +9,8 @@
         <?= $this->include('backend/layouts/sidenavbar/superadmin') ?>
     <?php } elseif ($lvl === 'Admin Website') { ?>
         <?= $this->include('backend/layouts/sidenavbar/adminwebsite') ?>
+    <?php } elseif ($lvl === 'Admin eOffice') { ?>
+        <?= $this->include('backend/layouts/sidenavbar/eoffice') ?>
     <?php } elseif ($lvl === 'Dosen') { ?>
         <?= $this->include('backend/layouts/sidenavbar/dosen') ?>
     <?php } ?>

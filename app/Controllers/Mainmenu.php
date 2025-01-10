@@ -14,7 +14,7 @@ class Mainmenu extends BaseController
     }
     public function index()
     {
-        if (session()->get('username') !== NULL && (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Website')) {
+        if (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Website') {
             $admin = session()->get('nama');
             $lvl = session()->get('level');
             $file = session()->get('file');
@@ -37,7 +37,7 @@ class Mainmenu extends BaseController
 
     public function view()
     {
-        if (session()->get('username') !== NULL && (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Website')) {
+        if (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Website') {
             $request = \Config\Services::request();
             $username = session()->get('username');
             if ($request->isAJAX()) {
@@ -59,7 +59,7 @@ class Mainmenu extends BaseController
 
     public function tambah()
     {
-        if (session()->get('username') !== NULL && (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Website')) {
+        if (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Website') {
             $request = \Config\Services::request();
             if ($request->isAJAX()) {
                 $urutan = $request->getVar('urutan');
@@ -123,7 +123,7 @@ class Mainmenu extends BaseController
 
     public function edit()
     {
-        if (session()->get('username') !== NULL && (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Website')) {
+        if (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Website') {
             $request = \Config\Services::request();
             if ($request->isAJAX()) {
                 $id = $request->getVar('id');
@@ -189,7 +189,7 @@ class Mainmenu extends BaseController
 
     public function hapus($id)
     {
-        if (session()->get('username') !== NULL && (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Website')) {
+        if (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Website') {
 
             $this->MainmenuModel->delete($id);
 

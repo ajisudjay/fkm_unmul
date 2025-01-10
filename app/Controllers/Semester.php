@@ -15,7 +15,7 @@ class Semester extends BaseController
 
     public function index()
     {
-        if (session()->get('username') !== NULL && session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Website' || session()->get('level') === 'Admin Prodi') {
+        if (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin eOffice') {
             $admin = session()->get('nama');
             $lvl = session()->get('level');
             $file = session()->get('file');
@@ -38,7 +38,7 @@ class Semester extends BaseController
 
     public function view()
     {
-        if (session()->get('username') !== NULL && session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Website' || session()->get('level') === 'Admin Prodi') {
+        if (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin eOffice') {
             $request = \Config\Services::request();
             if ($request->isAJAX()) {
                 $data = [
@@ -59,7 +59,7 @@ class Semester extends BaseController
 
     public function tambah()
     {
-        if (session()->get('username') !== NULL && session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Website' || session()->get('level') === 'Admin Prodi') {
+        if (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin eOffice') {
             $request = \Config\Services::request();
             $semester = $request->getVar('semester');
             $data = [
@@ -75,7 +75,7 @@ class Semester extends BaseController
 
     public function hapus($id)
     {
-        if (session()->get('username') !== NULL && session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Website' || session()->get('level') === 'Admin Prodi') {
+        if (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin eOffice') {
             $this->SemesterModel->delete($id);
 
             session()->setFlashdata('pesanHapus', 'Semester Berhasil Di Hapus !');

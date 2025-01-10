@@ -19,7 +19,7 @@ class S_masuk extends BaseController
     public function index()
     {
 
-        if (session()->get('username') !== NULL && session()->get('level') === 'Superadmin') {
+        if (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin eOffice') {
             $admin = session()->get('nama');
             $lvl = session()->get('level');
             $file = session()->get('file');
@@ -42,7 +42,7 @@ class S_masuk extends BaseController
 
     public function view()
     {
-        if (session()->get('username') !== NULL && session()->get('level') === 'Superadmin') {
+        if (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin eOffice') {
             $request = \Config\Services::request();
             if ($request->isAJAX()) {
                 $data = [
@@ -64,7 +64,7 @@ class S_masuk extends BaseController
 
     public function tambah()
     {
-        if (session()->get('username') !== NULL && session()->get('level') === 'Superadmin') {
+        if (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin eOffice') {
             $request = \Config\Services::request();
             $no_disposisi = $request->getVar('no_disposisi');
             $tgl_sm = $request->getVar('tgl_sm');
@@ -114,7 +114,7 @@ class S_masuk extends BaseController
 
     public function tambahdisposisi()
     {
-        if (session()->get('username') !== NULL && session()->get('level') === 'Superadmin') {
+        if (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin eOffice') {
             $request = \Config\Services::request();
             $kepada = $request->getVar('kepada');
             $tindak_lanjut = $request->getVar('tindak_lanjut');
@@ -146,7 +146,7 @@ class S_masuk extends BaseController
 
     public function edit()
     {
-        if (session()->get('username') !== NULL && session()->get('level') === 'Superadmin') {
+        if (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin eOffice') {
             $request = \Config\Services::request();
             $id = $request->getVar('id');
             $no_disposisi = $request->getVar('no_disposisi');
@@ -240,7 +240,7 @@ class S_masuk extends BaseController
 
     public function editdisposisi()
     {
-        if (session()->get('username') !== NULL && session()->get('level') === 'Superadmin') {
+        if (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin eOffice') {
             $request = \Config\Services::request();
             $id = $request->getVar('id');
             $kepada = $request->getVar('kepada');
@@ -272,7 +272,7 @@ class S_masuk extends BaseController
 
     public function hapus($id)
     {
-        if (session()->get('username') !== NULL && session()->get('level') === 'Superadmin') {
+        if (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin eOffice') {
             $cekfile = $this->S_masukModel->where('id', $id)->first();
             $namafile = $cekfile['file'];
             $filesource = '../writable/uploads/content/s_masuk/' . $namafile . '';
@@ -289,7 +289,7 @@ class S_masuk extends BaseController
 
     public function hapusdisposisi($id)
     {
-        if (session()->get('username') !== NULL && session()->get('level') === 'Superadmin') {
+        if (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin eOffice') {
             $this->DisposisiModel->delete($id);
             session()->setFlashdata('pesanHapus', 'Berhasil dihapus !');
             return redirect()->to(base_url('/s_masuk'));

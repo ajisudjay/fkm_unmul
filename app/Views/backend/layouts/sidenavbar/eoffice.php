@@ -25,6 +25,8 @@
                         </li>
                     </ul>
                 </li>
+                <li class="<?= $title == 'Semester' ? 'active' : '' ?>"><a href="<?= base_url('semester'); ?>"><i class="feather icon-home"></i><span class="menu-item" data-i18n="Analytics">Semester</span></a>
+                </li>
                 <li class=" navigation-header"><span>E-OFFICE</span>
                 </li>
                 <li class=""><a href="#"><i class="feather icon-layers"></i><span class="menu-title" data-i18n="Dashboard">SK</span><span class="badge badge badge-warning badge-pill float-right mr-2">2</span></a>
@@ -32,6 +34,16 @@
                         <li class="<?= $title == 'Surat Keputusan' ? 'active' : '' ?>"><a href="<?= base_url('sk'); ?>"><i class="feather icon-book"></i><span class="menu-item" data-i18n="Analytics">Surat Keputusan</span></a>
                         </li>
                         <li class="<?= $title == 'Kategori' ? 'active' : '' ?>"><a href="<?= base_url('kategori_sk'); ?>"><i class="feather icon-book"></i><span class="menu-item" data-i18n="Analytics">Kategori</span></a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="<?= $title == 'Surat Masuk' ? 'active' : '' ?>"><a href="<?= base_url('s_masuk'); ?>"><i class="feather icon-mail"></i><span class="menu-item" data-i18n="Analytics">Surat Masuk</span></a>
+                </li>
+                <li class=""><a href="#"><i class="feather icon-mail"></i><span class="menu-title" data-i18n="Dashboard">Surat Keluar</span><span class="badge badge badge-warning badge-pill float-right mr-2">2</span></a>
+                    <ul class="menu-content">
+                        <li class="<?= $title == 'Surat Keluar' ? 'active' : '' ?>"><a href="<?= base_url('s_keluar'); ?>"><i class="feather icon-mail"></i><span class="menu-item" data-i18n="Analytics">Surat Keluar</span></a>
+                        </li>
+                        <li class="<?= $title == 'Kategori' ? 'active' : '' ?>"><a href="<?= base_url('s_keluar'); ?>"><i class="feather icon-list"></i><span class="menu-item" data-i18n="Analytics">Kategori</span></a>
                         </li>
                     </ul>
                 </li>

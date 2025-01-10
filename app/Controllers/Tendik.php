@@ -14,8 +14,7 @@ class Tendik extends BaseController
     }
     public function index()
     {
-
-        if (session()->get('username') !== NULL && (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Website')) {
+        if (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Website' || session()->get('level') === 'Admin eOffice') {
             $admin = session()->get('nama');
             $lvl = session()->get('level');
             $file = session()->get('file');
@@ -37,7 +36,7 @@ class Tendik extends BaseController
     }
     public function view()
     {
-        if (session()->get('username') !== NULL && (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Website')) {
+        if (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Website' || session()->get('level') === 'Admin eOffice') {
             $request = \Config\Services::request();
             if ($request->isAJAX()) {
                 $data = [
@@ -80,7 +79,7 @@ class Tendik extends BaseController
 
     public function tambah()
     {
-        if (session()->get('username') !== NULL && (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Website')) {
+        if (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Website' || session()->get('level') === 'Admin eOffice') {
             $request = \Config\Services::request();
 
             if ($request->isAJAX()) {
@@ -262,7 +261,7 @@ class Tendik extends BaseController
 
     public function edit()
     {
-        if (session()->get('username') !== NULL && (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Website')) {
+        if (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Website' || session()->get('level') === 'Admin eOffice') {
             $request = \Config\Services::request();
             $id = $request->getVar('id');
             $validation = \Config\Services::validation();
@@ -442,7 +441,7 @@ class Tendik extends BaseController
 
     public function hapus($id)
     {
-        if (session()->get('username') !== NULL && (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Website')) {
+        if (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Website' || session()->get('level') === 'Admin eOffice') {
             $cekfile = $this->TendikModel->where('id', $id)->first();
             $namafile = $cekfile['gambar'];
             $filesource = '../writable/uploads/content/tendik/' . $namafile . '';

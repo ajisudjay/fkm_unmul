@@ -15,7 +15,7 @@ class Dokumen extends BaseController
     public function index()
     {
 
-        if (session()->get('username') !== NULL && session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Website' || session()->get('level') === 'Admin Prodi') {
+        if (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Website') {
             $admin = session()->get('nama');
             $lvl = session()->get('level');
             $file = session()->get('file');
@@ -38,7 +38,7 @@ class Dokumen extends BaseController
 
     public function view()
     {
-        if (session()->get('username') !== NULL && session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Website' || session()->get('level') === 'Admin Prodi') {
+        if (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Website') {
             $request = \Config\Services::request();
             if ($request->isAJAX()) {
                 $data = [
@@ -59,7 +59,7 @@ class Dokumen extends BaseController
 
     public function tambah()
     {
-        if (session()->get('username') !== NULL && session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Website' || session()->get('level') === 'Admin Prodi') {
+        if (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Website') {
             $request = \Config\Services::request();
             $nama = $request->getVar('nama');
             $file = $request->getFile('file');
@@ -99,7 +99,7 @@ class Dokumen extends BaseController
 
     public function hapus($id)
     {
-        if (session()->get('username') !== NULL && session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Website' || session()->get('level') === 'Admin Prodi') {
+        if (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Website') {
             $cekfile = $this->DokumenModel->where('id', $id)->first();
             $namafile = $cekfile['file'];
             $filesource = '../writable/uploads/content/dokumen/' . $namafile . '';

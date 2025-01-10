@@ -20,7 +20,7 @@ class Sk extends BaseController
     }
     public function index()
     {
-        if (session()->get('username') !== NULL && (session()->get('level') === 'Superadmin' || session()->get('level') === 'Dosen')) {
+        if (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin eOffice' || session()->get('level') === 'Dosen' || session()->get('level') === 'Tendik') {
             $admin = session()->get('nama');
             $lvl = session()->get('level');
             $file = session()->get('file');
@@ -43,13 +43,13 @@ class Sk extends BaseController
     }
     public function view()
     {
-        if (session()->get('username') !== NULL && (session()->get('level') === 'Superadmin' || session()->get('level') === 'Dosen')) {
+        if (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin eOffice' || session()->get('level') === 'Dosen' || session()->get('level') === 'Tendik') {
             $request = \Config\Services::request();
             $username = session()->get('username');
             if ($request->isAJAX()) {
                 $semesterx = $request->getVar('semesterx');
                 $level = session()->get('level');
-                if ($level === 'Dosen') {
+                if ($level === 'Dosen' || $level === 'Tendik') {
                     $aksesbutton = 'hidden';
                     $data = [
                         'aksesbutton' => $aksesbutton,
@@ -84,7 +84,7 @@ class Sk extends BaseController
 
     public function tambah()
     {
-        if (session()->get('username') !== NULL && (session()->get('level') === 'Superadmin')) {
+        if (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin eOffice' || session()->get('level') === 'Dosen' || session()->get('level') === 'Tendik') {
             $request = \Config\Services::request();
             $validation = \Config\Services::validation();
             $nomor = $request->getVar('nomor');
@@ -195,7 +195,7 @@ class Sk extends BaseController
 
     public function edit()
     {
-        if (session()->get('username') !== NULL && (session()->get('level') === 'Superadmin')) {
+        if (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin eOffice' || session()->get('level') === 'Dosen' || session()->get('level') === 'Tendik') {
             $request = \Config\Services::request();
             $validation = \Config\Services::validation();
             $id = $request->getVar('id');
@@ -285,17 +285,19 @@ class Sk extends BaseController
 
     public function hapus($id)
     {
-        if (session()->get('username') !== NULL && (session()->get('level') === 'Superadmin')) {
+        if (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin eOffice' || session()->get('level') === 'Dosen' || session()->get('level') === 'Tendik') {
+
+            $cekfile = $this->SkModel->where('id', $id)->first();
+            $nama_file = $cekfile['file'];
+            $filepath = '../writable/uploads/content/sk/' . $nama_file . '';
+            chmod($filepath, 0777);
+            unlink($filepath);
+            $this->SkModel->delete($id);
+
+            session()->setFlashdata('pesanHapus', 'SK Berhasil Di Hapus !');
+            return redirect()->to(base_url('/sk'));
+        } else {
             return redirect()->to(base_url('/login'));
         }
-        $cekfile = $this->SkModel->where('id', $id)->first();
-        $nama_file = $cekfile['file'];
-        $filepath = '../writable/uploads/content/sk/' . $nama_file . '';
-        chmod($filepath, 0777);
-        unlink($filepath);
-        $this->SkModel->delete($id);
-
-        session()->setFlashdata('pesanHapus', 'SK Berhasil Di Hapus !');
-        return redirect()->to(base_url('/sk'));
     }
 }

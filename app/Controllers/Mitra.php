@@ -14,7 +14,7 @@ class Mitra extends BaseController
     }
     public function index()
     {
-        if (session()->get('username') !== NULL && (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Website')) {
+        if (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Website') {
             $admin = session()->get('nama');
             $lvl = session()->get('level');
             $file = session()->get('file');
@@ -36,7 +36,7 @@ class Mitra extends BaseController
     }
     public function view()
     {
-        if (session()->get('username') !== NULL && (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Website')) {
+        if (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Website') {
             $request = \Config\Services::request();
             $username = session()->get('username');
             if ($request->isAJAX()) {
@@ -58,7 +58,7 @@ class Mitra extends BaseController
 
     public function tambah()
     {
-        if (session()->get('username') !== NULL && (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Website')) {
+        if (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Website') {
             $request = \Config\Services::request();
             $validation = \Config\Services::validation();
             $nama = $request->getVar('nama');
@@ -131,7 +131,7 @@ class Mitra extends BaseController
 
     public function edit()
     {
-        if (session()->get('username') !== NULL && (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Website')) {
+        if (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Website') {
             $request = \Config\Services::request();
             $validation = \Config\Services::validation();
             $id = $request->getVar('id');
@@ -191,7 +191,7 @@ class Mitra extends BaseController
 
     public function hapus($id)
     {
-        if (session()->get('username') !== NULL && (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Website')) {
+        if (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Website') {
             $cekfile = $this->MitraModel->where('id', $id)->first();
             $namafile = $cekfile['gambar'];
             $filesource = '../writable/uploads/content/mitra/' . $namafile . '';

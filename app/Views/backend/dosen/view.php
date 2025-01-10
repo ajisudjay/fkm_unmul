@@ -2,7 +2,7 @@
     <div class="card-header">
         <h4 class="mb-0">Tenaga Pendidik</h4>
         <!-- button tambah modal -->
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tambahmodal">
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tambahmodal" <?= $akseshapus ?>>
             <span class="feather icon-plus text-light"></span>
         </button>
     </div>

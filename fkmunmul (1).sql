@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 10 Jan 2025 pada 08.32
+-- Waktu pembuatan: 17 Jan 2025 pada 08.07
 -- Versi server: 10.4.27-MariaDB
 -- Versi PHP: 8.0.25
 
@@ -702,8 +702,26 @@ CREATE TABLE `kategori_sk` (
 INSERT INTO `kategori_sk` (`id`, `kategori`) VALUES
 (1, 'Pengajaran'),
 (2, 'Pembimbing'),
-(3, 'Lainnya'),
-(4, 'Kepanitiaan 2');
+(3, 'Lain-lain'),
+(4, 'Kepanitiaan');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `kategori_surat`
+--
+
+CREATE TABLE `kategori_surat` (
+  `id` int(255) NOT NULL,
+  `kategori` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `kategori_surat`
+--
+
+INSERT INTO `kategori_surat` (`id`, `kategori`) VALUES
+(1, 'DT/UN17.11/2024');
 
 -- --------------------------------------------------------
 
@@ -1760,6 +1778,12 @@ ALTER TABLE `kategori_sk`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indeks untuk tabel `kategori_surat`
+--
+ALTER TABLE `kategori_surat`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indeks untuk tabel `konfigurasi`
 --
 ALTER TABLE `konfigurasi`
@@ -1890,7 +1914,13 @@ ALTER TABLE `hak_akses`
 -- AUTO_INCREMENT untuk tabel `kategori_sk`
 --
 ALTER TABLE `kategori_sk`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT untuk tabel `kategori_surat`
+--
+ALTER TABLE `kategori_surat`
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT untuk tabel `konfigurasi`

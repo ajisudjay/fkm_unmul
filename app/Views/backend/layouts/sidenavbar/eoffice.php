@@ -33,7 +33,7 @@
                     <ul class="menu-content">
                         <li class="<?= $title == 'Surat Keputusan' ? 'active' : '' ?>"><a href="<?= base_url('sk'); ?>"><i class="feather icon-book"></i><span class="menu-item" data-i18n="Analytics">Surat Keputusan</span></a>
                         </li>
-                        <li class="<?= $title == 'Kategori' ? 'active' : '' ?>"><a href="<?= base_url('kategori_sk'); ?>"><i class="feather icon-book"></i><span class="menu-item" data-i18n="Analytics">Kategori</span></a>
+                        <li class="<?= $title == 'Kategori SK' ? 'active' : '' ?>"><a href="<?= base_url('kategori_sk'); ?>"><i class="feather icon-book"></i><span class="menu-item" data-i18n="Analytics">Kategori SK</span></a>
                         </li>
                     </ul>
                 </li>
@@ -43,7 +43,7 @@
                     <ul class="menu-content">
                         <li class="<?= $title == 'Surat Keluar' ? 'active' : '' ?>"><a href="<?= base_url('s_keluar'); ?>"><i class="feather icon-mail"></i><span class="menu-item" data-i18n="Analytics">Surat Keluar</span></a>
                         </li>
-                        <li class="<?= $title == 'Kategori' ? 'active' : '' ?>"><a href="<?= base_url('s_keluar'); ?>"><i class="feather icon-list"></i><span class="menu-item" data-i18n="Analytics">Kategori</span></a>
+                        <li class="<?= $title == 'Kategori Surat' ? 'active' : '' ?>"><a href="<?= base_url('kategori_surat'); ?>"><i class="feather icon-list"></i><span class="menu-item" data-i18n="Analytics">Kategori Surat</span></a>
                         </li>
                     </ul>
                 </li>

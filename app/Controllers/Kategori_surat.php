@@ -2,15 +2,15 @@
 
 namespace App\Controllers;
 
-use App\Models\Kategori_skModel;
+use App\Models\Kategori_suratModel;
 use App\Controllers\BaseController;
 
-class Kategori_sk extends BaseController
+class Kategori_surat extends BaseController
 {
-    protected $Kategori_skModel;
+    protected $Kategori_suratModel;
     public function __construct()
     {
-        $this->Kategori_skModel = new Kategori_skModel();
+        $this->Kategori_suratModel = new Kategori_suratModel();
     }
 
     public function index()
@@ -25,12 +25,12 @@ class Kategori_sk extends BaseController
                 $gambar = $file;
             }
             $data = [
-                'title' => 'Kategori SK',
+                'title' => 'Kategori Surat',
                 'admin' => $admin,
                 'lvl' => $lvl,
                 'foto' => $gambar,
             ];
-            return view('backend/kategori_sk/index', $data);
+            return view('backend/kategori_surat/index', $data);
         } else {
             return redirect()->to(base_url('/login'));
         }
@@ -42,11 +42,11 @@ class Kategori_sk extends BaseController
             $request = \Config\Services::request();
             if ($request->isAJAX()) {
                 $data = [
-                    'kategori_sk' => $this->Kategori_skModel->orderBy('id', 'DESC')->get()->getResultArray(),
+                    'kategori_surat' => $this->Kategori_suratModel->orderBy('id', 'DESC')->get()->getResultArray(),
                     'validation' => \Config\Services::validation(),
                 ];
                 $msg = [
-                    'data' => view('backend/kategori_sk/view', $data)
+                    'data' => view('backend/kategori_surat/view', $data)
                 ];
                 echo json_encode($msg);
             } else {
@@ -61,13 +61,13 @@ class Kategori_sk extends BaseController
     {
         if (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin eOffice') {
             $request = \Config\Services::request();
-            $kategori_sk = $request->getVar('kategori_sk');
+            $kategori_surat = $request->getVar('kategori_surat');
             $data = [
-                'kategori' => $kategori_sk,
+                'kategori' => $kategori_surat,
             ];
-            $this->Kategori_skModel->insert($data);
+            $this->Kategori_suratModel->insert($data);
             session()->setFlashdata('pesanHapus', 'Berhasil !');
-            return redirect()->to(base_url('/kategori_sk'));
+            return redirect()->to(base_url('/kategori_surat'));
         } else {
             return redirect()->to(base_url('/login'));
         }
@@ -78,24 +78,25 @@ class Kategori_sk extends BaseController
         if (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin eOffice') {
             $request = \Config\Services::request();
             $id = $request->getVar('id');
-            $kategori_sk = $request->getVar('kategori_sk');
+            $kategori_surat = $request->getVar('kategori_surat');
             $data = [
-                'kategori' => $kategori_sk,
+                'kategori' => $kategori_surat,
             ];
-            $this->Kategori_skModel->update($id, $data);
+            $this->Kategori_suratModel->update($id, $data);
             session()->setFlashdata('pesanHapus', 'Berhasil !');
-            return redirect()->to(base_url('/kategori_sk'));
+            return redirect()->to(base_url('/kategori_surat'));
         } else {
             return redirect()->to(base_url('/login'));
         }
     }
 
+
     public function hapus($id)
     {
         if (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin eOffice') {
-            $this->Kategori_skModel->delete($id);
+            $this->Kategori_suratModel->delete($id);
             session()->setFlashdata('pesanHapus', 'Kategori_sk Berhasil Di Hapus !');
-            return redirect()->to(base_url('/kategori_sk'));
+            return redirect()->to(base_url('/kategori_surat'));
         } else {
             return redirect()->to(base_url('/login'));
         }

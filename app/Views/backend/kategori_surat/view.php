@@ -1,6 +1,6 @@
 <div class="container-fluid">
     <div class="card-header">
-        <h4 class="mb-0">Kategori SK</h4>
+        <h4 class="mb-0">Kategori Surat</h4>
         <!-- button tambah modal -->
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tambahmodal">
             <span class="feather icon-plus text-light"></span>
@@ -17,14 +17,14 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="<?= base_url('kategori_sk/tambah'); ?>" method="post">
+                    <form action="<?= base_url('kategori_surat/tambah'); ?>" method="post">
                         <?= csrf_field() ?>
                         <div class="modal-body">
                             <div class="row">
                                 <div class="col-lg-12">
                                     <label class="text-primary">Kategori</label>
-                                    <input type="text" name="kategori_sk" class="form-control kategori_sk" placeholder="Kategori">
-                                    <div class="invalid-feedback errorkategori_sk"></div>
+                                    <input type="text" name="kategori_surat" class="form-control kategori_surat" placeholder="Kategori">
+                                    <div class="invalid-feedback errorkategori_surat"></div>
                                     <br>
                                 </div>
                                 <br>
@@ -52,7 +52,7 @@
                 </thead>
                 <tbody>
                     <?php $no = 1 ?>
-                    <?php foreach ($kategori_sk as $item) : ?>
+                    <?php foreach ($kategori_surat as $item) : ?>
                         <tr>
                             <!-- ISI VIEW -->
                             <td><?= $no++ ?></td>
@@ -67,7 +67,7 @@
                                         </button>
                                         <div class="dropdown-divider"></div>
                                         <!-- button ubah disposisi modal-->
-                                        <a href="<?= base_url('kategori_sk/hapus/' . $item['id']); ?>" class="hapus">
+                                        <a href="<?= base_url('kategori_surat/hapus/' . $item['id']); ?>" class="hapus">
                                             <button type="button" class="dropdown-item">
                                                 <span class="btn-sm btn-danger feather icon-trash-2 text-default"></span>
                                             </button>
@@ -77,6 +77,7 @@
 
                                     </div>
                                 </div>
+
                                 <!-- ubah kategori modal-->
                                 <div class="modal fade" id="editdismodal<?= $id = $item['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
@@ -88,15 +89,15 @@
                                                 </button>
                                             </div>
                                             <div class="modal-body">
-                                                <form action="<?= base_url('kategori_sk/edit'); ?>" method="post">
+                                                <form action="<?= base_url('kategori_surat/edit'); ?>" method="post">
                                                     <?= csrf_field() ?>
                                                     <div class="modal-body">
                                                         <div class="row">
                                                             <div class="col-lg-12">
                                                                 <label class="text-primary">Kategori</label>
                                                                 <input type="text" name="id" value="<?= $item['id'] ?>" hidden>
-                                                                <input type="text" name="kategori_sk" class="form-control kategori_sk" value="<?= $item['kategori'] ?>">
-                                                                <div class="invalid-feedback errorkategori_sk"></div>
+                                                                <input type="text" name="kategori_surat" class="form-control kategori_surat" value="<?= $item['kategori'] ?>">
+                                                                <div class="invalid-feedback errorkategori_surat"></div>
                                                                 <br>
                                                             </div>
                                                             <br>
@@ -121,5 +122,5 @@
 </div>
 
 
-<?= $this->include('backend/kategori_sk/ajax') ?>
+<?= $this->include('backend/kategori_surat/ajax') ?>
 <?= $this->include('backend/layouts/js_view') ?>

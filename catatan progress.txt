@@ -38,10 +38,15 @@ DONE +Akun  (1) - (2-5 hanya bisa punya sendiri)
 
 PROGRESS
 LANJUTKAN BUAT SURAT KELUAR
-
-
 SURAT KELUAR:
-1. No surat , buatkan kategori DT dll
-2. apa perlu buat kategori untuk perihal? (gak perlu)
-3. semua tendik dan dosen bisa mengusulkan surat keluar (minta nomor) dengan syarat melengkapi form usulan perihal,tujuan,tgl,sub-bagian,cetaksendiri/dicetakkan (timestamp&username pengusul)
-4. TU melakukan validasi dan cetak surat/cetak sendiri->TTD
+1. buat form pengajuan surat keluar (semua user bisa) *lengkapi atribut usulan surat keluar
+-> semua tendik dan dosen bisa mengusulkan surat keluar (minta nomor) dengan syarat melengkapi form usulan perihal,tujuan,tgl,sub-bagian,cetaksendiri/dicetakkan (timestamp & username pengusul)
+2. list data pengajuan surat untuk admin eOffice = diajukan-ditolak-diproses(sudah divalidasi)-selesai(sdh ttd)
+3. setelah surat yang sudah divalidasi bisa dicetak (munculkan tombol) oleh admin maupun pengusul
+4. proses selesai jika admin/pengusul sdh mendapatkan ttd dan konfirmasi "surat selesai"
+
+pembagian hak akses.
+1. pengusul hanya bisa melihat surat yang dia buat
+2. superadmin/admin bisa melihat semua surat yang masuk dan menolak jika format salah dan memberi catatan untuk pengusul(usulan tidak dihapus tapi bisa diedit dengan status ditolak)
+
+

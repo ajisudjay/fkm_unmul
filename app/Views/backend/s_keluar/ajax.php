@@ -22,12 +22,12 @@
                 },
                 success: function(response) {
                     if (response.error) {
-                        if (response.error.no) {
-                            $('.no').addClass('is-invalid');
-                            $('.errorno').html(response.error.no);
+                        if (response.error.tanggal) {
+                            $('.tanggal').addClass('is-invalid');
+                            $('.errortanggal').html(response.error.tanggal);
                         } else {
-                            $('.no').removeClass('is-invalid');
-                            $('.errorno').html('');
+                            $('.tanggal').removeClass('is-invalid');
+                            $('.errortanggal').html('');
                         }
                         if (response.error.perihal) {
                             $('.perihal').addClass('is-invalid');
@@ -36,12 +36,33 @@
                             $('.perihal').removeClass('is-invalid');
                             $('.errorperihal').html('');
                         }
+                        if (response.error.tujuan) {
+                            $('.tujuan').addClass('is-invalid');
+                            $('.errortujuan').html(response.error.tujuan);
+                        } else {
+                            $('.tujuan').removeClass('is-invalid');
+                            $('.errortujuan').html('');
+                        }
                         if (response.error.file) {
                             $('.file').addClass('is-invalid');
                             $('.errorfile').html(response.error.file);
                         } else {
                             $('.file').removeClass('is-invalid');
                             $('.errorfile').html('');
+                        }
+                        if (response.error.bagian) {
+                            $('.bagian').addClass('is-invalid');
+                            $('.errorbagian').html(response.error.bagian);
+                        } else {
+                            $('.bagian').removeClass('is-invalid');
+                            $('.errorbagian').html('');
+                        }
+                        if (response.error.keterangan) {
+                            $('.keterangan').addClass('is-invalid');
+                            $('.errorketerangan').html(response.error.keterangan);
+                        } else {
+                            $('.keterangan').removeClass('is-invalid');
+                            $('.errorketerangan').html('');
                         }
                     } else {
                         Swal.fire({

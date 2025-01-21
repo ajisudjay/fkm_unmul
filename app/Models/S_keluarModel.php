@@ -14,7 +14,23 @@ class S_keluarModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['id', 'no', 'perihal', 'file', 'tanggal', 'timestamp'];
+    protected $allowedFields    = [
+        'id',
+        'kode_surat',
+        'nomor',
+        'perihal',
+        'file',
+        'bagian',
+        'status',
+        'admin',
+        'tujuan',
+        'jalur',
+        'keterangan',
+        'tanggal',
+        'timestamp',
+        'timestamp2',
+        'admin2'
+    ];
 
     // Dates
     protected $useTimestamps = false;

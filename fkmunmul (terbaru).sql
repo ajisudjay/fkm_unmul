@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 17 Jan 2025 pada 08.07
+-- Waktu pembuatan: 21 Jan 2025 pada 08.33
 -- Versi server: 10.4.27-MariaDB
 -- Versi PHP: 8.0.25
 
@@ -662,31 +662,6 @@ INSERT INTO `galeri` (`id`, `nama`, `gambar`, `admin`, `timestamp`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `hak_akses`
---
-
-CREATE TABLE `hak_akses` (
-  `id` int(255) NOT NULL,
-  `id_username` varchar(255) NOT NULL,
-  `hak_akses` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data untuk tabel `hak_akses`
---
-
-INSERT INTO `hak_akses` (`id`, `id_username`, `hak_akses`) VALUES
-(8, 'ajisudjay', 'Content'),
-(9, 'ajisudjay', 'SDM'),
-(10, 'ajisudjay', 'SK'),
-(11, 'ajisudjay', 'Surat'),
-(12, 'admin2', 'Content'),
-(13, 'rezfian', 'Konfigurasi'),
-(14, 'rezfian', 'Surat');
-
--- --------------------------------------------------------
-
---
 -- Struktur dari tabel `kategori_sk`
 --
 
@@ -708,19 +683,19 @@ INSERT INTO `kategori_sk` (`id`, `kategori`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `kategori_surat`
+-- Struktur dari tabel `kode_surat`
 --
 
-CREATE TABLE `kategori_surat` (
+CREATE TABLE `kode_surat` (
   `id` int(255) NOT NULL,
-  `kategori` varchar(255) NOT NULL
+  `kode_surat` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data untuk tabel `kategori_surat`
+-- Dumping data untuk tabel `kode_surat`
 --
 
-INSERT INTO `kategori_surat` (`id`, `kategori`) VALUES
+INSERT INTO `kode_surat` (`id`, `kode_surat`) VALUES
 (1, 'DT/UN17.11/2024');
 
 -- --------------------------------------------------------
@@ -1622,19 +1597,32 @@ INSERT INTO `submenu` (`id`, `submenu`, `slug`, `urutan`, `id_mainmenu`, `conten
 
 CREATE TABLE `s_keluar` (
   `id` int(11) NOT NULL,
-  `no` varchar(255) NOT NULL,
+  `kode_surat` varchar(255) NOT NULL,
+  `nomor` varchar(255) DEFAULT NULL,
+  `tanggal` date DEFAULT NULL,
   `perihal` varchar(255) NOT NULL,
   `file` varchar(255) DEFAULT NULL,
-  `tanggal` date DEFAULT NULL,
-  `timestamp` timestamp NULL DEFAULT NULL
+  `bagian` varchar(255) NOT NULL,
+  `status` varchar(255) NOT NULL,
+  `admin` varchar(255) NOT NULL,
+  `tujuan` varchar(255) NOT NULL,
+  `jalur` varchar(255) NOT NULL,
+  `keterangan` varchar(255) NOT NULL,
+  `timestamp` timestamp NULL DEFAULT NULL,
+  `timestamp2` timestamp NULL DEFAULT NULL,
+  `admin2` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `s_keluar`
 --
 
-INSERT INTO `s_keluar` (`id`, `no`, `perihal`, `file`, `tanggal`, `timestamp`) VALUES
-(1, '001/DT/2024', 'surat keluar 1 edited 2', '1734222131_dab9bc9d96ea0f0cb9df.pdf', '2024-12-15', '2024-12-15 00:21:39');
+INSERT INTO `s_keluar` (`id`, `kode_surat`, `nomor`, `tanggal`, `perihal`, `file`, `bagian`, `status`, `admin`, `tujuan`, `jalur`, `keterangan`, `timestamp`, `timestamp2`, `admin2`) VALUES
+(1, '', '001/DT/2024', '2024-12-15', 'surat keluar 1 edited 2  sdfsf', '1734222131_dab9bc9d96ea0f0cb9df.pdf', '', '', '', '', '', '', '2024-12-15 00:21:39', NULL, ''),
+(3, 'kategorinya', NULL, '2025-12-31', 'perihal', '1737426616_f9a38e2317ac6bf32787.png', 'bagiannya', 'usulan', 'ajisudjay', 'tujuannya', 'mandiri', '-', '2025-01-21 02:30:16', NULL, ''),
+(4, 'DT/UN17.11/2024', NULL, '2025-01-22', 'surat coba coba', '1737427574_1f7e9aa5e249265bc05d.pdf', 'akademik', 'usulan', 'ajisudjay', 'kepala dinas', 'TU', '-', '2025-01-21 02:46:14', '2025-01-21 02:46:14', ''),
+(5, 'DT/UN17.11/2024', NULL, '2025-12-31', 'surat fix tambah', '1737441523_533a717470a9a4cc6c64.pdf', 'akademik', 'usulan', 'ajisudjay', 'untuk tes tambah', 'TU', '-', '2025-01-20 18:38:43', NULL, ''),
+(6, 'DT/UN17.11/2024', 'XZ1', '2025-12-30', 'coba 2 fix edited xZ1', '1737444229_802dc317c2e6b8ba8f18.pdf', 'akadmeik s2XZ1', 'ditolak', 'ajisudjay', 'tes tingXZ1', 'TU', '-XZ1', '2025-01-21 06:41:03', '2025-01-21 07:32:05', 'ajisudjay');
 
 -- --------------------------------------------------------
 
@@ -1765,22 +1753,15 @@ ALTER TABLE `galeri`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `hak_akses`
---
-ALTER TABLE `hak_akses`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `id_user` (`id_username`);
-
---
 -- Indeks untuk tabel `kategori_sk`
 --
 ALTER TABLE `kategori_sk`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `kategori_surat`
+-- Indeks untuk tabel `kode_surat`
 --
-ALTER TABLE `kategori_surat`
+ALTER TABLE `kode_surat`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -1905,21 +1886,15 @@ ALTER TABLE `galeri`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=788;
 
 --
--- AUTO_INCREMENT untuk tabel `hak_akses`
---
-ALTER TABLE `hak_akses`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
-
---
 -- AUTO_INCREMENT untuk tabel `kategori_sk`
 --
 ALTER TABLE `kategori_sk`
   MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT untuk tabel `kategori_surat`
+-- AUTO_INCREMENT untuk tabel `kode_surat`
 --
-ALTER TABLE `kategori_surat`
+ALTER TABLE `kode_surat`
   MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
@@ -1980,7 +1955,7 @@ ALTER TABLE `submenu`
 -- AUTO_INCREMENT untuk tabel `s_keluar`
 --
 ALTER TABLE `s_keluar`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT untuk tabel `s_masuk`

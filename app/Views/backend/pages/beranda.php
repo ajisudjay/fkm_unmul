@@ -6,22 +6,17 @@
 <body class="vertical-layout vertical-menu-modern semi-dark-layout 2-columns  navbar-floating footer-static  " data-open="click" data-menu="vertical-menu-modern" data-col="2-columns" data-layout="semi-dark-layout">
     <?= $this->include('backend/layouts/topnavbar') ?>
     <?php if ($lvl === 'Superadmin') { ?>
-        <?php if ($lvl === 'Superadmin') { ?>
-            <?= $this->include('backend/layouts/sidenavbar/superadmin') ?>
-        <?php } elseif ($lvl === 'Admin Website') { ?>
-            <?= $this->include('backend/layouts/sidenavbar/adminwebsite') ?>
-        <?php } elseif ($lvl === 'Admin eOffice') { ?>
-            <?= $this->include('backend/layouts/sidenavbar/eoffice') ?>
-        <?php } elseif ($lvl === 'Dosen') { ?>
-            <?= $this->include('backend/layouts/sidenavbar/dosen') ?>
-        <?php } ?>
+        <?= $this->include('backend/layouts/sidenavbar/superadmin') ?>
     <?php } elseif ($lvl === 'Admin Website') { ?>
         <?= $this->include('backend/layouts/sidenavbar/adminwebsite') ?>
-    <?php } elseif ($lvl === 'Dosen') { ?>
-        <?= $this->include('backend/layouts/sidenavbar/dosen') ?>
     <?php } elseif ($lvl === 'Admin eOffice') { ?>
         <?= $this->include('backend/layouts/sidenavbar/eoffice') ?>
+    <?php } elseif ($lvl === 'Dosen') { ?>
+        <?= $this->include('backend/layouts/sidenavbar/dosen') ?>
+    <?php } elseif ($lvl === 'Tendik') { ?>
+        <?= $this->include('backend/layouts/sidenavbar/tendik') ?>
     <?php } ?>
+
     <!-- BEGIN: Content-->
     <div class="app-content content">
         <div class="content-overlay"></div>

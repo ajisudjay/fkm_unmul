@@ -14,7 +14,7 @@ class Kode_suratModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['id', 'kode_surat'];
+    protected $allowedFields    = ['id', 'kode_surat', 'nama'];
 
     // Dates
     protected $useTimestamps = false;

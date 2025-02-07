@@ -1,6 +1,5 @@
 <br>
-<h5 class="primary" align="center">Semester : <?= $sel_semester['semester']  ?></h5>
-<h5 class="primary" align="center">Masa : <?= $sel_semester['masa'] ?></h5>
+<h5 class="primary" align="center">Tahun : <?= $tahun  ?></h5>
 <div class="container-fluid">
     <div class="card-header">
         <h4 class="mb-0">Surat Keputusan</h4>
@@ -35,6 +34,7 @@
                                 </div>
                                 <div class="col-lg-4">
                                     <label class="text-primary">Nomor</label>
+                                    <input type="text" name="tahun" value="<?= $tahun ?>" hidden>
                                     <input type="text" name="nomor" class="form-control nomor" placeholder="Nomor">
                                     <div class="invalid-feedback errornomor"></div>
                                 </div>
@@ -43,7 +43,7 @@
                                     <input type="date" name="tanggal" class="form-control tanggal">
                                     <div class="invalid-feedback errortanggal"></div>
                                 </div>
-                                <div class="col-lg-3">
+                                <div class="col-lg-4">
                                     <label class="text-primary">Sasaran</label>
                                     <select name="sasaran" class="form-control sasaran">
                                         <option value="Terbuka">Terbuka</option>
@@ -51,7 +51,7 @@
                                     </select>
                                     <div class="invalid-feedback errorsasaran"></div>
                                 </div>
-                                <div class="col-lg-5">
+                                <div class="col-lg-4">
                                     <label class="text-primary">Kategori</label>
                                     <select name="kategori" class="form-control kategori">
                                         <?php foreach ($kategori_sk as $itemkat) : ?>
@@ -61,15 +61,10 @@
                                     <div class="invalid-feedback errorkategori"></div>
                                     <br>
                                 </div>
-                                <div class="col-lg-3">
-                                    <label class="text-primary">Semester</label>
-                                    <select name="semester" class="form-control semester">
-                                        <?php foreach ($semester as $item) : ?>
-                                            <option value="<?= $item['id'] ?>"><?= $item['semester'] ?></option>
-                                        <?php endforeach ?>
-                                    </select>
-                                    <div class="invalid-feedback errorsemester"></div>
-                                    <br>
+                                <div class="col-lg-4">
+                                    <label class="text-primary">File</label>
+                                    <input type="file" name="file" accept=".pdf" class="form-control file" required>
+                                    <div class="invalid-feedback errorfile"></div>
                                 </div>
                                 <div class="col-lg-12">
                                     <label class="text-primary">Perihal</label>
@@ -77,11 +72,7 @@
                                     <div class="invalid-feedback errorperihal"></div>
                                     <br>
                                 </div>
-                                <div class="col-lg-6">
-                                    <label class="text-primary">File</label>
-                                    <input type="file" name="file" accept=".pdf" class="form-control file" required>
-                                    <div class="invalid-feedback errorfile"></div>
-                                </div>
+
                                 <hr>
                             </div>
                         </div>
@@ -156,6 +147,7 @@
                                                             <div class="col-lg-4">
                                                                 <label class="text-primary">Nomor</label>
                                                                 <input type="text" name="id" value="<?= $item['id_sk'] ?>" hidden>
+                                                                <input type="text" name="tahun" value="<?= $tahun ?>" hidden>
                                                                 <input type="text" name="nomor" class="form-control nomor" value="<?= $item['nomor'] ?>" placeholder="Nomor">
                                                                 <div class="invalid-feedback errornomor"></div>
                                                             </div>
@@ -164,7 +156,7 @@
                                                                 <input type="date" name="tanggal" class="form-control tanggal" value="<?= $item['tanggal'] ?>">
                                                                 <div class="invalid-feedback errortanggal"></div>
                                                             </div>
-                                                            <div class="col-lg-3">
+                                                            <div class="col-lg-4">
                                                                 <label class="text-primary">Sasaran</label>
                                                                 <select name="sasaran" class="form-control sasaran">
                                                                     <option value="<?= $item['sasaran'] ?>"><?= $item['sasaran'] ?></option>
@@ -173,7 +165,7 @@
                                                                 </select>
                                                                 <div class="invalid-feedback errorsasaran"></div>
                                                             </div>
-                                                            <div class="col-lg-5">
+                                                            <div class="col-lg-4">
                                                                 <label class="text-primary">Kategori</label>
                                                                 <select name="kategori" class="form-control kategori">
                                                                     <option value="<?= $item['id_katsk'] ?>"><?= $item['kategori'] ?></option>
@@ -184,16 +176,10 @@
                                                                 <div class="invalid-feedback errorkategori"></div>
                                                                 <br>
                                                             </div>
-                                                            <div class="col-lg-3">
-                                                                <label class="text-primary">Semester</label>
-                                                                <select name="semester" class="form-control semester">
-                                                                    <option value="<?= $item['id'] ?>"><?= $item['semester'] ?></option>
-                                                                    <?php foreach ($semester as $itemsmt) : ?>
-                                                                        <option value="<?= $itemsmt['id'] ?>"><?= $itemsmt['semester'] ?></option>
-                                                                    <?php endforeach ?>
-                                                                </select>
-                                                                <div class="invalid-feedback errorsemester"></div>
-                                                                <br>
+                                                            <div class="col-lg-4">
+                                                                <label class="text-primary">File</label>
+                                                                <input type="file" name="file" accept=".pdf" class="form-control file">
+                                                                <div class="invalid-feedback errorfile"></div>
                                                             </div>
                                                             <div class="col-lg-12">
                                                                 <label class="text-primary">Perihal</label>
@@ -201,11 +187,7 @@
                                                                 <div class="invalid-feedback errorperihal"></div>
                                                                 <br>
                                                             </div>
-                                                            <div class="col-lg-6">
-                                                                <label class="text-primary">File</label>
-                                                                <input type="file" name="file" accept=".pdf" class="form-control file">
-                                                                <div class="invalid-feedback errorfile"></div>
-                                                            </div>
+
                                                             <hr>
                                                         </div>
                                                     </div>
@@ -257,7 +239,7 @@
                             <td style="white-space: normal;min-width: 350px;"><?= $item['perihal'] ?></td>
                             <td align="center">
                                 <span class="badge badge-pill badge-primary"><i class="fa fa-clock-o"></i> <?= $item['timestamps'] ?></span><br>
-                                <span class="badge badge-pill badge-success"><i class="fa fa-user"></i> <?= $item['admin'] ?></span>
+                                <span class="badge badge-pill badge-success"><i class="fa fa-user"></i> <?= $item['nama'] ?></span>
                             </td>
                         </tr>
                     <?php endforeach ?>

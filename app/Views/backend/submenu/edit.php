@@ -13,6 +13,8 @@
         <?= $this->include('backend/layouts/sidenavbar/eoffice') ?>
     <?php } elseif ($lvl === 'Dosen') { ?>
         <?= $this->include('backend/layouts/sidenavbar/dosen') ?>
+    <?php } elseif ($lvl === 'Tendik') { ?>
+        <?= $this->include('backend/layouts/sidenavbar/tendik') ?>
     <?php } ?>
     <!-- BEGIN: Content-->
     <div class="app-content content">

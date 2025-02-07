@@ -47,7 +47,8 @@
                     <tr>
                         <th width="5%">No</th>
                         <th width="5%" style="text-align: center;">AKSI</th>
-                        <th width="90%">Kategori</th>
+                        <th width="40%">Kategori</th>
+                        <th width="50%">Nama</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -96,7 +97,7 @@
                                                             <div class="col-lg-12">
                                                                 <label class="text-primary">Kategori</label>
                                                                 <input type="text" name="id" value="<?= $item['id'] ?>" hidden>
-                                                                <input type="text" name="kategori_surat" class="form-control kategori_surat" value="<?= $item['kategori'] ?>">
+                                                                <input type="text" name="kategori_surat" class="form-control kategori_surat" value="<?= $item['kode_surat'] ?>">
                                                                 <div class="invalid-feedback errorkategori_surat"></div>
                                                                 <br>
                                                             </div>
@@ -112,7 +113,8 @@
                                         </div>
                                     </div>
                                 </div>
-                            <td style="min-width: 100px;max-width: 300px; white-space: normal;"><?= $item['kategori'] ?></td>
+                            <td style="min-width: 100px;max-width: 300px; white-space: normal;"><?= $item['kode_surat'] ?></td>
+                            <td style="min-width: 100px;max-width: 300px; white-space: normal;"><?= $item['nama'] ?></td>
                         </tr>
                     <?php endforeach ?>
                 </tbody>

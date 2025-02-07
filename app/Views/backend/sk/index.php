@@ -6,19 +6,15 @@
 <body class="vertical-layout vertical-menu-modern semi-dark-layout 2-columns  navbar-floating footer-static" data-menu="vertical-menu-modern" data-col="2-columns" data-layout="semi-dark-layout">
     <?= $this->include('backend/layouts/topnavbar') ?>
     <?php if ($lvl === 'Superadmin') { ?>
-        <?php if ($lvl === 'Superadmin') { ?>
-            <?= $this->include('backend/layouts/sidenavbar/superadmin') ?>
-        <?php } elseif ($lvl === 'Admin Website') { ?>
-            <?= $this->include('backend/layouts/sidenavbar/adminwebsite') ?>
-        <?php } elseif ($lvl === 'Admin eOffice') { ?>
-            <?= $this->include('backend/layouts/sidenavbar/eoffice') ?>
-        <?php } elseif ($lvl === 'Dosen') { ?>
-            <?= $this->include('backend/layouts/sidenavbar/dosen') ?>
-        <?php } ?>
+        <?= $this->include('backend/layouts/sidenavbar/superadmin') ?>
     <?php } elseif ($lvl === 'Admin Website') { ?>
         <?= $this->include('backend/layouts/sidenavbar/adminwebsite') ?>
+    <?php } elseif ($lvl === 'Admin eOffice') { ?>
+        <?= $this->include('backend/layouts/sidenavbar/eoffice') ?>
     <?php } elseif ($lvl === 'Dosen') { ?>
         <?= $this->include('backend/layouts/sidenavbar/dosen') ?>
+    <?php } elseif ($lvl === 'Tendik') { ?>
+        <?= $this->include('backend/layouts/sidenavbar/tendik') ?>
     <?php } ?>
 
     <!-- BEGIN: Content-->
@@ -49,13 +45,13 @@
                                 </div>
                             <?php } ?>
                             <div class="card" style="padding: 25px;">
-                                <form action="<?= base_url('sk/view'); ?>" method="post" class="semesterx">
+                                <form action="<?= base_url('sk/view'); ?>" method="post" class="tahun">
                                     <?= csrf_field(); ?>
                                     <div class="row">
                                         <div class="col-lg-4">
-                                            <select name="semesterx" class="form-control semesterx">
-                                                <?php foreach ($semester as $item_semester) : ?>
-                                                    <option value="<?= $item_semester['id'] ?>"><?= $item_semester['semester'] ?></option>
+                                            <select name="tahun" class="form-control tahun">
+                                                <?php foreach ($tahun_sk as $tahunsk) : ?>
+                                                    <option value="<?= $tahunsk['tahun'] ?>"><?= $tahunsk['tahun'] ?></option>
                                                 <?php endforeach ?>
                                             </select>
                                         </div>
@@ -77,7 +73,7 @@
     <!-- END: Content-->
     <script>
         $(document).ready(function() {
-            $(".semesterx").submit(function(e) {
+            $(".tahun").submit(function(e) {
                 var formObj = $(this);
                 var formURL = formObj.attr("action");
                 var formData = new FormData(this);

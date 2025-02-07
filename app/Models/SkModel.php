@@ -14,7 +14,12 @@ class SkModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['id', 'nomor',  'jenis', 'kategori', 'tanggal', 'semester', 'perihal', 'sasaran', 'file', 'timestamps', 'admin'];
+    protected $allowedFields    = ['id', 'nomor',  'jenis', 'kategori', 'tanggal', 'perihal', 'sasaran', 'file', 'timestamps', 'admin'];
+
+    public function getDistinctYears()
+    {
+        return $this->select('DISTINCT YEAR(tanggal) as tahun')->orderBy('tahun', 'DESC')->findAll();
+    }
 
     // Dates
     protected $useTimestamps = false;

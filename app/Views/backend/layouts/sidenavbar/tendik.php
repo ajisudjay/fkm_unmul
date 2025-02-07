@@ -16,7 +16,7 @@
                 </li>
                 <li class=" navigation-header"><span>BANK DATA</span>
                 </li>
-                <li class="<?= $title == 'Dosen' ? 'active' : '' ?>"><a href="<?= base_url('dosen'); ?>"><i class="feather icon-users"></i><span class="menu-item" data-i18n="Analytics">Dosen</span></a>
+                <li class="<?= $title == 'Tendik' ? 'active' : '' ?>"><a href="<?= base_url('tendik'); ?>"><i class="feather icon-users"></i><span class="menu-item" data-i18n="Analytics">Tendik</span></a>
                 </li>
                 <li class=" navigation-header"><span>E-OFFICE</span>
                 </li>

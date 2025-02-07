@@ -32,6 +32,10 @@ class S_keluarModel extends Model
         'admin2'
     ];
 
+    public function getDistinctYears()
+    {
+        return $this->select('DISTINCT YEAR(tanggal) as tahun')->orderBy('tahun', 'DESC')->findAll();
+    }
     // Dates
     protected $useTimestamps = false;
     protected $dateFormat    = 'datetime';

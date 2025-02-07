@@ -4,35 +4,49 @@ namespace App\Controllers;
 
 use App\Models\S_keluarModel;
 use App\Models\Kode_suratModel;
+use App\Models\UsersModel;
 use App\Controllers\BaseController;
 
 class S_keluar extends BaseController
 {
     protected $S_keluarModel;
     protected $Kode_suratModel;
+    protected $UsersModel;
     public function __construct()
     {
         $this->S_keluarModel = new S_keluarModel();
         $this->Kode_suratModel = new Kode_suratModel();
+        $this->UsersModel = new UsersModel();
     }
     public function index()
     {
-
-        if (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin eOffice') {
+        if (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin eOffice' || session()->get('level') === 'Dosen' || session()->get('level') === 'Tendik') {
             $admin = session()->get('nama');
             $lvl = session()->get('level');
             $file = session()->get('file');
+            $namaadmin = session()->get('username');
             if ($file === NULL) {
                 $gambar = 'user-profile.png';
             } else {
                 $gambar = $file;
             }
-            $data = [
-                'title' => 'Surat Keluar',
-                'admin' => $admin,
-                'lvl' => $lvl,
-                'foto' => $gambar,
-            ];
+            if (session()->get('level') === 'Admin eOffice') {
+                $data = [
+                    'title' => 'Surat Keluar',
+                    'admin' => $admin,
+                    'lvl' => $lvl,
+                    'foto' => $gambar,
+                    'tahun_surat' => $this->S_keluarModel->DISTINCT('tahun')->getDistinctYears()
+                ];
+            } else {
+                $data = [
+                    'title' => 'Surat Keluar',
+                    'admin' => $admin,
+                    'lvl' => $lvl,
+                    'foto' => $gambar,
+                    'tahun_surat' => $this->S_keluarModel->where('admin', $namaadmin)->DISTINCT('tahun')->getDistinctYears()
+                ];
+            }
             return view('backend/s_keluar/index', $data);
         } else {
             return redirect()->to(base_url('/login'));
@@ -41,14 +55,32 @@ class S_keluar extends BaseController
 
     public function view()
     {
-        if (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin eOffice') {
+        if (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin eOffice' || session()->get('level') === 'Dosen' || session()->get('level') === 'Tendik') {
             $request = \Config\Services::request();
+            $namaadmin = session()->get('username');
             if ($request->isAJAX()) {
-                $data = [
-                    's_keluar' => $this->S_keluarModel->orderBy('timestamp', 'DESC')->orderBy('nomor', 'DESC')->get()->getResultArray(),
-                    'kode_surat' => $this->Kode_suratModel->orderBy('kode_surat', 'ASC')->get()->getResultArray(),
-                    'validation' => \Config\Services::validation(),
-                ];
+                $tahun = $request->getVar('tahun');
+                if (session()->get('level') === 'Admin eOffice' || session()->get('level') === 'Superadmin') {
+                    $data = [
+                        'tahun' => $tahun,
+                        'akses' => '',
+                        'namaadminx' => $this->UsersModel->get()->getResultArray(),
+                        's_keluar' => $this->S_keluarModel->where('YEAR(tanggal)', $tahun)->orderBy('timestamp', 'DESC')->orderBy('nomor', 'DESC')->get()->getResultArray(),
+                        'kode_surat' => $this->Kode_suratModel->orderBy('kode_surat', 'ASC')->get()->getResultArray(),
+                        'nomor_terakhir' => $this->S_keluarModel->where('YEAR(tanggal)', $tahun)->orderBy('nomor', 'DESC')->first(),
+                        'validation' => \Config\Services::validation(),
+                    ];
+                } else {
+                    $data = [
+                        'tahun' => $tahun,
+                        'akses' => 'readonly',
+                        'namaadminx' => $this->UsersModel->get()->getResultArray(),
+                        's_keluar' => $this->S_keluarModel->where('YEAR(tanggal)', $tahun)->where('admin', $namaadmin)->orderBy('nomor', 'DESC')->get()->getResultArray(),
+                        'kode_surat' => $this->Kode_suratModel->orderBy('kode_surat', 'ASC')->get()->getResultArray(),
+                        'nomor_terakhir' => $this->S_keluarModel->where('YEAR(tanggal)', $tahun)->orderBy('nomor', 'DESC')->first(),
+                        'validation' => \Config\Services::validation(),
+                    ];
+                }
                 $msg = [
                     'data' => view('backend/s_keluar/view', $data)
                 ];
@@ -63,7 +95,7 @@ class S_keluar extends BaseController
 
     public function tambah()
     {
-        if (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin eOffice') {
+        if (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin eOffice' || session()->get('level') === 'Dosen' || session()->get('level') === 'Tendik') {
             $request = \Config\Services::request();
             $validation = \Config\Services::validation();
             $kode_surat = $request->getVar('kode_surat');
@@ -169,7 +201,7 @@ class S_keluar extends BaseController
 
     public function edit()
     {
-        if (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin eOffice') {
+        if (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin eOffice' || session()->get('level') === 'Dosen' || session()->get('level') === 'Tendik') {
             $request = \Config\Services::request();
             $id = $request->getVar('id');
             $nomor = $request->getVar('nomor');
@@ -198,19 +230,35 @@ class S_keluar extends BaseController
                     session()->setFlashdata('pesanGagal', 'Format tidak sesuai');
                     return redirect()->to(base_url('/s_keluar'));
                 }
-                $data = [
-                    'nomor' => $nomor,
-                    'kode_surat' => $kode_surat,
-                    'jalur' => $jalur,
-                    'tanggal' => $tanggal,
-                    'perihal' => $perihal,
-                    'tujuan' => $tujuan,
-                    'status' => $status,
-                    'keterangan' => $keterangan,
-                    'bagian' => $bagian,
-                    'admin2' => $username,
-                    'timestamp2' => $timestamp,
-                ];
+                if (session()->get('level') === 'Admin eOffice' || session()->get('level') === 'Superadmin') {
+                    $data = [
+                        'nomor' => $nomor,
+                        'kode_surat' => $kode_surat,
+                        'jalur' => $jalur,
+                        'tanggal' => $tanggal,
+                        'perihal' => $perihal,
+                        'tujuan' => $tujuan,
+                        'status' => $status,
+                        'keterangan' => $keterangan,
+                        'bagian' => $bagian,
+                        'admin2' => $username,
+                        'timestamp2' => $timestamp,
+                    ];
+                } else {
+                    $data = [
+                        'nomor' => $nomor,
+                        'kode_surat' => $kode_surat,
+                        'jalur' => $jalur,
+                        'tanggal' => $tanggal,
+                        'perihal' => $perihal,
+                        'tujuan' => $tujuan,
+                        'status' => 'usulan',
+                        'keterangan' => $keterangan,
+                        'bagian' => $bagian,
+                        'admin2' => $username,
+                        'timestamp2' => $timestamp,
+                    ];
+                }
                 $this->S_keluarModel->update($id, $data);
 
                 session()->setFlashdata('pesanInput', 'Mengubah Data Surat Keluar');
@@ -243,20 +291,36 @@ class S_keluar extends BaseController
                     $newName = $file->getRandomName();
                     $file->store('content/s_keluar/', $newName);
                     $nama_file = $newName;
-                    $data = [
-                        'nomor' => $nomor,
-                        'kode_surat' => $kode_surat,
-                        'jalur' => $jalur,
-                        'tanggal' => $tanggal,
-                        'perihal' => $perihal,
-                        'tujuan' => $tujuan,
-                        'status' => $status,
-                        'keterangan' => $keterangan,
-                        'bagian' => $bagian,
-                        'admin2' => $username,
-                        'timestamps2' => $timestamp,
-                        'file' => $nama_file,
-                    ];
+                    if (session()->get('level') === 'Admin eOffice' || session()->get('level') === 'Superadmin') {
+                        $data = [
+                            'nomor' => $nomor,
+                            'kode_surat' => $kode_surat,
+                            'jalur' => $jalur,
+                            'tanggal' => $tanggal,
+                            'perihal' => $perihal,
+                            'tujuan' => $tujuan,
+                            'status' => $status,
+                            'keterangan' => $keterangan,
+                            'bagian' => $bagian,
+                            'admin2' => $username,
+                            'timestamps2' => $timestamp,
+                            'file' => $nama_file,
+                        ];
+                    } else {
+                        $data = [
+                            'kode_surat' => $kode_surat,
+                            'jalur' => $jalur,
+                            'tanggal' => $tanggal,
+                            'perihal' => $perihal,
+                            'tujuan' => $tujuan,
+                            'status' => 'usulan',
+                            'keterangan' => $keterangan,
+                            'bagian' => $bagian,
+                            'admin2' => $username,
+                            'timestamps2' => $timestamp,
+                            'file' => $nama_file,
+                        ];
+                    }
                     $this->S_keluarModel->update($id, $data);
                     session()->setFlashdata('pesanInput', 'Mengubah Data Surat Keluar');
                     return redirect()->to(base_url('/s_keluar'));
@@ -269,7 +333,7 @@ class S_keluar extends BaseController
 
     public function hapus($id)
     {
-        if (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin eOffice') {
+        if (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin eOffice' || session()->get('level') === 'Dosen' || session()->get('level') === 'Tendik') {
             $cekfile = $this->S_keluarModel->where('id', $id)->first();
             $namafile = $cekfile['file'];
             $filesource = '../writable/uploads/content/s_keluar/' . $namafile . '';

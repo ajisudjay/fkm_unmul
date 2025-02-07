@@ -34,7 +34,7 @@ class Sk extends BaseController
                 'admin' => $admin,
                 'lvl' => $lvl,
                 'foto' => $gambar,
-                'semester' => $this->SemesterModel->orderBy('semester', 'DESC')->get()->getResultArray(),
+                'tahun_sk' => $this->SkModel->DISTINCT('tahun')->getDistinctYears()
             ];
             return view('backend/sk/index', $data);
         } else {
@@ -47,14 +47,14 @@ class Sk extends BaseController
             $request = \Config\Services::request();
             $username = session()->get('username');
             if ($request->isAJAX()) {
-                $semesterx = $request->getVar('semesterx');
+                $tahun = $request->getVar('tahun');
                 $level = session()->get('level');
-                if ($level === 'Dosen' || $level === 'Tendik') {
+                if ($level === 'Dosen' || $level === 'Tendik' || $level === 'Admin Website') {
                     $aksesbutton = 'hidden';
                     $data = [
                         'aksesbutton' => $aksesbutton,
-                        'sel_semester' => $this->SemesterModel->where('id', $semesterx)->first(),
-                        'sk' => $this->SkModel->select('*')->select('sk.id as id_sk')->select('sk.kategori as id_katsk')->select('kategori_sk.kategori as nama_kategori')->select('semester.semester as nama_semester')->where('sk.semester', $semesterx)->join('kategori_sk', 'kategori_sk.id=sk.kategori')->join('semester', 'semester.id=sk.semester')->where('sk.sasaran', 'Terbuka')->orderBy('tanggal', 'DESC')->orderBy('nomor', 'DESC')->get()->getResultArray(),
+                        'tahun' => $tahun,
+                        'sk' => $this->SkModel->select('*')->select('sk.id as id_sk')->select('sk.kategori as id_katsk')->select('kategori_sk.kategori as nama_kategori')->where('YEAR(tanggal)', $tahun)->join('kategori_sk', 'kategori_sk.id=sk.kategori')->join('users', 'sk.admin=users.username')->where('sk.sasaran', 'Terbuka')->orderBy('tanggal', 'DESC')->orderBy('nomor', 'DESC')->get()->getResultArray(),
                         'kategori_sk' => $this->Kategori_skModel->orderBy('kategori', 'ASC')->get()->getResultArray(),
                         'semester' => $this->SemesterModel->orderBy('semester', 'DESC')->get()->getResultArray(),
                         'validation' => \Config\Services::validation(),
@@ -63,8 +63,8 @@ class Sk extends BaseController
                     $aksesbutton = '';
                     $data = [
                         'aksesbutton' => $aksesbutton,
-                        'sel_semester' => $this->SemesterModel->where('id', $semesterx)->first(),
-                        'sk' => $this->SkModel->select('*')->select('sk.id as id_sk')->select('sk.kategori as id_katsk')->select('kategori_sk.kategori as nama_kategori')->select('semester.semester as nama_semester')->where('sk.semester', $semesterx)->join('kategori_sk', 'kategori_sk.id=sk.kategori')->join('semester', 'semester.id=sk.semester')->orderBy('tanggal', 'DESC')->orderBy('nomor', 'DESC')->get()->getResultArray(),
+                        'tahun' => $tahun,
+                        'sk' => $this->SkModel->select('*')->select('sk.id as id_sk')->select('sk.kategori as id_katsk')->select('kategori_sk.kategori as nama_kategori')->where('YEAR(tanggal)', $tahun)->join('kategori_sk', 'kategori_sk.id=sk.kategori')->join('users', 'sk.admin=users.username')->orderBy('tanggal', 'DESC')->orderBy('nomor', 'DESC')->get()->getResultArray(),
                         'kategori_sk' => $this->Kategori_skModel->orderBy('kategori', 'ASC')->get()->getResultArray(),
                         'semester' => $this->SemesterModel->orderBy('semester', 'DESC')->get()->getResultArray(),
                         'validation' => \Config\Services::validation(),
@@ -87,11 +87,11 @@ class Sk extends BaseController
         if (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin eOffice' || session()->get('level') === 'Dosen' || session()->get('level') === 'Tendik') {
             $request = \Config\Services::request();
             $validation = \Config\Services::validation();
+            $tahun = $request->getVar('tahun');
             $nomor = $request->getVar('nomor');
             $jenis = $request->getVar('jenis');
             $tanggal = $request->getVar('tanggal');
             $kategori = $request->getVar('kategori');
-            $semester = $request->getVar('semester');
             $perihal = $request->getVar('perihal');
             $sasaran = $request->getVar('sasaran');
             $file = $request->getFile('file');
@@ -165,7 +165,6 @@ class Sk extends BaseController
                         'jenis' => $jenis,
                         'tanggal' => $tanggal,
                         'kategori' => $kategori,
-                        'semester' => $semester,
                         'perihal' => $perihal,
                         'sasaran' => $sasaran,
                         'file' => $newName,
@@ -175,9 +174,10 @@ class Sk extends BaseController
                     $this->SkModel->insert($data);
 
                     $data2 = [
-                        'sk' => $this->SkModel->orderBy('tanggal', 'DESC')->select('*')->select('sk.id as id_sk')->select('kategori_sk.kategori as nama_kategori')->select('semester.semester as nama_semester')->join('kategori_sk', 'kategori_sk.id=sk.kategori')->join('semester', 'semester.id=sk.semester')->get()->getResultArray(),
+                        'sk' => $this->SkModel->select('*')->select('sk.id as id_sk')->select('sk.kategori as id_katsk')->select('kategori_sk.kategori as nama_kategori')->where('YEAR(tanggal)', $tahun)->join('kategori_sk', 'kategori_sk.id=sk.kategori')->join('users', 'sk.admin=users.username')->where('sk.sasaran', 'Terbuka')->orderBy('tanggal', 'DESC')->orderBy('nomor', 'DESC')->get()->getResultArray(),
+                        'tahun' => $tahun,
+                        'aksesbutton' => '',
                         'kategori_sk' => $this->Kategori_skModel->orderBy('kategori', 'ASC')->get()->getResultArray(),
-                        'semester' => $this->SemesterModel->orderBy('semester', 'DESC')->get()->getResultArray(),
                         'validation' => \Config\Services::validation(),
                     ];
                     $msg = [
@@ -199,6 +199,7 @@ class Sk extends BaseController
             $request = \Config\Services::request();
             $validation = \Config\Services::validation();
             $id = $request->getVar('id');
+            $tahun = $request->getVar('tahun');
             $nomor = $request->getVar('nomor');
             $jenis = $request->getVar('jenis');
             $tanggal = $request->getVar('tanggal');

@@ -2,15 +2,15 @@
 
 namespace App\Controllers;
 
-use App\Models\Kategori_suratModel;
+use App\Models\Kode_suratModel;
 use App\Controllers\BaseController;
 
 class Kategori_surat extends BaseController
 {
-    protected $Kategori_suratModel;
+    protected $Kode_suratModel;
     public function __construct()
     {
-        $this->Kategori_suratModel = new Kategori_suratModel();
+        $this->Kode_suratModel = new Kode_suratModel();
     }
 
     public function index()
@@ -42,7 +42,7 @@ class Kategori_surat extends BaseController
             $request = \Config\Services::request();
             if ($request->isAJAX()) {
                 $data = [
-                    'kategori_surat' => $this->Kategori_suratModel->orderBy('id', 'DESC')->get()->getResultArray(),
+                    'kategori_surat' => $this->Kode_suratModel->orderBy('id', 'DESC')->get()->getResultArray(),
                     'validation' => \Config\Services::validation(),
                 ];
                 $msg = [
@@ -65,7 +65,7 @@ class Kategori_surat extends BaseController
             $data = [
                 'kategori' => $kategori_surat,
             ];
-            $this->Kategori_suratModel->insert($data);
+            $this->Kode_suratModel->insert($data);
             session()->setFlashdata('pesanHapus', 'Berhasil !');
             return redirect()->to(base_url('/kategori_surat'));
         } else {
@@ -82,7 +82,7 @@ class Kategori_surat extends BaseController
             $data = [
                 'kategori' => $kategori_surat,
             ];
-            $this->Kategori_suratModel->update($id, $data);
+            $this->Kode_suratModel->update($id, $data);
             session()->setFlashdata('pesanHapus', 'Berhasil !');
             return redirect()->to(base_url('/kategori_surat'));
         } else {
@@ -94,7 +94,7 @@ class Kategori_surat extends BaseController
     public function hapus($id)
     {
         if (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin eOffice') {
-            $this->Kategori_suratModel->delete($id);
+            $this->Kode_suratModel->delete($id);
             session()->setFlashdata('pesanHapus', 'Kategori_sk Berhasil Di Hapus !');
             return redirect()->to(base_url('/kategori_surat'));
         } else {

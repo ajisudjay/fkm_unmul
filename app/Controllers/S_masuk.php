@@ -33,6 +33,7 @@ class S_masuk extends BaseController
                 'admin' => $admin,
                 'lvl' => $lvl,
                 'foto' => $gambar,
+                'tahun_surat' => $this->S_masukModel->DISTINCT('tahun')->getDistinctYears()
             ];
             return view('backend/s_masuk/index', $data);
         } else {
@@ -45,8 +46,9 @@ class S_masuk extends BaseController
         if (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin eOffice') {
             $request = \Config\Services::request();
             if ($request->isAJAX()) {
+                $tahun = $request->getVar('tahun');
                 $data = [
-                    's_masuk' => $this->S_masukModel->orderBy('tgl_sm', 'DESC')->get()->getResultArray(),
+                    's_masuk' => $this->S_masukModel->where('YEAR(tgl_sm)', $tahun)->orderBy('tgl_sm', 'DESC')->get()->getResultArray(),
                     'disposisi' => $this->DisposisiModel->orderBy('timestamp', 'DESC')->get()->getResultArray(),
                     'validation' => \Config\Services::validation(),
                 ];
@@ -181,7 +183,6 @@ class S_masuk extends BaseController
                     'perihal' => $perihal,
                     'keterangan' => $keterangan,
                     'tahun' => $tahun_surat,
-                    'status' => 'Belum Disposisi',
                     'timestamp' => $timestamp,
                     'admin' => $username,
                 ];
@@ -224,7 +225,6 @@ class S_masuk extends BaseController
                         'keterangan' => $keterangan,
                         'file' => $nama_file,
                         'tahun' => $tahun_surat,
-                        'status' => 'Belum Disposisi',
                         'timestamp' => $timestamp,
                         'admin' => $username,
                     ];

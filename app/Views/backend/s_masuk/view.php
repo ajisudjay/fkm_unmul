@@ -211,60 +211,6 @@
                                             <div class="modal-body">
                                                 <div class="row">
                                                     <div class="dt-responsive table-responsive">
-                                                        <form action="<?= base_url('s_masuk/tambahdisposisi'); ?>" method="post">
-                                                            <?= csrf_field() ?>
-                                                            <div class="modal-body">
-                                                                <div class="row">
-                                                                    <table class="table table-hover-animation nowrap">
-                                                                        <tbody>
-                                                                            <tr>
-                                                                                <td>
-                                                                                    <h5> Nomor Surat : <?= $item['no_surat'] ?></h5>
-                                                                                </td>
-                                                                                <td>
-                                                                                    <h5> Tanggal Surat : <?= $item['tgl_surat'] ?></h5>
-                                                                                </td>
-                                                                                <td>
-                                                                                    <h5> Asal Surat : <?= $item['asal_surat'] ?></h5>
-                                                                                </td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <td colspan="3">
-                                                                                    <h5 class="modal-title">Perihal : <?= $item['perihal'] ?></h5>
-                                                                                </td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <td colspan="3">
-                                                                                    <h5 class="modal-title">Keterangan : <?= $item['keterangan'] ?></h5>
-                                                                                </td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <td>
-                                                                                    <input type="text" name="id_sm" class="form-control id_sm" value="<?= $item['no_disposisi'] ?>" hidden>
-                                                                                    <input type="text" name="kepada" class="form-control kepada" placeholder="Kepada" required>
-                                                                                </td>
-                                                                                <td>
-                                                                                    <select name="status" class="form-control">
-                                                                                        <option value="Sedang Diproses">Sedang Diproses</option>
-                                                                                        <option value="Selesai">Selesai</option>
-                                                                                        <option value="Ditolak">Ditolak</option>
-                                                                                        <option value="Belum Disposisi">Belum Disposisi</option>
-                                                                                    </select>
-                                                                                </td>
-                                                                                <td>
-                                                                                    <button type="submit" class="btn btn-primary btnSimpan">Tambah</button>
-                                                                                </td>
-                                                                            </tr>
-                                                                            <tr>
-                                                                                <td colspan="3"><input type="text" name="tindak_lanjut" class="form-control tindak_lanjut" placeholder="Tindak Lanjut" required></td>
-                                                                            </tr>
-                                                                        </tbody>
-                                                                    </table>
-
-                                                                    <br>
-                                                                </div>
-                                                            </div>
-                                                        </form>
                                                         <table id="simpletable" class="table table-striped table-hover-animation nowrap">
                                                             <thead>
                                                                 <tr>
@@ -335,6 +281,60 @@
                                                                 <?php endforeach ?>
                                                             </tbody>
                                                         </table>
+                                                        <form action="<?= base_url('s_masuk/tambahdisposisi'); ?>" method="post">
+                                                            <?= csrf_field() ?>
+                                                            <div class="modal-body">
+                                                                <div class="row">
+                                                                    <table class="table table-hover-animation nowrap">
+                                                                        <tbody>
+                                                                            <tr>
+                                                                                <td>
+                                                                                    <h5> Nomor Surat : <?= $item['no_surat'] ?></h5>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <h5> Tanggal Surat : <?= $item['tgl_surat'] ?></h5>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <h5> Asal Surat : <?= $item['asal_surat'] ?></h5>
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td colspan="3">
+                                                                                    <h5 class="modal-title">Perihal : <?= $item['perihal'] ?></h5>
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td colspan="3">
+                                                                                    <h5 class="modal-title">Keterangan : <?= $item['keterangan'] ?></h5>
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td>
+                                                                                    <input type="text" name="id_sm" class="form-control id_sm" value="<?= $item['no_disposisi'] ?>" hidden>
+                                                                                    <input type="text" name="kepada" class="form-control kepada" placeholder="Kepada" required>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <select name="status" class="form-control">
+                                                                                        <option value="Sedang Diproses">Sedang Diproses</option>
+                                                                                        <option value="Selesai">Selesai</option>
+                                                                                        <option value="Ditolak">Ditolak</option>
+                                                                                        <option value="Belum Disposisi">Belum Disposisi</option>
+                                                                                    </select>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <button type="submit" class="btn btn-primary btnSimpan">Tambah</button>
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td colspan="3"><input type="text" name="tindak_lanjut" class="form-control tindak_lanjut" placeholder="Tindak Lanjut" required></td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+
+                                                                    <br>
+                                                                </div>
+                                                            </div>
+                                                        </form>
                                                     </div>
                                                 </div>
                                             </div>

@@ -62,8 +62,10 @@ class Kategori_surat extends BaseController
         if (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin eOffice') {
             $request = \Config\Services::request();
             $kategori_surat = $request->getVar('kategori_surat');
+            $nama = $request->getVar('nama');
             $data = [
-                'kategori' => $kategori_surat,
+                'kode_surat' => $kategori_surat,
+                'nama' => $nama,
             ];
             $this->Kode_suratModel->insert($data);
             session()->setFlashdata('pesanHapus', 'Berhasil !');
@@ -79,8 +81,10 @@ class Kategori_surat extends BaseController
             $request = \Config\Services::request();
             $id = $request->getVar('id');
             $kategori_surat = $request->getVar('kategori_surat');
+            $nama = $request->getVar('nama');
             $data = [
-                'kategori' => $kategori_surat,
+                'kode_surat' => $kategori_surat,
+                'nama' => $nama,
             ];
             $this->Kode_suratModel->update($id, $data);
             session()->setFlashdata('pesanHapus', 'Berhasil !');

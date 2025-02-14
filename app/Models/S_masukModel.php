@@ -16,6 +16,11 @@ class S_masukModel extends Model
     protected $protectFields    = true;
     protected $allowedFields    = ['id', 'no_disposisi', 'tgl_sm', 'no_surat', 'tgl_surat', 'perihal', 'asal_surat', 'status', 'file', 'keterangan', 'tahun', 'timestamp', 'admin',];
 
+    public function getDistinctYears()
+    {
+        return $this->select('DISTINCT YEAR(tgl_sm) as tahun')->orderBy('tahun', 'DESC')->findAll();
+    }
+
     // Dates
     protected $useTimestamps = false;
     protected $dateFormat    = 'datetime';

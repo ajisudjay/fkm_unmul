@@ -50,6 +50,3 @@ DONE4. proses selesai jika admin/pengusul sdh mendapatkan ttd dan konfirmasi "su
 2. superadmin/admin bisa melihat semua surat yang masuk dan menolak jika format salah dan memberi catatan untuk pengusul(usulan tidak dihapus tapi bisa diedit dengan status ditolak)
 
 LANJUT !!!!
-LANJUTKAN BUAT SURAT MASUK!!!!
-
-buat surat masuk pertahun

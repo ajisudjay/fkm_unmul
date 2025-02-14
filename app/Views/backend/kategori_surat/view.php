@@ -21,10 +21,16 @@
                         <?= csrf_field() ?>
                         <div class="modal-body">
                             <div class="row">
-                                <div class="col-lg-12">
-                                    <label class="text-primary">Kategori</label>
+                                <div class="col-lg-6">
+                                    <label class="text-primary">Kode Surat</label>
                                     <input type="text" name="kategori_surat" class="form-control kategori_surat" placeholder="Kategori">
                                     <div class="invalid-feedback errorkategori_surat"></div>
+                                    <br>
+                                </div>
+                                <div class="col-lg-6">
+                                    <label class="text-primary">Kategori</label>
+                                    <input type="text" name="nama" class="form-control nama" placeholder="Nama">
+                                    <div class="invalid-feedback errornama"></div>
                                     <br>
                                 </div>
                                 <br>
@@ -64,13 +70,13 @@
                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                         <!-- button ubah disposisi modal-->
                                         <button type="button" class="dropdown-item" data-toggle="modal" data-target="#editdismodal<?= $id = $item['id'] ?>">
-                                            <span class="btn-sm btn-warning feather icon-edit text-default"></span>
+                                            <span class="btn-sm btn-warning feather icon-edit text-default"> Ubah</span>
                                         </button>
                                         <div class="dropdown-divider"></div>
                                         <!-- button ubah disposisi modal-->
                                         <a href="<?= base_url('kategori_surat/hapus/' . $item['id']); ?>" class="hapus">
                                             <button type="button" class="dropdown-item">
-                                                <span class="btn-sm btn-danger feather icon-trash-2 text-default"></span>
+                                                <span class="btn-sm btn-danger feather icon-trash-2 text-default"> Hapus</span>
                                             </button>
                                         </a>
                                         <div class="dropdown-divider"></div>
@@ -94,7 +100,7 @@
                                                     <?= csrf_field() ?>
                                                     <div class="modal-body">
                                                         <div class="row">
-                                                            <div class="col-lg-12">
+                                                            <div class="col-lg-6">
                                                                 <label class="text-primary">Kategori</label>
                                                                 <input type="text" name="id" value="<?= $item['id'] ?>" hidden>
                                                                 <input type="text" name="kategori_surat" class="form-control kategori_surat" value="<?= $item['kode_surat'] ?>">
@@ -102,11 +108,17 @@
                                                                 <br>
                                                             </div>
                                                             <br>
+                                                            <div class="col-lg-6">
+                                                                <label class="text-primary">Kategori</label>
+                                                                <input type="text" name="nama" class="form-control nama" value="<?= $item['nama'] ?>">
+                                                                <div class="invalid-feedback errornama"></div>
+                                                                <br>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Batalkan</button>
-                                                        <button type="submit" class="btn btn-primary btnSimpan">Simpan</button>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-danger" data-dismiss="modal">Batalkan</button>
+                                                            <button type="submit" class="btn btn-primary btnSimpan">Simpan</button>
+                                                        </div>
                                                     </div>
                                                 </form>
                                             </div>

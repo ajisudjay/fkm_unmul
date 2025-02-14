@@ -246,8 +246,8 @@
                                 <br>
                             </td>
 
-                            <td style="min-width: 300px;max-width: 500px; white-space: normal;"><?= $item['perihal'] ?></td>
-                            <td style="min-width: 150px;max-width: 500px; white-space: normal;"><?= $item['tujuan'] ?>
+                            <td style="min-width: 200px;max-width: 400px; white-space: normal;"><?= $item['perihal'] ?></td>
+                            <td style="min-width: 150px;max-width: 450px; white-space: normal;"><?= $item['tujuan'] ?>
                             </td>
                             <td style="text-align: center;">
                                 <span class="badge badge-pill badge-primary"><?= $item['status'] ?></span>

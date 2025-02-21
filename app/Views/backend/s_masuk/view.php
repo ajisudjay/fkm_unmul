@@ -195,11 +195,38 @@
                                 </div>
                             </td>
                             <td style="min-width: 100px;max-width: 300px; white-space: normal;">
-                                <button type="button" class="btn-sm btn-primary border-0" data-toggle="modal" data-target="#fileviewmodal<?= $id = $item['id'] ?>">
+                                <button type="button" class="btn-sm btn-primary border-0" data-toggle="modal" data-target="#disposisimodal<?= $id = $item['id'] ?>">
                                     <?= $item['no_disposisi'] ?>
                                 </button>
-                                <!-- file view modal-->
+                                <button type="button" class="btn-sm btn-success border-0" data-toggle="modal" data-target="#fileviewmodal<?= $id = $item['id'] ?>">
+                                    <span class="fa fa-download"></span>
+                                </button>
+                                <!-- view modal-->
                                 <div class="modal fade" id="fileviewmodal<?= $id = $item['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">Nomor Disposisi : <?= $item['no_disposisi'] ?></h5> | <span class="badge badge-pill badge-primary"><?= $item['tgl_sm'] ?></span> | <span class="badge badge-pill badge-warning"><?= $item['status'] ?></span>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body" style="text-align:left ;">
+                                                <div class="row">
+                                                    <div class="col-lg-12">
+                                                        <embed src="<?= base_url('writable/uploads/content/s_masuk/' . $item['file']) ?>" type='application/pdf' width='100%' height='750px'>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-danger" data-dismiss="modal">Tutup</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- disposisi view modal-->
+                                <div class="modal fade" id="disposisimodal<?= $id = $item['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
@@ -338,35 +365,32 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="modal-body" style="text-align:left ;">
-                                                <div class="row">
-                                                    <div class="col-lg-12">
-                                                        <embed src="<?= base_url('writable/uploads/content/s_masuk/' . $item['file']) ?>" type='application/pdf' width='100%' height='750px'>
-                                                    </div>
-                                                </div>
-                                            </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-danger" data-dismiss="modal">Tutup</button>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                                <br>
+                                <br>
+                            </td>
+                            <td style="min-width: 100px;max-width: 300px; white-space: normal;"><?= $item['tgl_sm'] ?></td>
+                            <td style="min-width: 100px;max-width: 300px; white-space: normal;"><?= $item['no_surat'] ?></td>
+                            <td style="min-width: 100px;max-width: 300px; white-space: normal;"><?= $item['perihal'] ?></td>
+                            <td style="min-width: 100px;max-width: 300px; white-space: normal;"><?= $item['asal_surat'] ?></td>
+                            <td style="min-width: 75px;max-width: 300px; white-space: normal;"><span class="badge badge-pill badge-primary"><?= $item['status'] ?></span><span class="badge badge-pill badge-secondary"> <?php foreach ($namaadminx as $x) : ?>
+                                        <?php if ($x['username'] == $item['admin']) { ?>
+                                            <?= $x['nama'] ?>
+                                        <?php } ?>
+                                    <?php endforeach ?>
+                                </span><br><span class="badge badge-pill badge-warning"><?= $item['timestamp'] ?></span></td>
+                        </tr>
+                    <?php endforeach ?>
+                </tbody>
+            </table>
         </div>
-        <br>
-        <br>
-        </td>
-        <td style="min-width: 100px;max-width: 300px; white-space: normal;"><?= $item['tgl_sm'] ?></td>
-        <td style="min-width: 100px;max-width: 300px; white-space: normal;"><?= $item['no_surat'] ?></td>
-        <td style="min-width: 100px;max-width: 300px; white-space: normal;"><?= $item['perihal'] ?></td>
-        <td style="min-width: 100px;max-width: 300px; white-space: normal;"><?= $item['asal_surat'] ?></td>
-        <td style="min-width: 75px;max-width: 300px; white-space: normal;"><span class="badge badge-pill badge-primary"><?= $item['status'] ?></span><span class="badge badge-pill badge-secondary"><?= $item['admin'] ?></span><br><span class="badge badge-pill badge-warning"><?= $item['timestamp'] ?></span></td>
-        </tr>
-    <?php endforeach ?>
-    </tbody>
-    </table>
     </div>
-</div>
 
 
-<?= $this->include('backend/s_masuk/ajax') ?>
-<?= $this->include('backend/layouts/js_view') ?>
+    <?= $this->include('backend/s_masuk/ajax') ?>
+    <?= $this->include('backend/layouts/js_view') ?>

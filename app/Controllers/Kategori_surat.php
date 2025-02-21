@@ -42,7 +42,7 @@ class Kategori_surat extends BaseController
             $request = \Config\Services::request();
             if ($request->isAJAX()) {
                 $data = [
-                    'kategori_surat' => $this->Kode_suratModel->orderBy('id', 'DESC')->get()->getResultArray(),
+                    'kategori_surat' => $this->Kode_suratModel->orderBy('kode_surat', 'ASC')->get()->getResultArray(),
                     'validation' => \Config\Services::validation(),
                 ];
                 $msg = [

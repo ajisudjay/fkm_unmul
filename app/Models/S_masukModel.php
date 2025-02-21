@@ -14,7 +14,7 @@ class S_masukModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['id', 'no_disposisi', 'tgl_sm', 'no_surat', 'tgl_surat', 'perihal', 'asal_surat', 'status', 'file', 'keterangan', 'tahun', 'timestamp', 'admin',];
+    protected $allowedFields    = ['id', 'no_disposisi', 'tgl_sm', 'no_surat', 'tgl_surat', 'perihal', 'asal_surat', 'status', 'file', 'keterangan', 'timestamp', 'admin',];
 
     public function getDistinctYears()
     {

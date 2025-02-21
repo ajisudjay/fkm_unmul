@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Models\S_masukModel;
 use App\Models\DisposisiModel;
+use App\Models\UsersModel;
 use App\Controllers\BaseController;
 
 
@@ -11,10 +12,12 @@ class S_masuk extends BaseController
 {
     protected $S_masukModel;
     protected $DisposisiModel;
+    protected $UsersModel;
     public function __construct()
     {
         $this->S_masukModel = new S_masukModel();
         $this->DisposisiModel = new DisposisiModel();
+        $this->UsersModel = new UsersModel();
     }
     public function index()
     {
@@ -48,7 +51,8 @@ class S_masuk extends BaseController
             if ($request->isAJAX()) {
                 $tahun = $request->getVar('tahun');
                 $data = [
-                    's_masuk' => $this->S_masukModel->where('YEAR(tgl_sm)', $tahun)->orderBy('tgl_sm', 'DESC')->get()->getResultArray(),
+                    'namaadminx' => $this->UsersModel->get()->getResultArray(),
+                    's_masuk' => $this->S_masukModel->where('YEAR(tgl_sm)', $tahun)->orderBy('no_disposisi', 'DESC')->get()->getResultArray(),
                     'disposisi' => $this->DisposisiModel->orderBy('timestamp', 'DESC')->get()->getResultArray(),
                     'validation' => \Config\Services::validation(),
                 ];
@@ -80,7 +84,6 @@ class S_masuk extends BaseController
             date_default_timezone_set("Asia/Kuala_Lumpur");
             $timestamp = date("Y-m-d H:i:sa");
             $date = new \DateTime($tgl_sm);
-            $tahun_surat = $date->format('Y');
             $input = $this->validate([
                 'file' => 'uploaded[file]|max_size[file,5048]'
             ]);
@@ -100,7 +103,6 @@ class S_masuk extends BaseController
                     'perihal' => $perihal,
                     'keterangan' => $keterangan,
                     'file' => $nama_file,
-                    'tahun' => $tahun_surat,
                     'status' => 'Belum Disposisi',
                     'timestamp' => $timestamp,
                     'admin' => $username,
@@ -163,7 +165,6 @@ class S_masuk extends BaseController
             date_default_timezone_set("Asia/Kuala_Lumpur");
             $timestamp = date("Y-m-d H:i:sa");
             $date = new \DateTime($tgl_sm);
-            $tahun_surat = $date->format('Y');
             if (!file_exists($_FILES['file']['tmp_name'])) {
                 $input2 = $this->validate([
                     'no_surat' => 'required[no_surat],',
@@ -182,7 +183,6 @@ class S_masuk extends BaseController
                     'asal_surat' => $asal_surat,
                     'perihal' => $perihal,
                     'keterangan' => $keterangan,
-                    'tahun' => $tahun_surat,
                     'timestamp' => $timestamp,
                     'admin' => $username,
                 ];
@@ -224,7 +224,6 @@ class S_masuk extends BaseController
                         'perihal' => $perihal,
                         'keterangan' => $keterangan,
                         'file' => $nama_file,
-                        'tahun' => $tahun_surat,
                         'timestamp' => $timestamp,
                         'admin' => $username,
                     ];

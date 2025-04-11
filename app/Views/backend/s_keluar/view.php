@@ -89,61 +89,31 @@
 
     <div class="card-block">
         <div class="dt-responsive table-responsive">
-            <table class="table table-striped table-hover-animation nowrap">
+            <table id="simpletable" class="table table-striped table-hover-animation nowrap">
                 <thead>
                     <tr>
-                        <th width="5%" style="text-align: center;">No</th>
-                        <th width="15%" style="text-align: center;">Nomor</th>
+                        <th width="5%" style="text-align: center;">Nomor</th>
+                        <th width="15%" style="text-align: center;">Tanggal</th>
                         <th width="35%">Perihal</th>
                         <th width="25%">Tujuan</th>
                         <th width="15%" style="text-align: center;">Log</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php $no = 1; ?>
                     <?php foreach ($s_keluar as $item) : ?>
-                        <?php
-                        if ($item['status'] === 'usulan') {
-                            $judul = $item['status'];
-                        } else {
-                            $tahunsurat = date('Y', strtotime($item['tanggal']));
-                            $judul = $item['nomor'] . $item['kode_surat'] . $tahunsurat;
-                        }
-                        ?>
                         <tr>
                             <!-- ISI VIEW -->
                             <td>
-                                <button class="btn btn-outline-primary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><?= $no++ ?>
+                                <button type="button" class="btn-sm btn-primary border-0" data-toggle="modal" data-target="#fileusulanmodal<?= $id = $item['id'] ?>">
+                                    <?php $tahunsurat = date('Y', strtotime($item['tanggal'])); ?>
+                                    <?= $item['nomor'] . $item['kode_surat'] . $tahunsurat; ?>
                                 </button>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <!-- button hapus modal-->
-                                    <a href="<?= base_url('s_keluar/hapus/' . $item['id']); ?>" class="dropdown-item hapus">
-                                        <span class="fa fa-trash text-danger"> Hapus</span>
-                                    </a>
-                                </div>
-
                             </td>
                             <td style="min-width: 100px;max-width: 300px; white-space: normal;text-align: center;">
-                                <?php
-                                if ($item['status'] === 'usulan') {
-                                    $judul = $item['status'];
-                                } else {
-                                    $tahunsurat = date('Y', strtotime($item['tanggal']));
-                                    $judul = $item['nomor'] . $item['kode_surat'] . $tahunsurat;
-                                }
-                                ?>
-                                <button type="button" class="btn-sm btn-primary border-0" data-toggle="modal" data-target="#fileusulanmodal<?= $id = $item['id'] ?>">
-                                    <?= $judul ?>
-                                </button>
+
                                 <br><span class="badge badge-pill badge-warning"><?= $item['tanggal'] ?></span>
                                 <br>
-                                <span class="badge badge-pill badge-success">
-                                    <?php foreach ($namaadminx as $x) : ?>
-                                        <?php if ($x['username'] == $item['admin']) { ?>
-                                            <?= $x['nama'] ?>
-                                        <?php } ?>
-                                    <?php endforeach ?>
-                                </span>
+
                                 <!-- usulan modal-->
                                 <div class="modal fade" id="fileusulanmodal<?= $id = $item['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
@@ -291,13 +261,25 @@
                             <td style="text-align: center;">
                                 <span class="badge badge-pill badge-primary"><?= $item['status'] ?></span>
                                 <?php foreach ($namaadminx as $x) : ?>
-                                    <?php if ($x['username'] == $item['admin2']) { ?>
-                                        <span class="badge badge-pill badge-danger">
-                                            <?= $x['nama'] ?>
-                                        </span>
-                                    <?php } ?>
-                                <?php endforeach ?>
-                                <span class="badge badge-pill badge-warning"><?= $item['timestamp2'] ?></span>
+                                    <?php if ($x['username'] == $item['admin']) : ?>
+                                        <?php $admin1 = $x['nama'] ?>
+                                    <?php endif; ?>
+                                    <?php if ($x['username'] == $item['admin2']) : ?>
+                                        <?php $admin2 = $x['nama'] ?>
+                                    <?php endif; ?>
+                                <?php endforeach; ?>
+                                <button type="button" class="badge badge-pill badge-info" data-container="body" data-toggle="popover" data-placement="bottom" data-html="true" data-content="Dibuat :<br> <?= $item['timestamp'] ?> -  <?= $admin1 ?><br> Diproses :<br> <?= $item['timestamp2'] ?> - <?= $admin2 ?> ">
+                                    Riwayat
+                                </button>
+                                <button class="badge badge-pill badge-danger" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="fa fa-trash"></span>
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <!-- button hapus modal-->
+                                    <a href="<?= base_url('s_keluar/hapus/' . $item['id']); ?>" class="dropdown-item hapus">
+                                        <span class="fa fa-trash text-danger"> Hapus</span>
+                                    </a>
+                                </div>
+
                             </td>
                         </tr>
                     <?php endforeach ?>

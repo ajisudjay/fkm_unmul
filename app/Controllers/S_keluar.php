@@ -65,7 +65,8 @@ class S_keluar extends BaseController
                         'tahun' => $tahun,
                         'akses' => '',
                         'namaadminx' => $this->UsersModel->get()->getResultArray(),
-                        's_keluar' => $this->S_keluarModel->where('YEAR(tanggal)', $tahun)->orderBy('perihal', 'ASC')->get()->getResultArray(),
+                        'namaadminy' => $this->UsersModel->get()->getResultArray(),
+                        's_keluar' => $this->S_keluarModel->where('YEAR(tanggal)', $tahun)->orderBy('nomor', 'DESC')->get()->getResultArray(),
                         'kode_surat' => $this->Kode_suratModel->orderBy('kode_surat', 'ASC')->get()->getResultArray(),
                         'nomor_terakhir' => $this->S_keluarModel->where('YEAR(tanggal)', $tahun)->orderBy('nomor', 'DESC')->first(),
                         'validation' => \Config\Services::validation(),
@@ -98,6 +99,7 @@ class S_keluar extends BaseController
         if (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin eOffice' || session()->get('level') === 'Dosen' || session()->get('level') === 'Tendik') {
             $request = \Config\Services::request();
             $validation = \Config\Services::validation();
+            $nomor = $request->getVar('nomor');
             $kode_surat = $request->getVar('kode_surat');
             $tanggal = $request->getVar('tanggal');
             $perihal = $request->getVar('perihal');
@@ -109,6 +111,11 @@ class S_keluar extends BaseController
             $keterangan = $request->getVar('keterangan');
             date_default_timezone_set("Asia/Kuala_Lumpur");
             $timestamp = date("Y-m-d H:i:sa");
+            if ($nomor == NULL) {
+                $nomorsurat = 0;
+            } else {
+                $nomorsurat = $nomor;
+            }
             if ($request->isAJAX()) {
                 $valid = $this->validate([
                     'tanggal' => [
@@ -172,6 +179,7 @@ class S_keluar extends BaseController
                     $file->store('content/s_keluar/', $newName);
                     $nama_file = $newName;
                     $data = [
+                        'nomor' => $nomorsurat,
                         'kode_surat' => $kode_surat,
                         'jalur' => $jalur,
                         'tanggal' => $tanggal,

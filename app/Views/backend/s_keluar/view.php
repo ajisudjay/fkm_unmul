@@ -21,6 +21,19 @@
                         <?= csrf_field() ?>
                         <div class="modal-body">
                             <div class="row">
+                                <?php
+                                if ($akses == 'readonly') { ?>
+
+                                <?php } else { ?>
+                                    <div class="col-lg-3">
+                                        <label class="text-primary">Nomor Surat</label>
+                                        <input type="text" name="nomor" class="form-control nomor" placeholder="Nomor">
+                                        <div class="invalid-feedback errornomor"></div>
+                                        <br>
+                                    </div>
+                                <?php }
+                                ?>
+
                                 <div class="col-lg-4">
                                     <label class="text-primary">Kode Surat</label>
                                     <select name="kode_surat" class="form-control kode_surat">
@@ -30,7 +43,7 @@
                                     </select>
                                     <br>
                                 </div>
-                                <div class="col-lg-4">
+                                <div class="col-lg-2">
                                     <label class="text-primary">Jalur</label>
                                     <select name="jalur" class="form-control jalur">
                                         <option value="TU">TU</option>
@@ -38,7 +51,7 @@
                                     </select>
                                     <br>
                                 </div>
-                                <div class="col-lg-4">
+                                <div class="col-lg-3">
                                     <label class="text-primary">Tanggal</label>
                                     <input type="date" name="tanggal" class="form-control tanggal">
                                     <div class="invalid-feedback errortanggal"></div>
@@ -92,8 +105,9 @@
             <table id="simpletable" class="table table-striped table-hover-animation nowrap">
                 <thead>
                     <tr>
-                        <th width="5%" style="text-align: center;">Nomor</th>
-                        <th width="15%" style="text-align: center;">Tanggal</th>
+                        <th width="5%">Nomor</th>
+                        <th width="10%">Kode</th>
+                        <th width="10%">Tanggal</th>
                         <th width="35%">Perihal</th>
                         <th width="25%">Tujuan</th>
                         <th width="15%" style="text-align: center;">Log</th>
@@ -105,15 +119,15 @@
                             <!-- ISI VIEW -->
                             <td>
                                 <button type="button" class="btn-sm btn-primary border-0" data-toggle="modal" data-target="#fileusulanmodal<?= $id = $item['id'] ?>">
-                                    <?php $tahunsurat = date('Y', strtotime($item['tanggal'])); ?>
-                                    <?= $item['nomor'] . $item['kode_surat'] . $tahunsurat; ?>
+                                    <?= $item['nomor']; ?>
                                 </button>
                             </td>
-                            <td style="min-width: 100px;max-width: 300px; white-space: normal;text-align: center;">
-
-                                <br><span class="badge badge-pill badge-warning"><?= $item['tanggal'] ?></span>
-                                <br>
-
+                            <td>
+                                <?php $tahunsurat = date('Y', strtotime($item['tanggal'])); ?>
+                                <?= $item['kode_surat'] . $tahunsurat; ?>
+                            </td>
+                            <td>
+                                <?= $item['tanggal'] ?>
                                 <!-- usulan modal-->
                                 <div class="modal fade" id="fileusulanmodal<?= $id = $item['id'] ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
@@ -260,6 +274,10 @@
                             <td style="min-width: 150px;max-width: 450px; white-space: normal;"><?= $item['tujuan'] ?></td>
                             <td style="text-align: center;">
                                 <span class="badge badge-pill badge-primary"><?= $item['status'] ?></span>
+                                <?php
+                                $admin1 = '-'; // Reset admin1
+                                $admin2 = '-'; // Reset admin2
+                                ?>
                                 <?php foreach ($namaadminx as $x) : ?>
                                     <?php if ($x['username'] == $item['admin']) : ?>
                                         <?php $admin1 = $x['nama'] ?>
@@ -269,7 +287,7 @@
                                     <?php endif; ?>
                                 <?php endforeach; ?>
                                 <button type="button" class="badge badge-pill badge-info" data-container="body" data-toggle="popover" data-placement="bottom" data-html="true" data-content="Dibuat :<br> <?= $item['timestamp'] ?> -  <?= $admin1 ?><br> Diproses :<br> <?= $item['timestamp2'] ?> - <?= $admin2 ?> ">
-                                    Riwayat
+                                    <span class="fa fa-history"></span>
                                 </button>
                                 <button class="badge badge-pill badge-danger" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="fa fa-trash"></span>
                                 </button>

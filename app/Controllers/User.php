@@ -122,7 +122,7 @@ class User extends BaseController
                     ],
                     'file' => [
                         'label' => 'Gambar',
-                        'rules' => 'uploaded[file]|max_size[file,2048]|mime_in[file,image/png,image/jpeg]|is_image[file]',
+                        'rules' => 'uploaded[file]|max_size[file,2048]|is_image[file]',
                         'errors' => [
                             'uploaded' => '* {field} Tidak Boleh Kosong !',
                             'max_size' => '* {field} Ukuran Max 1 mb !',

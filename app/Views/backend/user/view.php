@@ -270,7 +270,7 @@
                             <td><?= $item['level'] ?></td>
                             <td><?= $item['jenis'] ?></td>
                             <td><span><img class="round" src="<?= base_url('writable/uploads/content/user/' . $item['file']); ?>" height="80" width="80"></span></td>
-                            <td><?= $item['timestamp'] . ' | ' . $item['admin'] ?></td>
+                            <td><?= $item['timestamp'] . ' ' . $item['admin'] ?></td>
                         </tr>
                     <?php endforeach ?>
                 </tbody>

@@ -118,10 +118,10 @@ class Submenu extends BaseController
             $admin = session()->get('nama');
             $lvl = session()->get('level');
             $file = session()->get('file');
-            if ($file <  1) {
-                $gambar = base_url('app-assets/images/profile/user-profile.png');
+            if ($file === NULL) {
+                $gambar = 'user-profile.png';
             } else {
-                $gambar = base_url('content/user/' . $file);
+                $gambar = $file;
             }
             $data = [
                 'title' => 'Sub Menu',
@@ -145,10 +145,10 @@ class Submenu extends BaseController
             $admin = session()->get('nama');
             $lvl = session()->get('level');
             $file = session()->get('file');
-            if ($file <  1) {
-                $gambar = base_url('app-assets/images/profile/user-profile.png');
+            if ($file === NULL) {
+                $gambar = 'user-profile.png';
             } else {
-                $gambar = base_url('content/user/' . $file);
+                $gambar = $file;
             }
             $data = [
                 'title' => 'Sub Menu',

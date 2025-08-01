@@ -1,0 +1,29 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteRule ^(.*)$ public/$1 [L]
+</IfModule>
+
+<FilesMatch "^\.">
+    Require all denied
+    Satisfy All
+</FilesMatch>
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteCond %{HTTP_USER_AGENT} PetalBot [NC,OR]
+    RewriteCond %{HTTP_USER_AGENT} SemrushBot [NC,OR]
+    RewriteCond %{HTTP_USER_AGENT} bingbot [NC,OR]
+    RewriteCond %{HTTP_USER_AGENT} Googlebot [NC,OR]
+    RewriteCond %{HTTP_USER_AGENT} MegaIndex.ru [NC,OR]
+    RewriteCond %{HTTP_USER_AGENT} Barkrowler [NC,OR]
+    RewriteCond %{HTTP_USER_AGENT} Applebot [NC,OR]
+    RewriteCond %{HTTP_USER_AGENT} SeekportBot [NC,OR]
+    RewriteCond %{HTTP_USER_AGENT} Amazonbot [NC,OR]
+    RewriteCond %{HTTP_USER_AGENT} VelenPublicWebCrawler [NC,OR]
+    RewriteCond %{HTTP_USER_AGENT} AhrefsBot [NC,OR]
+    RewriteCond %{HTTP_USER_AGENT} BLEXBot [NC,OR]
+    RewriteCond %{HTTP_USER_AGENT} YandexBot [NC,OR]
+    RewriteCond %{HTTP_USER_AGENT} serpstatbot.com [NC]
+    RewriteCond %{HTTP_USER_AGENT} GPTBot/1.0 [NC]
+    RewriteRule .* - [F,L]
+</IfModule>
+

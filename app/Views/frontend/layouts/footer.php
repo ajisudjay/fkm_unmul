@@ -96,7 +96,7 @@
              <div class="row">
                  <div class="col-xl-12">
                      <p class="copy_right text-purple text-center">
-                         2023 Fakultas Kesehatan Masyarakat | Universitas Mulawarman
+                         Fakultas Kesehatan Masyarakat | Universitas Mulawarman
                      </p>
                  </div>
              </div>

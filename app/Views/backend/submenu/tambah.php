@@ -43,11 +43,18 @@
                                 <div class="container-fluid">
                                     <div class="card-block">
                                         <br>
-                                        <h4 class="mb-0">Sub Menu</h4>
+                                        <h4 class="mb-0">Sub Menu : <?= $halaman ?></h4>
                                         <form action="<?= base_url('submenu/tambah'); ?>" method="post" enctype="multipart/form-data" class="tambah">
                                             <?= csrf_field() ?>
                                             <div class="modal-body">
                                                 <div class="row">
+                                                    <div class="col-lg-3">
+                                                        <label class="text-primary">Halaman</label>
+                                                        <select name="halaman" class="form-control halaman" readonly>
+                                                            <option value="<?= $halaman ?>"><?= $halaman ?></option>
+                                                        </select>
+                                                        <br>
+                                                    </div>
                                                     <div class="col-lg-3">
                                                         <label class="text-primary">Main Menu</label>
                                                         <select name="mainmenu" class="form-control mainmenu" required>
@@ -58,13 +65,13 @@
                                                         <div class="invalid-feedback errormainmenu"></div>
                                                         <br>
                                                     </div>
-                                                    <div class="col-lg-3">
+                                                    <div class="col-lg-2">
                                                         <label class="text-primary">Urutan</label>
                                                         <input type="number" min="1" name="urutan" class="form-control urutan" placeholder="Urutan" required>
                                                         <div class="invalid-feedback errorurutan"></div>
                                                         <br>
                                                     </div>
-                                                    <div class="col-lg-6">
+                                                    <div class="col-lg-4">
                                                         <label class="text-primary">Sub Menu</label>
                                                         <input type="text" name="submenu" class="form-control submenu" placeholder="Sub Menu" required>
                                                         <div class="invalid-feedback errorsubmenu"></div>

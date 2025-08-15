@@ -33,6 +33,13 @@
                             $('.mainmenu').removeClass('is-invalid');
                             $('.errorMainmenu').html('');
                         }
+                        if (response.error.halaman) {
+                            $('.halaman').addClass('is-invalid');
+                            $('.errorHalaman').html(response.error.halaman);
+                        } else {
+                            $('.halaman').removeClass('is-invalid');
+                            $('.errorHalaman').html('');
+                        }
                     } else {
                         if (response.status == 'gagal') {
                             Swal.fire({
@@ -88,6 +95,13 @@
                         } else {
                             $('.mainmenu').removeClass('is-invalid');
                             $('.errorMainmenu').html('');
+                        }
+                        if (response.error.halaman) {
+                            $('.halaman').addClass('is-invalid');
+                            $('.errorHalaman').html(response.error.halaman);
+                        } else {
+                            $('.halaman').removeClass('is-invalid');
+                            $('.errorHalaman').html('');
                         }
                     } else {
                         Swal.fire({

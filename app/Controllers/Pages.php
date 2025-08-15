@@ -12,6 +12,7 @@ use App\Models\DosenModel;
 use App\Models\TendikModel;
 use App\Models\BeritaModel;
 use App\Models\LinkModel;
+use App\Models\ProdiModel;
 use App\Models\SkModel;
 use App\Models\Kategori_skModel;
 use App\Models\SemesterModel;
@@ -28,6 +29,7 @@ class Pages extends BaseController
     protected $KonfigurasiModel;
     protected $BeritaModel;
     protected $LinkModel;
+    protected $ProdiModel;
     protected $SkModel;
     protected $Kategori_skModel;
     protected $SemesterModel;
@@ -43,6 +45,7 @@ class Pages extends BaseController
         $this->KonfigurasiModel = new KonfigurasiModel();
         $this->BeritaModel = new BeritaModel();
         $this->LinkModel = new LinkModel();
+        $this->ProdiModel = new ProdiModel();
         $this->SkModel = new SkModel();
         $this->Kategori_skModel = new Kategori_skModel();
         $this->SemesterModel = new SemesterModel();
@@ -54,170 +57,39 @@ class Pages extends BaseController
         $uri = current_url(true);
         $total = $uri->getTotalSegments();
 
-        if ($uri->getSegment(3) != 'content') {
-            if (session()->get('username') == NULL) {
-                return redirect()->to('/');
-            }
-        }
-
-        if ($total == 3) {
-            $segment2 = $uri->getSegment(2);
-            $segment3 = $uri->getSegment(3);
-            helper("filesystem");
-
-            $path = WRITEPATH . '' . $segment2 . '/' . $segment3 . '';
-
-            $file = new \CodeIgniter\Files\File($path, true);
-            $binary = readfile($path);
-            return $this->response
-                ->setHeader('Content-Type', $file->getMimeType())
-                ->setHeader('Content-disposition', 'inline; filename="' . $file->getBasename() . '"')
-                ->setStatusCode(200)
-                ->setBody($binary);
-        } else if ($total == 4) {
-            $segment2 = $uri->getSegment(2);
-            $segment3 = $uri->getSegment(3);
-            $segment4 = $uri->getSegment(4);
-            helper("filesystem");
-
-            $path = WRITEPATH . '' . $segment2 . '/' . $segment3 . '/' . $segment4 . '';
-
-            $file = new \CodeIgniter\Files\File($path, true);
-            $binary = readfile($path);
-            return $this->response
-                ->setHeader('Content-Type', $file->getMimeType())
-                ->setHeader('Content-disposition', 'inline; filename="' . $file->getBasename() . '"')
-                ->setStatusCode(200)
-                ->setBody($binary);
-        } else if ($total == 5) {
-            $segment2 = $uri->getSegment(2);
-            $segment3 = $uri->getSegment(3);
-            $segment4 = $uri->getSegment(4);
-            $segment5 = $uri->getSegment(5);
-            if ($segment2 == 'kjhasdlkjhlkjhasdkhadaskdhj') {
-                helper("filesystem");
-
-                $path = WRITEPATH . '' . $segment2 . '/' . $segment3 . '/' . $segment4 . '/' . $segment5 . '';
-
-                $file = new \CodeIgniter\Files\File($path, true);
-                $binary = readfile($path);
-                return $this->response
-                    ->setHeader('Content-Type', $file->getMimeType())
-                    ->setHeader('Content-disposition', 'inline; filename="' . $file->getBasename() . '"')
-                    ->setStatusCode(200)
-                    ->setBody($binary);
-            } else {
-                helper("filesystem");
-
-                $path = WRITEPATH . '' . $segment2 . '/' . $segment3 . '/' . $segment4 . '/' . $segment5 . '';
-
-                $file = new \CodeIgniter\Files\File($path, true);
-                $binary = readfile($path);
-                return $this->response
-                    ->setHeader('Content-Type', $file->getMimeType())
-                    ->setHeader('Content-disposition', 'inline; filename="' . $file->getBasename() . '"')
-                    ->setStatusCode(200)
-                    ->setBody($binary);
-            }
-        } else if ($total == 6) {
-            $segment2 = $uri->getSegment(2);
-            $segment3 = $uri->getSegment(3);
-            $segment4 = $uri->getSegment(4);
-            $segment5 = $uri->getSegment(5);
-            $segment6 = $uri->getSegment(6);
-            helper("filesystem");
-
-            $path = WRITEPATH . '' . $segment2 . '/' . $segment3 . '/' . $segment4 . '/' . $segment5 . '/' . $segment6 . '';
-
-            // dd($path);
-            $file = new \CodeIgniter\Files\File($path, true);
-            $binary = readfile($path);
-            return $this->response
-                ->setHeader('Content-Type', $file->getMimeType())
-                ->setHeader('Content-disposition', 'inline; filename="' . $file->getBasename() . '"')
-                ->setStatusCode(200)
-                ->setBody($binary);
-        } else if ($total == 7) {
-            $segment2 = $uri->getSegment(2);
-            $segment3 = $uri->getSegment(3);
-            $segment4 = $uri->getSegment(4);
-            $segment5 = $uri->getSegment(5);
-            $segment6 = $uri->getSegment(6);
-            $segment7 = $uri->getSegment(7);
-            helper("filesystem");
-
-            $path = WRITEPATH . '' . $segment2 . '/' . $segment3 . '/' . $segment4 . '/' . $segment5 . '/' . $segment6 . '/' . $segment7 . '';
-
-            $file = new \CodeIgniter\Files\File($path, true);
-            $binary = readfile($path);
-            return $this->response
-                ->setHeader('Content-Type', $file->getMimeType())
-                ->setHeader('Content-disposition', 'inline; filename="' . $file->getBasename() . '"')
-                ->setStatusCode(200)
-                ->setBody($binary);
-        } else if ($total == 8) {
-            $segment2 = $uri->getSegment(2);
-            $segment3 = $uri->getSegment(3);
-            $segment4 = $uri->getSegment(4);
-            $segment5 = $uri->getSegment(5);
-            $segment6 = $uri->getSegment(6);
-            $segment7 = $uri->getSegment(7);
-            $segment8 = $uri->getSegment(8);
-            helper("filesystem");
-
-            $path = WRITEPATH . '' . $segment2 . '/' . $segment3 . '/' . $segment4 . '/' . $segment5 . '/' . $segment6 . '/' . $segment7 . '/' . $segment8 . '';
-
-            $file = new \CodeIgniter\Files\File($path, true);
-            $binary = readfile($path);
-            return $this->response
-                ->setHeader('Content-Type', $file->getMimeType())
-                ->setHeader('Content-disposition', 'inline; filename="' . $file->getBasename() . '"')
-                ->setStatusCode(200)
-                ->setBody($binary);
-        } else if ($total == 9) {
-            $segment2 = $uri->getSegment(2);
-            $segment3 = $uri->getSegment(3);
-            $segment4 = $uri->getSegment(4);
-            $segment5 = $uri->getSegment(5);
-            $segment6 = $uri->getSegment(6);
-            $segment7 = $uri->getSegment(7);
-            $segment8 = $uri->getSegment(8);
-            $segment9 = $uri->getSegment(9);
-            helper("filesystem");
-
-            $path = WRITEPATH . '' . $segment2 . '/' . $segment3 . '/' . $segment4 . '/' . $segment5 . '/' . $segment6 . '/' . $segment7 . '/' . $segment8 . '/' . $segment9 . '';
-
-            $file = new \CodeIgniter\Files\File($path, true);
-            $binary = readfile($path);
-            return $this->response
-                ->setHeader('Content-Type', $file->getMimeType())
-                ->setHeader('Content-disposition', 'inline; filename="' . $file->getBasename() . '"')
-                ->setStatusCode(200)
-                ->setBody($binary);
-        } else if ($total == 10) {
-            $segment2 = $uri->getSegment(2);
-            $segment3 = $uri->getSegment(3);
-            $segment4 = $uri->getSegment(4);
-            $segment5 = $uri->getSegment(5);
-            $segment6 = $uri->getSegment(6);
-            $segment7 = $uri->getSegment(7);
-            $segment8 = $uri->getSegment(8);
-            $segment9 = $uri->getSegment(9);
-            $segment10 = $uri->getSegment(10);
-            helper("filesystem");
-
-            $path = WRITEPATH . '' . $segment2 . '/' . $segment3 . '/' . $segment4 . '/' . $segment5 . '/' . $segment6 . '/' . $segment7 . '/' . $segment8 . '/' . $segment9 . '/' . $segment10 . '';
-
-            $file = new \CodeIgniter\Files\File($path, true);
-            $binary = readfile($path);
-            return $this->response
-                ->setHeader('Content-Type', $file->getMimeType())
-                ->setHeader('Content-disposition', 'inline; filename="' . $file->getBasename() . '"')
-                ->setStatusCode(200)
-                ->setBody($binary);
-        } else {
+        // Cek akses jika bukan 'content'
+        if ($uri->getSegment(3) != 'content' && session()->get('username') == NULL) {
             return redirect()->to('/');
         }
+
+        // Minimal harus ada 3 segment
+        if ($total < 3 || $total > 10) {
+            return redirect()->to('/');
+        }
+
+        helper("filesystem");
+
+        // Ambil semua segment setelah domain
+        $segments = [];
+        for ($i = 2; $i <= $total; $i++) {
+            $segments[] = $uri->getSegment($i);
+        }
+
+        $path = WRITEPATH . implode('/', $segments);
+
+        // Cek file exist
+        if (!is_file($path)) {
+            return redirect()->to('/');
+        }
+
+        $file = new \CodeIgniter\Files\File($path, true);
+        $binary = readfile($path);
+
+        return $this->response
+            ->setHeader('Content-Type', $file->getMimeType())
+            ->setHeader('Content-disposition', 'inline; filename="' . $file->getBasename() . '"')
+            ->setStatusCode(200)
+            ->setBody($binary);
     }
 
     public function index()
@@ -225,22 +97,47 @@ class Pages extends BaseController
         $data = [
             'title' => 'Beranda',
             'title_pages' => '',
-            'submenu' => $this->SubmenuModel->select('*')->select('submenu.id as submenu_id')->select('mainmenu.id as mainmenu_id')->select('mainmenu.urutan as urutan_mainmenu')->select('submenu.urutan as urutan_submenu')->join('mainmenu', 'submenu.id_mainmenu=mainmenu.id')->orderBy('urutan_mainmenu', 'ASC')->orderBy('urutan_submenu', 'ASC')->get()->getResultArray(),
-            'mainmenu' => $this->MainmenuModel->orderBy('urutan', 'ASC')->get()->getResultArray(),
-            'menu' => $this->MainmenuModel->orderBy('urutan', 'ASC')->findAll(5),
-            'menu2' => $this->MainmenuModel->orderBy('urutan', 'ASC')->findAll(7, 6),
+            'submenu' => $this->SubmenuModel->select('*')->select('submenu.id as submenu_id')->select('mainmenu.id as mainmenu_id')->select('mainmenu.urutan as urutan_mainmenu')->select('submenu.urutan as urutan_submenu')->join('mainmenu', 'submenu.id_mainmenu=mainmenu.id')->orderBy('urutan_mainmenu', 'ASC')->orderBy('urutan_submenu', 'ASC')->where('submenu.halaman', 'Fakultas')->get()->getResultArray(),
+            'mainmenu' => $this->MainmenuModel->orderBy('urutan', 'ASC')->where('mainmenu.halaman', 'Fakultas')->get()->getResultArray(),
+            'menu' => $this->MainmenuModel->orderBy('urutan', 'ASC')->where('mainmenu.halaman', 'Fakultas')->findAll(5),
+            'menu2' => $this->MainmenuModel->orderBy('urutan', 'ASC')->where('mainmenu.halaman', 'Fakultas')->findAll(11, 5),
             'konfigurasi' => $this->KonfigurasiModel->first(),
             'berita' => $this->BeritaModel->orderBy('tanggal', 'DESC')->findAll(6),
             'mitra' => $this->MitraModel->orderBy('nama', 'DESC')->get()->getResultArray(),
             'slideshow' => $this->SlideshowModel->orderBy('urutan', 'ASC')->get()->getResultArray(),
             'pejabat' => $this->PejabatModel->orderBy('urutan', 'ASC')->get()->getResultArray(),
             'konf' => $this->KonfigurasiModel->findAll(),
-            'prodi' => $this->SubmenuModel->orderBy('urutan', 'ASC')->where('id_mainmenu', '25')->findAll(),
+            'data_prodi' => $this->ProdiModel->orderBy('prodi', 'DESC')->findAll(),
             'link_library' => $this->LinkModel->orderBy('judul', 'ASC')->where('kategori', 'Library')->findAll(),
             'link_partner' => $this->LinkModel->orderBy('judul', 'ASC')->where('kategori', 'Partner')->findAll(),
             'link_jurnal' => $this->LinkModel->orderBy('judul', 'ASC')->where('kategori', 'Journal')->findAll(),
         ];
         return view('frontend/pages/beranda', $data);
+    }
+
+    public function prodi($slug)
+    {
+        $cek_prodi = $this->ProdiModel->where('slug', $slug)->first();
+        $prodix = $cek_prodi['prodi'];
+        $data = [
+            'title' => 'Beranda',
+            'title_pages' => '',
+            'submenu' => $this->SubmenuModel->select('*')->select('submenu.id as submenu_id')->select('mainmenu.id as mainmenu_id')->select('mainmenu.urutan as urutan_mainmenu')->select('submenu.urutan as urutan_submenu')->join('mainmenu', 'submenu.id_mainmenu=mainmenu.id')->orderBy('urutan_mainmenu', 'ASC')->orderBy('urutan_submenu', 'ASC')->where('submenu.halaman', $prodix)->get()->getResultArray(),
+            'mainmenu' => $this->MainmenuModel->orderBy('urutan', 'ASC')->where('mainmenu.halaman', $prodix)->get()->getResultArray(),
+            'menu' => $this->MainmenuModel->orderBy('urutan', 'ASC')->where('mainmenu.halaman', $prodix)->findAll(5),
+            'menu2' => $this->MainmenuModel->orderBy('urutan', 'ASC')->where('mainmenu.halaman', $prodix)->findAll(11, 5),
+            'konfigurasi' => $this->KonfigurasiModel->first(),
+            'berita' => $this->BeritaModel->orderBy('tanggal', 'DESC')->findAll(6),
+            'mitra' => $this->MitraModel->orderBy('nama', 'DESC')->get()->getResultArray(),
+            'slideshow' => $this->SlideshowModel->orderBy('urutan', 'ASC')->get()->getResultArray(),
+            'pejabat' => $this->PejabatModel->orderBy('urutan', 'ASC')->get()->getResultArray(),
+            'konf' => $this->KonfigurasiModel->findAll(),
+            'data_prodi' => $this->ProdiModel->where('prodi', $prodix)->findAll(),
+            'link_library' => $this->LinkModel->orderBy('judul', 'ASC')->where('kategori', 'Library')->findAll(),
+            'link_partner' => $this->LinkModel->orderBy('judul', 'ASC')->where('kategori', 'Partner')->findAll(),
+            'link_jurnal' => $this->LinkModel->orderBy('judul', 'ASC')->where('kategori', 'Journal')->findAll(),
+        ];
+        return view('frontend/pages/berandaprodi', $data);
     }
 
     public function pages($slug)
@@ -249,25 +146,28 @@ class Pages extends BaseController
         $slugx = $uri->getSegment(2); // Method - instrument
         $cek_menu = $this->SubmenuModel->join('mainmenu', 'submenu.id_mainmenu=mainmenu.id')->where('slug', $slugx)->first();
         $judul = $cek_menu['mainmenu'];
+        $halaman = $cek_menu['halaman'];
         $data = [
             'title' => '',
             'title_pages' => $judul,
             'slug'  => $slug,
-            'submenu' => $this->SubmenuModel->select('*')->select('submenu.id as submenu_id')->select('mainmenu.id as mainmenu_id')->select('mainmenu.urutan as urutan_mainmenu')->select('submenu.urutan as urutan_submenu')->join('mainmenu', 'submenu.id_mainmenu=mainmenu.id')->orderBy('urutan_mainmenu', 'ASC')->orderBy('urutan_submenu', 'ASC')->get()->getResultArray(),
-            'mainmenu' => $this->MainmenuModel->orderBy('urutan', 'ASC')->get()->getResultArray(),
-            'menu' => $this->MainmenuModel->orderBy('urutan', 'ASC')->findAll(6),
-            'menu2' => $this->MainmenuModel->orderBy('urutan', 'ASC')->findAll(7, 6),
+            'submenu' => $this->SubmenuModel->select('*')->select('submenu.id as submenu_id')->select('mainmenu.id as mainmenu_id')->select('mainmenu.urutan as urutan_mainmenu')->select('submenu.urutan as urutan_submenu')->join('mainmenu', 'submenu.id_mainmenu=mainmenu.id')->orderBy('urutan_mainmenu', 'ASC')->orderBy('urutan_submenu', 'ASC')->where('mainmenu.halaman', $halaman)->get()->getResultArray(),
+            'mainmenu' => $this->MainmenuModel->orderBy('urutan', 'ASC')->where('mainmenu.halaman', $halaman)->get()->getResultArray(),
+            'menu' => $this->MainmenuModel->orderBy('urutan', 'ASC')->where('mainmenu.halaman', $halaman)->findAll(6),
+            'menu2' => $this->MainmenuModel->orderBy('urutan', 'ASC')->where('mainmenu.halaman', $halaman)->findAll(7, 6),
             'content' => $this->SubmenuModel->where('slug', $slugx)->findAll(),
             'mitra' => $this->MitraModel->orderBy('nama', 'DESC')->get()->getResultArray(),
             'slideshow' => $this->SlideshowModel->orderBy('nama', 'ASC')->get()->getResultArray(),
             'pejabat' => $this->PejabatModel->orderBy('urutan', 'ASC')->get()->getResultArray(),
             'konf' => $this->KonfigurasiModel->findAll(),
             'konfigurasi' => $this->KonfigurasiModel->first(),
-            'prodi' => $this->SubmenuModel->orderBy('urutan', 'ASC')->where('id_mainmenu', '25')->findAll(),
+            'data_prodi' => $this->ProdiModel->orderBy('prodi', 'DESC')->findAll(),
             'link_library' => $this->LinkModel->orderBy('judul', 'ASC')->where('kategori', 'Library')->findAll(),
             'link_partner' => $this->LinkModel->orderBy('judul', 'ASC')->where('kategori', 'Partner')->findAll(),
             'link_jurnal' => $this->LinkModel->orderBy('judul', 'ASC')->where('kategori', 'Journal')->findAll(),
         ];
+
+
         return view('frontend/pages/pages', $data);
     }
 

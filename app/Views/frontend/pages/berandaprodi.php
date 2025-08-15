@@ -13,15 +13,9 @@
     </div>
     <!-- akhir slider beranda -->
     <div class="desktop">
-
         <div class="service_area">
             <div class=" container p-0">
                 <div class="row no-gutters" align="center" style="text-align:center;border-color: red;justify-content: center;">
-                    <div class="col-xl-12">
-                        <div class="section_title text-center">
-                            <h3 style="color: white;">Program Studi</h3>
-                        </div>
-                    </div>
                     <?php foreach ($data_prodi as $item_prodi) : ?>
                         <?php
                         if ($item_prodi['akreditasi'] == "A") {
@@ -49,6 +43,11 @@
                         ?>
                         <div class="col-xl-3">
                             <div class="single_service">
+                                <div class="col-xl-12">
+                                    <div class="section_title text-center">
+                                        <h3 style="color: white;">Program Studi</h3>
+                                    </div>
+                                </div>
                                 <div class="icon">
                                     <a target="_blank" href="/prodi/<?= $item_prodi['slug'] ?>" class="boxed-btn3-white">
                                         <img src="<?= base_url('/img/logo_akre/' . $logo); ?>" width="150px" height="150px">

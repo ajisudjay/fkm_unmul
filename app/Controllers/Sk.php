@@ -34,7 +34,7 @@ class Sk extends BaseController
                 'admin' => $admin,
                 'lvl' => $lvl,
                 'foto' => $gambar,
-                'tahun_sk' => $this->SkModel->DISTINCT('tahun')->getDistinctYears()
+                'tahun_sk' => $this->SkModel->DISTINCT()->getDistinctYears()
             ];
             return view('backend/sk/index', $data);
         } else {

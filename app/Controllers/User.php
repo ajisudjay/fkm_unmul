@@ -3,14 +3,17 @@
 namespace App\Controllers;
 
 use App\Models\UsersModel;
+use App\Models\ProdiModel;
 use App\Controllers\BaseController;
 
 class User extends BaseController
 {
     protected $UsersModel;
+    protected $ProdiModel;
     public function __construct()
     {
         $this->UsersModel = new UsersModel();
+        $this->ProdiModel = new ProdiModel();
     }
     public function index()
     {
@@ -25,6 +28,7 @@ class User extends BaseController
             }
             $data = [
                 'title' => 'Akun',
+                'prodi' => $this->ProdiModel->orderBy('id', 'ASC')->get()->getResultArray(),
                 'admin' => $admin,
                 'lvl' => $lvl,
                 'foto' => $gambar,
@@ -45,12 +49,14 @@ class User extends BaseController
                 if (session()->get('level') === "Superadmin") {
                     $data = [
                         'user' => $this->UsersModel->orderBy('nama', 'DESC')->get()->getResultArray(),
+                        'prodi' => $this->ProdiModel->orderBy('id', 'ASC')->get()->getResultArray(),
                         'lvl' => $lvl,
                         'validation' => \Config\Services::validation(),
                     ];
                 } else {
                     $data = [
                         'user' => $this->UsersModel->where('username', $namauser)->orderBy('nama', 'DESC')->get()->getResultArray(),
+                        'prodi' => $this->ProdiModel->orderBy('id', 'ASC')->get()->getResultArray(),
                         'lvl' => $lvl,
                         'validation' => \Config\Services::validation(),
                     ];
@@ -75,6 +81,7 @@ class User extends BaseController
             $nama = $request->getVar('nama');
             $username = $request->getVar('username');
             $level = $request->getVar('level');
+            $prodi = $request->getVar('prodi');
             $jenis = $request->getVar('jenis');
             $password = $request->getVar('password');
             $repassword = $request->getVar('repassword');
@@ -148,6 +155,7 @@ class User extends BaseController
                         'nama' => $nama,
                         'username' => $username,
                         'level' => $level,
+                        'prodi' => $prodi,
                         'jenis' => $jenis,
                         'password' => password_hash($password, PASSWORD_DEFAULT),
                         'file' => $namagambar,
@@ -176,6 +184,7 @@ class User extends BaseController
             $username = $request->getVar('username');
             $nama = $request->getVar('nama');
             $level = $request->getVar('level');
+            $prodi = $request->getVar('prodi');
             $jenis = $request->getVar('jenis');
             $file = $request->getFile('file');
             $userx = session()->get('username');
@@ -193,6 +202,7 @@ class User extends BaseController
                     'username' => $username,
                     'nama' => $nama,
                     'level' => $level,
+                    'prodi' => $prodi,
                     'jenis' => $jenis,
                     'timestamp' => $timestamp,
                     'admin' => $userx,
@@ -228,6 +238,7 @@ class User extends BaseController
                         'username' => $username,
                         'nama' => $nama,
                         'level' => $level,
+                        'prodi' => $prodi,
                         'jenis' => $jenis,
                         'file' => $nama_foto,
                         'timestamp' => $timestamp,
@@ -294,12 +305,14 @@ class User extends BaseController
                     if (session()->get('level') === "Superadmin") {
                         $data2 = [
                             'user' => $this->UsersModel->orderBy('nama', 'DESC')->get()->getResultArray(),
+                            'prodi' => $this->ProdiModel->orderBy('id', 'ASC')->get()->getResultArray(),
                             'lvl' => $lvl,
                             'validation' => \Config\Services::validation(),
                         ];
                     } else {
                         $data2 = [
                             'user' => $this->UsersModel->where('username', $namauser)->orderBy('nama', 'DESC')->get()->getResultArray(),
+                            'prodi' => $this->ProdiModel->orderBy('id', 'ASC')->get()->getResultArray(),
                             'lvl' => $lvl,
                             'validation' => \Config\Services::validation(),
                         ];

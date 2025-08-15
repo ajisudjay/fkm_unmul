@@ -36,7 +36,7 @@ class S_masuk extends BaseController
                 'admin' => $admin,
                 'lvl' => $lvl,
                 'foto' => $gambar,
-                'tahun_surat' => $this->S_masukModel->DISTINCT('tahun')->getDistinctYears()
+                'tahun_surat' => $this->S_masukModel->DISTINCT()->getDistinctYears()
             ];
             return view('backend/s_masuk/index', $data);
         } else {

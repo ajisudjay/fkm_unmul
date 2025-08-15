@@ -14,7 +14,7 @@ class MainmenuModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['id', 'mainmenu', 'urutan', 'admin', 'timestamp'];
+    protected $allowedFields    = ['id', 'mainmenu', 'urutan', 'halaman', 'admin', 'timestamp'];
 
     // Dates
     protected $useTimestamps = false;

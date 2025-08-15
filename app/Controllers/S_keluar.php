@@ -36,7 +36,7 @@ class S_keluar extends BaseController
                     'admin' => $admin,
                     'lvl' => $lvl,
                     'foto' => $gambar,
-                    'tahun_surat' => $this->S_keluarModel->DISTINCT('tahun')->getDistinctYears()
+                    'tahun_surat' => $this->S_keluarModel->DISTINCT()->getDistinctYears()
                 ];
             } else {
                 $data = [
@@ -44,7 +44,7 @@ class S_keluar extends BaseController
                     'admin' => $admin,
                     'lvl' => $lvl,
                     'foto' => $gambar,
-                    'tahun_surat' => $this->S_keluarModel->where('admin', $namaadmin)->DISTINCT('tahun')->getDistinctYears()
+                    'tahun_surat' => $this->S_keluarModel->where('admin', $namaadmin)->DISTINCT()->getDistinctYears()
                 ];
             }
             return view('backend/s_keluar/index', $data);

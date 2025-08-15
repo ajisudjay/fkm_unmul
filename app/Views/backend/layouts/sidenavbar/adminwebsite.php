@@ -16,12 +16,16 @@
                 </li>
                 <li class="navigation-header"><span>WEBSITE</span>
                 </li>
-                <li class=""><a href="#"><i class="feather icon-layers"></i><span class="menu-title" data-i18n="Dashboard">Content</span><span class="badge badge badge-warning badge-pill float-right mr-2">5</span></a>
+                <li class=""><a href="#"><i class="feather icon-list"></i><span class="menu-title" data-i18n="Dashboard">Menu</span><span class="badge badge badge-warning badge-pill float-right mr-2">2</span></a>
                     <ul class="menu-content">
                         <li class="<?= $title == 'Main Menu' ? 'active' : '' ?>"><a href="<?= base_url('mainmenu'); ?>"><i class="feather icon-menu"></i><span class="menu-item" data-i18n="Analytics">Main Menu</span></a>
                         </li>
                         <li class="<?= $title == 'Sub Menu' ? 'active' : '' ?>"><a href="<?= base_url('submenu'); ?>"><i class="feather icon-list"></i><span class="menu-item" data-i18n="eCommerce">Sub Menu</span></a>
                         </li>
+                    </ul>
+                </li>
+                <li class=""><a href="#"><i class="feather icon-layers"></i><span class="menu-title" data-i18n="Dashboard">Content</span><span class="badge badge badge-warning badge-pill float-right mr-2">3</span></a>
+                    <ul class="menu-content">
                         <li class="<?= $title == 'Berita' ? 'active' : '' ?>"><a href="<?= base_url('berita'); ?>"><i class="feather icon-file-text"></i><span class="menu-item" data-i18n="Analytics">Berita</span></a>
                         </li>
                         <li class="<?= $title == 'Galeri' ? 'active' : '' ?>"><a href="<?= base_url('galeri'); ?>"><i class="feather icon-image"></i><span class="menu-item" data-i18n="Analytics">Galeri</span></a>

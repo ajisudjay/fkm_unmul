@@ -14,7 +14,7 @@ class ProdiModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['id', 'prodi'];
+    protected $allowedFields    = ['id', 'prodi', 'slug'];
 
     // Dates
     protected $useTimestamps = false;

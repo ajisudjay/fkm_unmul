@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Models\MainmenuModel;
 use App\Models\SubmenuModel;
+use App\Models\ProdiModel;
 use App\Controllers\BaseController;
 use PhpParser\Node\Expr\Empty_;
 
@@ -11,10 +12,12 @@ class Submenu extends BaseController
 {
     protected $MainmenuModel;
     protected $SubmenuModel;
+    protected $ProdiModel;
     public function __construct()
     {
         $this->MainmenuModel = new MainmenuModel();
         $this->SubmenuModel = new SubmenuModel();
+        $this->ProdiModel = new ProdiModel();
     }
     public function index()
     {
@@ -22,17 +25,31 @@ class Submenu extends BaseController
             $admin = session()->get('nama');
             $lvl = session()->get('level');
             $file = session()->get('file');
+            $prodix = session()->get('prodi');
             if ($file === NULL) {
                 $gambar = 'user-profile.png';
             } else {
                 $gambar = $file;
             }
-            $data = [
-                'title' => 'Sub Menu',
-                'admin' => $admin,
-                'lvl' => $lvl,
-                'foto' => $gambar,
-            ];
+            if (session()->get('prodi') === 'Fakultas') {
+                $data = [
+                    'title' => 'Sub Menu',
+                    'akses' => 'Fakultas',
+                    'prodi' => $this->ProdiModel->orderBy('id', 'ASC')->get()->getResultArray(),
+                    'admin' => $admin,
+                    'lvl' => $lvl,
+                    'foto' => $gambar,
+                ];
+            } else {
+                $data = [
+                    'title' => 'Sub Menu',
+                    'akses' => 'Prodi',
+                    'prodi' => $this->ProdiModel->where('prodi', $prodix)->get()->getResultArray(),
+                    'admin' => $admin,
+                    'lvl' => $lvl,
+                    'foto' => $gambar,
+                ];
+            }
             return view('backend/submenu/index', $data);
         } else {
             return redirect()->to(base_url('/login'));
@@ -42,6 +59,7 @@ class Submenu extends BaseController
     {
         if (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Website') {
             $request = \Config\Services::request();
+            $halaman = $request->getVar('halaman');
             if ($request->isAJAX()) {
                 $level = session()->get('level');
                 if ($level === 'Admin Prodi') {
@@ -51,7 +69,9 @@ class Submenu extends BaseController
                 }
                 $data = [
                     'aksesbutton' => $aksesbutton,
-                    'submenu' => $this->SubmenuModel->select('*')->select('submenu.id as submenu_id')->select('mainmenu.id as mainmenu_id')->select('mainmenu.urutan as urutan_mainmenu')->select('submenu.urutan as urutan_submenu')->select('submenu.timestamp as timestamp_submenu')->join('mainmenu', 'submenu.id_mainmenu=mainmenu.id')->orderBy('urutan_mainmenu', 'ASC')->orderBy('urutan_submenu', 'ASC')->get()->getResultArray(),
+                    'halaman' => $halaman,
+                    'prodi' => $this->ProdiModel->orderBy('id', 'ASC')->get()->getResultArray(),
+                    'submenu' => $this->SubmenuModel->select('*')->select('submenu.id as submenu_id')->select('mainmenu.id as mainmenu_id')->select('mainmenu.urutan as urutan_mainmenu')->select('submenu.urutan as urutan_submenu')->select('submenu.timestamp as timestamp_submenu')->join('mainmenu', 'submenu.id_mainmenu=mainmenu.id')->orderBy('urutan_mainmenu', 'ASC')->orderBy('urutan_submenu', 'ASC')->where('submenu.halaman', $halaman)->get()->getResultArray(),
                     'mainmenu' => $this->MainmenuModel->orderBy('urutan', 'ASC')->get()->getResultArray(),
                     'validation' => \Config\Services::validation(),
                 ];
@@ -67,6 +87,34 @@ class Submenu extends BaseController
         }
     }
 
+    public function tambahform()
+    {
+        if (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Website') {
+            $request = \Config\Services::request();
+            $halaman = $this->request->getGet('halaman');
+            $admin = session()->get('nama');
+            $lvl = session()->get('level');
+            $file = session()->get('file');
+            if ($file === NULL) {
+                $gambar = 'user-profile.png';
+            } else {
+                $gambar = $file;
+            }
+            $data = [
+                'title' => 'Sub Menu',
+                'admin' => $admin,
+                'halaman' => $halaman,
+                'lvl' => $lvl,
+                'foto' => $gambar,
+                'mainmenu' => $this->MainmenuModel->orderBy('urutan', 'ASC')->where('halaman', $halaman)->get()->getResultArray(),
+                'validation' => \Config\Services::validation(),
+            ];
+            return view('backend/submenu/tambah', $data);
+        } else {
+            return redirect()->to(base_url('/login'));
+        }
+    }
+
     public function tambah()
     {
         if (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Website') {
@@ -74,6 +122,7 @@ class Submenu extends BaseController
             $request = \Config\Services::request();
             $urutan = $request->getVar('urutan');
             $mainmenu = $request->getVar('mainmenu');
+            $halaman = $request->getVar('halaman');
             $namamain =   $this->MainmenuModel->select('*')->select('mainmenu.mainmenu as namamain')->where('mainmenu.id', $mainmenu)->first();
             $submenu = $request->getVar('submenu');
             $akses = $request->getVar('akses');
@@ -85,7 +134,7 @@ class Submenu extends BaseController
             $timestamp = date("Y-m-d h:i:sa");
             $penulis = $username;
             $validasi = $this->validate([
-                'submenu' => 'required[submenu]|alpha_numeric_punct[submenu],'
+                'submenu' => 'required[submenu],'
             ]);
             if (!$validasi) { // Not valid
                 session()->setFlashdata('pesanGagal', 'Format isian tidak sesuai');
@@ -95,6 +144,7 @@ class Submenu extends BaseController
                     'urutan' => $urutan,
                     'submenu' => $submenu,
                     'slug' => $slug,
+                    'halaman' => $halaman,
                     'id_mainmenu' => $mainmenu,
                     'content' => $isi,
                     'timestamp' => $timestamp,
@@ -110,33 +160,6 @@ class Submenu extends BaseController
         }
     }
 
-
-    public function tambahform()
-    {
-        if (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Website') {
-            $request = \Config\Services::request();
-            $admin = session()->get('nama');
-            $lvl = session()->get('level');
-            $file = session()->get('file');
-            if ($file <  1) {
-                $gambar = base_url('app-assets/images/profile/user-profile.png');
-            } else {
-                $gambar = base_url('content/user/' . $file);
-            }
-            $data = [
-                'title' => 'Sub Menu',
-                'admin' => $admin,
-                'lvl' => $lvl,
-                'foto' => $gambar,
-                'mainmenu' => $this->MainmenuModel->orderBy('urutan', 'ASC')->get()->getResultArray(),
-                'validation' => \Config\Services::validation(),
-            ];
-            return view('backend/submenu/tambah', $data);
-        } else {
-            return redirect()->to(base_url('/login'));
-        }
-    }
-
     public function editform()
     {
         if (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Website') {
@@ -145,10 +168,11 @@ class Submenu extends BaseController
             $admin = session()->get('nama');
             $lvl = session()->get('level');
             $file = session()->get('file');
-            if ($file <  1) {
-                $gambar = base_url('app-assets/images/profile/user-profile.png');
+            $halaman = $request->getVar('halaman');
+            if ($file === NULL) {
+                $gambar = 'user-profile.png';
             } else {
-                $gambar = base_url('content/user/' . $file);
+                $gambar = $file;
             }
             $data = [
                 'title' => 'Sub Menu',
@@ -157,7 +181,7 @@ class Submenu extends BaseController
                 'foto' => $gambar,
                 'slug' => $slug,
                 'submenu' => $this->SubmenuModel->select('*')->select('submenu.id as submenu_id')->select('mainmenu.id as mainmenu_id')->select('mainmenu.urutan as urutan_mainmenu')->select('submenu.urutan as urutan_submenu')->join('mainmenu', 'submenu.id_mainmenu=mainmenu.id')->where('submenu.slug', $slug)->first(),
-                'mainmenu' => $this->MainmenuModel->orderBy('urutan', 'ASC')->get()->getResultArray(),
+                'mainmenu' => $this->MainmenuModel->orderBy('urutan', 'ASC')->where('halaman', $halaman)->get()->getResultArray(),
                 'validation' => \Config\Services::validation(),
             ];
             return view('backend/submenu/edit', $data);

@@ -1,11 +1,12 @@
 <div class="container-fluid">
     <div class="card-header">
-        <h4 class="mb-0">Main Menu</h4>
+        <h4 class="mb-0">Main Menu : <?= $halaman ?></h4>
         <!-- button tambah modal -->
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tambahmodal">
             <span class="feather icon-plus text-light"></span>
         </button>
     </div>
+    <br>
     <!-- tambah modal-->
     <div class="modal fade" id="tambahmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-md" role="document">
@@ -28,6 +29,13 @@
                                     <br>
                                 </div>
                                 <div class="col-lg-9">
+                                    <label class="text-primary">Halaman</label>
+                                    <select name="halaman" class="form-control halaman" readonly>
+                                        <option value="<?= $halaman ?>"><?= $halaman ?></option>
+                                    </select>
+                                    <div class="invalid-feedback errorHalaman"></div>
+                                </div>
+                                <div class="col-lg-12">
                                     <label class="text-primary">Main Menu</label>
                                     <input type="text" name="mainmenu" class="form-control mainmenu" placeholder="Main Menu">
                                     <div class="invalid-feedback errorMainmenu"></div>
@@ -51,8 +59,8 @@
                     <tr>
                         <th width="3%">No</th>
                         <th width="10%" style="text-align: center;"><i class="fa fa-gear"></i></th>
-                        <th width="77%">MAIN MENU</th>
-                        <th width="10%">LOG</th>
+                        <th width="52%">MAIN MENU</th>
+                        <th width="35%">LOG</th>
 
                     </tr>
                 </thead>
@@ -108,11 +116,19 @@
                                                                 <br>
                                                             </div>
                                                             <div class="col-lg-9">
+                                                                <label class="text-primary">Halaman</label>
+                                                                <select name="halaman" class="form-control halaman" readonly>
+                                                                    <option value="<?= $halaman ?>"><?= $halaman ?></option>
+                                                                </select>
+                                                                <div class="invalid-feedback errorHalaman"></div>
+                                                            </div>
+                                                            <div class="col-lg-12">
                                                                 <label class="text-primary">Main Menu</label>
                                                                 <input type="text" name="mainmenu" value="<?= $item['mainmenu'] ?>" class="form-control mainmenu" placeholder="Main Menu">
                                                                 <div class="invalid-feedback errorMainmenu"></div>
                                                                 <br>
                                                             </div>
+
                                                         </div>
                                                     </div>
                                                     <div class="modal-footer">

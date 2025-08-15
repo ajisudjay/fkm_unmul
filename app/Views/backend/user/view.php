@@ -40,7 +40,7 @@
                                     <div class="invalid-feedback errorusername"></div>
                                     <br>
                                 </div>
-                                <div class="col-lg-6">
+                                <div class="col-lg-3">
                                     <label class="text-primary">Jenis</label>
                                     <select name="jenis" class="form-control jenis">
                                         <option value="Dosen">Dosen</option>
@@ -49,7 +49,7 @@
                                     <div class="invalid-feedback errorljenis"></div>
                                     <br>
                                 </div>
-                                <div class="col-lg-6">
+                                <div class="col-lg-4">
                                     <label class="text-primary">Hak Akses</label>
                                     <select name="level" class="form-control level">
                                         <option value="">Pilih Level</option>
@@ -60,6 +60,18 @@
                                         <option value="Superadmin">Superadmin</option>
                                     </select>
                                     <div class="invalid-feedback errorluevel"></div>
+                                    <br>
+                                </div>
+                                <div class="col-lg-5">
+                                    <label class="text-primary">Prodi</label>
+                                    <select name="prodi" class="form-control prodi">
+                                        <option value="">Pilih Prodi</option>
+                                        <option value="Fakultas">Fakultas</option>
+                                        <?php foreach ($prodi as $itemprodi) : ?>
+                                            <option value="<?= $itemprodi['prodi'] ?>"><?= $itemprodi['prodi'] ?></option>
+                                        <?php endforeach ?>
+                                    </select>
+                                    <div class="invalid-feedback errorProdi"></div>
                                     <br>
                                 </div>
                                 <div class="col-lg-6">
@@ -99,10 +111,10 @@
                     <tr>
                         <th width="5%">No</th>
                         <th width="10%" style="text-align: center;"><i class="fa fa-gear"></th>
-                        <th width="25%">Username</th>
-                        <th width="30%">Nama</th>
+                        <th width="15%">Username</th>
+                        <th width="20%">Nama</th>
                         <th width="15%">Hak Akses</th>
-                        <th width="15%">Jenis</th>
+                        <th width="20%">Prodi</th>
                         <th width="5%">Foto</th>
                         <th width="10%">Log</th>
                     </tr>
@@ -197,13 +209,24 @@
                                                                 <label class="text-primary">Level</label>
                                                                 <select name="level" class="form-control level">
                                                                     <option value="<?= $item['level'] ?>"><?= $item['level'] ?></option>
-                                                                    <option value="Tendik">Tendik</option>
-                                                                    <option value="Dosen">Dosen</option>
-                                                                    <option value="Admin eOffice">Admin eOffice</option>
-                                                                    <option value="Admin Website">Admin Website</option>
+                                                                    <option value="Tendik" <?= $hakakses ?>>Tendik</option>
+                                                                    <option value="Dosen" <?= $hakakses ?>>Dosen</option>
+                                                                    <option value="Admin eOffice" <?= $hakakses ?>>Admin eOffice</option>
+                                                                    <option value="Admin Website" <?= $hakakses ?>>Admin Website</option>
                                                                     <option value="Superadmin" <?= $hakakses ?>>Superadmin</option>
                                                                 </select>
                                                                 <div class="invalid-feedback errorLevel"></div>
+                                                                <br>
+                                                            </div>
+                                                            <div class="col-lg-5">
+                                                                <label class="text-primary">Prodi</label>
+                                                                <select name="prodi" class="form-control prodi">
+                                                                    <option value="<?= $item['prodi'] ?>"><?= $item['prodi'] ?></option>
+                                                                    <?php foreach ($prodi as $itemprodi) : ?>
+                                                                        <option value="<?= $itemprodi['prodi'] ?>" <?= $hakakses ?>><?= $itemprodi['prodi'] ?></option>
+                                                                    <?php endforeach ?>
+                                                                </select>
+                                                                <div class="invalid-feedback errorProdi"></div>
                                                                 <br>
                                                             </div>
                                                             <div class="col-lg-12">
@@ -268,7 +291,7 @@
                             <td><?= $item['username'] ?></td>
                             <td><?= $item['nama'] ?></td>
                             <td><?= $item['level'] ?></td>
-                            <td><?= $item['jenis'] ?></td>
+                            <td><?= $item['prodi'] ?></td>
                             <td><span><img class="round" src="<?= base_url('writable/uploads/content/user/' . $item['file']); ?>" height="80" width="80"></span></td>
                             <td><?= $item['timestamp'] . ' ' . $item['admin'] ?></td>
                         </tr>

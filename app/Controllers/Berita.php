@@ -3,15 +3,18 @@
 namespace App\Controllers;
 
 use App\Models\BeritaModel;
+use App\Models\ProdiModel;
 use App\Controllers\BaseController;
 use PhpParser\Node\Expr\Empty_;
 
 class Berita extends BaseController
 {
     protected $BeritaModel;
+    protected $ProdiModel;
     public function __construct()
     {
         $this->BeritaModel = new BeritaModel();
+        $this->ProdiModel = new ProdiModel();
     }
 
     public function index()
@@ -42,11 +45,30 @@ class Berita extends BaseController
     {
         if (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Website') {
             $request = \Config\Services::request();
+            $tingkat = session()->get('prodi');
             if ($request->isAJAX()) {
-                $data = [
-                    'berita' => $this->BeritaModel->orderBy('id', 'DESC')->get()->getResultArray(),
-                    'validation' => \Config\Services::validation(),
-                ];
+                if ($tingkat === 'Fakultas') {
+                    $data = [
+                        'tingkat' => $tingkat,
+                        'berita' => $this->BeritaModel
+                            ->select('berita.*, users.nama as nama_admin')
+                            ->join('users', 'berita.penulis = users.username')
+                            ->orderBy('id', 'DESC')
+                            ->get()->getResultArray(),
+                        'validation' => \Config\Services::validation(),
+                    ];
+                } else {
+                    $data = [
+                        'tingkat' => $tingkat,
+                        'berita' => $this->BeritaModel
+                            ->select('berita.*, users.nama as nama_admin')
+                            ->join('users', 'berita.penulis = users.username')
+                            ->orderBy('id', 'DESC')
+                            ->where('berita.tingkat', $tingkat)
+                            ->get()->getResultArray(),
+                        'validation' => \Config\Services::validation(),
+                    ];
+                }
                 $msg = [
                     'data' => view('backend/berita/view', $data)
                 ];
@@ -64,20 +86,38 @@ class Berita extends BaseController
         if (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Website') {
             $admin = session()->get('nama');
             $lvl = session()->get('level');
+            $tingkat = session()->get('prodi');
             $file = session()->get('file');
-            if ($file <  1) {
-                $gambar = '/app-assets/images/profile/user-profile.png';
+            if ($file === NULL) {
+                $gambar = 'user-profile.png';
             } else {
-                $gambar = 'content/user/' . $file;
+                $gambar = $file;
             }
-            $data = [
-                'title' => 'Berita',
-                'title_pages' => '',
-                'admin' => $admin,
-                'lvl' => $lvl,
-                'foto' => $gambar,
-                'validation' => \Config\Services::validation(),
-            ];
+            if ($tingkat === 'Fakultas') {
+                $data = [
+                    'title' => 'Berita',
+                    'akses' => 'Fakultas',
+                    'prodi' => $this->ProdiModel->get()->getResultArray(),
+                    'title_pages' => '',
+                    'admin' => $admin,
+                    'lvl' => $lvl,
+                    'foto' => $gambar,
+                    'validation' => \Config\Services::validation(),
+                ];
+            } else {
+                $data = [
+                    'title' => 'Berita',
+                    'akses' => 'Prodi',
+                    'prodi' => $this->ProdiModel->where('prodi', $tingkat)->get()->getResultArray(),
+                    'title_pages' => '',
+                    'admin' => $admin,
+                    'lvl' => $lvl,
+                    'foto' => $gambar,
+                    'validation' => \Config\Services::validation(),
+                ];
+            }
+
+
             return view('backend/berita/tambahform', $data);
         } else {
             return redirect()->to(base_url('/login'));
@@ -93,8 +133,8 @@ class Berita extends BaseController
             $slug = preg_replace('/[^a-z0-9]+/i', '-', trim(strtolower($judul)));
             $kategori = $request->getVar('kategori');
             $tanggal = $request->getVar('tanggal');
+            $tingkat = $request->getVar('tingkat');
             $isi = $request->getVar('isi');
-            $tag = $request->getVar('tag');
             date_default_timezone_set("Asia/Kuala_Lumpur");
             $timestamp = date("Y-m-d h:i:sa");
             $penulis = $username;
@@ -114,7 +154,7 @@ class Berita extends BaseController
                     'slug' => $slug,
                     'kategori' => $kategori,
                     'tanggal' => $tanggal,
-                    'tag' => $tag,
+                    'tingkat' => $tingkat,
                     'isi' => $isi,
                     'banner' => $nama_foto,
                     'dilihat' => 1,
@@ -172,20 +212,37 @@ class Berita extends BaseController
             $admin = session()->get('nama');
             $lvl = session()->get('level');
             $file = session()->get('file');
+            $tingkat = session()->get('prodi');
             if ($file === NULL) {
                 $gambar = 'user-profile.png';
             } else {
                 $gambar = $file;
             }
-            $data = [
-                'title' => 'Berita',
-                'title_pages' => '',
-                'admin' => $admin,
-                'lvl' => $lvl,
-                'foto' => $gambar,
-                'berita' => $this->BeritaModel->where('slug', $slug)->first(),
-                'validation' => \Config\Services::validation(),
-            ];
+            if ($tingkat === 'Fakultas') {
+                $data = [
+                    'title' => 'Berita',
+                    'title_pages' => '',
+                    'admin' => $admin,
+                    'lvl' => $lvl,
+                    'foto' => $gambar,
+                    'akses' => 'Fakultas',
+                    'prodi' => $this->ProdiModel->get()->getResultArray(),
+                    'berita' => $this->BeritaModel->where('slug', $slug)->first(),
+                    'validation' => \Config\Services::validation(),
+                ];
+            } else {
+                $data = [
+                    'title' => 'Berita',
+                    'title_pages' => '',
+                    'admin' => $admin,
+                    'lvl' => $lvl,
+                    'foto' => $gambar,
+                    'akses' => 'Prodi',
+                    'prodi' => $this->ProdiModel->where('prodi', $tingkat)->get()->getResultArray(),
+                    'berita' => $this->BeritaModel->where('slug', $slug)->first(),
+                    'validation' => \Config\Services::validation(),
+                ];
+            }
             return view('backend/berita/editform', $data);
         } else {
             return redirect()->to(base_url('/login'));

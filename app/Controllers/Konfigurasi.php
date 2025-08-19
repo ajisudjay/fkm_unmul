@@ -63,6 +63,7 @@ class Konfigurasi extends BaseController
                 $id = $request->getVar('id');
                 $visi = $request->getVar('visi');
                 $misi = $request->getVar('misi');
+                $motto = $request->getVar('motto');
                 $email = $request->getVar('email');
                 $telepon = $request->getVar('telepon');
                 $alamat = $request->getVar('alamat');
@@ -106,6 +107,13 @@ class Konfigurasi extends BaseController
                             'required' => '{field} Tidak Boleh Kosong',
                         ]
                     ],
+                    'motto' => [
+                        'label' => 'Motto',
+                        'rules' => 'required',
+                        'errors' => [
+                            'required' => '{field} Tidak Boleh Kosong',
+                        ]
+                    ],
                     'ig' => [
                         'label' => 'Ig',
                         'rules' => 'required',
@@ -135,6 +143,7 @@ class Konfigurasi extends BaseController
                             'visi' => $validation->getError('visi'),
                             'misi' => $validation->getError('misi'),
                             'email' => $validation->getError('email'),
+                            'motto' => $validation->getError('motto'),
                             'telepon' => $validation->getError('telepon'),
                             'alamat' => $validation->getError('alamat'),
                             'ig' => $validation->getError('ig'),
@@ -147,6 +156,7 @@ class Konfigurasi extends BaseController
                     $data = [
                         'visi' => $visi,
                         'misi' => $misi,
+                        'motto' => $motto,
                         'email' => $email,
                         'telepon' => $telepon,
                         'alamat' => $alamat,

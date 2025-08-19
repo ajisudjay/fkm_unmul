@@ -41,7 +41,9 @@ class Dosen extends BaseController
             if ($request->isAJAX()) {
                 if (session()->get('level') === 'Dosen') {
                     $data = [
-                        'dosen' => $this->DosenModel->where('nip', session()->get('username'))->get()->getResultArray(),
+                        'dosen' => $this->DosenModel->select('dosen.*, users.nama as nama_admin')
+                            ->join('users', 'dosen.admin = users.username')
+                            ->where('nip', session()->get('username'))->get()->getResultArray(),
                         'akseshapus' => 'hidden',
                         // jumlah pendidikan tendik
                         'jumlahLs1' => $this->DosenModel->selectCount('id')->where('pendidikan', 'S1')->where('jk', 'Laki-laki')->first(),
@@ -71,7 +73,10 @@ class Dosen extends BaseController
                 } else {
                     $data = [
                         'akseshapus' => '',
-                        'dosen' => $this->DosenModel->orderBy('nip', 'ASC')->get()->getResultArray(),
+                        'dosen' => $this->DosenModel
+                            ->select('dosen.*, users.nama as nama_admin')
+                            ->join('users', 'dosen.admin = users.username')
+                            ->orderBy('nip', 'ASC')->get()->getResultArray(),
                         // jumlah pendidikan tendik
                         'jumlahLs1' => $this->DosenModel->selectCount('id')->where('pendidikan', 'S1')->where('jk', 'Laki-laki')->first(),
                         'jumlahPs1' => $this->DosenModel->selectCount('id')->where('pendidikan', 'S1')->where('jk', 'Perempuan')->first(),

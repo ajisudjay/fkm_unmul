@@ -62,7 +62,10 @@ class Mainmenu extends BaseController
                 $data = [
                     'halaman' => $halaman,
                     'prodi' => $this->ProdiModel->orderBy('id', 'ASC')->get()->getResultArray(),
-                    'mainmenu' => $this->MainmenuModel->orderBy('urutan', 'ASC')->where('halaman', $halaman)->get()->getResultArray(),
+                    'mainmenu' => $this->MainmenuModel
+                        ->select('mainmenu.*, users.nama as nama_admin')
+                        ->join('users', 'mainmenu.admin = users.username', 'left')
+                        ->orderBy('urutan', 'ASC')->where('halaman', $halaman)->get()->getResultArray(),
                     'validation' => \Config\Services::validation(),
                 ];
                 $msg = [
@@ -136,7 +139,10 @@ class Mainmenu extends BaseController
                     $data2 = [
                         'prodi' => $this->ProdiModel->orderBy('id', 'ASC')->get()->getResultArray(),
                         'halaman' => $halaman,
-                        'mainmenu' => $this->MainmenuModel->orderBy('urutan', 'ASC')->where('halaman', $halaman)->get()->getResultArray(),
+                        'mainmenu' => $this->MainmenuModel
+                            ->select('mainmenu.*, users.nama as nama_admin')
+                            ->join('users', 'mainmenu.admin = users.username', 'left')
+                            ->orderBy('urutan', 'ASC')->where('halaman', $halaman)->get()->getResultArray(),
                     ];
 
                     $msg = [
@@ -205,7 +211,10 @@ class Mainmenu extends BaseController
                     $this->MainmenuModel->update($id, $data);
 
                     $data2 = [
-                        'mainmenu' => $this->MainmenuModel->orderBy('urutan', 'ASC')->where('halaman', $halaman)->get()->getResultArray(),
+                        'mainmenu' => $this->MainmenuModel
+                            ->select('mainmenu.*, users.nama as nama_admin')
+                            ->join('users', 'mainmenu.admin = users.username', 'left')
+                            ->orderBy('urutan', 'ASC')->where('halaman', $halaman)->get()->getResultArray(),
                         'halaman' => $halaman,
                         'prodi' => $this->ProdiModel->orderBy('id', 'ASC')->get()->getResultArray(),
                     ];

@@ -71,8 +71,14 @@ class Submenu extends BaseController
                     'aksesbutton' => $aksesbutton,
                     'halaman' => $halaman,
                     'prodi' => $this->ProdiModel->orderBy('id', 'ASC')->get()->getResultArray(),
-                    'submenu' => $this->SubmenuModel->select('*')->select('submenu.id as submenu_id')->select('mainmenu.id as mainmenu_id')->select('mainmenu.urutan as urutan_mainmenu')->select('submenu.urutan as urutan_submenu')->select('submenu.timestamp as timestamp_submenu')->join('mainmenu', 'submenu.id_mainmenu=mainmenu.id')->orderBy('urutan_mainmenu', 'ASC')->orderBy('urutan_submenu', 'ASC')->where('submenu.halaman', $halaman)->get()->getResultArray(),
-                    'mainmenu' => $this->MainmenuModel->orderBy('urutan', 'ASC')->get()->getResultArray(),
+                    'submenu' => $this->SubmenuModel
+                        ->select('*,submenu.id as submenu_id,mainmenu.id as mainmenu_id,mainmenu.urutan as urutan_mainmenu,submenu.urutan as urutan_submenu,submenu.timestamp as timestamp_submenu,users.nama as nama_admin')
+                        ->join('mainmenu', 'submenu.id_mainmenu=mainmenu.id')
+                        ->join('users', 'submenu.penulis=users.username')
+                        ->orderBy('urutan_mainmenu', 'ASC')->orderBy('urutan_submenu', 'ASC')
+                        ->where('submenu.halaman', $halaman)->get()->getResultArray(),
+                    'mainmenu' => $this->MainmenuModel
+                        ->orderBy('urutan', 'ASC')->where('halaman', $halaman)->get()->getResultArray(),
                     'validation' => \Config\Services::validation(),
                 ];
                 $msg = [
@@ -106,7 +112,8 @@ class Submenu extends BaseController
                 'halaman' => $halaman,
                 'lvl' => $lvl,
                 'foto' => $gambar,
-                'mainmenu' => $this->MainmenuModel->orderBy('urutan', 'ASC')->where('halaman', $halaman)->get()->getResultArray(),
+                'mainmenu' => $this->MainmenuModel
+                    ->orderBy('urutan', 'ASC')->where('halaman', $halaman)->get()->getResultArray(),
                 'validation' => \Config\Services::validation(),
             ];
             return view('backend/submenu/tambah', $data);
@@ -180,7 +187,7 @@ class Submenu extends BaseController
                 'lvl' => $lvl,
                 'foto' => $gambar,
                 'slug' => $slug,
-                'submenu' => $this->SubmenuModel->select('*')->select('submenu.id as submenu_id')->select('mainmenu.id as mainmenu_id')->select('mainmenu.urutan as urutan_mainmenu')->select('submenu.urutan as urutan_submenu')->join('mainmenu', 'submenu.id_mainmenu=mainmenu.id')->where('submenu.slug', $slug)->first(),
+                'submenu' => $this->SubmenuModel->select('*,submenu.id as submenu_id,mainmenu.id as mainmenu_id,mainmenu.urutan as urutan_mainmenu,submenu.urutan as urutan_submenu')->join('mainmenu', 'submenu.id_mainmenu=mainmenu.id')->where('submenu.slug', $slug)->first(),
                 'mainmenu' => $this->MainmenuModel->orderBy('urutan', 'ASC')->where('halaman', $halaman)->get()->getResultArray(),
                 'validation' => \Config\Services::validation(),
             ];

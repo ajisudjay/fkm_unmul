@@ -14,7 +14,7 @@ class BeritaModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['id', 'judul', 'slug', 'isi', 'banner', 'tag', 'dilihat', 'timestamp', 'penulis', 'tanggal'];
+    protected $allowedFields    = ['id', 'judul', 'slug', 'isi', 'banner', 'tingkat', 'dilihat', 'timestamp', 'penulis', 'tanggal'];
 
     // Dates
     protected $useTimestamps = false;

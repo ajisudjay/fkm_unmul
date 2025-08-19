@@ -48,6 +48,19 @@
                                             <?= csrf_field() ?>
                                             <div class="modal-body">
                                                 <div class="row">
+                                                    <div class="col-lg-3">
+                                                        <label class="text-primary">Tingkat</label>
+                                                        <select name="tingkat" class="form-control tingkat">
+                                                            <?php if ($akses === 'Fakultas') { ?>
+                                                                <option value="Fakultas">Fakultas</option>
+                                                            <?php } ?>
+                                                            <?php foreach ($prodi as $prodi) : ?>
+                                                                <option value="<?= $prodi['prodi'] ?>"><?= $prodi['prodi'] ?></option>
+                                                            <?php endforeach ?>
+
+                                                        </select>
+                                                        <br>
+                                                    </div>
                                                     <div class="col-lg-2">
                                                         <label class="text-primary">Kategori</label>
                                                         <select name="kategori" class="form-control">
@@ -57,13 +70,13 @@
                                                         </select>
                                                         <div class="invalid-feedback errortanggal"></div>
                                                     </div>
-                                                    <div class="col-lg-3">
+                                                    <div class="col-lg-2">
                                                         <label class="text-primary">Tanggal</label>
                                                         <input type="date" name="tanggal" class="form-control tanggal" required>
                                                         <div class="invalid-feedback errorTanggal"></div>
                                                         <br>
                                                     </div>
-                                                    <div class="col-lg-7">
+                                                    <div class="col-lg-5">
                                                         <label class="text-primary">Banner <span style="color: red;">*Max-Size : 2 mb | extension : jpg/jpeg/png/PNG</span></label>
                                                         <input type="file" name="file" class="form-control gambar" accept="image/*">
                                                         <div class="invalid-feedback errorGambar"></div>

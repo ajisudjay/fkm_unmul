@@ -85,7 +85,10 @@
                             <td><?= $item['kategori'] ?></td>
                             <td style="min-width: 200px;max-width: 250px; white-space: normal;"><?= $item['judul'] ?></a></td>
                             <td style="min-width: 150px;max-width: 250px; white-space: normal;"><a href="<?= $item['link'] ?>" target="_blank"><?= $item['link'] ?></a></td>
-                            <td><?= $item['timestamp'] . ' | ' . $item['admin'] ?></td>
+                            <td style="min-width: 75px;max-width: 300px; white-space: normal;"></span><span class="badge badge-pill badge-secondary">
+                                    <?= $item['timestamp'] ?>
+                                </span><br><span class="badge badge-pill badge-warning"><?= $item['nama_admin'] ?></span>
+                            </td>
                         </tr>
                     <?php endforeach ?>
                 </tbody>

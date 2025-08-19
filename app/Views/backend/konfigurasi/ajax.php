@@ -33,6 +33,13 @@
                             $('.misi').removeClass('is-invalid');
                             $('.errorMisi').html('');
                         }
+                        if (response.error.motto) {
+                            $('.motto').addClass('is-invalid');
+                            $('.errorMotto').html(response.error.motto);
+                        } else {
+                            $('.motto').removeClass('is-invalid');
+                            $('.errorMotto').html('');
+                        }
                         if (response.error.email) {
                             $('.email').addClass('is-invalid');
                             $('.errorEmail').html(response.error.email);

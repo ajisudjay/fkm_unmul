@@ -82,7 +82,10 @@
                                     <span class="fa fa-download"></span>
                                 </a>
                             </td>
-                            <td><?= $item['timestamp'] . ' | ' . $item['admin'] ?></td>
+                            <td style="min-width: 75px;max-width: 300px; white-space: normal;"></span><span class="badge badge-pill badge-secondary">
+                                    <?= $item['timestamp'] ?>
+                                </span><br><span class="badge badge-pill badge-warning"><?= $item['nama_admin'] ?></span>
+                            </td>
                         </tr>
                     <?php endforeach ?>
                 </tbody>

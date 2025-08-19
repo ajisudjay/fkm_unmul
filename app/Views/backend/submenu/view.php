@@ -16,9 +16,9 @@
                         <th width="5%">No</th>
                         <th width="5%">Urutan</th>
                         <th style="text-align: center;" width="5%"><i class="fa fa-gear"></i></th>
-                        <th width="10%">MAIN MENU</th>
-                        <th width="55%">SUB MENU</th>
-                        <th width="20%">LOG</th>
+                        <th width="20%">MAIN MENU</th>
+                        <th width="50%">SUB MENU</th>
+                        <th width="30%">LOG</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -49,7 +49,10 @@
                             </td>
                             <td><?= $item['mainmenu'] ?></td>
                             <td style="min-width: 150px;max-width: 500px; white-space: normal;"><?= $item['submenu'] ?></td>
-                            <td><?= $item['timestamp_submenu'] . ' | ' . $item['penulis'] ?></td>
+                            <td style="min-width: 75px;max-width: 300px; white-space: normal;"></span><span class="badge badge-pill badge-secondary">
+                                    <?= $item['timestamp_submenu'] ?>
+                                </span><br><span class="badge badge-pill badge-warning"><?= $item['nama_admin'] ?></span>
+                            </td>
                         </tr>
                     <?php endforeach ?>
                 </tbody>

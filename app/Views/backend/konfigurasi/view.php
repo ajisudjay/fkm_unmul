@@ -24,7 +24,7 @@
                     </div>
                     <div class="col-lg-3">
                         <br>
-                        <button type="submit" class="btn btn-primary btnEditfoto">Perbarui</button>
+                        <button type="submit" class="btn btn-primary btnEditfoto">Simpan</button>
                         <br>
                         <br>
                     </div>
@@ -45,6 +45,11 @@
                         <textarea name="misi" class="form-control misi" rows="10"><?= $item['misi'] ?></textarea>
                         <div class="invalid-feedback errorMisi"></div>
                         <br>
+                    </div>
+                    <div class="col-lg-12">
+                        <label> Motto :</label><br>
+                        <input type="text" name="motto" class="form-control motto" value="<?= $item['motto'] ?>">
+                        <div class="invalid-feedback errorMotto"></div>
                     </div>
                     <div class="col-lg-6">
                         <label> Email :</label><br>
@@ -81,7 +86,7 @@
                 </div>
                 <br>
                 <div align="center">
-                    <button type="submit" class="btn btn-primary btnEdit">Perbarui</button>
+                    <button type="submit" class="btn btn-primary btnEdit">Simpan</button>
                 </div>
                 <br>
             </form>

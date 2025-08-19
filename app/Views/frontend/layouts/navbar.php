@@ -23,7 +23,7 @@
                     </div>
                     <div class="col-xl-7 col-md-6 ">
                         <div class="social_media_links" align="right">
-                            <p class="small">The Leading Center of Excellence of Public Health Based On Tropical Studies</p>
+                            <p class="small"> <?= $konfigurasi['motto'] ?></p>
                         </div>
                     </div>
                 </div>

@@ -41,7 +41,9 @@ class Mitra extends BaseController
             $username = session()->get('username');
             if ($request->isAJAX()) {
                 $data = [
-                    'mitra' => $this->MitraModel->orderBy('urutan', 'ASC')->get()->getResultArray(),
+                    'mitra' => $this->MitraModel
+                        ->select('mitra.*, users.nama as nama_admin')
+                        ->join('users', 'mitra.admin = users.username')->orderBy('urutan', 'ASC')->get()->getResultArray(),
                     'validation' => \Config\Services::validation(),
                 ];
                 $msg = [

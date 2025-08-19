@@ -42,7 +42,9 @@ class Galeri extends BaseController
             $request = \Config\Services::request();
             if ($request->isAJAX()) {
                 $data = [
-                    'galeri' => $this->GaleriModel->orderBy('id', 'DESC')->get()->getResultArray(),
+                    'galeri' => $this->GaleriModel
+                        ->select('galeri.*, users.nama as nama_admin')
+                        ->join('users', 'galeri.admin = users.username')->orderBy('id', 'DESC')->get()->getResultArray(),
                     'validation' => \Config\Services::validation(),
                 ];
                 $msg = [

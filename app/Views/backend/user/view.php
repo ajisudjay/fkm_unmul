@@ -293,7 +293,10 @@
                             <td><?= $item['level'] ?></td>
                             <td><?= $item['prodi'] ?></td>
                             <td><span><img class="round" src="<?= base_url('writable/uploads/content/user/' . $item['file']); ?>" height="80" width="80"></span></td>
-                            <td><?= $item['timestamp'] . ' ' . $item['admin'] ?></td>
+                            <td style="min-width: 75px;max-width: 300px; white-space: normal;"></span><span class="badge badge-pill badge-secondary">
+                                    <?= $item['timestamp'] ?>
+                                </span><br><span class="badge badge-pill badge-warning"><?= $item['nama_admin'] ?></span>
+                            </td>
                         </tr>
                     <?php endforeach ?>
                 </tbody>

@@ -57,17 +57,17 @@
             <table id="simpletable" class="table table-striped table-hover-animation nowrap">
                 <thead>
                     <tr>
-                        <th width="3%">No</th>
+                        <th width="5%">No</th>
                         <th width="10%" style="text-align: center;"><i class="fa fa-gear"></i></th>
-                        <th width="52%">MAIN MENU</th>
-                        <th width="35%">LOG</th>
+                        <th width="60%">MAIN MENU</th>
+                        <th width="20%">LOG</th>
 
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td>1</td>
-                        <td> <button type="button" class="btn-sm btn-secondary border-0" data-toggle="modal" disabled>
+                        <td style="text-align: center;"> <button type="button" class="btn-sm btn-secondary border-0" data-toggle="modal" disabled>
                                 <span class="feather icon-home text-default"></span>
                             </button></td>
                         <td>Beranda</td>
@@ -76,7 +76,7 @@
                         <tr>
                             <!-- ISI VIEW -->
                             <td><?= $item['urutan'] ?></td>
-                            <td>
+                            <td style="text-align: center;">
                                 <div class="btn-group dropright">
                                     <button class="btn btn-outline-primary fa fa-ellipsis-v" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     </button>
@@ -142,7 +142,10 @@
                                 </div>
 
                             <td><?= $item['mainmenu'] ?></td>
-                            <td><?= $item['timestamp'] . ' | ' . $item['admin'] ?></td>
+                            <td style="min-width: 75px;max-width: 300px; white-space: normal;"></span><span class="badge badge-pill badge-secondary">
+                                    <?= $item['timestamp'] ?>
+                                </span><br><span class="badge badge-pill badge-warning"><?= $item['nama_admin'] ?></span>
+                            </td>
                         </tr>
                     <?php endforeach ?>
                 </tbody>

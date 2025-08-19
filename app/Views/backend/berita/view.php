@@ -8,70 +8,6 @@
             </button>
         </a>
     </div>
-    <!-- tambah modal-->
-    <div class="modal fade" id="tambahmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Tambah</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form action="<?= base_url('berita/tambah'); ?>" method="post" enctype="multipart/form-data" class="tambah">
-                        <?= csrf_field() ?>
-                        <div class="modal-body">
-                            <div class="row">
-                                <div class="col-lg-4">
-                                    <label class="text-primary">Kategori</label>
-                                    <select name="kategori" class="form-control">
-                                        <option value="Berita">Berita</option>
-                                        <option value="Pengumuman">Pengumuman</option>
-                                        <option value="Kegiatan">Kegiatan</option>
-                                    </select>
-                                    <div class="invalid-feedback errortanggal"></div>
-                                </div>
-                                <div class="col-lg-3">
-                                    <label class="text-primary">Banner <span style="color: red;">*max size 2mb</span></label>
-                                    <input type="file" name="file" class="form-control file" accept="image/*">
-                                    <div class="invalid-feedback errorfile"></div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <label class="text-primary">Tanggal</label>
-                                    <input type="date" name="tanggal" class="form-control tanggal" placeholder="Tanggal">
-                                    <div class="invalid-feedback errortanggal"></div>
-                                    <br>
-                                </div>
-                                <!-- <div class="col-lg-5">
-                                    <label class="text-primary">Tag</label>
-                                    <input type="text" name="tag" class="form-control tag" placeholder="Tag">
-                                    <div class="invalid-feedback errortag"></div>
-                                    <br>
-                                </div> -->
-                                <div class="col-lg-12">
-                                    <label class="text-primary">Judul</label>
-                                    <input type="text" name="judul" class="form-control judul" placeholder="Judul">
-                                    <div class="invalid-feedback errorjudul"></div>
-                                    <br>
-                                </div>
-                                <br>
-                                <div class="col-lg-12">
-                                    <label class="text-primary">Content</label>
-                                    <textarea name="isi" id="isitambah"></textarea>
-                                </div>
-                                <hr>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-danger" data-dismiss="modal">Batalkan</button>
-                            <button type="submit" class="btn btn-primary btnSimpan">Simpan</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <div class="card-block">
         <div class="dt-responsive table-responsive">
@@ -81,9 +17,9 @@
                         <th width="5%">No</th>
                         <th width="5%" style="text-align: center;"><i class="fa fa-gear"></i></th>
                         <th width="10%">TANGGAL</th>
-                        <th width="30%">JUDUL</th>
+                        <th width="40%">JUDUL</th>
                         <th width="20%" style="text-align: center;">BANNER</th>
-                        <th width="30%">LOG</th>
+                        <th width="20%">LOG</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -121,7 +57,12 @@
                             ?>
 
                             <td style="text-align: center;"><img src="<?= base_url($banner); ?>" width="100%"></td>
-                            <td style="min-width: 150px;max-width: 200px; white-space: normal;"><?= $item['timestamp'] . '   ' . $item['penulis'] ?></td>
+                            <td style="min-width: 75px;max-width: 300px; white-space: normal;"></span><span class="badge badge-pill badge-secondary">
+                                    <?= $item['timestamp'] ?>
+                                </span>
+                                <br><span class="badge badge-pill badge-warning"><?= $item['nama_admin'] ?></span>
+                                <br><span class="badge badge-pill badge-primary"><?= $item['tingkat'] ?></span>
+                            </td>
                         </tr>
                     <?php endforeach ?>
                 </tbody>

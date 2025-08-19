@@ -395,7 +395,10 @@
                             <td style="min-width: 100px;max-width: 400px; white-space: normal;"><?= $item['bagian_unit'] ?></td>
                             <td style="min-width: 50;max-width: 100px; white-space: normal;"><?= $item['pendidikan'] ?></td>
                             <td style="text-align: center;"><img src="<?= base_url('writable/uploads/content/tendik/thumb/' . $item['gambar'] . ''); ?>" width="100%"></td>
-                            <td><?= $item['timestamp'] . ' | ' . $item['admin'] ?></td>
+                            <td style="min-width: 75px;max-width: 300px; white-space: normal;"></span><span class="badge badge-pill badge-secondary">
+                                    <?= $item['timestamp'] ?>
+                                </span><br><span class="badge badge-pill badge-warning"><?= $item['nama_admin'] ?></span>
+                            </td>
                         </tr>
                     <?php endforeach ?>
                 </tbody>

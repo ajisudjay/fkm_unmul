@@ -48,14 +48,14 @@ class User extends BaseController
             if ($request->isAJAX()) {
                 if (session()->get('level') === "Superadmin") {
                     $data = [
-                        'user' => $this->UsersModel->orderBy('nama', 'DESC')->get()->getResultArray(),
+                        'user' => $this->UsersModel->select('users.*, users.nama as nama_admin')->orderBy('nama', 'DESC')->get()->getResultArray(),
                         'prodi' => $this->ProdiModel->orderBy('id', 'ASC')->get()->getResultArray(),
                         'lvl' => $lvl,
                         'validation' => \Config\Services::validation(),
                     ];
                 } else {
                     $data = [
-                        'user' => $this->UsersModel->where('username', $namauser)->orderBy('nama', 'DESC')->get()->getResultArray(),
+                        'user' => $this->UsersModel->select('users.*, users.nama as nama_admin')->where('username', $namauser)->orderBy('nama', 'DESC')->get()->getResultArray(),
                         'prodi' => $this->ProdiModel->orderBy('id', 'ASC')->get()->getResultArray(),
                         'lvl' => $lvl,
                         'validation' => \Config\Services::validation(),

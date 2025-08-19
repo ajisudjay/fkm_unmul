@@ -42,7 +42,9 @@ class Link extends BaseController
             if ($request->isAJAX()) {
                 $data = [
                     'title' => 'Link Partner',
-                    'link' => $this->LinkModel->orderBy('judul', 'ASC')->get()->getResultArray(),
+                    'link' => $this->LinkModel
+                        ->select('link.*, users.nama as nama_admin')
+                        ->join('users', 'link.admin = users.username')->orderBy('judul', 'ASC')->get()->getResultArray(),
                     'validation' => \Config\Services::validation(),
                 ];
                 $msg = [

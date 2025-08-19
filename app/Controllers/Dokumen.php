@@ -42,7 +42,9 @@ class Dokumen extends BaseController
             $request = \Config\Services::request();
             if ($request->isAJAX()) {
                 $data = [
-                    'dokumen' => $this->DokumenModel->orderBy('id', 'DESC')->get()->getResultArray(),
+                    'dokumen' => $this->DokumenModel
+                        ->select('dokumen.*, users.nama as nama_admin')
+                        ->join('users', 'dokumen.admin = users.username')->orderBy('id', 'DESC')->get()->getResultArray(),
                     'validation' => \Config\Services::validation(),
                 ];
                 $msg = [

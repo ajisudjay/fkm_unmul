@@ -59,6 +59,19 @@
                                                         <div class="invalid-feedback errorGambar"></div>
                                                     </div>
                                                     <div class="col-lg-3">
+                                                        <label class="text-primary">Tingkat</label>
+                                                        <select name="tingkat" class="form-control tingkat">
+                                                            <option value="<?= $berita['tingkat'] ?>"><?= $berita['tingkat'] ?></option>
+                                                            <?php if ($akses === 'Fakultas') { ?>
+                                                                <option value="Fakultas">Fakultas</option>
+                                                            <?php } ?>
+                                                            <?php foreach ($prodi as $prodi) : ?>
+                                                                <option value="<?= $prodi['prodi'] ?>"><?= $prodi['prodi'] ?></option>
+                                                            <?php endforeach ?>
+                                                        </select>
+                                                    </div>
+
+                                                    <div class="col-lg-3">
                                                         <label class="text-primary">Tanggal</label>
                                                         <input type="date" name="tanggal" class="form-control tanggal" value="<?= $berita['tanggal'] ?>" required>
                                                         <div class="invalid-feedback errorTanggal"></div>
@@ -72,12 +85,6 @@
                                                         <br>
                                                     </div>
                                                     <br>
-                                                    <!-- <div class="col-lg-3">
-                                                        <label class="text-primary">Tag</label>
-                                                        <input type="text" name="tag" class="form-control tag" value="<?= $berita['tag'] ?>" required>
-                                                        <div class="invalid-feedback errorTag"></div>
-                                                        <br>
-                                                    </div> -->
                                                     <div class="col-lg-12">
                                                         <label class="text-primary">Content</label>
                                                         <textarea name="isi" id="isi-edit"><?= $berita['isi'] ?></textarea>

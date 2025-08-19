@@ -40,7 +40,9 @@ class Tendik extends BaseController
             $request = \Config\Services::request();
             if ($request->isAJAX()) {
                 $data = [
-                    'tendik' => $this->TendikModel->orderBy('nama', 'ASC')->get()->getResultArray(),
+                    'tendik' => $this->TendikModel->select('tendik.*, users.nama as nama_admin')
+                        ->join('users', 'tendik.admin = users.username')
+                        ->orderBy('nip', 'ASC')->get()->getResultArray(),
                     // jumlah pendidikan tendik
                     'jumlahLsd' => $this->TendikModel->selectCount('id')->where('pendidikan', 'SD')->where('jk', 'Laki-laki')->first(),
                     'jumlahPsd' => $this->TendikModel->selectCount('id')->where('pendidikan', 'SD')->where('jk', 'Perempuan')->first(),

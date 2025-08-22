@@ -8,41 +8,37 @@
                              FKM UNMUL
                          </h3>
                          <ul class="contact">
-                             <?php foreach ($konf as $item) : ?>
-                                 <div class="info_button">
-                                     <a target="_blank" href="https://maps.app.goo.gl/1T9T9Cv1F1jqvNJe9" class="boxed-btn3-white">Buka Maps</a>
-                                 </div>
-                                 <li>
-                                     <p><i class="fa fa-map-marker"></i> <strong>Alamat : </strong><?= $item['alamat'] ?></p>
-                                 </li>
-                                 <li>
-                                     <p><i class="fa fa-phone"></i> <strong>Telepon : </strong><?= $item['telepon'] ?></p>
-                                 </li>
-                                 <li>
-                                     <p><i class="fa fa-envelope"></i> <strong>Email : </strong> <a href="mailto: <?= $item['email'] ?>"> <?= $item['email'] ?></a></p>
-                                 </li>
-                             <?php endforeach ?>
+                             <div class="info_button">
+                                 <a target="_blank" href="https://maps.app.goo.gl/1T9T9Cv1F1jqvNJe9" class="boxed-btn3-white">Buka Maps</a>
+                             </div>
+                             <li>
+                                 <p><i class="fa fa-map-marker"></i> <strong>Alamat : </strong><?= $konfigurasi['alamat'] ?></p>
+                             </li>
+                             <li>
+                                 <p><i class="fa fa-phone"></i> <strong>Telepon : </strong><?= $konfigurasi['telepon'] ?></p>
+                             </li>
+                             <li>
+                                 <p><i class="fa fa-envelope"></i> <strong>Email : </strong> <a href="mailto: <?= $konfigurasi['email'] ?>"> <?= $konfigurasi['email'] ?></a></p>
+                             </li>
                          </ul>
                          <div class="socail_links">
-                             <?php foreach ($konf as $item) : ?>
-                                 <ul>
-                                     <li>
-                                         <a href="<?= $item['fb'] ?>">
-                                             <i class="ti-facebook"></i>
-                                         </a>
-                                     </li>
-                                     <li>
-                                         <a href="<?= $item['yt'] ?>">
-                                             <i class="fa fa-youtube-play"></i>
-                                         </a>
-                                     </li>
-                                     <li>
-                                         <a href="<?= $item['ig'] ?>">
-                                             <i class="fa fa-instagram"></i>
-                                         </a>
-                                     </li>
-                                 </ul>
-                             <?php endforeach ?>
+                             <ul>
+                                 <li>
+                                     <a href="<?= $konfigurasi['fb'] ?>">
+                                         <i class="ti-facebook"></i>
+                                     </a>
+                                 </li>
+                                 <li>
+                                     <a href="<?= $konfigurasi['yt'] ?>">
+                                         <i class="fa fa-youtube-play"></i>
+                                     </a>
+                                 </li>
+                                 <li>
+                                     <a href="<?= $konfigurasi['ig'] ?>">
+                                         <i class="fa fa-instagram"></i>
+                                     </a>
+                                 </li>
+                             </ul>
                          </div>
 
                      </div>

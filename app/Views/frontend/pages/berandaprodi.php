@@ -69,7 +69,7 @@
     <!-- Visi MisiArea -->
     <div class="welcome_docmed_area">
         <div class="section_title text-center">
-            <h3 style=" color: #360A5B;">Visi Misi Fakultas</h3>
+            <h3 style=" color: #360A5B;">Visi Misi Prodi</h3>
         </div>
         <div class="container">
             <div class="row">

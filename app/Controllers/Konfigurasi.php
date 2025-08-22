@@ -3,14 +3,17 @@
 namespace App\Controllers;
 
 use App\Models\KonfigurasiModel;
+use App\Models\ProdiModel;
 use App\Controllers\BaseController;
 
 class Konfigurasi extends BaseController
 {
     protected $KonfigurasiModel;
+    protected $ProdiModel;
     public function __construct()
     {
         $this->KonfigurasiModel = new KonfigurasiModel();
+        $this->ProdiModel = new ProdiModel();
     }
     public function index()
     {
@@ -18,17 +21,31 @@ class Konfigurasi extends BaseController
             $admin = session()->get('nama');
             $lvl = session()->get('level');
             $file = session()->get('file');
+            $prodix = session()->get('prodi');
             if ($file === NULL) {
                 $gambar = 'user-profile.png';
             } else {
                 $gambar = $file;
             }
-            $data = [
-                'title' => 'Konfigurasi',
-                'admin' => $admin,
-                'lvl' => $lvl,
-                'foto' => $gambar,
-            ];
+            if (session()->get('prodi') === 'Fakultas') {
+                $data = [
+                    'title' => 'Konfigurasi',
+                    'admin' => $admin,
+                    'akses' => 'Fakultas',
+                    'prodi' => $this->ProdiModel->get()->getResultArray(),
+                    'lvl' => $lvl,
+                    'foto' => $gambar,
+                ];
+            } else {
+                $data = [
+                    'title' => 'Konfigurasi',
+                    'admin' => $admin,
+                    'akses' => 'Prodi',
+                    'prodi' => $this->ProdiModel->where('prodi', $prodix)->get()->getResultArray(),
+                    'lvl' => $lvl,
+                    'foto' => $gambar,
+                ];
+            }
             return view('backend/konfigurasi/index', $data);
         } else {
             return redirect()->to(base_url('/login'));
@@ -38,9 +55,11 @@ class Konfigurasi extends BaseController
     {
         if (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Website') {
             $request = \Config\Services::request();
+            $halaman = $request->getVar('halaman');
             if ($request->isAJAX()) {
                 $data = [
-                    'konfigurasi' => $this->KonfigurasiModel->orderBy('id', 'DESC')->get()->getResultArray(),
+                    'halaman' => $halaman,
+                    'konfigurasi' => $this->KonfigurasiModel->where('halaman', $halaman)->orderBy('id', 'DESC')->get()->getResultArray(),
                     'validation' => \Config\Services::validation(),
                 ];
                 $msg = [
@@ -61,6 +80,7 @@ class Konfigurasi extends BaseController
             $request = \Config\Services::request();
             if ($request->isAJAX()) {
                 $id = $request->getVar('id');
+                $halaman = $request->getVar('halaman');
                 $visi = $request->getVar('visi');
                 $misi = $request->getVar('misi');
                 $motto = $request->getVar('motto');
@@ -70,6 +90,8 @@ class Konfigurasi extends BaseController
                 $ig = $request->getVar('ig');
                 $yt = $request->getVar('yt');
                 $fb = $request->getVar('fb');
+                date_default_timezone_set("Asia/Kuala_Lumpur");
+                $timestamp = date("Y-m-d h:i:sa");
                 $validation = \Config\Services::validation();
                 $valid = $this->validate([
                     'visi' => [
@@ -160,6 +182,7 @@ class Konfigurasi extends BaseController
                         'email' => $email,
                         'telepon' => $telepon,
                         'alamat' => $alamat,
+                        'timestamp' => $timestamp,
                         'ig' => $ig,
                         'fb' => $fb,
                         'yt' => $yt,
@@ -168,7 +191,8 @@ class Konfigurasi extends BaseController
                     $this->KonfigurasiModel->update($id, $data);
 
                     $data2 = [
-                        'konfigurasi' => $this->KonfigurasiModel->get()->getResultArray(),
+                        'halaman' => $halaman,
+                        'konfigurasi' => $this->KonfigurasiModel->where('halaman', $halaman)->orderBy('id', 'DESC')->get()->getResultArray(),
                     ];
                     $msg = [
                         'sukses' => 'Konfigurasi Berhasil Diperbarui !',

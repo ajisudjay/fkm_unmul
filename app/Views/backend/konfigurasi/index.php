@@ -40,10 +40,31 @@
                                         <strong>Gagal !</strong> <?= session()->getFlashdata('pesanGagal') ?>
                                     </div>
                                 <?php } ?>
-                                <div class="bg-transparent border-0" id="result"></div>
+                                <div class="container-fluid" style="padding: 25px;">
+
+                                    <form action="<?= base_url('konfigurasi/view'); ?>" method="post" class="halaman">
+                                        <?= csrf_field(); ?>
+                                        <div class="row">
+                                            <div class="col-lg-4">
+                                                <select name="halaman" class="form-control halaman">
+                                                    <?php if ($akses === 'Fakultas') { ?>
+                                                        <option value="Fakultas">Fakultas</option>
+                                                    <?php } ?>
+                                                    <?php foreach ($prodi as $prodi) : ?>
+                                                        <option value="<?= $prodi['prodi'] ?>"><?= $prodi['prodi'] ?></option>
+                                                    <?php endforeach ?>
+                                                </select>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <button class="btn btn-primary btnTampilkan" type="submit">Tampilkan</button>
+                                            </div>
+                                        </div>
+                                    </form>
+
+                                    <div class="bg-transparent border-0" id="result"></div>
+                                </div>
                             </div>
                         </div>
-                    </div>
                 </section>
                 <!-- Dashboard Analytics end -->
 
@@ -53,15 +74,32 @@
     <!-- END: Content-->
     <script>
         $(document).ready(function() {
-            $.ajax({
-                url: '<?= base_url('konfigurasi/view') ?>',
-                dataType: 'json',
-                success: function(response) {
-                    $("#result").html(response.data);
-                },
-                error: function(xhr, ajaxOptions, thrownError) {
-                    alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError);
-                }
+            $(".halaman").submit(function(e) {
+                var formObj = $(this);
+                var formURL = formObj.attr("action");
+                var formData = new FormData(this);
+                $.ajax({
+                    url: formURL,
+                    type: 'POST',
+                    data: formData,
+                    dataType: 'json',
+                    contentType: false,
+                    cache: false,
+                    processData: false,
+                    beforeSend: function() {
+                        $('.btnTampilkan').attr('disable', 'disabled');
+                        $('.btnTampilkan').html('<i class="fa fa-spin fa-spinner"></i>');
+                    },
+                    complete: function() {
+                        $('.btnTampilkan').removeAttr('disable', 'disabled');
+                        $('.btnTampilkan').html('Tampilkan');
+                    },
+                    success: function(response) {
+                        $("#result").html(response.data);
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {}
+                });
+                e.preventDefault(); //Prevent Default action.
             });
         });
     </script>

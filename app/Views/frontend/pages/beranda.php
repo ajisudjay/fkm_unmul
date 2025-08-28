@@ -181,6 +181,12 @@
                         <div class="col-xl-4 col-md-6 col-lg-4">
                             <div class="box-berita">
                                 <div class="single_department">
+                                    <div class="col-lg-12">
+                                        <p class="badge badge-pill badge-success">
+                                            <i class="fa fa-newspaper-o"></i>
+                                            <?= $item_berita['tingkat'] ?>
+                                        </p>
+                                    </div>
                                     <div class="department_thumb">
                                         <a href="<?= base_url('informasi-detail/' . $item_berita['slug']); ?>">
                                             <img src="<?= base_url('writable/uploads/content/berita/thumb/' . $item_berita['banner']); ?>" height="300px">
@@ -188,20 +194,14 @@
                                     </div>
                                     <div class="department_content">
                                         <!-- limit Judul max 6 kata -->
-                                        <h3><a href="<?= base_url('informasi-detail/' . $item_berita['slug']); ?>"><?= substr($item_berita['judul'], 0, 80) ?></a></h3>
+                                        <p><a href="<?= base_url('informasi-detail/' . $item_berita['slug']); ?>"><?= substr($item_berita['judul'], 0, 80) ?></a></p>
                                         <!-- Limit Deskripsi 25 kata -->
                                         <div class="row">
                                             <div class="col-lg-6">
-                                                <p style="font-size: 12px;">
-                                                    <i class="fa fa-calendar mr-1"></i>
-                                                    <?= $item_berita['tanggal'] ?>
-                                                </p>
+                                                <span class="badge badge-pill badge-warning"><i class="fa fa-calender-o"></i><?= $item_berita['tanggal'] ?></span>
                                             </div>
                                             <div class="col-lg-6">
-                                                <p style="font-size: 12px;">
-                                                    <i class="fa fa-user mr-1"></i>
-                                                    <?= $item_berita['penulis'] ?>
-                                                </p>
+                                                <span class="badge badge-pill badge-info"><i class="fa fa-calender-o"></i><?= $item_berita['nama_admin'] ?></span>
                                             </div>
                                         </div>
                                     </div>

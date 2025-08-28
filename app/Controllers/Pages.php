@@ -102,7 +102,10 @@ class Pages extends BaseController
             'menu' => $this->MainmenuModel->orderBy('urutan', 'ASC')->where('mainmenu.halaman', 'Fakultas')->findAll(5),
             'menu2' => $this->MainmenuModel->orderBy('urutan', 'ASC')->where('mainmenu.halaman', 'Fakultas')->findAll(11, 5),
             'konfigurasi' => $this->KonfigurasiModel->where('halaman', 'Fakultas')->first(),
-            'berita' => $this->BeritaModel->orderBy('tanggal', 'DESC')->findAll(6),
+            'berita' => $this->BeritaModel
+                ->select('berita.*, users.nama as nama_admin')
+                ->join('users', 'berita.penulis = users.username', 'left')
+                ->orderBy('tanggal', 'DESC')->findAll(6),
             'mitra' => $this->MitraModel->orderBy('nama', 'DESC')->get()->getResultArray(),
             'slideshow' => $this->SlideshowModel->orderBy('urutan', 'ASC')->get()->getResultArray(),
             'pejabat' => $this->PejabatModel->orderBy('urutan', 'ASC')->get()->getResultArray(),
@@ -126,7 +129,10 @@ class Pages extends BaseController
             'menu' => $this->MainmenuModel->orderBy('urutan', 'ASC')->where('mainmenu.halaman', $prodix)->findAll(5),
             'menu2' => $this->MainmenuModel->orderBy('urutan', 'ASC')->where('mainmenu.halaman', $prodix)->findAll(11, 5),
             'konfigurasi' => $this->KonfigurasiModel->where('halaman', $prodix)->first(),
-            'berita' => $this->BeritaModel->orderBy('tanggal', 'DESC')->findAll(6),
+            'berita' => $this->BeritaModel
+                ->select('berita.*, users.nama as nama_admin')
+                ->join('users', 'berita.penulis = users.username', 'left')
+                ->orderBy('tanggal', 'DESC')->findAll(6),
             'mitra' => $this->MitraModel->orderBy('nama', 'DESC')->get()->getResultArray(),
             'slideshow' => $this->SlideshowModel->orderBy('urutan', 'ASC')->get()->getResultArray(),
             'pejabat' => $this->PejabatModel->orderBy('urutan', 'ASC')->get()->getResultArray(),
@@ -178,9 +184,9 @@ class Pages extends BaseController
             'mainmenu' => $this->MainmenuModel->orderBy('urutan', 'ASC')->get()->getResultArray(),
             'menu' => $this->MainmenuModel->orderBy('urutan', 'ASC')->findAll(6),
             'menu2' => $this->MainmenuModel->orderBy('urutan', 'ASC')->findAll(7, 6),
-            'dosens2kesmas' => $this->DosenModel->orderBy('nip', 'ASC')->where('homebase', 'S2 Kesehatan Masyarakat')->get()->getResultArray(),
-            'dosens1kesmas' => $this->DosenModel->orderBy('nip', 'ASC')->where('homebase', 'S1 Kesehatan Masyarakat')->get()->getResultArray(),
-            'dosengizi' => $this->DosenModel->orderBy('nip', 'ASC')->where('homebase', 'S1 Gizi')->get()->getResultArray(),
+            'dosens2kesmas' => $this->DosenModel->orderBy('nip', 'ASC')->where('homebase', 'Magister Kesehatan Masyarakat')->get()->getResultArray(),
+            'dosens1kesmas' => $this->DosenModel->orderBy('nip', 'ASC')->where('homebase', 'Sarjana Kesehatan Masyarakat')->get()->getResultArray(),
+            'dosengizi' => $this->DosenModel->orderBy('nip', 'ASC')->where('homebase', 'Sarjana Gizi')->get()->getResultArray(),
             'konf' => $this->KonfigurasiModel->findAll(),
             'konfigurasi' => $this->KonfigurasiModel->first(),
             'link_library' => $this->LinkModel->orderBy('judul', 'ASC')->where('kategori', 'Library')->findAll(),

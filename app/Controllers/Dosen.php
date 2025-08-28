@@ -3,14 +3,18 @@
 namespace App\Controllers;
 
 use App\Models\DosenModel;
+use App\Models\ProdiModel;
+
 use App\Controllers\BaseController;
 
 class Dosen extends BaseController
 {
     protected $DosenModel;
+    protected $ProdiModel;
     public function __construct()
     {
         $this->DosenModel = new DosenModel();
+        $this->ProdiModel = new ProdiModel();
     }
     public function index()
     {
@@ -24,6 +28,7 @@ class Dosen extends BaseController
                 $gambar = $file;
             }
             $data = [
+                'prodi' => $this->ProdiModel->orderBy('id', 'ASC')->get()->getResultArray(),
                 'title' => 'Dosen',
                 'admin' => $admin,
                 'lvl' => $lvl,
@@ -41,6 +46,7 @@ class Dosen extends BaseController
             if ($request->isAJAX()) {
                 if (session()->get('level') === 'Dosen') {
                     $data = [
+                        'prodi' => $this->ProdiModel->orderBy('id', 'ASC')->get()->getResultArray(),
                         'dosen' => $this->DosenModel->select('dosen.*, users.nama as nama_admin')
                             ->join('users', 'dosen.admin = users.username')
                             ->where('nip', session()->get('username'))->get()->getResultArray(),
@@ -73,6 +79,7 @@ class Dosen extends BaseController
                 } else {
                     $data = [
                         'akseshapus' => '',
+                        'prodi' => $this->ProdiModel->orderBy('id', 'ASC')->get()->getResultArray(),
                         'dosen' => $this->DosenModel
                             ->select('dosen.*, users.nama as nama_admin')
                             ->join('users', 'dosen.admin = users.username')

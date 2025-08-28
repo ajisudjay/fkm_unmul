@@ -22,7 +22,7 @@
     <div class="card">
         <section class="sample-text-area">
             <div class="container box_1170">
-                <h3>S2 Kesehatan Masyarakat</h3>
+                <h3>Magister Kesehatan Masyarakat</h3>
                 <div class="row">
                     <?php foreach ($dosens2kesmas as $item) : ?>
                         <div class="col-lg-4" align="center">
@@ -42,7 +42,7 @@
                         </div>
                     <?php endforeach ?>
                 </div>
-                <h3>S1 Kesehatan Masyarakat</h3>
+                <h3>Sarjana Kesehatan Masyarakat</h3>
                 <div class="row">
                     <?php foreach ($dosens1kesmas as $item) : ?>
                         <div class="col-lg-4" align="center">
@@ -62,7 +62,7 @@
                         </div>
                     <?php endforeach ?>
                 </div>
-                <h3>S1 Gizi</h3>
+                <h3>Sarjana Gizi</h3>
                 <div class="row">
                     <?php foreach ($dosengizi as $item) : ?>
                         <div class="col-lg-4" align="center">

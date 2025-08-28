@@ -34,9 +34,6 @@
                                 <li><i class="fa fa-calendar"></i> <?= $berita['tanggal'] ?></li>
                                 <li><i class="fa fa-list"></i> <?= $berita['kategori'] ?></li>
                             </ul>
-                            <ul class="blog-info-link mt-3 mb-4">
-                                <li><i class="fa fa-tag"></i> <?= $berita['tag'] ?></li>
-                            </ul>
                             <p class="excert">
                                 <?= $berita['isi'] ?>
                             </p>

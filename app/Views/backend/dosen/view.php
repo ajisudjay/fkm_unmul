@@ -77,10 +77,15 @@
                                     <div class="invalid-feedback errortelp"></div>
                                     <br>
                                 </div>
-                                <div class="col-lg-3">
-                                    <label class="text-primary">Homebase</label>
-                                    <input type="text" name="homebase" class="form-control homebase" placeholder="Homebase">
-                                    <div class="invalid-feedback errorhomebase"></div>
+                                <div class="col-lg-2">
+                                    <label class="text-primary">Prodi</label>
+                                    <select name="homebase" class="form-control homebase">
+                                        <option value="">Pilih Prodi</option>
+                                        <?php foreach ($prodi as $itemprodi) : ?>
+                                            <option value="<?= $itemprodi['prodi'] ?>"><?= $itemprodi['prodi'] ?></option>
+                                        <?php endforeach ?>
+                                    </select>
+                                    <div class="invalid-feedback errorHomebase"></div>
                                     <br>
                                 </div>
                                 <div class="col-lg-2">
@@ -420,9 +425,14 @@
                                                                 <div class="invalid-feedback errortelp"></div>
                                                                 <br>
                                                             </div>
-                                                            <div class="col-lg-3">
+                                                            <div class="col-lg-2">
                                                                 <label class="text-primary">Homebase</label>
-                                                                <input type="text" required name="homebase" class="form-control homebase" value="<?= $item['homebase'] ?>">
+                                                                <select name="homebase" class="form-control homebase">
+                                                                    <option value="<?= $item['homebase'] ?>"><?= $item['homebase'] ?></option>
+                                                                    <?php foreach ($prodi as $itemprodi) : ?>
+                                                                        <option value="<?= $itemprodi['prodi'] ?>"><?= $itemprodi['prodi'] ?></option>
+                                                                    <?php endforeach ?>
+                                                                </select>
                                                                 <div class="invalid-feedback errorhomebase"></div>
                                                                 <br>
                                                             </div>

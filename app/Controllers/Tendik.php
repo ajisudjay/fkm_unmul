@@ -39,34 +39,68 @@ class Tendik extends BaseController
         if (session()->get('level') === 'Superadmin' || session()->get('level') === 'Admin Website' || session()->get('level') === 'Admin eOffice' || session()->get('level') === 'Tendik') {
             $request = \Config\Services::request();
             if ($request->isAJAX()) {
-                $data = [
-                    'tendik' => $this->TendikModel->select('tendik.*, users.nama as nama_admin')
-                        ->join('users', 'tendik.admin = users.username')
-                        ->orderBy('nip', 'ASC')->get()->getResultArray(),
-                    // jumlah pendidikan tendik
-                    'jumlahLsd' => $this->TendikModel->selectCount('id')->where('pendidikan', 'SD')->where('jk', 'Laki-laki')->first(),
-                    'jumlahPsd' => $this->TendikModel->selectCount('id')->where('pendidikan', 'SD')->where('jk', 'Perempuan')->first(),
-                    'jumlahLsmp' => $this->TendikModel->selectCount('id')->where('pendidikan', 'SMP')->where('jk', 'Laki-laki')->first(),
-                    'jumlahPsmp' => $this->TendikModel->selectCount('id')->where('pendidikan', 'SMP')->where('jk', 'Perempuan')->first(),
-                    'jumlahLsma' => $this->TendikModel->selectCount('id')->where('pendidikan', 'SMA')->where('jk', 'Laki-laki')->first(),
-                    'jumlahPsma' => $this->TendikModel->selectCount('id')->where('pendidikan', 'SMA')->where('jk', 'Perempuan')->first(),
-                    'jumlahLd3' => $this->TendikModel->selectCount('id')->where('pendidikan', 'D3')->where('jk', 'Laki-laki')->first(),
-                    'jumlahPd3' => $this->TendikModel->selectCount('id')->where('pendidikan', 'D3')->where('jk', 'Perempuan')->first(),
-                    'jumlahLd4' => $this->TendikModel->selectCount('id')->where('pendidikan', 'D4')->where('jk', 'Laki-laki')->first(),
-                    'jumlahPd4' => $this->TendikModel->selectCount('id')->where('pendidikan', 'D4')->where('jk', 'Perempuan')->first(),
-                    'jumlahLs1' => $this->TendikModel->selectCount('id')->where('pendidikan', 'S1')->where('jk', 'Laki-laki')->first(),
-                    'jumlahPs1' => $this->TendikModel->selectCount('id')->where('pendidikan', 'S1')->where('jk', 'Perempuan')->first(),
-                    'jumlahLs2' => $this->TendikModel->selectCount('id')->where('pendidikan', 'S2')->where('jk', 'Laki-laki')->first(),
-                    'jumlahPs2' => $this->TendikModel->selectCount('id')->where('pendidikan', 'S2')->where('jk', 'Perempuan')->first(),
-                    // jumlah status tendik
-                    'jumlahLnon' => $this->TendikModel->selectCount('id')->where('status', 'Non-ASN')->where('jk', 'Laki-laki')->first(),
-                    'jumlahLpns' => $this->TendikModel->selectCount('id')->where('status', 'PNS')->where('jk', 'Laki-laki')->first(),
-                    'jumlahLpppk' => $this->TendikModel->selectCount('id')->where('status', 'PPPK')->where('jk', 'Laki-laki')->first(),
-                    'jumlahPnon' => $this->TendikModel->selectCount('id')->where('status', 'Non-ASN')->where('jk', 'Perempuan')->first(),
-                    'jumlahPpns' => $this->TendikModel->selectCount('id')->where('status', 'PNS')->where('jk', 'Perempuan')->first(),
-                    'jumlahPpppk' => $this->TendikModel->selectCount('id')->where('status', 'PPPK')->where('jk', 'Perempuan')->first(),
-                    'validation' => \Config\Services::validation(),
-                ];
+                if (session()->get('level') === 'Tendik') {
+                    $data = [
+                        'aksesbutton' => 'hidden',
+                        'tendik' => $this->TendikModel->select('tendik.*, users.nama as nama_admin')
+                            ->join('users', 'tendik.admin = users.username')
+                            ->where('tendik.nip', session()->get('username'))
+                            ->orderBy('nip', 'ASC')->get()->getResultArray(),
+                        // jumlah pendidikan tendik
+                        'jumlahLsd' => $this->TendikModel->selectCount('id')->where('pendidikan', 'SD')->where('jk', 'Laki-laki')->first(),
+                        'jumlahPsd' => $this->TendikModel->selectCount('id')->where('pendidikan', 'SD')->where('jk', 'Perempuan')->first(),
+                        'jumlahLsmp' => $this->TendikModel->selectCount('id')->where('pendidikan', 'SMP')->where('jk', 'Laki-laki')->first(),
+                        'jumlahPsmp' => $this->TendikModel->selectCount('id')->where('pendidikan', 'SMP')->where('jk', 'Perempuan')->first(),
+                        'jumlahLsma' => $this->TendikModel->selectCount('id')->where('pendidikan', 'SMA')->where('jk', 'Laki-laki')->first(),
+                        'jumlahPsma' => $this->TendikModel->selectCount('id')->where('pendidikan', 'SMA')->where('jk', 'Perempuan')->first(),
+                        'jumlahLd3' => $this->TendikModel->selectCount('id')->where('pendidikan', 'D3')->where('jk', 'Laki-laki')->first(),
+                        'jumlahPd3' => $this->TendikModel->selectCount('id')->where('pendidikan', 'D3')->where('jk', 'Perempuan')->first(),
+                        'jumlahLd4' => $this->TendikModel->selectCount('id')->where('pendidikan', 'D4')->where('jk', 'Laki-laki')->first(),
+                        'jumlahPd4' => $this->TendikModel->selectCount('id')->where('pendidikan', 'D4')->where('jk', 'Perempuan')->first(),
+                        'jumlahLs1' => $this->TendikModel->selectCount('id')->where('pendidikan', 'S1')->where('jk', 'Laki-laki')->first(),
+                        'jumlahPs1' => $this->TendikModel->selectCount('id')->where('pendidikan', 'S1')->where('jk', 'Perempuan')->first(),
+                        'jumlahLs2' => $this->TendikModel->selectCount('id')->where('pendidikan', 'S2')->where('jk', 'Laki-laki')->first(),
+                        'jumlahPs2' => $this->TendikModel->selectCount('id')->where('pendidikan', 'S2')->where('jk', 'Perempuan')->first(),
+                        // jumlah status tendik
+                        'jumlahLnon' => $this->TendikModel->selectCount('id')->where('status', 'Non-ASN')->where('jk', 'Laki-laki')->first(),
+                        'jumlahLpns' => $this->TendikModel->selectCount('id')->where('status', 'PNS')->where('jk', 'Laki-laki')->first(),
+                        'jumlahLpppk' => $this->TendikModel->selectCount('id')->where('status', 'PPPK')->where('jk', 'Laki-laki')->first(),
+                        'jumlahPnon' => $this->TendikModel->selectCount('id')->where('status', 'Non-ASN')->where('jk', 'Perempuan')->first(),
+                        'jumlahPpns' => $this->TendikModel->selectCount('id')->where('status', 'PNS')->where('jk', 'Perempuan')->first(),
+                        'jumlahPpppk' => $this->TendikModel->selectCount('id')->where('status', 'PPPK')->where('jk', 'Perempuan')->first(),
+                        'validation' => \Config\Services::validation(),
+                    ];
+                } else {
+                    $data = [
+                        'aksesbutton' => '',
+                        'tendik' => $this->TendikModel->select('tendik.*, users.nama as nama_admin')
+                            ->join('users', 'tendik.admin = users.username')
+                            ->orderBy('nip', 'ASC')->get()->getResultArray(),
+                        // jumlah pendidikan tendik
+                        'jumlahLsd' => $this->TendikModel->selectCount('id')->where('pendidikan', 'SD')->where('jk', 'Laki-laki')->first(),
+                        'jumlahPsd' => $this->TendikModel->selectCount('id')->where('pendidikan', 'SD')->where('jk', 'Perempuan')->first(),
+                        'jumlahLsmp' => $this->TendikModel->selectCount('id')->where('pendidikan', 'SMP')->where('jk', 'Laki-laki')->first(),
+                        'jumlahPsmp' => $this->TendikModel->selectCount('id')->where('pendidikan', 'SMP')->where('jk', 'Perempuan')->first(),
+                        'jumlahLsma' => $this->TendikModel->selectCount('id')->where('pendidikan', 'SMA')->where('jk', 'Laki-laki')->first(),
+                        'jumlahPsma' => $this->TendikModel->selectCount('id')->where('pendidikan', 'SMA')->where('jk', 'Perempuan')->first(),
+                        'jumlahLd3' => $this->TendikModel->selectCount('id')->where('pendidikan', 'D3')->where('jk', 'Laki-laki')->first(),
+                        'jumlahPd3' => $this->TendikModel->selectCount('id')->where('pendidikan', 'D3')->where('jk', 'Perempuan')->first(),
+                        'jumlahLd4' => $this->TendikModel->selectCount('id')->where('pendidikan', 'D4')->where('jk', 'Laki-laki')->first(),
+                        'jumlahPd4' => $this->TendikModel->selectCount('id')->where('pendidikan', 'D4')->where('jk', 'Perempuan')->first(),
+                        'jumlahLs1' => $this->TendikModel->selectCount('id')->where('pendidikan', 'S1')->where('jk', 'Laki-laki')->first(),
+                        'jumlahPs1' => $this->TendikModel->selectCount('id')->where('pendidikan', 'S1')->where('jk', 'Perempuan')->first(),
+                        'jumlahLs2' => $this->TendikModel->selectCount('id')->where('pendidikan', 'S2')->where('jk', 'Laki-laki')->first(),
+                        'jumlahPs2' => $this->TendikModel->selectCount('id')->where('pendidikan', 'S2')->where('jk', 'Perempuan')->first(),
+                        // jumlah status tendik
+                        'jumlahLnon' => $this->TendikModel->selectCount('id')->where('status', 'Non-ASN')->where('jk', 'Laki-laki')->first(),
+                        'jumlahLpns' => $this->TendikModel->selectCount('id')->where('status', 'PNS')->where('jk', 'Laki-laki')->first(),
+                        'jumlahLpppk' => $this->TendikModel->selectCount('id')->where('status', 'PPPK')->where('jk', 'Laki-laki')->first(),
+                        'jumlahPnon' => $this->TendikModel->selectCount('id')->where('status', 'Non-ASN')->where('jk', 'Perempuan')->first(),
+                        'jumlahPpns' => $this->TendikModel->selectCount('id')->where('status', 'PNS')->where('jk', 'Perempuan')->first(),
+                        'jumlahPpppk' => $this->TendikModel->selectCount('id')->where('status', 'PPPK')->where('jk', 'Perempuan')->first(),
+                        'validation' => \Config\Services::validation(),
+                    ];
+                }
                 $msg = [
                     'data' => view('backend/tendik/view', $data)
                 ];

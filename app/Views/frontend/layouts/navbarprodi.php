@@ -43,7 +43,7 @@
                         <div class="main-menu d-none d-lg-block">
                             <nav>
                                 <ul id="navigation">
-                                    <li><a class="<?= $title == 'Beranda' ? 'text-primary' : '' ?>" href="<?= base_url('/'); ?>">Beranda</a></li>
+                                    <li><a class="<?= $title == 'Beranda' ? 'text-primary' : '' ?>" href="<?= base_url('/prodi/' . $slugprodi); ?>">Beranda</a></li>
                                     <?php foreach ($menu as $item_mainmenu) : ?>
                                         <?php $menu = $item_mainmenu['mainmenu'] ?>
                                         <li><a href="#" class="<?= $title_pages == $menu ? 'text-primary' : '' ?>"> <?= $menu ?> <i class="ti-angle-down"></i></a>

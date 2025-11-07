@@ -14,7 +14,7 @@ class SlideshowModel extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['id', 'nama', 'urutan', 'gambar'];
+    protected $allowedFields    = ['id', 'nama', 'urutan', 'gambar', 'prodi'];
 
     // Dates
     protected $useTimestamps = false;

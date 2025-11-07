@@ -33,6 +33,17 @@
                                     <div class="invalid-feedback errorNama"></div>
                                     <br>
                                 </div>
+                                <div class="col-lg-12">
+                                    <label class="text-primary">Halaman</label>
+                                    <select name="prodi" class="form-control">
+                                        <option value="fakultas">Fakultas</option>
+                                        <?php foreach ($data_prodi as $itemprodi) : ?>
+                                            <option value="<?= $itemprodi['slug'] ?>"><?= $itemprodi['prodi'] ?></option>
+                                        <?php endforeach ?>
+                                    </select>
+                                    <div class="invalid-feedback errorProdi"></div>
+                                    <br>
+                                </div>
                                 <br>
                                 <div class="col-lg-12">
                                     <label class="text-primary">Gambar <span style="color: red;">*max size 2mb</span></label>
@@ -60,7 +71,8 @@
                         <th width="5%">No</th>
                         <th width="5%" style="text-align: center;">AKSI</th>
                         <th width="35%">Nama</th>
-                        <th width="55%" style="text-align: center;">Gambar</th>
+                        <th width="15%">Prodi</th>
+                        <th width="40%" style="text-align: center;">Gambar</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -74,6 +86,7 @@
                                     <span class="btn-sm btn-danger feather icon-trash-2 text-default"></span>
                                 </a>
                             <td><?= $item['nama'] ?></td>
+                            <td><?= $item['prodi'] ?></td>
                             <td style="text-align: center;"><img src="<?= base_url('writable/uploads/content/slideshow/' . $item['gambar'] . ''); ?>" width="100%"></td>
                         </tr>
                     <?php endforeach ?>

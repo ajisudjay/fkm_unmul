@@ -3,14 +3,17 @@
 namespace App\Controllers;
 
 use App\Models\SlideshowModel;
+use App\Models\ProdiModel;
 use App\Controllers\BaseController;
 
 class Slideshow extends BaseController
 {
     protected $SlideshowModel;
+    protected $ProdiModel;
     public function __construct()
     {
         $this->SlideshowModel = new SlideshowModel();
+        $this->ProdiModel = new ProdiModel();
     }
 
     public function index()
@@ -42,6 +45,7 @@ class Slideshow extends BaseController
             $request = \Config\Services::request();
             if ($request->isAJAX()) {
                 $data = [
+                    'data_prodi' => $this->ProdiModel->orderBy('prodi', 'DESC')->findAll(),
                     'slideshow' => $this->SlideshowModel->orderBy('urutan', 'DESC')->get()->getResultArray(),
                     'validation' => \Config\Services::validation(),
                 ];
@@ -64,6 +68,7 @@ class Slideshow extends BaseController
 
             $urutan = $request->getVar('urutan');
             $nama = $request->getVar('nama');
+            $prodi = $request->getVar('prodi');
             $file = $request->getFile('file');
             $input = $this->validate([
                 'file' => 'uploaded[file]|max_size[file,2048],'
@@ -78,6 +83,7 @@ class Slideshow extends BaseController
                 $data = [
                     'urutan' => $urutan,
                     'nama' => $nama,
+                    'prodi' => $prodi,
                     'gambar' => $nama_foto,
                 ];
                 $this->SlideshowModel->insert($data);

@@ -1,7 +1,7 @@
 <?= $this->include('frontend/layouts/header') ?>
 
 <body onload="removeLoader();">
-    <?= $this->include('frontend/layouts/navbar') ?>
+    <?= $this->include('frontend/layouts/navbarprodi') ?>
     <!-- Slider Beranda -->
     <div class="slider_area">
         <div class="slider_active owl-carousel carousels">
@@ -12,64 +12,58 @@
         </div>
     </div>
     <!-- akhir slider beranda -->
-    <div class="desktop">
+
+    <!-- Aplikasi -->
+    <div class="box">
         <div class="service_area">
-            <div class=" container p-0">
-                <div class="row no-gutters" align="center" style="text-align:center;border-color: red;justify-content: center;">
-                    <?php foreach ($data_prodi as $item_prodi) : ?>
-                        <?php
-                        if ($item_prodi['akreditasi'] == "A") {
-                            $akre = 'A';
-                            $logo = 'A.png';
-                        } elseif ($item_prodi['akreditasi'] == "B") {
-                            $akre = 'B';
-                            $logo = 'B.png';
-                        } elseif ($item_prodi['akreditasi'] == "C") {
-                            $akre = 'C';
-                            $logo = 'C.png';
-                        } elseif ($item_prodi['akreditasi'] == "Unggul") {
-                            $akre = 'Unggul';
-                            $logo = 'unggul.png';
-                        } elseif ($item_prodi['akreditasi'] == "Sangat Baik") {
-                            $akre = 'Sangat Baik';
-                            $logo = 'sangatbaik.png';
-                        } elseif ($item_prodi['akreditasi'] == "Baik Sekali") {
-                            $akre = 'Baik Sekali';
-                            $logo = 'baiksekali.png';
-                        } else {
-                            $akre = 'Baik';
-                            $logo = 'baik.png';
-                        }
-                        ?>
-                        <div class="col-xl-3">
-                            <div class="single_service">
-                                <div class="col-xl-12">
-                                    <div class="section_title text-center">
-                                        <h3 style="color: white;">Program Studi</h3>
-                                    </div>
-                                </div>
-                                <div class="icon">
-                                    <a target="_blank" href="/prodi/<?= $item_prodi['slug'] ?>" class="boxed-btn3-white">
-                                        <img src="<?= base_url('/img/logo_akre/' . $logo); ?>" width="150px" height="150px">
-                                        <h3 style="color: white;font-size: 12px;">
-                                            <?= $item_prodi['prodi'] ?>
-                                        </h3>
-                                    </a>
-                                </div>
+            <div class="container p-0">
+                <div class="row no-gutters" style="text-align:center">
+                    <div class="col-xl-3">
+                        <div class="single_service">
+                            <div class="icon">
+                                <a target="_blank" href="http://perpustakaan.fkm.unmul.ac.id" class="boxed-btn3-white">
+                                    <img src="<?= base_url('/img/logo/pustaka.png'); ?>" width="70px" height="100">
+                                </a>
                             </div>
                         </div>
-                    <?php endforeach ?>
+                    </div>
+                    <div class="col-xl-3">
+                        <div class="single_service">
+                            <div class="icon">
+                                <a target="_blank" href="https://fkm.unmul.ac.id/login" class="boxed-btn3-white">
+                                    <img src="<?= base_url('/img/logo/eoffice.png'); ?>" width="70px" height="100">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3">
+                        <div class="single_service">
+                            <div class="icon">
+                                <a href="https://mictoph.fkm.unmul.ac.id" target="_blank" class="boxed-btn3-white">
+                                    <img src="<?= base_url('/img/logo/mictoph.png'); ?>" width="70px" height="100">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3">
+                        <div class="single_service">
+                            <div class="icon">
+                                <a target="_blank" href="https://lab.fkm.unmul.ac.id" class="boxed-btn3-white">
+                                    <img src="<?= base_url('/img/logo/lab.png'); ?>" width="70px" height="100">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-
-    <!-- Akhir Prodi -->
+    <!-- Akhir Aplikasi -->
 
     <!-- Visi MisiArea -->
     <div class="welcome_docmed_area">
         <div class="section_title text-center">
-            <h3 style=" color: #360A5B;">Visi Misi Prodi</h3>
+            <h3 style=" color: #360A5B;">Visi Misi Program Studi</h3>
         </div>
         <div class="container">
             <div class="row">
@@ -91,70 +85,6 @@
     <hr>
     <!-- visi misi end -->
 
-    <!-- Aplikasi -->
-    <div class="box">
-        <div class="service_area">
-            <div class="container p-0">
-                <div class="row no-gutters" style="text-align:center">
-                    <div class="col-xl-2">
-                        <div class="single_service">
-                            <div class="icon">
-                                <a target="_blank" href="https://sikemas.fkm.unmul.ac.id/" class="boxed-btn3-white">
-                                    <img src="<?= base_url('/img/logo/sikemas.png'); ?>" width="70px" height="100">
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-2">
-                        <div class="single_service">
-                            <div class="icon">
-                                <a target="_blank" href="https://graps.fkm.unmul.ac.id" class="boxed-btn3-white">
-                                    <img src="<?= base_url('/img/logo/graps.png'); ?>" width="70px" height="100">
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-2">
-                        <div class="single_service">
-                            <div class="icon">
-                                <a target="_blank" href="http://perpustakaan.fkm.unmul.ac.id" class="boxed-btn3-white">
-                                    <img src="<?= base_url('/img/logo/pustaka.png'); ?>" width="70px" height="100">
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-2">
-                        <div class="single_service">
-                            <div class="icon">
-                                <a target="_blank" href="https://fkm.unmul.ac.id/login" class="boxed-btn3-white">
-                                    <img src="<?= base_url('/img/logo/eoffice.png'); ?>" width="70px" height="100">
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-2">
-                        <div class="single_service">
-                            <div class="icon">
-                                <a href="https://mictoph.fkm.unmul.ac.id" target="_blank" class="boxed-btn3-white">
-                                    <img src="<?= base_url('/img/logo/mictoph.png'); ?>" width="70px" height="100">
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-2">
-                        <div class="single_service">
-                            <div class="icon">
-                                <a target="_blank" href="https://lab.fkm.unmul.ac.id" class="boxed-btn3-white">
-                                    <img src="<?= base_url('/img/logo/lab.png'); ?>" width="70px" height="100">
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Akhir Aplikasi -->
 
     <!-- Berita dan Artikel -->
     <div class="header-area">

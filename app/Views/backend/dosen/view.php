@@ -108,6 +108,8 @@
                                         <option value="Penata">Penata</option>
                                         <option value="Penata Tk. I">Penata Tk. I</option>
                                         <option value="Pembina">Pembina</option>
+                                        <option value="Pembina TK. I">Pembina TK. I</option>
+                                        <option value="Pembina Utama">Pembina Utama</option>
                                     </select>
                                     <br>
                                 </div>
@@ -458,6 +460,8 @@
                                                                     <option value="Penata">Penata</option>
                                                                     <option value="Penata Tk. I">Penata Tk. I</option>
                                                                     <option value="Pembina">Pembina</option>
+                                                                    <option value="Pembina TK. I">Pembina TK. I</option>
+                                                                    <option value="Pembina Utama">Pembina Utama</option>
                                                                 </select>
                                                                 <br>
                                                             </div>
@@ -545,6 +549,15 @@
                                                                 <label class="text-primary">Bidang Ilmu</label>
                                                                 <input type="text" required name="bidang" class="form-control bidang" value="<?= $item['bidang'] ?>">
                                                                 <div class="invalid-feedback errorbidang"></div>
+                                                                <br>
+                                                            </div>
+                                                            <div class="col-lg-3">
+                                                                <label class="text-primary">Status</label>
+                                                                <select name="status" class="form-control status">
+                                                                    <option value="<?= $item['status'] ?>"><?= $item['status'] ?></option>
+                                                                    <option value="Aktif">Aktif</option>
+                                                                    <option value="Non Aktif">Non Aktif</option>
+                                                                </select>
                                                                 <br>
                                                             </div>
                                                             <div class="col-lg-6">

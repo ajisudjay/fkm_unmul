@@ -350,19 +350,19 @@
                                                                 <div class="invalid-feedback erroralamat"></div>
                                                                 <br>
                                                             </div>
-                                                            <div class="col-lg-4">
+                                                            <div class="col-lg-3">
                                                                 <label class="text-primary">Telepon</label>
                                                                 <input type="text" name="telp" class="form-control telp" required value="<?= $item['telp'] ?>">
                                                                 <div class="invalid-feedback errortelp"></div>
                                                                 <br>
                                                             </div>
-                                                            <div class="col-lg-4">
+                                                            <div class="col-lg-3">
                                                                 <label class="text-primary">Email</label>
                                                                 <input type="email" name="email" class="form-control email" required value="<?= $item['email'] ?>">
                                                                 <div class="invalid-feedback erroremail"></div>
                                                                 <br>
                                                             </div>
-                                                            <div class="col-lg-4">
+                                                            <div class="col-lg-3">
                                                                 <label class="text-primary">Status</label>
                                                                 <select name="status" class="form-control status">
                                                                     <option value="<?= $item['status'] ?>"><?= $item['status'] ?></option>
@@ -373,10 +373,22 @@
                                                                 <div class="invalid-feedback errorstatus"></div>
                                                                 <br>
                                                             </div>
+                                                            <div class="col-lg-3">
+                                                                <label class="text-primary">Status Aktif</label>
+                                                                <select name="status_aktif" class="form-control status_aktif">
+                                                                    <option value="<?= $item['status_aktif'] ?>"><?= $item['status_aktif'] ?></option>
+                                                                    <option value="Aktif">Aktif</option>
+                                                                    <option value="Tidak Aktif">Tidak Aktif</option>
+                                                                </select>
+                                                                <div class="invalid-feedback errorstatus_aktif"></div>
+                                                                <br>
+                                                            </div>
                                                             <div class="col-lg-12">
                                                                 <img src="<?= base_url('writable/uploads/content/tendik/thumb/' . $item['gambar'] . ''); ?>" width="150px"><br>
-                                                                <label class="text-primary">Foto <span style="color: red;">*Max-Size : 1 mb | extension : jpg/jpeg/png/PNG</span></label>
+                                                                <label class="text-primary">Foto <span style="color: red;">*Max-Size : 1 mb | extension : jpeg/png</span></label>
+
                                                                 <input type="file" name="file" class="form-control file" accept="image/*">
+                                                                <span style="color: red;">*Jika foto tidak sesuai ekstensi : coba foto di screenshot dan disimpan agar memastikan ekstensi sesuai</span>
                                                                 <div class="invalid-feedback errorfile"></div>
                                                             </div>
                                                         </div>

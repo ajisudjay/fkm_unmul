@@ -38,6 +38,8 @@
                     <ul class="menu-content">
                         <li class="<?= $title == 'Konfigurasi' ? 'active' : '' ?>"><a href="<?= base_url('konfigurasi'); ?>"><i class="feather icon-home"></i><span class="menu-item" data-i18n="Analytics">Atur Beranda</span></a>
                         </li>
+                        <li class="<?= $title == 'Aplikasi' ? 'active' : '' ?>"><a href="<?= base_url('aplikasi'); ?>"><i class="feather icon-star"></i><span class="menu-item" data-i18n="Analytics">Aplikasi</span></a>
+                        </li>
                         <li class="<?= $title == 'Slideshow' ? 'active' : '' ?>"><a href="<?= base_url('slideshow'); ?>"><i class="feather icon-film"></i><span class="menu-item" data-i18n="Analytics">Slideshow</span></a>
                         </li>
                         <li class="<?= $title == 'Mitra' ? 'active' : '' ?>"><a href="<?= base_url('mitra'); ?>"><i class="fa fa-handshake-o"></i><span class="menu-item" data-i18n="Analytics">Mitra</span></a>

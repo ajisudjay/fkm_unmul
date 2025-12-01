@@ -16,6 +16,7 @@ use App\Models\ProdiModel;
 use App\Models\SkModel;
 use App\Models\Kategori_skModel;
 use App\Models\SemesterModel;
+use App\Models\AplikasiModel;
 
 class Pages extends BaseController
 {
@@ -33,6 +34,7 @@ class Pages extends BaseController
     protected $SkModel;
     protected $Kategori_skModel;
     protected $SemesterModel;
+    protected $AplikasiModel;
     public function __construct()
     {
         $this->MainmenuModel = new MainmenuModel();
@@ -49,6 +51,7 @@ class Pages extends BaseController
         $this->SkModel = new SkModel();
         $this->Kategori_skModel = new Kategori_skModel();
         $this->SemesterModel = new SemesterModel();
+        $this->AplikasiModel = new AplikasiModel();
     }
     // BEGIN FRONTEND
 
@@ -110,6 +113,7 @@ class Pages extends BaseController
                 ->orderBy('tanggal', 'DESC')->findAll(6),
             'mitra' => $this->MitraModel->orderBy('nama', 'DESC')->get()->getResultArray(),
             'slideshow' => $this->SlideshowModel->orderBy('urutan', 'ASC')->get()->getResultArray(),
+            'aplikasi' => $this->AplikasiModel->where('halaman', 'Fakultas')->orderBy('urutan', 'ASC')->get()->getResultArray(),
             'pejabat' => $this->PejabatModel->orderBy('urutan', 'ASC')->get()->getResultArray(),
             'data_prodi' => $this->ProdiModel->orderBy('prodi', 'DESC')->findAll(),
             'link_library' => $this->LinkModel->orderBy('judul', 'ASC')->where('kategori', 'Library')->findAll(),
@@ -139,6 +143,7 @@ class Pages extends BaseController
                 ->orderBy('tanggal', 'DESC')->findAll(6),
             'mitra' => $this->MitraModel->orderBy('nama', 'DESC')->get()->getResultArray(),
             'slideshow' => $this->SlideshowModel->where('prodi', $slug)->orderBy('urutan', 'ASC')->get()->getResultArray(),
+            'aplikasi' => $this->AplikasiModel->where('halaman', $prodix)->orderBy('urutan', 'ASC')->get()->getResultArray(),
             'pejabat' => $this->PejabatModel->orderBy('urutan', 'ASC')->get()->getResultArray(),
             'data_prodi' => $this->ProdiModel->where('prodi', $prodix)->findAll(),
             'link_library' => $this->LinkModel->orderBy('judul', 'ASC')->where('kategori', 'Library')->findAll(),
@@ -165,7 +170,7 @@ class Pages extends BaseController
             'mainmenu' => $this->MainmenuModel->orderBy('urutan', 'ASC')->where('mainmenu.halaman', $halaman)->get()->getResultArray(),
             'menu' => $this->MainmenuModel->orderBy('urutan', 'ASC')->where('mainmenu.halaman', $halaman)->findAll(6),
             'menu2' => $this->MainmenuModel->orderBy('urutan', 'ASC')->where('mainmenu.halaman', $halaman)->findAll(7, 6),
-            'content' => $this->SubmenuModel->where('slug', $slugx)->findAll(),
+            'content' => $this->SubmenuModel->where('slug', $slugx)->first(),
             'mitra' => $this->MitraModel->orderBy('nama', 'DESC')->get()->getResultArray(),
             'slideshow' => $this->SlideshowModel->orderBy('nama', 'ASC')->get()->getResultArray(),
             'pejabat' => $this->PejabatModel->orderBy('urutan', 'ASC')->get()->getResultArray(),

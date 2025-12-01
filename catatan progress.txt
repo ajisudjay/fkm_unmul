@@ -1,6 +1,0 @@
-CATATAN PERBAIKAN : 
-[ DONE ] Sub prodi dibuka langsung web prodi
-[ INPUT MANUAL SAJA SEMENTARA ] Fasilitas samakan fakultas
-[ DONE ] Sdm prodi dosen sesuai prodi
-[ DONE ] Aplikasi prodi sesuai prodi saja dan dinaikan ke tempat prodi
-[ DONE ] Bg disesuaikan prodi

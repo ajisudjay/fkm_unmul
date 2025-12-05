@@ -77,6 +77,16 @@
                 <div class="col-xl-12 col-lg-12">
                     <div class="welcome_docmed_info">
                         <div class="box-berita">
+                            <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;">
+                                <iframe src="https://www.youtube.com/embed/H1zAZMY_i5Q?autoplay=1&mute=1&rel=0"
+                                    style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;"
+                                    title="YouTube video player"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                    allowfullscreen>
+                                </iframe>
+                            </div>
+                        </div>
+                        <div class="box-berita">
                             <h4 style="color:360A5B;">Visi</h4>
                             <p align="justify"><?= $konfigurasi['visi'] ?></p>
                         </div>

@@ -51,7 +51,7 @@
                                                 <?php foreach ($submenu as $item_submenu) : ?>
                                                     <?php if ($item_submenu['mainmenu'] == $menu) { ?>
                                                         <li>
-                                                            <a href="<?= base_url('pages/' . $item_submenu['slug']); ?>"><?= $item_submenu['submenu'] ?></a>
+                                                            <a href="<?= base_url('pagesprodi/' . '/' . $slugprodi . '/' . $item_submenu['slug']); ?>"><?= $item_submenu['submenu'] ?></a>
                                                         </li>
                                                     <?php } ?>
                                                 <?php endforeach ?>
@@ -79,8 +79,8 @@
                                                 $slug_prodi = $prodix;
                                             }
                                             ?>
-                                            <li><a href="<?= base_url('pages-dosen/' . $slugprodi); ?>">Dosen</a></li>
-                                            <li><a href="<?= base_url('pages-tendik/'); ?>">Tendik & Laboran</a></li>
+                                            <li><a target="_blank" rel="noopener noreferrer" href="<?= base_url('pages-dosen/' . $slugprodi); ?>">Dosen</a></li>
+                                            <li><a target="_blank" rel="noopener noreferrer" href="<?= base_url('pages-tendik/'); ?>">Tendik & Laboran</a></li>
                                         </ul>
                                     </li>
                                     <br>

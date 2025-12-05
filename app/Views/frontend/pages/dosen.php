@@ -33,7 +33,9 @@
                                     </a>
                                     <div class="card">
                                         <b style="color: #60B3FD;"><?= $item['nama'] ?></b>
-                                        <p>NIP. <?= $item['nip'] ?><br><i span class="fa fa-id-badge text-primary"></i> <?= $item['bidang'] ?>
+                                        <p>NIP. <?= $item['nip'] ?><br>
+                                            NIDN. <?= $item['nidn'] ?><br>
+                                            <i span class="fa fa-id-badge text-primary"></i> <?= $item['bidang'] ?>
                                             <br>
                                             <a target="_blank" style="color: #60B3FD;" href="<?= $item['sinta'] ?>"><button class="btn btn-sm btn-primary"><i class="fa fa-link"> Sinta</i></button></a> | </i> <a target="_blank" style="color: #60B3FD;" href="<?= $item['gs'] ?>"><button class="btn btn-sm btn-warning"><i class="fa fa-link"> g-Scholar</i></button></a>
                                         </p>
@@ -54,7 +56,9 @@
                                     </a>
                                     <div class="card">
                                         <b style="color: #60B3FD;"><?= $item['nama'] ?></b>
-                                        <p>NIP. <?= $item['nip'] ?><br><i span class="fa fa-id-badge text-primary"></i> <?= $item['bidang'] ?>
+                                        <p>NIP. <?= $item['nip'] ?><br>
+                                            NIDN. <?= $item['nidn'] ?><br>
+                                            <i span class="fa fa-id-badge text-primary"></i> <?= $item['bidang'] ?>
                                             <br>
                                             <a target="_blank" style="color: #60B3FD;" href="<?= $item['sinta'] ?>"><button class="btn btn-sm btn-primary"><i class="fa fa-link"> Sinta</i></button></a> | </i> <a target="_blank" style="color: #60B3FD;" href="<?= $item['gs'] ?>"><button class="btn btn-sm btn-warning"><i class="fa fa-link"> g-Scholar</i></button></a>
                                         </p>
@@ -75,7 +79,9 @@
                                     </a>
                                     <div class="card">
                                         <b style="color: #60B3FD;"><?= $item['nama'] ?></b>
-                                        <p>NIP. <?= $item['nip'] ?><br><i span class="fa fa-id-badge text-primary"></i> <?= $item['bidang'] ?>
+                                        <p>NIP. <?= $item['nip'] ?><br>
+                                            NIDN. <?= $item['nidn'] ?><br>
+                                            <i span class="fa fa-id-badge text-primary"></i> <?= $item['bidang'] ?>
                                             <br>
                                             <a target="_blank" style="color: #60B3FD;" href="<?= $item['sinta'] ?>"><button class="btn btn-sm btn-primary"><i class="fa fa-link"> Sinta</i></button></a> | </i> <a target="_blank" style="color: #60B3FD;" href="<?= $item['gs'] ?>"><button class="btn btn-sm btn-warning"><i class="fa fa-link"> g-Scholar</i></button></a>
                                         </p>

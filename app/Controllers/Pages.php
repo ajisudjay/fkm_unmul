@@ -163,12 +163,12 @@ class Pages extends BaseController
         $data = [
             'title' => '',
             'prodix' => '',
-            'slugprodi' => '',
+            'slugprodi' => 'Fakultas',
             'title_pages' => $judul,
             'slug'  => $slug,
             'submenu' => $this->SubmenuModel->select('*')->select('submenu.id as submenu_id')->select('mainmenu.id as mainmenu_id')->select('mainmenu.urutan as urutan_mainmenu')->select('submenu.urutan as urutan_submenu')->join('mainmenu', 'submenu.id_mainmenu=mainmenu.id')->orderBy('urutan_mainmenu', 'ASC')->orderBy('urutan_submenu', 'ASC')->where('mainmenu.halaman', $halaman)->get()->getResultArray(),
             'mainmenu' => $this->MainmenuModel->orderBy('urutan', 'ASC')->where('mainmenu.halaman', $halaman)->get()->getResultArray(),
-            'menu' => $this->MainmenuModel->orderBy('urutan', 'ASC')->where('mainmenu.halaman', $halaman)->findAll(6),
+            'menu' => $this->MainmenuModel->orderBy('urutan', 'ASC')->where('mainmenu.halaman', $halaman)->findAll(5),
             'menu2' => $this->MainmenuModel->orderBy('urutan', 'ASC')->where('mainmenu.halaman', $halaman)->findAll(7, 6),
             'content' => $this->SubmenuModel->where('slug', $slugx)->first(),
             'mitra' => $this->MitraModel->orderBy('nama', 'DESC')->get()->getResultArray(),
@@ -184,6 +184,41 @@ class Pages extends BaseController
 
 
         return view('frontend/pages/pages', $data);
+    }
+
+    public function pagesprodi($slug)
+    {
+        $uri = current_url(true);
+        $slugx = $uri->getSegment(3); // Method - instrument
+        $slugprodix = $uri->getSegment(2); // Method - instrument
+        $cek_menu = $this->SubmenuModel->join('mainmenu', 'submenu.id_mainmenu=mainmenu.id')->where('slug', $slugx)->first();
+        $judul = $cek_menu['mainmenu'];
+        $halaman = $cek_menu['halaman'];
+        $data = [
+            'title' => '',
+            'prodix' => '',
+            'slugprodi' => $slugprodix,
+            'title_pages' => $judul,
+            'slug'  => $slug,
+            'slugprodix'  => $slugprodix,
+            'submenu' => $this->SubmenuModel->select('*')->select('submenu.id as submenu_id')->select('mainmenu.id as mainmenu_id')->select('mainmenu.urutan as urutan_mainmenu')->select('submenu.urutan as urutan_submenu')->join('mainmenu', 'submenu.id_mainmenu=mainmenu.id')->orderBy('urutan_mainmenu', 'ASC')->orderBy('urutan_submenu', 'ASC')->where('submenu.halaman', $halaman)->get()->getResultArray(),
+            'mainmenu' => $this->MainmenuModel->orderBy('urutan', 'ASC')->where('mainmenu.halaman', $halaman)->get()->getResultArray(),
+            'menu' => $this->MainmenuModel->orderBy('urutan', 'ASC')->where('mainmenu.halaman', $halaman)->findAll(5),
+            'menu2' => $this->MainmenuModel->orderBy('urutan', 'ASC')->where('mainmenu.halaman', $halaman)->findAll(11, 5),
+            'content' => $this->SubmenuModel->where('slug', $slugx)->first(),
+            'mitra' => $this->MitraModel->orderBy('nama', 'DESC')->get()->getResultArray(),
+            'slideshow' => $this->SlideshowModel->orderBy('nama', 'ASC')->get()->getResultArray(),
+            'pejabat' => $this->PejabatModel->orderBy('urutan', 'ASC')->get()->getResultArray(),
+            'konf' => $this->KonfigurasiModel->findAll(),
+            'konfigurasi' => $this->KonfigurasiModel->where('halaman', $halaman)->first(),
+            'data_prodi' => $this->ProdiModel->orderBy('prodi', 'DESC')->findAll(),
+            'link_library' => $this->LinkModel->orderBy('judul', 'ASC')->where('kategori', 'Library')->findAll(),
+            'link_partner' => $this->LinkModel->orderBy('judul', 'ASC')->where('kategori', 'Partner')->findAll(),
+            'link_jurnal' => $this->LinkModel->orderBy('judul', 'ASC')->where('kategori', 'Journal')->findAll(),
+        ];
+
+
+        return view('frontend/pages/pagesprodi', $data);
     }
 
     public function dosen($slug)
